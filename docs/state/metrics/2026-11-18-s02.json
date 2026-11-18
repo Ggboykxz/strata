@@ -1,0 +1,102 @@
+{
+  "session": "2026-11-18-s02",
+  "utc_start": "2026-11-18T07:23:00Z",
+  "utc_end": "2026-11-18T07:50:00Z",
+  "mode": "RESUME",
+  "branch": "session/20261118-hc-001-high-concept",
+  "tier": {
+    "current": "S0",
+    "authorized": "S0"
+  },
+  "netgate": {
+    "status": "unpassed",
+    "art_allowed": false
+  },
+  "tasks": [
+    { "id": "P0-005.a", "blueprint_task": "P0-005", "status": "done" }
+  ],
+  "measured": {
+    "resume_prompt_bytes": 2514,
+    "resume_prompt_last_line": "<<<STRATA_RESUME_END v8.1>>>",
+    "resume_sentinel_standalone_lines": 1,
+    "drift_negative_tests": 12,
+    "drift_negative_tests_before": 8,
+    "verify_steps": 17,
+    "verify_steps_green": 17,
+    "blueprint_tasks": 63,
+    "blueprint_gates": 11,
+    "blueprint_warnings": 12,
+    "ownership_globs": 168,
+    "ownership_ties": 0,
+    "scope_ledger_entries": 12,
+    "scope_balanced": true,
+    "gdd_modules": 32,
+    "gdd_draft": 15,
+    "gdd_stub": 17,
+    "gdd_signed": 0,
+    "gdd_reference_resolution": 1.0,
+    "locks_acquired": 3,
+    "locks_released": 3
+  },
+  "cis": {
+    "value": null,
+    "reason": "no measured source until HC-003 (P2); concept --score exits 2 by design"
+  },
+  "gdd_coverage": {
+    "value": 1.0,
+    "basis": "63/63 tasks with fully resolved refs (scripts/gdd-coverage.mjs --min 0.80)",
+    "maturity": { "draft": 15, "stub": 17, "signed": 0 }
+  },
+  "scope": {
+    "ledger_entries": 12,
+    "balanced": true
+  },
+  "acceptance": [
+    {
+      "cmd": "bash tools/qa/negative-prompt-drift.sh",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T072941Z-P0-005.a/01-negative-prompt-drift.log",
+      "result": "12/12"
+    },
+    {
+      "cmd": "node scripts/validate-prompt-drift.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T072941Z-P0-005.a/02-validate-prompt-drift.log"
+    },
+    {
+      "cmd": "pnpm verify",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T072941Z-P0-005.a/03-verify.log",
+      "result": "17/17"
+    },
+    {
+      "cmd": "node scripts/gdd-coverage.mjs --min 0.80",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T072941Z-P0-005.a/04-gdd-coverage.log",
+      "result": "100.0%"
+    },
+    {
+      "cmd": "node scripts/scope-math.mjs --check",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T072941Z-P0-005.a/05-scope-math-check.log"
+    },
+    {
+      "cmd": "node scripts/validate-ownership.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T072941Z-P0-005.a/06-validate-ownership.log",
+      "result": "168 globs, 0 ties"
+    },
+    {
+      "cmd": "node scripts/validate-blueprint.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T072941Z-P0-005.a/07-validate-blueprint.log",
+      "result": "63 tasks, 11 gates, 12 declared warnings"
+    }
+  ],
+  "notes": [
+    "Repair task selected because GATE:P1 is unsigned and every NET-* task depends on it (BLUEPRINT deps).",
+    "The resume prompt now declares and carries <<<STRATA_RESUME_END v8.1>>>; the drift gate enforces it.",
+    "The sealed master, PROMPT.lock, CONSTITUTION.md, BLUEPRINT.yaml and the scope ledger are unchanged.",
+    "scripts/session-result.mjs (D146) is still a declared stub: this result was composed by hand from this file."
+  ]
+}

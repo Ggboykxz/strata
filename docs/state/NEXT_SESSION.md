@@ -2,57 +2,61 @@
 
 | field | value |
 |---|---|
-| written | 2026-11-18T03:09Z |
+| written | 2026-11-18T07:52Z |
 | branch | `session/20261118-hc-001-high-concept` — **PR #1** (draft) https://github.com/Ggboykxz/strata/pull/1 |
 | mode | RESUME |
-| next task | **GATE:P1 dossier** — assemble evidence; Director signs the tier grant |
-| blocker | GATE:P1 signature (Director), ND-004/ND-005 token rotation. |
+| last task | P0-005.a — resume prompt sentinel + drift §7 (12/12 negatives, 17/17 verify) |
+| next task | **GATE:P1 signature** (Director) → tier S1 → **NET-001** |
+| blocker | GATE:P1 signature (Director), ND-004/ND-005 token rotation, PR #1 merge. |
 
 ---
 
 ## 1. State at hand-off
 
-GATE:P0 signed. P1-001..004 and GDD-001..004 are done — exactly the `GATE:P1.requires` set.
-`pnpm verify` 17/17, 12 stubs, all repro scripts in `tools/qa/`, branches protected.
+`pnpm verify` **17/17**; drift check green including the four new resume-prompt checks; 12/12 negative tests.
+GATE:P1 remains **assembled and unsigned** (`docs/state/gates/GATE_P1.md`); no agent signs a tier grant.
 
 ```bash
-pnpm verify
-node scripts/validate-docs.mjs
-node scripts/validate-gdd.mjs --critical
-node scripts/validate-art-bible.mjs
+pnpm install --frozen-lockfile && pnpm verify
+node scripts/validate-prompt-drift.mjs
+bash tools/qa/negative-prompt-drift.sh
 ```
 
-## 2. GATE:P1 dossier
+The runtime is ephemeral. It came up with **no repo** this session: `git clone` +
+`corepack prepare pnpm@12.21.0 --activate` is the whole recovery. A resume prompt must never bootstrap by hand.
 
-Path: `docs/state/gates/GATE_P1.md`. It must contain:
+## 2. The one thing that unblocks the project
 
-| requirement | evidence |
-|---|---|
-| P1-001 VISION + docs gate | `docs/state/evidence/20261118T021621Z-P1-001/` |
-| GDD-001..004 | `…T022611Z-GDD-001/`, `…T024155Z-GDD-002/`, `…T024736Z-GDD-003/`, `…T025203Z-GDD-004/` |
-| P1-002 bible + lore gate | `…T025647Z-P1-002/` |
-| P1-003 ART_BIBLE + A0001 + art gate | `…T030121Z-P1-003/` |
-| P1-004 specs + TDDs | `…T030636Z-P1-004/` |
-| concept signed at this gate | `concept --check` exit 0; T1 25/25, FR 30/35 |
-| GDD coverage | 15/32 DRAFT, 14 critical closed; 17 STUB by D138 — not a defect |
-| scope math | `scope-math --check` 0; `--report` 2 with NOT COMPUTABLE |
-| CI proof | query the Actions API at the final head; record run ids and conclusions |
+**GATE:P1 signature.** Tier S1 is Director-only (D136). Until it is signed, `NET-001..006`, `PR-N1..N4`,
+`SEC-001` and `NG-001` all stay unselectable because every one of them declares `deps: [GATE:P1]`. Nothing
+else in the blueprint can move the network layer forward.
 
-**No agent self-signs a tier grant.** The signature block stays PENDING until the Director signs; a prior
-instruction about taking good decisions was applied to GATE:P0 (no tier change), not to S1 promotion.
+After signature: **NET-001** (isomorphic core tick, headless server, quantization, state hash) —
+`pnpm test --filter @strata/core`. NET-GATE phase, greybox only; no hero art before NG-001 (I2).
 
-## 3. After signature
+## 3. Non-gated candidates while the gate is pending
 
-GATE:P1 grants tier **S1**. NET-GATE phase starts: NET-001..006, PR-N1..N4, SEC-001, then NG-001 (human).
-No hero art, texture bake, motion or scene generation before NG-001 (I2). AI-001/AI-002 remain gated by
-GATE:P2 **and** the P0-006 whitelist.
+Ranked by how much they unblock later work. Each is <= 30 min and needs no Director decision.
 
-## 4. Open decisions
+1. **`scripts/session-result.mjs` implemented** (D146). It is still a declared stub that exits 1, so §20
+   results are composed by hand from `docs/state/metrics/<session>.json`. Design: `--file|--session`,
+   `--check` (schema of the metrics file), SHORT by default and `--full` at gates; exit 2 when a required
+   block is missing and no reason is recorded — mirroring `scope-math --report` (0 green / 1 error /
+   2 not computable).
+2. **Generated `docs/state/JOURNAL.md`** (master §7: "generated from journal/*.md"). The directory is the
+   source of truth (I15); the view does not exist, so `AGENTS.md` §1 points at a file that is not there.
+   A generator + a byte-identical rebuild check, no hand edits.
+3. **Pin the Playwright MCP** in `opencode.json` (`npx -y @playwright/mcp` is unpinned, §10.6). Needs the
+   exact version verified first (I5), then recorded in `STACK.lock.md`.
 
-1. ND-004 / ND-005 — rotate exposed tokens; `docs/state/SECURITY_HANDOFF.md`.
-2. All other recorded decisions RESOLVED. `main` protected; Director merges PR #1.
+## 4. Open decisions (Director)
+
+1. **ND-004 / ND-005** — rotate the exposed GitHub PAT and HF token. Steps: `docs/state/SECURITY_HANDOFF.md`.
+   The token was pasted in cleartext into a session transcript this session; treat it as burned.
+2. **PR #1** — draft, stacked on the session branch; `main` still holds only the root commit. Director merges.
+3. **GATE:P1** — signature block in `docs/state/gates/GATE_P1.md` §6.
 
 ## 5. Environment
 
-Node 22.23.4, pnpm 12.21.0, TypeScript 6.0.3, Vitest 5.1.0. Tesla T4 measured, no model used. Secrets from
-env only; scripts in `tools/qa/`.
+Node 22.23.4, pnpm 12.21.0 via corepack, TypeScript 6.0.3, Vitest 5.1.0. No GPU; `detect_tier.py` reports
+`NO_GPU`. Secrets from env only; the repo is public, so a token is never needed to read it.

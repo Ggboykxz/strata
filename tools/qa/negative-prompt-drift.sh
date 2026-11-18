@@ -5,11 +5,13 @@ SRC="$(cd "$(dirname "$0")/../.." && pwd)"
 SB="$(mktemp -d)"
 V="$SRC/scripts/validate-prompt-drift.mjs"
 fails=0
+total=0
 
 setup() {
   rm -rf "$SB"
   mkdir -p "$SB/tools/colab/prompts" "$SB/docs/archive" "$SB/docs/state"
   cp "$SRC/tools/colab/prompts/SESSION_MASTER.md" "$SB/tools/colab/prompts/"
+  cp "$SRC/tools/colab/prompts/SESSION_RESUME.md" "$SB/tools/colab/prompts/"
   cp "$SRC/docs/archive/SESSION_MASTER_v8.1.md" "$SB/docs/archive/"
   cp "$SRC/docs/state/PROMPT.lock" "$SB/docs/state/"
   cp "$SRC/docs/CONSTITUTION.md" "$SB/docs/"
@@ -17,6 +19,7 @@ setup() {
 
 expect() { # expect <0|1> <label>
   local want="$1" label="$2"
+  total=$((total+1))
   ( cd "$SB" && node "$V" >$SB/out.txt 2>&1 )
   local got=$?
   if [ "$got" -eq "$want" ]; then
@@ -61,10 +64,26 @@ setup
 sed -i 's/^D79 /D78x /' "$SB/docs/CONSTITUTION.md"
 expect 1 "a dropped locked decision (D79) is caught"
 
+setup
+sed -i '$d' "$SB/tools/colab/prompts/SESSION_RESUME.md"
+expect 1 "a resume prompt without its end-of-file sentinel is caught"
+
+setup
+printf 'x' >> "$SB/tools/colab/prompts/SESSION_RESUME.md"
+expect 1 "a byte appended after the resume sentinel is caught"
+
+setup
+echo '<<<STRATA_RESUME_END v8.1>>>' >> "$SB/tools/colab/prompts/SESSION_RESUME.md"
+expect 1 "a resume prompt that ends on a second sentinel line is caught"
+
+setup
+rm "$SB/tools/colab/prompts/SESSION_RESUME.md"
+expect 1 "a missing resume prompt is caught"
+
 echo
 if [ "$fails" -eq 0 ]; then
-  echo "RESULT: PASS — all 8 negative tests behaved as required."
+  echo "RESULT: PASS — all $total negative tests behaved as required."
   exit 0
 fi
-echo "RESULT: FAIL — $fails negative test(s) did not behave as required."
+echo "RESULT: FAIL — $fails of $total negative test(s) did not behave as required."
 exit 1

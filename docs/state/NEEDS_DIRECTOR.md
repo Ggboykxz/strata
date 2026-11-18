@@ -225,3 +225,31 @@ section. AGENTS, README and HIGH_CONCEPT §2 now read "full MMORPG, delivered th
 the locked sentence, T1, T3, scope ledger, tier, tasks and gates are unchanged. `validate-prompt-drift`
 and `concept --check` both exit 0. The archived master stays byte-identical — the amendment is an
 override on the materialization, not a rewrite of the seal.
+
+---
+
+## ND-010 — GATE:P1 signature — OPEN (Director decision, blocks the network phase)
+
+**Question.** Do you sign GATE:P1 and grant tier **S1**?
+
+**Context.** Every P1 task is done and pushed on `session/20261118-hc-001-high-concept`: the eight required
+tasks, `pnpm verify` 17/17, concept check 0, critical GDD 0, 8/8 triggered Actions workflows green at
+`fea7306`. The dossier is `docs/state/gates/GATE_P1.md`. **No agent signs a tier grant** (D136, §0.6).
+
+**Effect of the answer.** Signed → `NET-001..006`, `PR-N1..N4`, `SEC-001`, `NG-001` become selectable and
+the network layer starts, greybox only. Not signed → the studio can only do repair work (`session-result.mjs`,
+the generated `JOURNAL.md`, the unpinned Playwright MCP), because every NET task declares `deps: [GATE:P1]`.
+
+**Risk.** Signing promotes the tier on evidence that is structural, not measured: no server has run under
+load yet, and the Actions proof is local-workflow based. That is what NET-GATE exists to replace. The real
+risk is the opposite one — waiting keeps the most expensive unknown (netcode) unmeasured.
+
+**Recommendation.** Sign S1 now; the tier only authorizes network work, not art (I2 still holds until NG-001).
+
+---
+
+## ND-004 — update 2026-11-18T07:27Z
+
+The PAT was pasted **again**, this time inside the resume prompt, on the sentinel line. It is still live and
+was used for this session's `state/locks` pushes. The session ends with it unrevoked at the Director's
+explicit request ("je le révoquerai plus tard"). Rotation is now overdue: the string is in two transcripts.

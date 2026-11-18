@@ -2,13 +2,13 @@
 
 | field | value |
 |---|---|
-| session | `2026-11-18-s01` (`20261118T001004Z`) |
+| session | `2026-11-18-s02` (continuation of `s01`, resumed `20261118T072300Z` from a blank Colab runtime) |
 | mode | RESUME (`docs/CONSTITUTION.md` exists) |
 | branch | `session/20261118-hc-001-high-concept` |
 | phase / tier | P0 / current `S0`, authorized `S0` |
 | director | present for bootstrap; async from now |
-| last task | P1-004 (design set complete) |
-| next task | **GATE:P1 dossier** — Director signature grants tier S1 |
+| last task | P0-005.a (resume prompt sentinel) |
+| next task | **GATE:P1 signature** — Director-only; then NET-001 (S1) |
 
 ## Done this session
 
@@ -38,6 +38,7 @@
 | P1-002 | `WORLD_BIBLE.md`, FR/EN glossary, real `validate-lore.mjs` | 5/5 negatives; 167 globs 0 ties; `verify` 16/16 |
 | P1-003 | `ART_BIBLE.md`, A0001, real `validate-art-bible.mjs` | 6/6 negatives; 168 globs 0 ties; `verify` 17/17 |
 | P1-004 | 3 specs + 3 TDDs, extended `validate-docs.mjs` | 8/8 negatives; `verify` 17/17 |
+| P0-005.a | resume prompt sentinel + drift §7 + 4 new negatives; `state/locks` registry branch created | 12/12 negatives; drift 0; `verify` 17/17 |
 
 **P0-001 and P0-002 were split** although only P0-001 triggered B8: the halves fail for different reasons and
 deserve separate rollback points. Commits: `094f31f`, `bd6f550` (P0-001); `1ceaf20`, `7e9d382` (P0-002).
@@ -138,3 +139,20 @@ blueprint task currently owns the pin: recorded as a gap for the Director/next r
   repo is public while the token remains live. ND-005 (HF token) is also open.
 - `scripts/scope-math.mjs` carries an older duplicate YAML parser; unifying it with `scripts/lib/yaml.mjs`
   is a producer handoff, recorded in the P0-002 journal and thread.
+
+## Session 2 (2026-11-18T07:23Z) — recovery, then one repair
+
+- **Fresh runtime, no WIP to recover.** The machine came up blank: no repository, no `docs/CONSTITUTION.md`.
+  Recovery was a plain `git clone` of the public repo plus `corepack prepare pnpm@12.21.0 --activate`; the
+  baseline was green on the first try (`pnpm verify` 17/17) and no work was lost — the branch head was still
+  `ff7ae92`.
+- **The resume prompt was invalid by construction.** The Director's session-2 prompt ended on the sentinel
+  followed by a URL and a live PAT on the same line; a strict session must reject it. The cause was in the
+  repo: `SESSION_RESUME.md` had no sentinel and `validate-prompt-drift.mjs` did not check it. P0-005.a fixed
+  both (12/12 negatives, drift 0, verify 17/17). The pasted text was **not** copied into the repo: its
+  provenance is unverifiable and it carried a token.
+- **`state/locks` did not exist**, so §4.3 was unimplementable and `validate-locks.mjs` could never see an
+  acquisition. The branch was created from the empty `main` root; P0-005.a acquired its three globs in one
+  sorted commit and released them after the evidence run. `task_id` had to be the blueprinted `P0-005`: the
+  validator resolves ids against `BLUEPRINT.yaml`, so `.a` sub-labels cannot be lock keys.
+- **Still Director-only:** GATE:P1 signature (tier S1), ND-004/ND-005 rotation, and the PR #1 merge.

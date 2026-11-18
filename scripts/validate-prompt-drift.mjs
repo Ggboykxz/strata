@@ -10,7 +10,8 @@
  *   - a PROMPT.lock that is missing, malformed, or whose hash disagrees;
  *   - an invariant (I1..I15) of §0.3 that the Constitution no longer quotes verbatim;
  *   - a locked decision (D79..D155) absent from the Constitution;
- *   - a Constitution that does not declare the sections it materialized.
+ *   - a Constitution that does not declare the sections it materialized;
+ *   - a resume prompt that is missing, oversized, does not end with its own sentinel, or repeats it.
  *
  * A check that cannot run FAILS (I5). Divergence is allowed only when declared in PROMPT.lock `amended:`
  * with a Director-signed ADR id, in which case that single invariant is exempted from the verbatim test.
@@ -193,6 +194,34 @@ if (!existsSync(CONSTITUTION)) {
       }
     }
   }
+}
+
+/* ---------- 7. resume prompt ---------- */
+const RESUME = 'tools/colab/prompts/SESSION_RESUME.md';
+const RESUME_SENTINEL = '<<<STRATA_RESUME_END v8.1>>>';
+
+if (!existsSync(RESUME)) {
+  bad(`missing ${RESUME} (the resume prompt cannot be verified)`);
+} else {
+  const buf = readFileSync(RESUME);
+  const text = buf.toString('utf8');
+  const lines = text.split('\n');
+  const last = lines[lines.length - 1] === '' ? lines[lines.length - 2] : lines[lines.length - 1];
+
+  if (last?.trim() === RESUME_SENTINEL) pass(`${RESUME} ends with the sentinel`);
+  else bad(`${RESUME} last line is not ${RESUME_SENTINEL} — prompt truncated or edited`);
+
+  const standalone = lines.filter((l) => l.trim() === RESUME_SENTINEL).length;
+  if (standalone === 1) pass(`${RESUME} carries the sentinel on exactly one line`);
+  else bad(`${RESUME} carries the sentinel on ${standalone} lines, expected exactly 1`);
+
+  if (buf.length < SIZE_CAP) pass(`${RESUME} is ${buf.length} bytes (< ${SIZE_CAP})`);
+  else bad(`${RESUME} is ${buf.length} bytes — over the ${SIZE_CAP}-byte argument cap`);
+
+  // The prompt must describe the rule it is checked against, or a future edit can silently disagree.
+  const declared = /^#.*INTEGRITY:.*<<<STRATA_RESUME_END v8\.1>>>/m.test(text);
+  if (declared) pass(`${RESUME} declares its own integrity rule`);
+  else bad(`${RESUME} does not declare the ${RESUME_SENTINEL} integrity rule in an INTEGRITY: line`);
 }
 
 /* ---------- verdict ---------- */
