@@ -7,7 +7,7 @@
 | also open | **PR #2** dashboard truth repair — `session/20261118-dashboard-truth`, base = session branch |
 | mode | RESUME |
 | tier | current `S0`, authorized **`S1`** |
-| last task | **PR-S3** — quest resolutions + delayed effects; GDD-QUEST 0.3 |
+| last task | **PR-S6** — faction dynamics; GDD-FACTION 0.2; GATE:P2SYS satisfied |
 | next task | **PR-S7** — world tick + bounded Rouille cascade (P2-SYS) |
 | blocker | PR #1 and #2 merges (Director must do it), ND-004/ND-005 rotation. ND-011 needs one answer (TPU scope). |
 
@@ -52,15 +52,12 @@ acceptance and with the seven residual risks from `docs/legal/THREAT_MODEL.md` a
 PR #1 and PR #2 were **not merged** — an agent must not self-merge. The Director must merge them from their own
 account. ND-004/ND-005 token rotation also remains a Director action.
 
-## 4. PR-S6 — next (S0, P2SYS)
+## 4. HC-003 — next (P2 gate prerequisite)
 
-`{id: PR-S6, ph: P2SYS, tier: S0, t: "Faction/reputation dynamics prototype", agent: prototype-engineer,
-co: [balance-analyst], role: amp, gdd: [GDD-FACTION], deps: [PR-S2],
-out: [tools/sim/systems/prs6_factions.ts, docs/qa/prototypes/PRS6.md]}`
-
-Deps satisfied. Its acc uses a broken `pnpm sim prs6 --assert` form — repair to the real vitest command and declare
-the qa co-owner up front. PR-S6 is the **last P2-SYS task** before `GATE:P2SYS`; after it, GATE:P2 still needs
-HC-003 and GDD-005. Greybox only, no art, no GPU/TPU. 7 `pnpm test --filter` accs remain declared legacy.
+**HC-003** is next: it supplies the measured concept/CIS source currently reported as NOT COMPUTABLE
+(`concept --score` exits 2 by design). GATE:P2 requires HC-003, GDD-005, GATE:NET and GATE:P2SYS (now satisfied).
+No art before GATE:P2 and NET-GATE are actually passed; NET-GATE remains signed-with-risk with 8 unmet criteria.
+PR #3 remains open for the Director to merge; PR #2 should be closed without merging.
 
 ## 4b. Babylon 9 feature research (Director input)
 

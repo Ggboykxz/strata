@@ -3,7 +3,7 @@
 | field | value |
 |---|---|
 | source | `docs/state/journal/` (append-only entries) |
-| entries | 51 |
+| entries | 52 |
 | regenerate | `node scripts/build-journal.mjs` |
 | check | `node scripts/build-journal.mjs --check` |
 
@@ -1597,3 +1597,15 @@ PR-S8 — anim state machine server transitions + illegal-state fuzz.
   6 FR/EN keys with 0 untranslated, deterministic; test 5/5, full 180/180, verify 19/19.
 - boundary: no renderer, player, browser or art; no GPU/TPU.
 - next: PR-S6 (faction/reputation dynamics). P2-SYS now has PR-S6 left before GATE:P2SYS.
+
+---
+
+# 2026-11-18T17:58:00Z · PR-S6 · faction dynamics and GATE:P2SYS
+
+- scope: last P2-SYS task — faction/reputation derived from immutable facts
+- file: tools/sim/systems/prs6_faction.ts, PRS6 report, GDD-FACTION 0.2 DRAFT
+- measured: 1000 facts, 1000 reputation changes, 4 standing changes, 4 switches, 4 refusals, replay exact,
+  deterministic; test 5/5, full 185/185, verify 19/19.
+- boundary: no player, UI, art or balance sign-off; thresholds are tunables pending a real 4-client measurement.
+- gate: **GATE:P2SYS satisfied**. GATE:P2 still needs HC-003 and GDD-005; GATE:NET still needs a human signature.
+- next: HC-003 concept/CIS measurement, then GDD-005. NET-GATE remains signed-with-risk with 8 unmet criteria.

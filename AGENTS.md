@@ -200,6 +200,8 @@ Anything else goes through a handoff. A conflict is resolved by a handoff or the
   adjectives, audited stack, vertical slice before scale, no silent gate bypass. Failing numbers stay recorded.
 - **PR-S3 landed**: fact-derived quests, 2 distinct player fact ids, delayed effects at fact_tick+9, 243 states,
   6 FR/EN keys with 0 untranslated; GDD-QUEST 0.3. Full 180/180, verify 19/19. Next: PR-S6.
+- **PR-S6 landed**: faction standing derived from 1 000 immutable facts, replay-exact; GDD-FACTION 0.2 DRAFT.
+  **GATE:P2SYS satisfied.** Full 185/185, verify 19/19. Next: HC-003, then GDD-005 for GATE:P2.
 - Known intentional red: `scope-math --report` exit 2 (throughput unmeasured) and `concept --score` exit 2
   until HC-003. `concept --check` is green: T3 was signed at GATE:P0.
 

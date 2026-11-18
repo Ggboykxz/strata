@@ -418,3 +418,10 @@ blueprint task currently owns the pin: recorded as a gap for the Director/next r
   1 text-only refusal; 243 reachable states; 6 FR/EN keys, 0 untranslated; deterministic. GDD-QUEST 0.3.
 - Full 180/180, verify 19/19. No renderer, player, browser or art.
 - Next: PR-S6, the last P2-SYS task before GATE:P2SYS.
+
+## Session 2 — PR-S6 and GATE:P2SYS (2026-11-18T17:58Z)
+
+- 1 000 immutable faction facts, reputation derived and replay-exact; 4 standing changes, 4 switches, 4 refusals;
+  GDD-FACTION promoted STUB -> DRAFT with 19 fields. Full 185/185, verify 19/19.
+- **GATE:P2SYS is satisfied.** `GATE:P2` still needs HC-003 and GDD-005; `GATE:NET` still needs a human signature.
+- No player, UI, art or balance sign-off; no GPU/TPU. Next: HC-003.
