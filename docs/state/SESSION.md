@@ -466,3 +466,11 @@ blueprint task currently owns the pin: recorded as a gap for the Director/next r
   settings action.
 - Remaining Director items: ND-004/ND-005 token rotation, ND-011 TPU scope, ND-012 T4 16 GB and the 8 unmeasured
   NET-GATE criteria. No art before a real readiness result (A0008).
+
+## Session 2 — GPU handoff documented (2026-11-18T20:34Z)
+
+- Director: "Documentes tous car je passe sur GPU". Wrote `docs/state/GPU_HANDOFF.md`: state snapshot, T4 probe
+  commands and evidence rules, authorized vs blocked on arrival, the 9-model P0-006 whitelist, I11/A0001 art
+  contract, the 8 unmet NET-GATE criteria with their closing commands, conventions and a first-session checklist.
+- GPU arrival does not authorize generation: NET-GATE readiness still exits 1; art needs a real measurement or a
+  Director-signed ADR suspending I2. ND-004/005 rotation still precedes HF use.

@@ -18,7 +18,7 @@ Nothing here blocks the work already done; each item blocks a named future task.
 | ND-009 | **RESOLVED — option A** | full-MMORPG vision amendment (ADR-A0003), P0 scope unchanged |
 | ND-010 | **RESOLVED — SIGNED** | GATE:P1 signed ("Oui, signe S1"); authorized_tier S1; NET-001..006 selectable |
 | ND-011 | **OPEN — information acknowledged, one decision** | Director declares TPU v5e-1 + T4 16 GB; T4 is already the sourced generation tier, TPU has no audited model |
-| ND-012 | **OPEN — Director confirms T4 needed** | Director: "je dois donc passer au t4 pour continuer". T4 16 GB required for **art generation only** (AI-001/AI-002); netcode measurement stays CPU-only |
+| ND-012 | **IN PROGRESS — Director moving to GPU** | Director: "je dois donc passer au t4 pour continuer" / "Documentes tous car je passe sur GPU". Full handoff in `docs/state/GPU_HANDOFF.md` |
 | ND-013 | **PARTIAL — PRs done, residuals open** | Director signed all gates (A0009) and merged PR #3 / closed PR #2; token rotation, T4 and NET-GATE re-measurement remain |
 
 ND-004 and ND-005 cannot be closed by an agent: GitHub and Hugging Face rotations require account access
@@ -276,6 +276,11 @@ that will be available later, and no art or model task is scheduled now.
 no model runs this session (I4). Nothing is blocked; the ambiguity is recorded instead of guessed.
 
 ## ND-012 — accelerator needed for art generation (Director: "gère l'art et go next")
+**Update 2026-11-18T20:32Z.** Director: "Documentes tous car je passe sur GPU". The complete hardware handoff —
+probe commands, audited model list, art contract, the 8 unmet NET-GATE criteria, working conventions and the
+first-session checklist — is now `docs/state/GPU_HANDOFF.md`. Arrival does not authorize generation: NET-GATE readiness
+still exits 1 and I2/A0008 forbid art before a real measurement.
+
 
 **Director statement, verbatim (2026-11-18):** "gère l'art et go next".
 

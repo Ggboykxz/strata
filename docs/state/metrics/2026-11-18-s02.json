@@ -1857,7 +1857,8 @@
     "No blueprint task remains selectable: GATE:P2 and GATE:NET need human Director signatures; art waits on NET-GATE and GATE:P2.",
     "ROOM-WIRING CI at 6f38448e0c516e13aff3353dd3eee4d6f69f5452: 8/8 triggered workflows success; run ids in docs/state/evidence/20261118T135944Z-ROOM-WIRING/06-ci-proof.log.",
     "A0009: Director said \"je signe tous\" — GATE:P2 signed, GATE:NET signed-with-risk (8 unmet criteria). No assertion weakened; PR merges remain Director acts.",
-    "Director closed PR #2 without merging and merged PR #3 into main at a84733e (1032 files). Default branch still session; switching to main is a Director settings action."
+    "Director closed PR #2 without merging and merged PR #3 into main at a84733e (1032 files). Default branch still session; switching to main is a Director settings action.",
+    "GPU handoff documented in docs/state/GPU_HANDOFF.md at Director request (\"Documentes tous car je passe sur GPU\"). Probe first; no art until NET-GATE readiness passes."
   ],
   "result": {
     "phase": "P2NET",

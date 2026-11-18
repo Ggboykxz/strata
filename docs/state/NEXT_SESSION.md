@@ -13,6 +13,12 @@
 
 ---
 
+## 0b. GPU handoff (read first on the new runtime)
+
+`docs/state/GPU_HANDOFF.md` is the single memory bridge: hardware probes, audited models, art contract, the 8
+unmet NET-GATE criteria, working conventions and a copy/paste first-session checklist. GPU arrival does **not**
+authorize generation — `--assert-ready` must reach 0 first (I2/A0008). ND-004/005 rotation still comes before HF use.
+
 ## 0. Long-term quality doctrine (A0008, Director)
 
 Director: Ashes-of-Creation-class quality with Babylon.js over the long term, "la qualité compte peut importe le

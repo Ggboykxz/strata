@@ -3,7 +3,7 @@
 | field | value |
 |---|---|
 | source | `docs/state/journal/` (append-only entries) |
-| entries | 58 |
+| entries | 60 |
 | regenerate | `node scripts/build-journal.mjs` |
 | check | `node scripts/build-journal.mjs --check` |
 
@@ -1680,3 +1680,23 @@ PR-S8 — anim state machine server transitions + illegal-state fuzz.
 - No agent merged anything: the Director performed both actions from their own account.
 - Remaining Director items: ND-004/ND-005 rotation, ND-011 TPU scope, ND-012 T4 16 GB, and the 8 unmeasured
   NET-GATE criteria. No art before a real readiness result (A0008).
+
+---
+
+# 2026-11-18T20:20:00Z · NET-GATE diagnostic fixed
+
+- The readiness validator was reporting 3 integrity errors because it read concept.json as the latest metrics.
+- Session-metrics filter applied (third instance of the same bug after dashboard and session-result).
+- Correct result: dossier integrity PASS; readiness NOT READY — 8/10 criteria unmet; --assert-ready exit 1.
+- No criterion, assertion or signature changed — only the diagnostic source.
+
+---
+
+# 2026-11-18T20:34:00Z · GPU handoff documented
+
+- Director: "Documentes tous car je passe sur GPU".
+- Wrote docs/state/GPU_HANDOFF.md — the single memory bridge for the new runtime: state snapshot, T4 probe commands
+  and evidence rules, authorized vs blocked, the 9 audited models, I11/A0001 art contract, the 8 unmet NET-GATE
+  criteria and their closing commands, working conventions, first-session checklist.
+- GPU arrival does not authorize generation: --assert-ready still exits 1 and I2/A0008 hold. Rotate ND-004/005 before
+  any HF use. TPU scope (ND-011) still open.

@@ -215,6 +215,8 @@ Anything else goes through a handoff. A conflict is resolved by a handoff or the
   task left: merges, tokens, T4 and hardware decisions are Director acts.
 - **PRs handled by the Director**: PR #2 closed unmerged, PR #3 merged into `main` at `a84733e` (1 032 files).
   Default branch is still the session branch. Remaining: token rotation, T4, TPU scope and 8 NET-GATE measurements.
+- **GPU handoff**: `docs/state/GPU_HANDOFF.md` is the memory bridge for the new runtime (probes, audited models,
+  art contract, the 8 NET-GATE criteria, conventions). GPU arrival does not authorize art: readiness must pass.
 - Known intentional red: `scope-math --report` exit 2 (throughput unmeasured) and `concept --score` exit 2
   until HC-003. `concept --check` is green: T3 was signed at GATE:P0.
 
