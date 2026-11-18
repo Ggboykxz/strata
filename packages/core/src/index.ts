@@ -9,5 +9,6 @@
 /** Package version, kept in sync with package.json by hand until a release task exists. */
 export const CORE_VERSION = '0.0.0';
 
+export * from './anim-state';
 export * from './tick';
 export * from './tracer';

@@ -7,8 +7,8 @@
 | branch | `session/20261118-hc-001-high-concept` |
 | phase / tier | P1 complete → P2NET next / current `S0`, authorized **`S1`** (GATE:P1 signed 2026-11-18) |
 | director | present for bootstrap; async from now |
-| last task | NET-002 — binary wire contract + version handshake |
-| next task | **NET-003** — rooms/reconnect — blocked on a Colyseus pin; NET-005 is the fallback |
+| last task | NET-005 — animation state machine + clip manifest |
+| next task | **NET-003** — rooms/reconnect — still blocked on a producer-owned Colyseus pin |
 
 ## Done this session
 
@@ -42,6 +42,7 @@
 | GATE:P1 | Director signature recorded; `authorized_tier: S1`, GATES.yaml regenerated | `validate-blueprint` 0; `verify` 17/17 |
 | NET-001 | core tick, hash ring, headless `SimHost`; GDD-NETCODE 0.3; NET-001 acc repaired | core 19/19 · server 8/8 · `verify` 17/17 · tracer 0 |
 | NET-002 | binary v2 frames, handshake, `ProtocolError`; GDD-NETCODE 0.4; NET-002 acc repaired | protocol 23/23 · full 51/51 · `verify` 17/17 · 1 551 B max frame |
+| NET-005 | anim state machine in core, clip manifest + JSON schema; GDD-ANIM-ARCHITECTURE 0.3 | anim 22/22 · full 73/73 · `verify` 17/17 · 12 B anim_state |
 
 **P0-001 and P0-002 were split** although only P0-001 triggered B8: the halves fail for different reasons and
 deserve separate rollback points. Commits: `094f31f`, `bd6f550` (P0-001); `1ceaf20`, `7e9d382` (P0-002).
@@ -187,3 +188,19 @@ blueprint task currently owns the pin: recorded as a gap for the Director/next r
 - **Hardware.** The Director declared TPU v5e-1 + T4. T4 is already the sourced 16 GB tier; TPU has no audited
   generation path, so the CPU-safe policy is correct there. Recorded as ND-011, not guessed into the pipeline.
 - **Still Director-only:** ND-004/ND-005 rotation, PR #1 merge.
+
+## Session 2 — NET-005 and the dashboard question (2026-11-18T08:56Z)
+
+- **NET-005 done.** `packages/core/src/anim-state/` is server-authoritative and tick-driven: 5 states,
+  2-tick blend, 3-tick recovery, requests during ACTION refused `busy`, requests during RECOVERY queued to
+  the last tick, ties by smallest `(sequence, clipId)`. The clip manifest is validated on load and the
+  published JSON Schema is asserted to match the code. GDD-ANIM-ARCHITECTURE 0.2 → 0.3.
+- **A "repair" that was a false pass.** `pnpm test --filter … -t animstate` fails; changing only the flag to
+  `pnpm vitest run packages/core -t animstate` exits **0 while skipping all 41 tests**. The acc now names the
+  test file. An acceptance command must name a path, or a `-t` pattern proven to match.
+- **Dashboard (Director question).** The P0-007 generator built but lied: `gdd.modules = 0`, "GDD-001 not
+  started", HC v1.2, manual "tracer green", and 12 real values hidden by stale metric keys. Repaired on a
+  **separate branch, PR #2** (`session/20261118-dashboard-truth`, base = session branch), with its own locks
+  and evidence: build 0, truth check 0, negative check **1**, verify 17/17, Actions 8/8. It is truthful but
+  still static (no hydrator, no server).
+- **Still Director-only:** ND-004/ND-005 rotation, PR #1 merge. ND-011 (TPU scope) awaiting one answer.

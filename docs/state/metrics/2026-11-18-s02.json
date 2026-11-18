@@ -1,7 +1,7 @@
 {
   "session": "2026-11-18-s02",
   "utc_start": "2026-11-18T07:23:00Z",
-  "utc_end": "2026-11-18T08:34:00Z",
+  "utc_end": "2026-11-18T08:56:00Z",
   "mode": "RESUME",
   "branch": "session/20261118-hc-001-high-concept",
   "tier": {
@@ -33,6 +33,11 @@
       "id": "NET-002",
       "status": "done",
       "blueprint_task": "NET-002"
+    },
+    {
+      "id": "NET-005",
+      "status": "done",
+      "blueprint_task": "NET-005"
     }
   ],
   "measured": {
@@ -64,14 +69,14 @@
     "core_test_files": 2,
     "core_tests": 19,
     "server_tests": 8,
-    "full_tests": 51,
+    "full_tests": 73,
     "determinism_ticks": 300,
     "hash_ring_capacity": 128,
     "containers_used": 0,
-    "broken_acceptance_commands_repaired": 2,
-    "broken_acceptance_commands_remaining": 11,
+    "broken_acceptance_commands_repaired": 3,
+    "broken_acceptance_commands_remaining": 10,
     "protocol_tests": 23,
-    "test_files": 6,
+    "test_files": 7,
     "wire_version": 2,
     "wire_max_frame_bytes": 1551,
     "snapshot_bytes_per_second": 46530,
@@ -79,7 +84,15 @@
     "wire_budget_over_factor": 3.9,
     "actions_runs": 8,
     "actions_runs_success": 8,
-    "ci_head": "50295d2ff812265a25509a1364537eade979944e"
+    "ci_head": "50295d2ff812265a25509a1364537eade979944e",
+    "anim_tests": 22,
+    "anim_states": 5,
+    "blend_ticks": 2,
+    "recovery_ticks": 3,
+    "anim_state_wire_bytes": 12,
+    "clip_duration_max_ticks": 600,
+    "zero_match_acceptance_patterns": 1,
+    "dashboard_pr": 2
   },
   "cis": {
     "value": null,
@@ -289,6 +302,69 @@
       "exit": 0,
       "log": "docs/state/evidence/20261118T082404Z-NET-002/09-frame-size.log",
       "result": "64-entity snapshot = 1551 B"
+    },
+    {
+      "cmd": "pnpm test --filter @strata/core -t animstate (as written in the blueprint)",
+      "exit": 1,
+      "log": "docs/state/evidence/20261118T083402Z-NET-005/00-acc-old-form.log",
+      "result": "CACError: vitest has no --filter"
+    },
+    {
+      "cmd": "pnpm vitest run packages/core -t animstate (flag repaired, still a false pass)",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T083402Z-NET-005/00b-acc-t-false-pass.log",
+      "result": "3 files / 41 tests skipped, exit 0"
+    },
+    {
+      "cmd": "pnpm vitest run packages/core/test/anim-state.test.ts",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T083402Z-NET-005/01-acc-anim.log",
+      "result": "22/22"
+    },
+    {
+      "cmd": "pnpm typecheck",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T083402Z-NET-005/02-typecheck.log"
+    },
+    {
+      "cmd": "pnpm test",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T083402Z-NET-005/03-full-tests.log",
+      "result": "73/73, 7 files"
+    },
+    {
+      "cmd": "node scripts/lint-core-math.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T083402Z-NET-005/04-core-math.log"
+    },
+    {
+      "cmd": "pnpm verify",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T083402Z-NET-005/05-verify.log",
+      "result": "17/17"
+    },
+    {
+      "cmd": "node scripts/validate-gdd.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T083402Z-NET-005/06-gdd.log",
+      "result": "32 modules"
+    },
+    {
+      "cmd": "node scripts/validate-blueprint.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T083402Z-NET-005/07-blueprint.log",
+      "result": "63 tasks, 12 declared warnings"
+    },
+    {
+      "cmd": "pnpm tracer --assert",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T083402Z-NET-005/08-tracer.log"
+    },
+    {
+      "cmd": "pnpm vitest run packages/core/test/anim-state.test.ts -t \"JSON Schema\"",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T083402Z-NET-005/09-schema-consistency.log",
+      "result": "schema enums match code"
     }
   ],
   "notes": [
@@ -305,6 +381,10 @@
     "Measured: a 64-entity snapshot is 1551 B = 46530 B/s at 30 Hz, 3.9x over the 12 KB/s budget. NET-101 owns AoI/delta; no average hides it.",
     "11 broken acceptance commands remain (re-measured); the earlier \"11 after NET-001\" was one short, the true count then was 12.",
     "NEEDS_DIRECTOR.md fixed: ND-010 SIGNED status was appended under ND-004, making token rotation look resolved. ND-004 restored to OPEN.",
-    "CI at 50295d2: 8/8 triggered workflows success; run ids in docs/state/evidence/20261118T082404Z-NET-002/11-ci-proof.log."
+    "CI at 50295d2: 8/8 triggered workflows success; run ids in docs/state/evidence/20261118T082404Z-NET-002/11-ci-proof.log.",
+    "NET-005: server-authoritative anim state machine in core; requests during ACTION are busy, during RECOVERY are queued to the last tick, ties by (sequence, clipId).",
+    "False pass proven: pnpm vitest run packages/core -t animstate exits 0 with 41 tests skipped. Acceptance must name a path, or a -t pattern proven to match.",
+    "GDD-ANIM-ARCHITECTURE 0.2 -> 0.3; corrupted open-questions table repaired, absent 0.2 changelog row not invented.",
+    "Parallel PR #2 repairs the dashboard on a separate branch (base = session branch): build 0, truth check 0, negative 1, verify 17/17, Actions 8/8."
   ]
 }

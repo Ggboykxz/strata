@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://strata.local/schema/anim_manifest.v1.schema.json",
+  "title": "STRATA animation clip-event manifest v1",
+  "description": "Validated by packages/core/src/anim-state/manifest.ts. The TypeScript loader is authoritative; this file publishes the same contract to external tools.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "clips"],
+  "properties": {
+    "version": { "const": 1 },
+    "clips": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/clip" }
+    }
+  },
+  "$defs": {
+    "state": {
+      "enum": ["idle", "transitioning", "locomotion", "action", "recovery"]
+    },
+    "clipKind": {
+      "enum": ["locomotion", "action"]
+    },
+    "eventKind": {
+      "enum": ["hit", "footstep"]
+    },
+    "clip": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "archetype", "kind", "durationTicks", "loop", "events"],
+      "properties": {
+        "id": { "type": "integer", "minimum": 1, "maximum": 65535 },
+        "archetype": { "type": "integer", "minimum": 1, "maximum": 255 },
+        "kind": { "$ref": "#/$defs/clipKind" },
+        "durationTicks": { "type": "integer", "minimum": 1, "maximum": 600 },
+        "loop": { "type": "boolean" },
+        "events": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["tick", "kind"],
+            "properties": {
+              "tick": { "type": "integer", "minimum": 0, "maximum": 599 },
+              "kind": { "$ref": "#/$defs/eventKind" }
+            }
+          }
+        }
+      }
+    }
+  }
+}

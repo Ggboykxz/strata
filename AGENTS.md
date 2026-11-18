@@ -131,6 +131,15 @@ Anything else goes through a handoff. A conflict is resolved by a handoff or the
   46 530 B/s at 30 Hz — **3.9x over** the 12 KB/s budget, recorded as NET-101's task, not hidden. v1 JSON
   stays exported until the game client migrates. Next: NET-003 (needs a producer-owned Colyseus pin) or
   NET-005 (no new dependency).
+- **NET-005 landed**: server-authoritative anim state machine in `packages/core/src/anim-state/` (5 states,
+  2-tick blend, 3-tick recovery, queued requests tied by `(sequence, clipId)`) plus a validated clip manifest
+  and a JSON Schema kept in sync by a test. gdd 0.3, anim 22/22, full 73/73, verify 17/17. Next: NET-003,
+  blocked on a producer-owned Colyseus pin.
+- **Acceptance trap**: `pnpm vitest run <dir> -t <pattern>` exits 0 while skipping every test if the pattern
+  matches nothing (proven: `-t animstate`, 41 skipped). Acceptance commands must name the test file.
+- **Dashboard**: PR #2 (`session/20261118-dashboard-truth`) replaces P0-007's hardcoded false values with
+  sourced ones and adds `apps/dashboard/check.mjs`. The view is truthful but still static; the check is not
+  yet a `pnpm verify` step.
 - Known intentional red: `scope-math --report` exit 2 (throughput unmeasured) and `concept --score` exit 2
   until HC-003. `concept --check` is green: T3 was signed at GATE:P0.
 

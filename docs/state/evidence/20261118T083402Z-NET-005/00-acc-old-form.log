@@ -1,0 +1,18 @@
+$ pnpm test --filter @strata/core -t animstate
+$ vitest run --filter @strata/core -t animstate
+file:///content/strata/node_modules/.pnpm/vitest@5.1.0_@types+node@22.20.5_vite@8.3.8_@types+node@22.20.5_/node_modules/vitest/dist/chunks/cac.BYbt0aJp.js:405
+          throw new CACError(`Unknown option \`${name.length > 1 ? `--${name}` : `-${name}`}\``);
+                ^
+
+CACError: Unknown option `--filter`
+    at Command.checkUnknownOptions (file:///content/strata/node_modules/.pnpm/vitest@5.1.0_@types+node@22.20.5_vite@8.3.8_@types+node@22.20.5_/node_modules/vitest/dist/chunks/cac.BYbt0aJp.js:405:17)
+    at CAC.runMatchedCommand (file:///content/strata/node_modules/.pnpm/vitest@5.1.0_@types+node@22.20.5_vite@8.3.8_@types+node@22.20.5_/node_modules/vitest/dist/chunks/cac.BYbt0aJp.js:605:13)
+    at CAC.parse (file:///content/strata/node_modules/.pnpm/vitest@5.1.0_@types+node@22.20.5_vite@8.3.8_@types+node@22.20.5_/node_modules/vitest/dist/chunks/cac.BYbt0aJp.js:546:12)
+    at file:///content/strata/node_modules/.pnpm/vitest@5.1.0_@types+node@22.20.5_vite@8.3.8_@types+node@22.20.5_/node_modules/vitest/dist/cli.js:10:13
+    at ModuleJob.run (node:internal/modules/esm/module_job:343:25)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:681:26)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+
+Node.js v22.23.4
+[ELIFECYCLE] Test failed. See above for more details.
+EXIT=1
