@@ -112,8 +112,9 @@ Anything else goes through a handoff. A conflict is resolved by a handoff or the
   tools/qa/; main and the session branch are protected on GitHub. Next: GDD-003.
 - GDD-003 advanced five concept modules to DRAFT; T2's 900-tick budget and T4's three-resolution minimum
   are now validator failures. 11 of 32 GDD modules are DRAFT. Next: GDD-004 (economy closure).
-- GDD-004 closed the 14 critical modules as DRAFT with sourced economy tables. Next: P1-002
-  (WORLD_BIBLE, glossary, real validate-lore). The remaining decisions are token rotations only.
+- GDD-004 closed the 14 critical modules as DRAFT with sourced economy tables.
+- P1-002 added 6 original FR/EN glossary entries and a real validate-lore gate; verify is 16/16.
+  Next: P1-003 (ART_BIBLE + A0001 separated animation architecture).
 - **ND-001 resolved** (T1 EN 25/25, FR 30/35; FINDING-001 closed) and **ND-002 resolved** (A0002 option A,
   D-002 closed, WF-002 is orchestrator's). **ND-003 resolved**: the repo is public (the Director must merge
   PR #1; `main` is still empty). ND-004..ND-008 remain open.

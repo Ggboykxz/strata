@@ -88,6 +88,10 @@
     {
       "id": "GDD-004",
       "status": "done"
+    },
+    {
+      "id": "P1-002",
+      "status": "done"
     }
   ],
   "measured": {
@@ -142,8 +146,8 @@
     "agent_missing_skill_links": 0,
     "skill_stubs": 51,
     "skill_missing_descriptions": 0,
-    "validator_stubs": 14,
-    "validator_stubs_failing": 14,
+    "validator_stubs": 13,
+    "validator_stubs_failing": 13,
     "gdd_modules": 32,
     "gdd_critical_modules": 14,
     "gdd_draft_modules": 15,
@@ -177,12 +181,13 @@
     "node_version": "22.23.4",
     "pnpm_version": "12.21.0",
     "typescript_version": "6.0.3",
-    "verify_steps_enabled": 15,
+    "verify_steps_enabled": 16,
     "verify_deferred_groups": 3,
     "unit_test_files": 3,
     "unit_tests": 4,
     "p003_negative_tests": 4,
-    "opencode_mcp_servers": 4
+    "opencode_mcp_servers": 4,
+    "glossary_entries": 6
   },
   "cis": {
     "value": null,
@@ -612,6 +617,16 @@
       "cmd": "bash tools/qa/negative-gdd.sh (13 cases)",
       "exit": 0,
       "log": "docs/state/evidence/20261118T025203Z-GDD-004/03-negative-tests.log"
+    },
+    {
+      "cmd": "node scripts/validate-lore.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T025647Z-P1-002/01-validate-lore.log"
+    },
+    {
+      "cmd": "bash tools/qa/negative-lore.sh",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T025647Z-P1-002/02-negative-tests.log"
     }
   ],
   "notes": [
@@ -646,6 +661,7 @@
     "P0-003's 7 output paths trigger B8 and the task is declared split in the blueprint, but it landed as one commit: a workspace without its packages cannot typecheck and a skeleton without verify cannot pass. The split is a size label, not a bisectable boundary here",
     "Reproduction scripts are committed under tools/qa/; older /tmp/opencode command names in evidence logs map to those files via tools/qa/README.md.",
     "GDD-003: 11 DRAFT modules, T2 900-tick budget and T4 three-resolution minimum enforced as validator failures; generator committed under tools/qa/",
-    "GDD-004 closed the 14 critical modules as DRAFT; economy tables committed; no invented inflation, Gini or throughput"
+    "GDD-004 closed the 14 critical modules as DRAFT; economy tables committed; no invented inflation, Gini or throughput",
+    "P1-002: 6 original FR/EN glossary entries, 11 franchise names rejected; validate-lore structural only, cannot judge story quality"
   ]
 }

@@ -1,0 +1,7 @@
+OK     exit=0  baseline
+OK     exit=1  missing FR translation
+OK     exit=1  borrowed IP name
+OK     exit=1  missing bible section
+OK     exit=1  unresolved quest noun
+
+RESULT: PASS — all 5 P1-002 negative tests behaved as required.

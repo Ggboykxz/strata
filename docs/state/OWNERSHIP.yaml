@@ -89,6 +89,7 @@ owners:
       - docs/design/gdd/GDD-DIALOGUE.md
       - docs/design/gdd/GDD-COMPANION.md
       - docs/design/gdd/GDD-ENDINGS.md
+      - scripts/validate-lore.mjs
       - packages/content/blueprints/quests/**
       - packages/content/blueprints/dialogue/**
       - tests/replay/q_*

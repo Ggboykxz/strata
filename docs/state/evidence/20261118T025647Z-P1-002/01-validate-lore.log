@@ -1,0 +1,14 @@
+
+L1  bible structure
+OK    7 sections and the locked sentence present
+
+L2  FR/EN glossary
+OK    6 FR/EN glossary entries, all three strata places covered
+
+L3  no borrowed IP
+OK    11 forbidden names absent from bible and quest module
+
+L4  quest nouns resolve
+OK    0 quest noun(s) referenced, all resolvable
+
+RESULT: PASS — 6 glossary entries, 0 error(s). Structural check only; no story judgement.
