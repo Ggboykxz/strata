@@ -1,0 +1,13 @@
+STRATA NET-101 AoI/delta — final acceptance EXIT summary
+UTC: 2026-11-18T21:11:06Z
+01-install EXIT=EXIT=0
+02-vitest-targeted (rerun after two test-author expectation bugs fixed; the initial EXIT=1 run was overwritten by this rerun) EXIT=EXIT=0
+07-vitest-targeted-final EXIT=EXIT=0
+08-vitest-server-final EXIT=EXIT=0
+09-typecheck-final EXIT=EXIT=0
+10-verify-final EXIT=EXIT=0
+MEASURED (10 s real ws, 4 clients, 64 entities, seed 1337, dense 7/15 NPC script):
+[NET101-AOI] wire=full clients=4 entities=64 view@viewer1=40 ticks=299 seconds=10.076 per-client B/s=[46144.233, 46144.233, 46144.233, 46144.233] avg B/s=46144.233 keyframes=0 deltas=0 snapshots=1196 undecodable=0
+[NET101-AOI] wire=delta clients=4 entities=64 view@viewer1=40 ticks=299 seconds=10.076 per-client B/s=[4172.849, 3322.499, 5991.058, 5094.657] avg B/s=4645.266 keyframes=20 deltas=1176 snapshots=0 undecodable=0
+[NET101-AOI] delta avg 4645.266 B/s/client vs budget 12288 B/s — HOLDS
+NOT COMPUTABLE here: RTT/loss/jitter matrix, 30-min soak, sustained-loss keyframe recovery, client predictor against AoI hash.
