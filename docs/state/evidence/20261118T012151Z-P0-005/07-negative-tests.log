@@ -1,0 +1,9 @@
+OK     exit=0  baseline drill passes
+OK     exit=1  missing SESSION.md
+OK     exit=1  expired lock in drill
+OK     exit=1  expired lock in watchdog probe
+OK     exit=1  corrupt heartbeat
+OK     exit=0  setup.sh syntax
+OK     exit=2  broken setup.sh syntax
+
+RESULT: PASS — all 7 P0-005 negative tests behaved as required.

@@ -1,0 +1,27 @@
+
+== Node 22
+node v22.23.4
+
+== pnpm (exact version via corepack)
+pnpm 12.21.0
+
+== uv (optional — no unverified installer)
+uv 0.13.4 (x86_64-unknown-linux-gnu)
+
+== OpenCode CLI (optional)
+opencode v2.3.0
+
+== HF cache restore
+no token/cache: nothing to restore; no HF call before the P0-006 license audit (I4)
+
+== VRAM tier detection
+DRY python3 tools/colab/detect_tier.py
+
+== frozen install and verify
+DRY pnpm install --frozen-lockfile
+DRY pnpm verify
+
+== SESSION + heartbeat
+DRY python3 tools/colab/heartbeat.py --write
+
+RESULT: PASS — bootstrap is idempotent: state is overwritten, never duplicated.

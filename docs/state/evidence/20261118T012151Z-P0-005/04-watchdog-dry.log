@@ -1,0 +1,4 @@
+watchdog: interval 600s · branch session/20261118-hc-001-high-concept
+OK 0 expired active locks
+DRY heartbeat + WIP checkpoint + push (not executed)
+RESULT: PASS — dry watchdog replayed its checks without side effects.
