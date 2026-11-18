@@ -89,7 +89,7 @@
     "wire_budget_over_factor": 3.9,
     "actions_runs": 8,
     "actions_runs_success": 8,
-    "ci_head": "647ad0b0bcd7cf51a21442c3eea2d55e33396aa6",
+    "ci_head": "d6d45e03ec9bc23385c9b75111f7fe2a31d6ba63",
     "anim_tests": 22,
     "anim_states": 5,
     "blend_ticks": 2,
@@ -497,7 +497,8 @@
     "Director 2026-11-18: this runtime has no TPU and no GPU; signal when one becomes necessary. NET-003 (rooms) needs neither.",
     "A0004 accepted: Director said \"bypass pin colyseus\"; NET-003 uses ws 8.23.0 already pinned. No dependency added, no lockfile change.",
     "NET-003: room lifecycle on ws, resume handles are not credentials (SEC-001); replayed seq refused at ingress; no main.ts wiring.",
-    "Director: current runtime has no TPU and no GPU; signal before accelerator work. NET-003 needs neither."
+    "Director: current runtime has no TPU and no GPU; signal before accelerator work. NET-003 needs neither.",
+    "NET-003 CI at d6d45e0: 8/8 triggered workflows success; run ids in docs/state/evidence/20261118T085724Z-NET-003/12-ci-proof.log."
   ],
   "result": {
     "phase": "P2NET",
@@ -579,7 +580,7 @@
         },
         {
           "dir": "docs/state/evidence/20261118T085724Z-NET-003/",
-          "logs": 11,
+          "logs": 13,
           "branch": "session"
         }
       ]
