@@ -1,0 +1,7 @@
+version: 1
+audit: AUDIT-2026-11-18-P0-006
+# Every mint has a source or a tunable range. No implicit mint exists.
+faucets:
+  - {id: QUEST_REWARD, amount_minor: 500, source: GDD-ECONOMY-field-5, tier: S0}
+  - {id: HARVEST, amount_minor: 25, tunable: 5..100, plan: ECON-001-simulation, tier: S0}
+  - {id: TRADE_PAYOUT, amount_minor: 0, source: GDD-TRADE-field-7, tier: S1}
