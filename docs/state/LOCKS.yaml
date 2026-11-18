@@ -1620,4 +1620,11 @@ locks:
     acquired_at: "2026-11-18T18:06:00Z"
     expires_at: "2026-11-18T18:36:00Z"
     status: active
+  - path_glob: "apps/dashboard/build.mjs"
+    owner_agent: tools-engineer
+    task_id: HC-003
+    branch: session/20261118-hc-001-high-concept
+    acquired_at: "2026-11-18T18:12:00Z"
+    expires_at: "2026-11-18T18:42:00Z"
+    status: active
 
