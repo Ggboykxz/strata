@@ -18,6 +18,8 @@ keeps working until it migrates.
 | `07-blueprint.log` | `node scripts/validate-blueprint.mjs` | 0 | 63 tasks, 12 declared warnings |
 | `08-tracer.log` | `pnpm tracer --assert` | 0 | equal hashes, desync rejected |
 | `09-frame-size.log` | `pnpm vitest run packages/protocol -t "1 551"` | 0 | the 64-entity snapshot is exactly 1 551 bytes |
+| `10-verify-final.log` | `pnpm verify` after the docs edits | 0 | **17/17** |
+| `11-ci-proof.log` | GitHub Actions API at `50295d2` | 0 | **8/8 triggered workflows success** |
 
 **what the tests actually prove.**
 - Every class round-trips: intent, snapshot, hash ack, hello, welcome, reject — including negative millimetres

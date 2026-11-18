@@ -76,7 +76,10 @@
     "wire_max_frame_bytes": 1551,
     "snapshot_bytes_per_second": 46530,
     "wire_budget_bytes_per_second": 12288,
-    "wire_budget_over_factor": 3.9
+    "wire_budget_over_factor": 3.9,
+    "actions_runs": 8,
+    "actions_runs_success": 8,
+    "ci_head": "50295d2ff812265a25509a1364537eade979944e"
   },
   "cis": {
     "value": null,
@@ -301,6 +304,7 @@
     "NET-002: binary v2 frames with exact lengths; a version outside the range is rejected, never coerced.",
     "Measured: a 64-entity snapshot is 1551 B = 46530 B/s at 30 Hz, 3.9x over the 12 KB/s budget. NET-101 owns AoI/delta; no average hides it.",
     "11 broken acceptance commands remain (re-measured); the earlier \"11 after NET-001\" was one short, the true count then was 12.",
-    "NEEDS_DIRECTOR.md fixed: ND-010 SIGNED status was appended under ND-004, making token rotation look resolved. ND-004 restored to OPEN."
+    "NEEDS_DIRECTOR.md fixed: ND-010 SIGNED status was appended under ND-004, making token rotation look resolved. ND-004 restored to OPEN.",
+    "CI at 50295d2: 8/8 triggered workflows success; run ids in docs/state/evidence/20261118T082404Z-NET-002/11-ci-proof.log."
   ]
 }
