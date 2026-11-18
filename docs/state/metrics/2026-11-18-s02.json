@@ -157,7 +157,7 @@
     "wire_budget_over_factor": 3.9,
     "actions_runs": 8,
     "actions_runs_success": 8,
-    "ci_head": "d935036cee2ed5c5df35f3d9eaf53a1885c0351a",
+    "ci_head": "50f5f704a1c8f14f585f4472860a7728d8cfd1ab",
     "anim_tests": 22,
     "anim_states": 5,
     "blend_ticks": 2,
@@ -1278,7 +1278,8 @@
     "Not ECON-001: no 1000 bots, no 30 days, no inflation/Gini. No art, no GPU/TPU (ND-012).",
     "PR-S4: first CI 6/8 (O3/B2 co-owner), fixed in d935036; 8/8 at d935036cee2ed5c5df35f3d9eaf53a1885c0351a. Both results recorded, none hidden.",
     "PR-S5: accounting exact and no negative balances, but inflation 7264.78% FAILS the 5% target — flagged TUNABLE, not silently retuned (GDD §8.4).",
-    "Compressed 720 hourly epochs, not a 30 Hz replay. No real market, players or network. Gini recorded only."
+    "Compressed 720 hourly epochs, not a 30 Hz replay. No real market, players or network. Gini recorded only.",
+    "PR-S5 CI at 50f5f704a1c8f14f585f4472860a7728d8cfd1ab: 8/8 triggered workflows success; run ids in docs/state/evidence/20261118T103750Z-PR-S5/10-ci-proof.log."
   ],
   "result": {
     "phase": "P2NET",
