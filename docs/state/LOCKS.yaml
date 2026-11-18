@@ -1353,7 +1353,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T15:32:00Z"
     expires_at: "2026-11-18T16:02:00Z"
-    status: active
+    status: released
 
   - path_glob: "docs/blueprint/GATES.yaml"
     owner_agent: orchestrator
@@ -1361,7 +1361,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T15:32:00Z"
     expires_at: "2026-11-18T16:02:00Z"
-    status: active
+    status: released
 
   - path_glob: "docs/design/gdd/GDD-WORLD-SIM.md"
     owner_agent: game-designer
@@ -1369,7 +1369,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T15:32:00Z"
     expires_at: "2026-11-18T16:02:00Z"
-    status: active
+    status: released
 
   - path_glob: "docs/state/metrics/2026-11-18-s02.json"
     owner_agent: orchestrator
@@ -1377,7 +1377,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T15:32:00Z"
     expires_at: "2026-11-18T16:02:00Z"
-    status: active
+    status: released
 
   - path_glob: "tools/sim/world/prs7_worldtick.ts"
     owner_agent: gameplay-engineer
@@ -1385,7 +1385,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T15:32:00Z"
     expires_at: "2026-11-18T16:02:00Z"
-    status: active
+    status: released
 
   - path_glob: "tools/sim/world/test/prs7.test.ts"
     owner_agent: gameplay-engineer
@@ -1393,5 +1393,5 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T15:32:00Z"
     expires_at: "2026-11-18T16:02:00Z"
-    status: active
+    status: released
 
