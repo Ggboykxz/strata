@@ -77,6 +77,12 @@ for (const id of EXPECTED) {
   if (maturity !== 'STUB') {
     const field5 = text.split('## 5. Numbers with source')[1]?.split('## 6.')[0] ?? '';
     if (!/SOURCE|TUNABLE/.test(field5)) fail(`G2 ${id} field 5 has no SOURCE or TUNABLE range`);
+    if (id === 'GDD-CONSEQUENCE' && !/900/.test(field5)) {
+      fail('G2 GDD-CONSEQUENCE field 5 omits the 900-tick T2 budget');
+    }
+    if (id === 'GDD-QUEST' && !/3 resolutions|>= 3/.test(field5)) {
+      fail('G2 GDD-QUEST field 5 omits the T4 three-resolution minimum');
+    }
     if (maturity === 'SIGNED' && !/\*\*Signature|\| signed \|/.test(text)) {
       fail(`G2 ${id} is SIGNED without a recorded signature`);
     }
