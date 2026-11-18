@@ -3,20 +3,21 @@
  *
  * The real client predictor lives in `apps/game/src/net/predictor.ts`; importing it from apps/server
  * would make the server package depend on the game package, so the reconciliation logic is replicated
- * here verbatim with @strata/core (`stepWorld`, `createWorld`, `hashEntity`, `HashTimeline`) and the
- * same semantics (NET-004):
+ * here **verbatim in semantics** with @strata/core (v5, target-tick contract, commit a1e5961 / b8d13c7):
  *
- *   - the client predicts ONLY its own entity's intents, applied immediately with `stepWorld`;
+ *   - an intent names the tick at which it must be applied (`targetTick`); it waits in the pending set
+ *     and is applied only when the predicted world's own tick reaches `targetTick` (`advanceTo`);
+ *   - every tick is stepped, recording the hash timeline exactly as the immediate path does; ticks
+ *     whose scheduled intents name them apply exactly those intents, every other tick advances with an
+ *     empty `stepWorld`;
  *   - every snapshot triggers a reconcile at the snapshot's tick: compare `viewHash` (hash of the
- *     recipient's own entity) at that tick, adopt the server state exactly, replay only intents with
- *     `seq > appliedSeq` for the own entity;
+ *     recipient's own entity), adopt the server state exactly, replay unacked intents at their original
+ *     `targetTick` (an intent whose targetTick passed while unacknowledged is still replayed, clamped
+ *     to the earliest available tick);
  *   - a mismatch is a desync: rejected, never silently reconciled; pending intents are cleared and a
  *     resync is requested (`needsResync`) — this harness counts the request but does NOT send a resync
  *     frame (the wire protocol gives the client no way to address its own room client id);
  *   - `appliedSeq` is authoritative per entity (`EntityState.seq`), never the snapshot header.
- *
- * Per the matrix brief, the Predictor's known behaviour of predicting ahead of the server under latency
- * is NOT fixed here and this file is not the game predictor. Desync counts are recorded honestly.
  */
 import {
   HashTimeline, hashEntity, hashWorld, stepWorld,
@@ -34,10 +35,13 @@ export interface MatrixSnapshotView {
 export type MatrixReconcileVerdict = 'ok' | 'desync' | 'unknown';
 
 interface PendingIntent extends MoveCommand {
-  readonly tick: number;
+  /** Tick at which this intent must be applied, chosen when it was scheduled. */
+  readonly targetTick: number;
 }
 
 const isAxis = (v: number): v is Axis => v === -1 || v === 0 || v === 1;
+
+const toCommand = ({ entity, seq, dx, dz }: PendingIntent): MoveCommand => ({ entity, seq, dx, dz });
 
 export class MatrixPredictor {
   private world: WorldState;
@@ -51,8 +55,7 @@ export class MatrixPredictor {
   constructor(initial: WorldState, readonly entityId: number, capacity = 128) {
     this.world = { tick: initial.tick, entities: [...initial.entities] };
     this.timeline = new HashTimeline(capacity);
-    const own = this.world.entities.find((e) => e.id === this.entityId);
-    this.timeline.put(initial.tick, own ? hashEntity(initial.tick, own) : hashWorld(this.world));
+    this.recordTimeline();
   }
 
   get state(): WorldState { return this.world; }
@@ -61,18 +64,34 @@ export class MatrixPredictor {
   get needsResync(): boolean { return this.needsResyncValue; }
   get lastAckedSeq(): number { return this.lastAckedSeqValue; }
 
-  /** Predict one local intent. A stale seq or a non-axis delta is refused, never repaired. */
-  input(seq: number, dx: Axis, dz: Axis): boolean {
+  /** Schedule an intent for `targetTick`. Applied when the predicted world advances to that tick. */
+  schedule(seq: number, dx: Axis, dz: Axis, targetTick: number): boolean {
     if (!Number.isInteger(seq) || seq <= this.lastSubmittedSeq) return false;
     if (!isAxis(dx) || !isAxis(dz)) return false;
+    if (!Number.isInteger(targetTick) || targetTick <= this.world.tick) return false;
     if (!this.world.entities.some((e) => e.id === this.entityId)) return false;
-    const command: MoveCommand = { entity: this.entityId, seq, dx, dz };
-    this.world = stepWorld(this.world, [command]);
+    this.pending.push({ entity: this.entityId, seq, dx, dz, targetTick });
     this.lastSubmittedSeq = seq;
-    this.pending.push({ ...command, tick: this.world.tick });
-    const own = this.world.entities.find((e) => e.id === this.entityId)!;
-    this.timeline.put(this.world.tick, hashEntity(this.world.tick, own));
     return true;
+  }
+
+  /** Advance the predicted world to `tick`, stepping every tick, applying due intents. */
+  advanceTo(tick: number): void {
+    if (!Number.isInteger(tick)) throw new RangeError('tick must be an integer');
+    while (this.world.tick < tick) {
+      const next = this.world.tick + 1;
+      const due = this.pending
+        .filter((intent) => intent.targetTick === next)
+        .sort((a, b) => (a.entity - b.entity) || (a.seq - b.seq))
+        .map(toCommand);
+      this.world = stepWorld(this.world, due);
+      this.recordTimeline();
+    }
+  }
+
+  /** Schedule one intent for `targetTick`. Scheduling only — the world advances via `advanceTo`. */
+  input(seq: number, dx: Axis, dz: Axis, targetTick: number): boolean {
+    return this.schedule(seq, dx, dz, targetTick);
   }
 
   /** Reset to a server snapshot, then replay only intents it has not applied. */
@@ -101,20 +120,30 @@ export class MatrixPredictor {
 
     if (verdict === 'desync') return verdict;
 
+    // Replay unacked intents at their original targetTick. An intent whose targetTick already passed
+    // while unacknowledged is still replayed, clamped to the earliest tick available.
     const survivors = this.pending
-      .filter((intent) => intent.seq > this.lastAckedSeqValue && intent.tick > snapshot.tick)
-      .sort((a, b) => (a.tick - b.tick) || (a.seq - b.seq));
+      .filter((intent) => intent.seq > this.lastAckedSeqValue)
+      .sort((a, b) => (a.targetTick - b.targetTick) || (a.seq - b.seq));
     this.pending.length = 0;
 
+    const byTarget = new Map<number, PendingIntent[]>();
     for (const intent of survivors) {
-      while (this.world.tick < intent.tick - 1) this.world = stepWorld(this.world, []);
-      if (this.world.tick === intent.tick - 1) {
-        this.world = stepWorld(this.world, [
-          { entity: intent.entity, seq: intent.seq, dx: intent.dx, dz: intent.dz },
-        ]);
-      }
+      const group = byTarget.get(intent.targetTick);
+      if (group) group.push(intent);
+      else byTarget.set(intent.targetTick, [intent]);
+    }
+    for (const [targetTick, group] of [...byTarget.entries()].sort((a, b) => a[0] - b[0])) {
+      const applyAt = Math.max(targetTick, this.world.tick + 1);
+      while (this.world.tick < applyAt - 1) this.world = stepWorld(this.world, []);
+      this.world = stepWorld(this.world, group.map(toCommand));
     }
     for (const intent of survivors) this.pending.push(intent);
     return verdict;
+  }
+
+  private recordTimeline(): void {
+    const own = this.world.entities.find((e) => e.id === this.entityId);
+    this.timeline.put(this.world.tick, own ? hashEntity(this.world.tick, own) : hashWorld(this.world));
   }
 }

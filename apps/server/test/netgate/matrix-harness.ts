@@ -10,12 +10,34 @@
  * matrix-emulator.ts): RTT {0, 50, 150, 300} ms (one-way = RTT/2), loss {0, 2, 5} % (seeded LCG),
  * jitter {0, 30} ms uniform in [0, jitter]. This is NOT tc/netem.
  *
- * Each client runs a replicated NET-004 predictor (matrix-predictor.ts, @strata/core only — not the game
- * package, no cross-package dependency). The client predicts only its own entity and reconciles on every
- * snapshot. Per the matrix brief, the Predictor's known predict-ahead-under-latency behaviour is NOT fixed
- * here; desyncs are recorded as measured. Unacked intents are NOT retransmitted (that is the current wire
- * contract); `needsResync` is counted but no resync frame is sent (the client has no wire-level room client
- * id to address). Both choices are recorded in the metrics object and the report.
+ * Each client runs a replicated v5 target-tick predictor (matrix-predictor.ts, @strata/core only — not
+ * the game package, no cross-package dependency). The client predicts only its own entity and reconciles
+ * on every snapshot.
+ *
+ * Protocol v5 (baab942) target-tick input contract, as specified by the NG-001 collaboration brief:
+ *   - each intent is scheduled with `targetTick = horizon`, where per client
+ *     `horizon = latestSnapshotTick + D` and `D = max(2, ceil((RTT/2 + jitter) / TICK_MS) + 2)` —
+ *     one-way plus jitter plus a two-tick margin;
+ *   - `latestSnapshotTick` ticks +1 per local 30 Hz tick and is raised to each received snapshot's
+ *     tick (never lowered). The horizon grows the same way, and `advanceTo` is called on every
+ *     snapshot AND after every send, so the predicted world's tick equals the horizon at all times
+ *     (`world == latestSnapshotTick + D`); intents therefore land on strictly future ticks and apply
+ *     exactly at their targetTick;
+ *   - the predicted world advances one tick per local tick via `advanceTo(horizon)`; every tick is
+ *     stepped and records the hash timeline, intents whose targetTick == world.tick+1 apply exactly
+ *     those intents in canonical (entity, seq) order, every other tick advances with an empty stepWorld;
+ *   - unacked intents older than one RTT (age > ceil(RTT / TICK_MS) local ticks) are resent with their
+ *     ORIGINAL (seq, targetTick) until acknowledged or targetTick has passed — the same intent is
+ *     never given a new targetTick. At most one resend per RTT per intent (this is what makes the
+ *     rule safe at RTT 0).
+ *   - RESEND CAVEAT (measured, not mitigated): the ingress MessageGate refuses any intent whose seq is
+ *     not greater than the max seq it has already admitted (non-monotonic-seq), replying reason
+ *     'malformed'. A resent intent therefore cannot pass the gate once any newer seq has been sent —
+ *     the room-level monotonic-seq dedup is shadowed by the gate. Counted in rejectsReceived, never
+ *     hidden; reported as a finding, not fixed here. Note the specified D also retires a target within
+ *     D ticks, so at RTT >= ~134 ms one RTT is >= D and the resend window is empty by construction.
+ * `needsResync` is counted but no resync frame is sent (the client has no wire-level room client id to
+ * address and the server has no resync path yet). No desync is asserted anywhere here; they are recorded.
  *
  * Byte accounting: up bytes are counted at the client's `send()` call, down bytes at the server-side
  * socket's `send()` call — encoded frame payload bytes only; ws framing overhead is not counted.
@@ -75,6 +97,10 @@ export interface MatrixClientMetrics {
   readonly resyncRequests: number;
   /** Reject frames received (gate refusals surface as reason 'malformed' through attachRooms). */
   readonly rejectsReceived: number;
+  /** Resend frames actually sent for unacked intents (see header for the gate caveat). */
+  readonly resendsSent: number;
+  /** Intents refused by the predictor because their targetTick was not an integer ahead of the world. */
+  readonly scheduleRefusals: number;
   /** Per-reconcile |reconciled own entity − predicted own entity| (hypot, rounded to integer mm). */
   readonly correctionMm: DurationStats;
   readonly rubberBandMaxMm: number;
@@ -97,8 +123,10 @@ export interface MatrixCellMetrics {
     readonly targetDurationS: number;
     readonly actualDurationS: number;
     readonly intentHz: number;
-    readonly resendsUnackedIntents: false;
-    readonly sendsResyncFrames: false;
+    /** D = max(2, ceil((RTT/2 + jitter) / TICK_MS) + 2) — the targetTick horizon lead used by every intent. */
+    readonly targetingDTicks: number;
+    readonly resendsUnackedIntents: boolean;
+    readonly sendsResyncFrames: boolean;
   };
   readonly commit: string | null;
   readonly started_utc: string;
@@ -114,6 +142,8 @@ export interface MatrixCellMetrics {
     readonly unknownReconciles: number;
     readonly intentsSent: number;
     readonly snapshotsReceived: number;
+    readonly resendsSent: number;
+    readonly scheduleRefusals: number;
     readonly intentsUpFrames: number;
     readonly intentsUpFramesDropped: number;
     readonly snapshotsDownFrames: number;
@@ -138,6 +168,18 @@ interface ClientState {
   index: number;
   entityId: number;
   intentSeq: number;
+  /** Local 30 Hz tick counter (drives resend ages); starts at 0 and increments once per timer fire. */
+  wallTick: number;
+  /** Best track of the server's tick: +1 per local tick, raised to each received snapshot's tick, never lowered. */
+  latestSnapshotTick: number;
+  /** Horizon = latestSnapshotTick + D; the predicted world's tick equals it at all times. */
+  horizon: number;
+  /** Tick at which each seq was scheduled (wallTick), for the unacked-intent RTT age. */
+  sentAtTick: Map<number, number>;
+  /** Tick of the last resend per seq, to bound resends to one per RTT per intent. */
+  lastResendAt: Map<number, number>;
+  resendsSent: number;
+  scheduleRefusals: number;
   lcg: SeededLcg;
   predictor: MatrixPredictor;
   upChannel: MatrixChannel;
@@ -209,8 +251,13 @@ export async function runMatrixCell(options: MatrixCellOptions): Promise<MatrixC
 
   const clients: ClientState[] = [];
 
+  const targetingD = Math.max(2, Math.ceil((rttMs / 2 + jitterMs) / TICK_MS) + 2);
+  const rttTicks = Math.max(1, Math.ceil(rttMs / TICK_MS));
+
   const handleSnapshot = (state: ClientState, snapshot: SnapshotFrame): void => {
     state.snapshotsReceived += 1;
+    // Raise the server-tick track to the received snapshot's tick, never lower it.
+    if (snapshot.tick > state.latestSnapshotTick) state.latestSnapshotTick = snapshot.tick;
     const ownBefore = state.predictor.state.entities.find((e) => e.id === state.entityId);
     const serverOwn = snapshot.entities.find((e) => e.id === state.entityId);
     if (ownBefore && serverOwn) {
@@ -231,6 +278,9 @@ export async function runMatrixCell(options: MatrixCellOptions): Promise<MatrixC
     } else {
       state.unknownReconciles += 1;
     }
+    // Re-pin the horizon and advance the predicted world to it on every snapshot.
+    state.horizon = state.latestSnapshotTick + targetingD;
+    state.predictor.advanceTo(state.horizon);
   };
 
   for (let index = 0; index < 4; index += 1) {
@@ -238,6 +288,13 @@ export async function runMatrixCell(options: MatrixCellOptions): Promise<MatrixC
       index,
       entityId: index + 1, // room assigns entity ids in join order; connects are sequential
       intentSeq: 0,
+      wallTick: 0,
+      latestSnapshotTick: 0,
+      horizon: 0,
+      sentAtTick: new Map(),
+      lastResendAt: new Map(),
+      resendsSent: 0,
+      scheduleRefusals: 0,
       lcg: new SeededLcg(SeededLcg.subSeed(seed, 1000 + index)),
       predictor: new MatrixPredictor(createWorld(worldSeed, 4), index + 1),
       upChannel: new MatrixChannel(net, SeededLcg.subSeed(seed, 2 * index)),
@@ -323,13 +380,44 @@ export async function runMatrixCell(options: MatrixCellOptions): Promise<MatrixC
 
   for (const state of clients) {
     state.intentTimer = setInterval(() => {
+      state.wallTick += 1;
+      state.latestSnapshotTick += 1;
       const dx = (state.lcg.nextInt(3) - 1) as Axis;
       const dz = (state.lcg.nextInt(3) - 1) as Axis;
       state.intentSeq += 1;
       const seq = state.intentSeq;
-      state.predictor.input(seq, dx, dz);
-      state.ws?.send(encodeFrame({ kind: 'intent', entity: state.entityId, seq, dx, dz }));
-      state.intentsSent += 1;
+      state.horizon = state.latestSnapshotTick + targetingD;
+      const targetTick = state.horizon;
+      // v5 target-tick contract: schedule with targetTick = horizon, then advance the predicted world to it.
+      const scheduled = state.predictor.schedule(seq, dx, dz, targetTick);
+      if (!scheduled) {
+        state.scheduleRefusals += 1;
+      } else {
+        state.sentAtTick.set(seq, state.wallTick);
+        state.ws?.send(encodeFrame({ kind: 'intent', entity: state.entityId, seq, dx, dz, targetTick }));
+        state.intentsSent += 1;
+      }
+      // Advance the predicted world to the horizon (world == horizon at all times).
+      state.predictor.advanceTo(state.horizon);
+      // Resend unacked intents older than one RTT, with their ORIGINAL (seq, targetTick), until
+      // acknowledged or targetTick has passed. At most one resend per RTT per intent. The ingress
+      // gate refuses these as non-monotonic-seq once a newer seq exists — counted, never hidden.
+      for (const intent of state.predictor.pendingIntents) {
+        if (intent.seq <= state.predictor.lastAckedSeq) continue;
+        const sentAt = state.sentAtTick.get(intent.seq);
+        if (sentAt === undefined) continue;
+        const age = state.wallTick - sentAt;
+        if (age <= rttTicks) continue; // younger than one RTT: the ack may still be in flight
+        if (intent.targetTick <= state.latestSnapshotTick) continue; // targetTick passed: stop resending
+        const lastResend = state.lastResendAt.get(intent.seq);
+        if (lastResend !== undefined && state.wallTick - lastResend < rttTicks) continue;
+        state.ws?.send(encodeFrame({
+          kind: 'intent', entity: state.entityId, seq: intent.seq, targetTick: intent.targetTick,
+          dx: intent.dx, dz: intent.dz,
+        }));
+        state.lastResendAt.set(intent.seq, state.wallTick);
+        state.resendsSent += 1;
+      }
     }, TICK_MS);
   }
 
@@ -378,6 +466,8 @@ export async function runMatrixCell(options: MatrixCellOptions): Promise<MatrixC
       desyncs: state.desyncs,
       resyncRequests: state.resyncRequests,
       rejectsReceived: state.rejectsReceived,
+      resendsSent: state.resendsSent,
+      scheduleRefusals: state.scheduleRefusals,
       correctionMm: correctionStats,
       rubberBandMaxMm: correctionStats.max,
       upFramesLost: state.upChannel.stats.dropped,
@@ -412,7 +502,8 @@ export async function runMatrixCell(options: MatrixCellOptions): Promise<MatrixC
       targetDurationS: durationS,
       actualDurationS,
       intentHz: TICK_HZ,
-      resendsUnackedIntents: false,
+      targetingDTicks: targetingD,
+      resendsUnackedIntents: true,
       sendsResyncFrames: false,
     },
     commit: options.commit ?? null,
@@ -427,6 +518,8 @@ export async function runMatrixCell(options: MatrixCellOptions): Promise<MatrixC
       unknownReconciles: clientMetrics.reduce((acc, c) => acc + c.unknownReconciles, 0),
       intentsSent: clientMetrics.reduce((acc, c) => acc + c.intentsSent, 0),
       snapshotsReceived: clientMetrics.reduce((acc, c) => acc + c.snapshotsReceived, 0),
+      resendsSent: clientMetrics.reduce((acc, c) => acc + c.resendsSent, 0),
+      scheduleRefusals: clientMetrics.reduce((acc, c) => acc + c.scheduleRefusals, 0),
       intentsUpFrames: upFrames,
       intentsUpFramesDropped: upFramesDropped,
       snapshotsDownFrames: downFrames,
@@ -447,8 +540,10 @@ export async function runMatrixCell(options: MatrixCellOptions): Promise<MatrixC
     notes: [
       'Application-level emulation (setTimeout), not tc/netem; loss drawn before jitter; seeded LCG (default 20261118).',
       'Own entity assigned by join order (sequential connects); cross-checked against the snapshot viewHash on every reconcile (ownIdCheck).',
-      'Clients predict ahead of the server under latency: known current Predictor behaviour, recorded not fixed (target-tick contract lives on session/20261118-net-target-tick).',
-      'Unacked intents are not retransmitted; lost intents are lost.',
+      'protocol v5 target-tick contract: horizon = latestSnapshotTick + D, D = max(2, ceil((RTT/2 + jitter)/TICK_MS) + 2). latestSnapshotTick ticks +1 per local tick and is raised to each snapshot.tick (never lowered).',
+      'advanceTo is called on every snapshot and after every send, so predicted world.tick == horizon at all times; intents apply exactly at targetTick; off-ticks advance with an empty stepWorld.',
+      'Unacked intents older than one RTT are resent with their ORIGINAL (seq, targetTick), at most one resend per RTT per intent, until acked or targetTick passed.',
+      'Resent intents carry a non-increasing seq and are refused by the ingress MessageGate (non-monotonic-seq, reason malformed); counted in rejectsReceived, never hidden.',
       'needsResync is counted per desync reconcile; no resync frame is sent (the wire gives the client no room client id to address).',
       'up bytes counted at the client send() call; down bytes counted at the server-side socket send() call; ws framing overhead excluded.',
       'correction distance = hypot(|serverOwn.x - predictedOwn.x|, |serverOwn.z - predictedOwn.z|) rounded to integer mm, predicted position sampled before reconcile adoption.',
