@@ -3,7 +3,7 @@
  *
  * Two generations coexist on purpose:
  *   - `./tracer` — v1, JSON, the TRACER-001 walking skeleton. Kept until the game client moves to v2.
- *   - `./binary` — v2, fixed little-endian frames, version handshake, strict lengths. NET-002.
+ *   - `./binary` — the binary frames, fixed little-endian layouts, version handshake, strict lengths. NET-002.
  *
  * A peer that does not speak the version it declares is refused (`reject`), never truncated into
  * something that parses. Adding a message class means bumping `PROTOCOL_VERSION` and the frame table;

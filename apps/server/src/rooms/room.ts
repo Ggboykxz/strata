@@ -53,6 +53,9 @@ export interface RoomTick {
   readonly events: readonly RoomEvent[];
 }
 
+/** Intents may be scheduled at most this many ticks ahead; beyond that they are refused at ingress. */
+export const MAX_TARGET_LEAD_TICKS = 64;
+
 function seedFromId(id: string): number {
   const codes: number[] = [];
   for (let i = 0; i < id.length; i++) codes.push(id.charCodeAt(i));
@@ -68,6 +71,7 @@ export class Room {
   private nextNonce = 1;
   private phaseValue: RoomPhase = 'open';
   private tickValue = 0;
+  private lateIntentsValue = 0;
   private readonly events: RoomEvent[] = [];
   readonly capacity: number;
   readonly reconnectTicks: number;
@@ -87,6 +91,8 @@ export class Room {
   get members(): readonly RoomClient[] { return [...this.clients.values()]; }
   get hash(): string { return this.host.hash; }
   get sim(): SimHost { return this.host; }
+  /** Intents dropped at ingress because their targetTick was already in the past (v5 target-tick contract). */
+  get lateIntents(): number { return this.lateIntentsValue; }
 
   private emit(kind: RoomEventKind, clientId: number): void {
     this.events.push({ kind, roomId: this.id, clientId, tick: this.tickValue });
@@ -173,9 +179,27 @@ export class Room {
         this.emit('rejected-intent', clientId);
         return false; // replay or stale intent: never enqueue it twice
       }
-      const accepted = this.host.submit({
-        entity: client.entityId, seq: message.seq, dx: message.dx, dz: message.dz,
-      });
+      // v5 target-tick contract: an intent whose targetTick is already in the past at the moment it
+      // arrives is dropped and counted, never applied late. More than 64 ticks ahead is refused at ingress.
+      const arrivalTick = this.host.tick;
+      if (message.targetTick <= arrivalTick) {
+        this.lateIntentsValue++;
+        this.emit('rejected-intent', clientId);
+        return false;
+      }
+      const command = { entity: client.entityId, seq: message.seq, dx: message.dx, dz: message.dz };
+      if (message.targetTick <= arrivalTick + 1) {
+        // Exactly the next tick: today's behaviour, applied as usual.
+        const accepted = this.host.submit(command);
+        if (accepted) this.submittedSeq.set(client.entityId, message.seq);
+        else this.emit('rejected-intent', clientId);
+        return accepted;
+      }
+      if (message.targetTick > arrivalTick + MAX_TARGET_LEAD_TICKS) {
+        this.emit('rejected-intent', clientId);
+        return false; // scheduled too far ahead: refused at ingress, never buffered
+      }
+      const accepted = this.host.buffer({ ...command, targetTick: message.targetTick });
       if (accepted) this.submittedSeq.set(client.entityId, message.seq);
       else this.emit('rejected-intent', clientId);
       return accepted;
@@ -188,7 +212,7 @@ export class Room {
     return false; // a server does not accept snapshots from clients (I1)
   }
 
-  /** Advance the authoritative tick, send each client its own snapshot, then sweep handles. */
+  /** Advance the authoritative tick, send each client its own snapshot, then sweep handles. Buffered intents due this tick are submitted by the host before the world advances (v5 target-tick contract). */
   tick(): RoomTick {
     const result = this.host.step();
     this.tickValue = result.tick;

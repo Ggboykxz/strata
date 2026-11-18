@@ -8,11 +8,11 @@ import {
   type SnapshotFrame, type WireMessage,
 } from '../src/index';
 
-const intent: WireMessage = { kind: 'intent', entity: 7, seq: 42, dx: 1, dz: -1 };
+const intent: WireMessage = { kind: 'intent', entity: 7, seq: 42, targetTick: 100, dx: 1, dz: -1 };
 const hashack: WireMessage = { kind: 'hashack', client: 3, tick: 900, hash: 'deadbeef' };
-const hello: WireMessage = { kind: 'hello', version: 4, capabilities: 0b1010_0101 };
-const welcome: WireMessage = { kind: 'welcome', version: 4 };
-const reject: WireMessage = { kind: 'reject', version: 4, reason: 'version' };
+const hello: WireMessage = { kind: 'hello', version: 5, capabilities: 0b1010_0101 };
+const welcome: WireMessage = { kind: 'welcome', version: 5 };
+const reject: WireMessage = { kind: 'reject', version: 5, reason: 'version' };
 
 function roundTrip(msg: WireMessage): WireMessage {
   return decodeFrame(encodeFrame(msg));
@@ -23,10 +23,23 @@ function snapshot(entities: SnapshotFrame['entities']): SnapshotFrame {
 }
 
 describe('binary framing', () => {
-  it('declares v4 and supports exactly that version today', () => {
-    expect(PROTOCOL_VERSION).toBe(4);
-    expect(SUPPORTED_MIN_VERSION).toBe(4);
-    expect(SUPPORTED_MAX_VERSION).toBe(4);
+  it('declares v5 and supports exactly that version today', () => {
+    expect(PROTOCOL_VERSION).toBe(5);
+    expect(SUPPORTED_MIN_VERSION).toBe(5);
+    expect(SUPPORTED_MAX_VERSION).toBe(5);
+  });
+
+  it('declares the 15-byte v5 intent layout and round-trips it exactly', () => {
+    expect(INTENT_BYTES).toBe(15);
+    const frame = encodeFrame(intent);
+    expect(frame.byteLength).toBe(15);
+    const decoded = decodeFrame(frame);
+    expect(decoded).toEqual(intent);
+    // targetTick sits between seq and dx: entity(1..4) seq(5..8) targetTick(9..12) dx(13) dz(14)
+    const view = new DataView(frame.buffer);
+    expect(view.getUint32(9, true)).toBe(100);
+    expect(view.getInt8(13)).toBe(1);
+    expect(view.getInt8(14)).toBe(-1);
   });
 
   it('packs every frame to its exact declared length', () => {
@@ -102,7 +115,7 @@ describe('strict decoding', () => {
 
   it('refuses an axis outside {-1,0,1} on the wire', () => {
     const frame = encodeFrame(intent);
-    frame[9] = 5;
+    frame[13] = 5;
     expect(() => decodeFrame(frame)).toThrow(ProtocolError);
   });
 
@@ -131,17 +144,17 @@ describe('strict decoding', () => {
 
 describe('version handshake', () => {
   it('welcomes the supported version', () => {
-    expect(negotiate(4)).toEqual({ kind: 'welcome', version: 4 });
+    expect(negotiate(5)).toEqual({ kind: 'welcome', version: 5 });
   });
 
   it('rejects an older and a newer version — never coerces', () => {
-    expect(negotiate(3)).toEqual({ kind: 'reject', version: 4, reason: 'version' });
-    expect(negotiate(5)).toEqual({ kind: 'reject', version: 4, reason: 'version' });
-    expect(negotiate(0)).toEqual({ kind: 'reject', version: 4, reason: 'version' });
+    expect(negotiate(4)).toEqual({ kind: 'reject', version: 5, reason: 'version' });
+    expect(negotiate(6)).toEqual({ kind: 'reject', version: 5, reason: 'version' });
+    expect(negotiate(0)).toEqual({ kind: 'reject', version: 5, reason: 'version' });
   });
 
   it('round-trips the reject frame it produces', () => {
-    expect(roundTrip(negotiate(99))).toEqual({ kind: 'reject', version: 4, reason: 'version' });
+    expect(roundTrip(negotiate(99))).toEqual({ kind: 'reject', version: 5, reason: 'version' });
   });
 });
 
