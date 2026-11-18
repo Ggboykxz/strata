@@ -1177,4 +1177,43 @@ locks:
     acquired_at: "2026-11-18T09:32:00Z"
     expires_at: "2026-11-18T10:02:00Z"
     status: released
+  - path_glob: "apps/server/src/rooms/ws-adapter.ts"
+    owner_agent: backend-engineer
+    task_id: SEC-002
+    branch: session/20261118-hc-001-high-concept
+    acquired_at: "2026-11-18T13:32:00Z"
+    expires_at: "2026-11-18T14:02:00Z"
+    status: active
+
+  - path_glob: "apps/server/test/rooms.test.ts"
+    owner_agent: gameplay-engineer
+    task_id: SEC-002
+    branch: session/20261118-hc-001-high-concept
+    acquired_at: "2026-11-18T13:32:00Z"
+    expires_at: "2026-11-18T14:02:00Z"
+    status: active
+
+  - path_glob: "docs/legal/THREAT_MODEL.md"
+    owner_agent: security-auditor
+    task_id: SEC-002
+    branch: session/20261118-hc-001-high-concept
+    acquired_at: "2026-11-18T13:32:00Z"
+    expires_at: "2026-11-18T14:02:00Z"
+    status: active
+
+  - path_glob: "docs/design/gdd/GDD-SECURITY.md"
+    owner_agent: security-auditor
+    task_id: SEC-002
+    branch: session/20261118-hc-001-high-concept
+    acquired_at: "2026-11-18T13:32:00Z"
+    expires_at: "2026-11-18T14:02:00Z"
+    status: active
+
+  - path_glob: "docs/state/metrics/2026-11-18-s02.json"
+    owner_agent: orchestrator
+    task_id: SEC-002
+    branch: session/20261118-hc-001-high-concept
+    acquired_at: "2026-11-18T13:32:00Z"
+    expires_at: "2026-11-18T14:02:00Z"
+    status: active
 
