@@ -15,13 +15,13 @@ $ vitest run
  RUN  v5.1.0 /content/strata
 
 
- Test Files  19 passed (19)
-      Tests  167 passed (167)
-   Start at  11:00:33
-   Duration  7.06s (tests 61%, import 26%, transform 6%, worker 6%)
+ Test Files  25 passed (25)
+      Tests  188 passed (188)
+   Start at  13:41:16
+   Duration  9.46s (tests 61%, import 28%, worker 6%, transform 5%)
 
-    Isolate  19 workers spawned · ~217ms startup each (spawn + environment, per file)
-             at least ~3.90s faster with isolate: false — reuses workers across files instead of one per file
+    Isolate  25 workers spawned · ~226ms startup each (spawn + environment, per file)
+             at least ~5.42s faster with isolate: false — reuses workers across files instead of one per file
 
 == validate-prompt-drift
 PASS  docs/state/PROMPT.lock parsed (version 1)
@@ -112,18 +112,13 @@ B7  acceptance commands exist; stubs fail
 OK    every acc script exists; 14 are declared stubs (they exit 1 until implemented)
 
 B9  acceptance commands must not be false-pass forms
-WARN  B9 PR-N2 legacy false-pass acc "pnpm sim prn2 --assert" — repair when the task is implemented
-WARN  B9 PR-S3 legacy false-pass acc "pnpm sim prs3 --assert" — repair when the task is implemented
-WARN  B9 PR-S6 legacy false-pass acc "pnpm sim prs6 --assert" — repair when the task is implemented
-WARN  B9 PR-S7 legacy false-pass acc "pnpm sim prs7 --assert" — repair when the task is implemented
-WARN  B9 PR-S8 legacy false-pass acc "pnpm sim prs8 --assert" — repair when the task is implemented
 WARN  B9 AN-002 legacy false-pass acc "pnpm test --filter @strata/anim" — repair when the task is implemented
 WARN  B9 P3-005 legacy false-pass acc "pnpm test --filter @strata/a11y" — repair when the task is implemented
 WARN  B9 P3-006 legacy false-pass acc "pnpm test --filter @strata/perf" — repair when the task is implemented
 WARN  B9 NET-102 legacy false-pass acc "pnpm test --filter @strata/persistence" — repair when the task is implemented
 WARN  B9 NET-103 legacy false-pass acc "pnpm test --filter @strata/server -t commitqueue" — repair when the task is implemented
 WARN  B9 MOD-001 legacy false-pass acc "pnpm test --filter @strata/moderation" — repair when the task is implemented
-OK    11 declared legacy false-pass accs; no new ones accepted
+OK    6 declared legacy false-pass accs; no new ones accepted
 
 B8  split heuristic (acc > 3 or out > 4)
 WARN  B8 P0-001 split required and declared (2 acc, 8 out)
@@ -135,7 +130,7 @@ WARN  B8 P1-004 split required and declared (1 acc, 5 out)
 WARN  B8 P3-001 split required and declared (2 acc, 5 out)
 OK    no oversized, undeclared task
 
-RESULT: PASS — 63 tasks, 11 gates, 0 error(s), 23 warning(s)
+RESULT: PASS — 63 tasks, 11 gates, 0 error(s), 18 warning(s)
 == validate-ownership (WF-002)
 
 O1  structure: 32 owners, 168 globs, 7 catch-all
@@ -187,7 +182,7 @@ RESUME DRILL (--dry, read-only)
 PASS  repository root
       /content/strata
 PASS  pwd
-      7 change(s)
+      6 change(s)
 PASS  git status --short
       session/20261118-hc-001-high-concept
 PASS  git branch --show-current
@@ -207,7 +202,7 @@ PASS  LOCKS.yaml schema and expiry
 resume plan
   session   2026-11-18-s02
   branch    session/20261118-hc-001-high-concept
-  next      PR-S1
+  next      PR-S7
   open Director items:
     ND-004
     ND-005
@@ -241,7 +236,7 @@ D1  vision document (--check)
 OK    VISION.md: metadata, 8 sections, locked sentence, amendment and non-goals present
 
 D2  ADR structure
-OK    7 ADR(s) have title, status and a Context/Decision section
+OK    8 ADR(s) have title, status and a Context/Decision section
 
 D3  TDD structure
 OK    3 TDD file(s) have title, status, Context and GIVEN/WHEN/THEN
@@ -249,7 +244,7 @@ OK    3 TDD file(s) have title, status, Context and GIVEN/WHEN/THEN
 D4  slice, UX and localization specs
 OK    slice T2 numbers, 7 a11y controls and FR/EN parity rules present
 
-RESULT: PASS — 7 ADR(s), 3 TDD(s), 0 error(s). Structural check only; no claim validated.
+RESULT: PASS — 8 ADR(s), 3 TDD(s), 0 error(s). Structural check only; no claim validated.
 == validate-gdd --template (GDD-001)
 
 G1  module inventory: 32 files, expected 32

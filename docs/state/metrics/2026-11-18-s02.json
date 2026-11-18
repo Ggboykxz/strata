@@ -198,7 +198,7 @@
     "wire_budget_over_factor": 3.9,
     "actions_runs": 8,
     "actions_runs_success": 8,
-    "ci_head": "8f8f8c987fc045646f62a73f88174b0766f6f370",
+    "ci_head": "7164792856cdc54200832fcda4fb7a89a49d0a37",
     "anim_tests": 22,
     "anim_states": 5,
     "blend_ticks": 2,
@@ -1768,7 +1768,8 @@
     "PR-S3: 2 distinct player fact ids, 2 delayed effects at fact_tick+9, 1 text-only refusal, 243 reachable states, 6 FR/EN keys with 0 untranslated, deterministic.",
     "PR-S6: 1000 immutable faction facts, reputation derived and replay-exact, 4 standing changes, 4 switches, 4 refusals; GATE:P2SYS now satisfied.",
     "HC-003: 900 ticks, 3 facts/3 strata, 6 captures, two clients agree on fact ids, variant ids, epoch and hash; CIS 85/100.",
-    "Wow density scored 0 because no playtest exists — I13 forbids inventing it. Dashboard source filter fixed after concept.json broke the latest-file assumption."
+    "Wow density scored 0 because no playtest exists — I13 forbids inventing it. Dashboard source filter fixed after concept.json broke the latest-file assumption.",
+    "HC-003 CI at 7164792856cdc54200832fcda4fb7a89a49d0a37: 8/8 triggered workflows success; run ids in docs/state/evidence/20261118T133709Z-HC-003/08-ci-proof.log."
   ],
   "result": {
     "phase": "P2NET",
@@ -1958,7 +1959,7 @@
         },
         {
           "dir": "docs/state/evidence/20261118T133709Z-HC-003/",
-          "logs": 7,
+          "logs": 8,
           "branch": "session"
         }
       ]
