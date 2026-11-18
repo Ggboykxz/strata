@@ -1,47 +1,33 @@
-## 2026-11-18T00:36:00Z | tools-engineer -> all | EVIDENCE
+## 2026-11-18T09:10:00Z | orchestrator -> all | EVIDENCE
 
-**claim:** P0-002 passes its acceptance and the new validator is falsifiable, not decorative.
+**claim.** D146 is satisfied: the §20 result is generated from `metrics.json` by a real script, in SHORT and
+FULL form, deterministically, and it fails closed when a source is missing.
 
-**evidence** (`docs/state/evidence/20261118T001004Z-P0-002/`)
-- `01-stub-generation.log` — 21 stubs written; each line names the owner **from the map** and the task that
-  references it. The two disputed files say `DISPUTED — map says orchestrator, task WF-002 says tools-engineer`.
-- `02-stubs-fail.log` — 21 run, 21 exit 1 with `NOT IMPLEMENTED`, 0 broken.
-- `03-validate-blueprint.log` — `RESULT: PASS — 63 tasks, 11 gates, 0 error(s), 13 warning(s)`, exit 0.
-- `04-blueprint-negative-tests.log` — 6/6: baseline 0; B1 gate cycle 1; B2 foreign writer 1; B5 art while
-  NET-GATE unpassed 1; B7 missing acceptance script 1; B8 oversized undeclared 1.
-- `05-agents-skills.log` — 32 agents, 51 skill stubs.
-- `06-opencode-tree.log` — 32/32 owners covered, no extra agent, 0 agent problems, 0 missing skills,
-  51/51 skills carry a description.
+**evidence** (`docs/state/evidence/20261118T084957Z-P0-002/`)
 
-**parser equality** — `scripts/lib/yaml.mjs` output equals PyYAML `safe_load` on `BLUEPRINT.yaml`,
-`OWNERSHIP.yaml` and `SCOPE_LEDGER.yaml` (deep equality, exit 0). The parser refuses unknown syntax with a
-line number rather than guessing.
+| log | command | exit | result |
+|---|---|---|---|
+| `01-short.log` | `node scripts/session-result.mjs` | 0 | all 12 SHORT lines from metrics |
+| `02-full.log` | `node scripts/session-result.mjs --format full` | 0 | SHORT + 10 FULL lines |
+| `03-deterministic.log` | two runs with `--out`, then `cmp` | 0 | byte-identical |
+| `04-negative-missing-field.log` | same file with `result.status` removed | **1** | names `missing or empty result.status in …` |
+| `05-negative-bad-format.log` | `--format bogus` | **1** | names the invalid value |
+| `06-verify.log` | `pnpm verify` | 0 | **17/17**, baseline unchanged |
 
-**interpretations, recorded to be challenged**
-1. **B1 is a cycle rule, not a rank rule.** A task may depend on a gate that does not require it. `NG-001`
-   depends on `GATE:P2NET` by design; a rank rule would reject the master's own blueprint.
-2. **B2 exemptions are printed.** 3 scaffold tasks (`P0-002`, `P0-003`, `TRACER-001`) write outside their
-   agent's globs; §4.2 allows it, so it is a warning with the offending paths, never a silent pass.
-3. **B2 append-only zones allow new files.** `docs/adr/**` resolves to `producer` by catch-all, but any agent
-   may create a *new* file there. The validator checks `existsSync`: a new path passes, an overwrite does not.
-4. **B3/B4/B5 are deferred, not skipped.** They depend on runtime state (ledger maturity, authorized tier,
-   NET-GATE). They are enforced on P0 tasks now and listed as DEFERRED for the other 32.
-5. **B7 treats a stub as a warning.** A missing script is an error; a declared failing stub means "not
-   verifiable yet", which is honest. The 21 stubs are counted and printed.
+**sourced values, not memories.** 50 acceptance commands (45 exit 0, 5 non-zero named); 7 evidence dirs
+with 63 logs; 30 locks acquired/released; 5 tasks; tier S0/S1; CIS `NOT COMPUTABLE` with its reason; coverage
+100%; ledger 12 balanced; NET-GATE `unpassed / art_allowed false` and four unmeasured netcode metrics;
+audit id `AUDIT-2026-11-18-P0-006`. The stale metrics note claiming "this result was composed by hand" was
+removed and replaced by a D146-satisfied note.
 
-**defects found before commit**
-- The first glob compiler escaped `*` before translating it, so `docs/**` compiled to `^docs\/.[^/]*$` and
-  matched almost nothing. Every ownership check was vacuous; the validator said PASS on a broken map.
-  Fixed by compiling wildcards character by character. This is why the negative tests exist.
-- The B8 negative test initially edited a task whose `out` list did not match the sed pattern, so the test
-  passed for the wrong reason (no mutation). Rewritten to append to `SC-001`'s real line; it now fails when
-  the validator does not catch it.
+**fail-closed proof.** Deleting one string field from a copy of the metrics file makes the generator exit 1
+with the field path. No default value can silently replace a missing source.
 
-**measured**
-- 63 tasks, 11 gates, 9 phases, 0 duplicate ids, 0 missing required field
-- 13 warnings: 3 B2 scaffold, 1 B2 dispute D-002, 1 B3 deferral, 1 B4/B5 deferral (32 tasks), 7 B8 splits
-- 32 agents for 32 owners; 51 skills; 21 failing stubs
+**verify.** `session-result.mjs` no longer appears in the deferred stub list (`gdd-to-tests.mjs` remains);
+the 17 enabled steps are unchanged. No `--out` file or negative-test fixture was committed.
 
-**impact:** concept_role `sup`; SL-P0-002, 1 session; tier S0; no GDD module exists yet (P1).
-**ask:** none for this task. **D-002 remains open** and blocks WF-002, not P0-002.
-**deadline:** GATE:P0
+**honest limits.** The generator formats metrics; it does not verify that the numbers in metrics are true.
+That remains the job of the evidence logs and the acceptances that produced them. FULL fields about concept
+signature ratio, content math and economy are `NOT COMPUTABLE` where no measured source exists.
+
+**locks.** 2 globs (script + metrics file), one sorted commit on `state/locks`, owner orchestrator, task P0-002.

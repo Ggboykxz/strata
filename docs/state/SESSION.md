@@ -43,6 +43,7 @@
 | NET-001 | core tick, hash ring, headless `SimHost`; GDD-NETCODE 0.3; NET-001 acc repaired | core 19/19 · server 8/8 · `verify` 17/17 · tracer 0 |
 | NET-002 | binary v2 frames, handshake, `ProtocolError`; GDD-NETCODE 0.4; NET-002 acc repaired | protocol 23/23 · full 51/51 · `verify` 17/17 · 1 551 B max frame |
 | NET-005 | anim state machine in core, clip manifest + JSON schema; GDD-ANIM-ARCHITECTURE 0.3 | anim 22/22 · full 73/73 · `verify` 17/17 · 12 B anim_state |
+| P0-002 (D146) | real `scripts/session-result.mjs`, structured `result` block in metrics | short 0 · full 0 · negative 1 · `verify` 17/17 |
 
 **P0-001 and P0-002 were split** although only P0-001 triggered B8: the halves fail for different reasons and
 deserve separate rollback points. Commits: `094f31f`, `bd6f550` (P0-001); `1ceaf20`, `7e9d382` (P0-002).
@@ -204,3 +205,11 @@ blueprint task currently owns the pin: recorded as a gap for the Director/next r
   and evidence: build 0, truth check 0, negative check **1**, verify 17/17, Actions 8/8. It is truthful but
   still static (no hydrator, no server).
 - **Still Director-only:** ND-004/ND-005 rotation, PR #1 merge. ND-011 (TPU scope) awaiting one answer.
+
+## Session 2 — D146 closed (2026-11-18T09:10Z)
+
+- `scripts/session-result.mjs` is no longer a stub. It generates the §20 SHORT and FULL results entirely
+  from `docs/state/metrics/2026-11-18-s02.json`, including a new structured `result` block for the fields
+  that were not numeric sources. Missing required fields exit 1; two runs are byte-identical.
+- The stale metrics note "this result was composed by hand" is replaced by a D146-satisfied note.
+- `pnpm verify` remains **17/17**; the stub simply disappears from the deferred list.

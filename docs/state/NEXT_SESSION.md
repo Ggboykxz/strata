@@ -2,7 +2,7 @@
 
 | field | value |
 |---|---|
-| written | 2026-11-18T08:57Z |
+| written | 2026-11-18T09:11Z |
 | branch | `session/20261118-hc-001-high-concept` — **PR #1** (draft) https://github.com/Ggboykxz/strata/pull/1 |
 | also open | **PR #2** dashboard truth repair — `session/20261118-dashboard-truth`, base = session branch |
 | mode | RESUME |
@@ -83,7 +83,7 @@ all three false-pass forms should land with that repair, not before.
 
 1. **Wire `apps/dashboard/check.mjs` into `pnpm verify`** (from PR #2): it currently does not run in CI, and
    adding it changes the 17-step baseline — do it as a named task, not silently.
-2. `scripts/session-result.mjs` (D146) — still a stub; §20 results are hand-written.
+2. ~~`scripts/session-result.mjs` (D146)~~ **DONE** — real generator, short/full 0, negative 1, verify 17/17.
 3. Generated `docs/state/JOURNAL.md` (master §7) — view missing; `AGENTS.md` §1 points at it.
 4. `validate-locks.mjs` cannot represent a gate (`task_id` must exist in `BLUEPRINT.yaml`).
 5. Pin the Playwright MCP in `opencode.json` (unpinned, §10.6).

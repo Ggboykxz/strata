@@ -1,0 +1,3 @@
+$ node scripts/session-result.mjs (twice, --out)
+BYTE-IDENTICAL
+EXIT=0
