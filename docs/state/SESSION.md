@@ -7,8 +7,8 @@
 | branch | `session/20261118-hc-001-high-concept` |
 | phase / tier | P0 / current `S0`, authorized `S0` |
 | director | present for bootstrap; async from now |
-| last task | WF-002 (real ownership + lock validators, wired into `verify`) |
-| next task | **TRACER-001** — walking skeleton (sig before P0-004 amp; D137) |
+| last task | TRACER-001 (walking skeleton, equal state hashes) |
+| next task | **P0-004** — 27 CI workflows + real `scripts/validate-workflows.mjs` |
 
 ## Done this session
 
@@ -24,6 +24,7 @@
 | P0-003 | workspace (2 packages, 3 apps, 1 sim lib), `verify`, `STACK.lock.md` | frozen install exit 0; `pnpm verify` 7/7 + 4 negative tests |
 | HC-001 (amend) | HIGH_CONCEPT v1.1 → v1.2, T3 signed at GATE:P0 | `concept --init` 0, `--check` 0 |
 | WF-002 | `scripts/validate-ownership.mjs`, `scripts/validate-locks.mjs`, `verify` integration | both exit 0; 8/8 negative tests; `verify` 9/9 |
+| TRACER-001 | core tracer, protocol, WS server, Babylon client, `pnpm tracer --assert` | assert exit 0; desync exit 1; lint negative 1 |
 
 **P0-001 and P0-002 were split** although only P0-001 triggered B8: the halves fail for different reasons and
 deserve separate rollback points. Commits: `094f31f`, `bd6f550` (P0-001); `1ceaf20`, `7e9d382` (P0-002).
@@ -92,9 +93,10 @@ blueprint task currently owns the pin: recorded as a gap for the Director/next r
 - `corepack enable` is done; pnpm is pinned to **12.21.0** and the lockfile is committed.
 - `pnpm verify` (**9 steps**, fail-fast) is the only entry point. It prints DEFERRED for determinism replay,
   GDD coverage and the 19 stubs; none of those counts as green.
-- TRACER-001 is selected next over P0-004: both depend only on P0-003, but TRACER is `sig` and P0-004 is `amp`
-  (selection order), and D137 puts the walking skeleton before bulk GDD work. Babylon stays NOT INSTALLED
-  until the TRACER handoff pins it with an exact version.
+- TRACER-001 is green: 1 capsule, fixed 30 Hz authoritative tick, two reconciled replicas with equal FNV-1a
+  hashes, Babylon NullEngine render in CI. `pnpm tracer --assert` exists; forcing a desync makes it exit 1.
+- Babylon **9.37.0 (Apache-2.0)** and `ws` **8.23.0 (MIT)** are pinned in `STACK.lock.md`. NullEngine is
+  tooling/CI only and is never imported by the server tick (I3). NET-GATE is still unpassed — greybox only.
 - The glob compiler is duplicated between `validate-blueprint.mjs` B2 and `validate-ownership.mjs`;
   consolidating it into `scripts/lib/ownership.mjs` is a tools-engineer handoff recorded in the thread.
 - TypeScript is pinned to **6.0.3** because 7.x ships the native compiler without the JS AST API the

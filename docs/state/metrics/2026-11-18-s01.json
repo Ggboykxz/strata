@@ -15,7 +15,8 @@
     { "id": "P0-002.a", "status": "done" },
     { "id": "P0-002.b", "status": "done" },
     { "id": "P0-003", "status": "done" },
-    { "id": "WF-002", "status": "done" }
+    { "id": "WF-002", "status": "done" },
+    { "id": "TRACER-001", "status": "done" }
   ],
   "measured": {
     "hc_t1_en_words": 25,
@@ -69,6 +70,11 @@
     "validator_stubs_failing": 19,
     "ownership_globs": 164,
     "wf002_negative_tests": 8,
+    "tracer_replicas": 2,
+    "tracer_ticks": 5,
+    "tracer_negative_tests": 2,
+    "babylon_version": "9.37.0",
+    "ws_version": "8.23.0",
     "yaml_parser_documents_equal_to_pyyaml": 3,
     "workspace_projects": 7,
     "workspace_packages": 2,
@@ -129,7 +135,13 @@
     { "cmd": "node scripts/validate-ownership.mjs", "exit": 0, "log": "docs/state/evidence/20261118T005800Z-WF-002/01-validate-ownership.log" },
     { "cmd": "node scripts/validate-locks.mjs", "exit": 0, "log": "docs/state/evidence/20261118T005800Z-WF-002/02-validate-locks.log" },
     { "cmd": "bash /tmp/opencode/wf2-negative.sh", "exit": 0, "log": "docs/state/evidence/20261118T005800Z-WF-002/03-negative-tests.log" },
-    { "cmd": "pnpm verify (9 enabled steps)", "exit": 0, "log": "docs/state/evidence/20261118T005800Z-WF-002/05-verify-integrated.log" }
+    { "cmd": "pnpm verify (9 enabled steps)", "exit": 0, "log": "docs/state/evidence/20261118T005800Z-WF-002/05-verify-integrated.log" },
+    { "cmd": "pnpm tracer --assert", "exit": 0, "log": "docs/state/evidence/20261118T010750Z-TRACER-001/01-tracer-assert.log" },
+    { "cmd": "TRACER_FORCE_DESYNC=1 pnpm tracer --assert", "exit": 1, "log": "docs/state/evidence/20261118T010750Z-TRACER-001/02-tracer-desync-negative.log" },
+    { "cmd": "pnpm lint (Math.random in core)", "exit": 1, "log": "docs/state/evidence/20261118T010750Z-TRACER-001/03-lint-negative.log" },
+    { "cmd": "npm view <exact packages> license", "exit": 0, "log": "docs/state/evidence/20261118T010750Z-TRACER-001/04-license-check.log" },
+    { "cmd": "pnpm install --frozen-lockfile", "exit": 0, "log": "docs/state/evidence/20261118T010750Z-TRACER-001/05-frozen-install.log" },
+    { "cmd": "pnpm verify (9 enabled steps)", "exit": 0, "log": "docs/state/evidence/20261118T010750Z-TRACER-001/06-verify.log" }
   ],
   "notes": [
     "every number above was produced by a command in this session; none is an estimate",
@@ -143,6 +155,8 @@
     "ND-004/ND-005 remain open because token rotation requires the Director's GitHub and HF account access; a prefix scan found 0 secrets in git or the tracked worktree",
     "21 validator stubs were created by P0-002; WF-002 implemented 2, leaving 19, all still exiting 1 by design",
     "WF-002's glob compiler mirrors validate-blueprint B2; consolidation into scripts/lib/ownership.mjs is a recorded tools-engineer handoff (I6: orchestrator cannot edit scripts/lib/**)",
+    "TRACER-001: 2 replicas and 5 authoritative ticks reach equal FNV-1a hashes; forcing a desync exits 1, and Math.random in core still fails the AST lint",
+    "Babylon 9.37.0 (Apache-2.0) and ws 8.23.0 (MIT) were pinned and license-checked from the registry before first import; NullEngine is CI-only",
     "the generator scripts live in /tmp and are not committed; their output (agents, skills, stubs) is",
     "the four negative P0-003 entries exit nonzero on purpose: they prove typecheck, the core-math ban, vitest and verify can fail before being trusted",
     "TypeScript is pinned to 6.0.3, not 7.0.2: the 7.x package ships the native compiler and no JS AST API, which scripts/lint-core-math.mjs needs; documented in docs/STACK.lock.md",
