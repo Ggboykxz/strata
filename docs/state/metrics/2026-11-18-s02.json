@@ -151,7 +151,7 @@
     "wire_budget_over_factor": 3.9,
     "actions_runs": 8,
     "actions_runs_success": 8,
-    "ci_head": "956267ac9df574b7b6f5f3a481a4c93a5d6a6b10",
+    "ci_head": "d935036cee2ed5c5df35f3d9eaf53a1885c0351a",
     "anim_tests": 22,
     "anim_states": 5,
     "blend_ticks": 2,
@@ -1207,7 +1207,8 @@
     "No Babylon scene, blind-reviewer captures or art. GATE:P2 still unsatisfied; art tasks remain blocked.",
     "GB-001 CI at the attested head: 8/8 triggered workflows success; run ids in docs/state/evidence/20261118T102136Z-GB-001/09-ci-proof.log.",
     "PR-S4: bigint minor-unit crafting graph, Bellman-Ford positive-cycle detection; cycle script -> bundle:replicate -> script named and refused.",
-    "Not ECON-001: no 1000 bots, no 30 days, no inflation/Gini. No art, no GPU/TPU (ND-012)."
+    "Not ECON-001: no 1000 bots, no 30 days, no inflation/Gini. No art, no GPU/TPU (ND-012).",
+    "PR-S4: first CI 6/8 (O3/B2 co-owner), fixed in d935036; 8/8 at d935036cee2ed5c5df35f3d9eaf53a1885c0351a. Both results recorded, none hidden."
   ],
   "result": {
     "phase": "P2NET",
