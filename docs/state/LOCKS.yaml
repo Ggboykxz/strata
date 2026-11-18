@@ -1293,4 +1293,11 @@ locks:
     acquired_at: "2026-11-18T14:26:00Z"
     expires_at: "2026-11-18T14:56:00Z"
     status: released
+  - path_glob: "tools/qa/gen-stubs.mjs"
+    owner_agent: tools-engineer
+    task_id: P0-002
+    branch: session/20261118-hc-001-high-concept
+    acquired_at: "2026-11-18T14:34:00Z"
+    expires_at: "2026-11-18T15:04:00Z"
+    status: active
 
