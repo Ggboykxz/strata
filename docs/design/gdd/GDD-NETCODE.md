@@ -46,8 +46,8 @@ Lag compensation (`#lag-comp`): the server keeps a bounded tick→world ring. A 
 - range ceiling = 12 000 mm, squared-distance comparison in bigint | TUNABLE until PR-S1 measures the weapon
 - shot cooldown = 15 ticks = 500 ms at 30 Hz | TUNABLE until PR-S1
 - LOS cell = 1 000 mm, integer Bresenham traversal | SOURCE: tools/sim/net/prn4_lagcomp.ts LOS_CELL_MM
-- v2 frame bytes: intent 11, hash ack 13, hello 4, welcome 3, reject 4, snapshot header 15 + 24 per entity, max 1 551 at 64 entities | SOURCE: packages/protocol/src/binary.ts byte constants; `packages/protocol/test/binary.test.ts` asserts 1 551
-- full-snapshot ceiling: 1 551 B x 30 Hz = 46 530 B/s at 64 entities | MEASURED arithmetic, **over** the 12 KB/s budget by 3.9x | plan: NET-101 owns AoI + delta; the codec does not claim to meet the budget
+- v4 frame bytes: intent 11, hash ack 13, hello 4, welcome 3, reject 4, anim 17, resync 10, snapshot header 19 + 24 per entity, max 1 555 at 64 entities | SOURCE: packages/protocol/src/binary.ts byte constants; `packages/protocol/test/binary.test.ts` asserts 1 555 (A0010)
+- full-snapshot ceiling: 1 555 B x 30 Hz = 46 650 B/s at 64 entities | MEASURED arithmetic, **over** the 12 KB/s budget by 3.80x | plan: NET-101 owns AoI + delta (A0011); the codec does not claim to meet the budget
 
 ## 6. State machine
 

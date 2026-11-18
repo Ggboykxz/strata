@@ -30,7 +30,7 @@ plausibility active. The Director signed with risk acceptance (A0006); no art is
 | soak-30min | not-measured | NOT COMPUTABLE | — | NOT COMPUTABLE | PR-N1 measured 180 ticks of local CPU, not a 30-minute soak |
 | desync-correction | not-measured | NOT COMPUTABLE | — | NOT COMPUTABLE | correction p95 < 0.3 m and rubber-band > 2 m have no measured source |
 | server-tick-p95 | not-measured | NOT COMPUTABLE | — | NOT COMPUTABLE | metrics `server_tick_p95_ms` is null; local CPU p95 must not be substituted |
-| wire-budget | failing | `pnpm vitest run packages/protocol -t 1 551` | 0 | `docs/state/evidence/20261118T082404Z-NET-002/09-frame-size.log` | 46 530 B/s = 3.79× the 12 288 B/s budget; NET-101 owns AoI/delta |
+| wire-budget | failing | `pnpm vitest run packages/protocol -t 1 555` | 0 | `docs/state/evidence/20261118T082404Z-NET-002/09-frame-size.log` (v3 numbers); v4 measurement in `docs/state/evidence/20261118T195450Z-NETGATE-CORE/` | 46 650 B/s = 3.80× the 12 288 B/s budget (A0010, header 15→19 B); NET-101 owns AoI/delta |
 | reconnect-restore | partial | `pnpm vitest run apps/server/test/rooms.test.ts` | 0 | `docs/state/evidence/20261118T085724Z-NET-003/01-acc-rooms.log` | handles and snapshots proven in-process; no 4-client reconnect or measured RPO |
 | crash-restore-rpo | partial | `pnpm vitest run tools/sim/persist/test/prn3.test.ts --reporter=verbose` | 0 | `docs/state/evidence/20261118T092845Z-PR-N3/01-acc-fuzz.log` | 10k replay with zero drift; no disk dataset, no ≤3 s timing, no RPO promise |
 | ledger-fuzz | met | `pnpm vitest run tools/sim/persist/test/prn3.test.ts --reporter=verbose` | 0 | `docs/state/evidence/20261118T092845Z-PR-N3/01-acc-fuzz.log` | 10 000 tx, 1 000 duplicates, 1 conflict, drift 0 minor units |
