@@ -1,0 +1,15 @@
+$ pnpm vitest run apps/server/test/netgate/crash-restore.test.ts --reporter=verbose
+
+ RUN  v5.1.0 /tmp/strata-persist
+
+stdout | apps/server/test/netgate/crash-restore.test.ts > NET-GATE crash restore and RPO > restores the last atomically written checkpoint in under 3 s and publishes a 5 s RPO
+NETGATE_CRASH {"child":"apps/server/test/netgate/crash-child.ts","crash":"SIGKILL","checkpointIntervalMs":5000,"publishedRpoMs":5000,"rpoWithinGateMs":true,"measuredCheckpointAgeAtKillMs":255,"killedAfterRunnerStartMs":7477,"lastProgressTickBeforeKill":162,"lostTicksAfterCheckpoint":11,"checkpoint":{"generation":2,"writtenAt":"2026-11-18T20:00:37.781Z","tick":151,"hash":"2a346a54","appliedSeq":[{"clientId":1,"entityId":1,"seq":151},{"clientId":2,"entityId":2,"seq":151},{"clientId":3,"entityId":3,"seq":151},{"clientId":4,"entityId":4,"seq":151}],"intents":604,"ledgerTransactions":10151},"dataset":{"fileBytes":1664010,"worldBytes":588,"intentBytes":37625,"ledgerBytes":1625523,"ticks":151,"intents":604,"ledgerTransactions":10151},"restore":{"ok":true,"restoreMs":229.729,"processWallMs":796.344,"childElapsedMs":772.697,"readMs":3.587,"parseMs":21.73,"worldReplayMs":14.817,"ledgerRestoreMs":180.302,"within3s":true,"within3sProcessWall":true,"restoredTick":151,"restoredHash":"2a346a54","restoredAppliedSeq":[{"clientId":1,"entityId":1,"seq":151},{"clientId":2,"entityId":2,"seq":151},{"clientId":3,"entityId":3,"seq":151},{"clientId":4,"entityId":4,"seq":151}],"drift":"0"},"runnerStderr":""}
+
+ ✓ apps/server/test/netgate/crash-restore.test.ts > NET-GATE crash restore and RPO > restores the last atomically written checkpoint in under 3 s and publishes a 5 s RPO 8321ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed (1)
+   Start at  20:00:29
+   Duration  9.41s (tests 99%, import 1%, transform 1%)
+
+EXIT=0

@@ -1,0 +1,55 @@
+$ pnpm verify
+$ node scripts/verify.mjs
+STRATA verify — P0-003 skeleton
+enabled: 19 step(s), fail-fast
+
+== typecheck
+$ tsc -b
+== lint — core-math ban
+$ node scripts/lint-core-math.mjs
+core-math ban — 11 file(s) under packages/core/src
+RESULT: PASS — 0 wall-clock reads, 0 unseeded randomness, 0 transcendentals, 0 foreign imports.
+== unit — vitest
+$ vitest run
+
+ RUN  v5.1.0 /tmp/strata-persist
+
+ ❯ apps/server/test/netgate/reconnect.test.ts (2 tests | 1 failed) 6149ms
+   ❯ NET-GATE reconnect-restore on real sockets (2)
+     × restores the same entity, hash and applied seq inside the reconnect window 2399ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  apps/server/test/netgate/reconnect.test.ts > NET-GATE reconnect-restore on real sockets > restores the same entity, hash and applied seq inside the reconnect window
+AssertionError: expected 55 to be 54 // Object.is equality
+
+- Expected
++ Received
+
+- 54
++ 55
+
+ ❯ apps/server/test/netgate/reconnect.test.ts:84:47
+     82|
+     83|       expect(entityIn(resumed, entityId).id).toBe(entityId);
+     84|       expect(entityIn(resumed, entityId).seq).toBe(appliedSeqAtDisconn…
+       |                                               ^
+     85|       expect(appliedSeqAtDisconnect).toBeGreaterThanOrEqual(entityIn(p…
+     86|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 43 passed (44)
+      Tests  1 failed | 304 passed (305)
+   Start at  20:01:45
+   Duration  30.50s (tests 88%, import 8%, worker 2%, transform 2%)
+
+    Isolate  44 workers spawned · ~225ms startup each (spawn + environment, per file)
+             at least ~9.69s faster with isolate: false — reuses workers across files instead of one per file
+
+[ELIFECYCLE] Test failed. See above for more details.
+
+RESULT: FAIL — unit — vitest exited 1.
+[ELIFECYCLE] Command failed with exit code 1.
+EXIT=1

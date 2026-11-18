@@ -1,0 +1,23 @@
+$ pnpm vitest run apps/server/test/netgate/ --reporter=verbose
+
+ RUN  v5.1.0 /tmp/strata-persist
+
+stdout | apps/server/test/netgate/crash-restore.test.ts > NET-GATE crash restore and RPO > restores the last atomically written checkpoint in under 3 s and publishes a 5 s RPO
+NETGATE_CRASH {"child":"apps/server/test/netgate/crash-child.ts","crash":"SIGKILL","checkpointIntervalMs":5000,"publishedRpoMs":5000,"rpoWithinGateMs":true,"measuredCheckpointAgeAtKillMs":273,"killedAfterRunnerStartMs":6136,"lastProgressTickBeforeKill":163,"lostTicksAfterCheckpoint":12,"checkpoint":{"generation":2,"writtenAt":"2026-11-18T20:00:50.039Z","tick":151,"hash":"2a346a54","appliedSeq":[{"clientId":1,"entityId":1,"seq":151},{"clientId":2,"entityId":2,"seq":151},{"clientId":3,"entityId":3,"seq":151},{"clientId":4,"entityId":4,"seq":151}],"intents":604,"ledgerTransactions":10151},"dataset":{"fileBytes":1664010,"worldBytes":588,"intentBytes":37625,"ledgerBytes":1625523,"ticks":151,"intents":604,"ledgerTransactions":10151},"restore":{"ok":true,"restoreMs":416.94,"processWallMs":1326.897,"childElapsedMs":1282.782,"readMs":3.558,"parseMs":60.483,"worldReplayMs":34.49,"ledgerRestoreMs":299.185,"within3s":true,"within3sProcessWall":true,"restoredTick":151,"restoredHash":"2a346a54","restoredAppliedSeq":[{"clientId":1,"entityId":1,"seq":151},{"clientId":2,"entityId":2,"seq":151},{"clientId":3,"entityId":3,"seq":151},{"clientId":4,"entityId":4,"seq":151}],"drift":"0"},"runnerStderr":""}
+
+ ✓ apps/server/test/netgate/crash-restore.test.ts > NET-GATE crash restore and RPO > restores the last atomically written checkpoint in under 3 s and publishes a 5 s RPO 7541ms
+stdout | apps/server/test/netgate/reconnect.test.ts > NET-GATE reconnect-restore on real sockets > restores the same entity, hash and applied seq inside the reconnect window
+NETGATE_RECONNECT {"transport":"ws://127.0.0.1:34289","roomId":"reconnect","capacity":4,"reconnectTicks":90,"ticks":121,"entityId":2,"clientId":2,"disconnectedAtTick":60,"resumedAtTick":66,"resumeLatencyMs":32.289,"upgradeMs":3.052,"hashAtCommonTick":{"tick":66,"hash":"71e1d571","matchesPeer":true,"matchesServer":true},"preDisconnectCommonTick":{"tick":59,"hash":"aec71d18"},"appliedSeqAtDisconnect":54,"appliedSeqOnResume":54,"appliedSeqAtFinalTick":109,"intentsSent":458,"rejectedIntents":0,"desyncEvents":0}
+
+ ✓ apps/server/test/netgate/reconnect.test.ts > NET-GATE reconnect-restore on real sockets > restores the same entity, hash and applied seq inside the reconnect window 4064ms
+stdout | apps/server/test/netgate/reconnect.test.ts > NET-GATE reconnect-restore on real sockets > refuses a late resume after the reconnect window
+NETGATE_LATE_RESUME {"roomId":"late-resume","reconnectTicks":90,"disconnectedAtTick":20,"attemptedAtTick":111,"ticksLate":91,"refused":true,"reason":"unauthorized","entityId":2,"remainingMembers":3,"roomPhaseAfterEviction":"draining","phaseNote":"room.ts does not recompute OPEN after evicting one handle while others stay attached"}
+
+ ✓ apps/server/test/netgate/reconnect.test.ts > NET-GATE reconnect-restore on real sockets > refuses a late resume after the reconnect window 3696ms
+
+ Test Files  2 passed (2)
+      Tests  3 passed (3)
+   Start at  20:00:43
+   Duration  16.17s (tests 98%, import 1%)
+
+EXIT=0

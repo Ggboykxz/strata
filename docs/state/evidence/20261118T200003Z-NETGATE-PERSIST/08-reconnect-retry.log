@@ -1,0 +1,33 @@
+pnpm vitest run apps/server/test/netgate/reconnect.test.ts --reporter=verbose  (retry 08)
+
+ RUN  v5.1.0 /tmp/strata-persist
+
+ × apps/server/test/netgate/reconnect.test.ts > NET-GATE reconnect-restore on real sockets > restores the same entity, hash and applied seq inside the reconnect window 2191ms
+   → only 0/4 clients joined the room
+stdout | apps/server/test/netgate/reconnect.test.ts > NET-GATE reconnect-restore on real sockets > refuses a late resume after the reconnect window
+NETGATE_LATE_RESUME {"roomId":"late-resume","reconnectTicks":90,"disconnectedAtTick":22,"attemptedAtTick":113,"ticksLate":91,"refused":true,"reason":"unauthorized","entityId":2,"remainingMembers":3,"roomPhaseAfterEviction":"draining","phaseNote":"room.ts does not recompute OPEN after evicting one handle while others stay attached"}
+
+ ✓ apps/server/test/netgate/reconnect.test.ts > NET-GATE reconnect-restore on real sockets > refuses a late resume after the reconnect window 3865ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  apps/server/test/netgate/reconnect.test.ts > NET-GATE reconnect-restore on real sockets > restores the same entity, hash and applied seq inside the reconnect window
+Error: only 0/4 clients joined the room
+ ❯ connectFour apps/server/test/netgate/support.ts:279:33
+    277|   const deadline = now() + 2000;
+    278|   while (server.room.members.length < 4) {
+    279|     if (now() > deadline) throw new Error(`only ${server.room.members.…
+       |                                 ^
+    280|     await sleep(2);
+    281|   }
+ ❯ apps/server/test/netgate/reconnect.test.ts:37:23
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 1 passed (2)
+   Start at  20:07:07
+   Duration  6.96s (tests 92%, import 5%, transform 3%)
+
+EXIT=1
