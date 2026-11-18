@@ -1,0 +1,2 @@
+$ git diff --cached --check -- . :\(exclude\)docs/state/evidence/\*\*
+EXIT=0

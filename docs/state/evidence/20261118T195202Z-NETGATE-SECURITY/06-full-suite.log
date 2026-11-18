@@ -1,0 +1,15 @@
+$ pnpm vitest run
+
+ RUN  v5.1.0 /tmp/strata-security
+
+
+ Test Files  46 passed (46)
+      Tests  311 passed (311)
+   Start at  19:57:53
+   Duration  22.75s (tests 56%, import 32%, worker 6%, transform 5%)
+
+     Import  99 modules were evaluated 191 times · 2.47s total, 32% of tracked time
+             ~1.19s faster with isolate: false — shared modules are evaluated once per worker instead of once per file
+             learn more: https://vitest.dev/guide/improving-performance#test-isolation
+
+EXIT=0
