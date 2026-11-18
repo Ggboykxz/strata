@@ -7,8 +7,8 @@
 | branch | `session/20261118-hc-001-high-concept` |
 | phase / tier | P0 / current `S0`, authorized `S0` |
 | director | present for bootstrap; async from now |
-| last task | P1-003 (ART_BIBLE + A0001 + art gate) |
-| next task | **P1-004** — UX/a11y/loc, SLICE_SPEC, risks, TDDs/ADRs |
+| last task | P1-004 (design set complete) |
+| next task | **GATE:P1 dossier** — Director signature grants tier S1 |
 
 ## Done this session
 
@@ -37,6 +37,7 @@
 | GDD-004 | four modules + economy tables, critical closure | 13/13 negatives; critical 0; `verify` 15/15 |
 | P1-002 | `WORLD_BIBLE.md`, FR/EN glossary, real `validate-lore.mjs` | 5/5 negatives; 167 globs 0 ties; `verify` 16/16 |
 | P1-003 | `ART_BIBLE.md`, A0001, real `validate-art-bible.mjs` | 6/6 negatives; 168 globs 0 ties; `verify` 17/17 |
+| P1-004 | 3 specs + 3 TDDs, extended `validate-docs.mjs` | 8/8 negatives; `verify` 17/17 |
 
 **P0-001 and P0-002 were split** although only P0-001 triggered B8: the halves fail for different reasons and
 deserve separate rollback points. Commits: `094f31f`, `bd6f550` (P0-001); `1ceaf20`, `7e9d382` (P0-002).

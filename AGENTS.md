@@ -117,6 +117,8 @@ Anything else goes through a handoff. A conflict is resolved by a handoff or the
   Next: P1-003 (ART_BIBLE + A0001 separated animation architecture).
 - P1-003 fixed the separated art architecture and caught an unowned ADR path via B2; verify is 17/17.
   Next: P1-004 (UX/a11y/loc + SLICE_SPEC + TDDs/ADRs), then GATE:P1.
+- P1-004 completed the P1 design set: slice/UX/localization specs and 3 TDDs; verify 17/17.
+  GATE:P1 evidence is assembled; tier S1 promotion needs the Director signature.
 - **ND-001 resolved** (T1 EN 25/25, FR 30/35; FINDING-001 closed) and **ND-002 resolved** (A0002 option A,
   D-002 closed, WF-002 is orchestrator's). **ND-003 resolved**: the repo is public (the Director must merge
   PR #1; `main` is still empty). ND-004..ND-008 remain open.

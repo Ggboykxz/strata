@@ -2,68 +2,57 @@
 
 | field | value |
 |---|---|
-| written | 2026-11-18T03:04Z |
+| written | 2026-11-18T03:09Z |
 | branch | `session/20261118-hc-001-high-concept` — **PR #1** (draft) https://github.com/Ggboykxz/strata/pull/1 |
 | mode | RESUME |
-| next task | **P1-004** — UX/a11y/loc + SLICE_SPEC + risks + TDDs/ADRs |
-| blocker | **ND-004 / ND-005 only** — token rotation needs the Director's account. |
+| next task | **GATE:P1 dossier** — assemble evidence; Director signs the tier grant |
+| blocker | GATE:P1 signature (Director), ND-004/ND-005 token rotation. |
 
 ---
 
 ## 1. State at hand-off
 
-GATE:P0 signed; GATE:P1 not. P1-001..003 and GDD-001..004 done. All 14 critical modules DRAFT.
+GATE:P0 signed. P1-001..004 and GDD-001..004 are done — exactly the `GATE:P1.requires` set.
 `pnpm verify` 17/17, 12 stubs, all repro scripts in `tools/qa/`, branches protected.
 
 ```bash
 pnpm verify
 node scripts/validate-docs.mjs
+node scripts/validate-gdd.mjs --critical
 node scripts/validate-art-bible.mjs
 ```
 
-## 2. P1-004 — definition of done
+## 2. GATE:P1 dossier
 
-Blueprint line 668. Agent **producer**, co **ux-designer**, **localization-manager**, `split: true`, `amp`,
-deps `[GDD-004, P1-002, P1-003]`. Outputs: `docs/design/VERTICAL_SLICE_SPEC.md`, `docs/design/UX_SPEC.md`,
-`docs/design/LOCALIZATION.md`, `docs/tdd/`, `docs/adr/`. Acceptance: `node scripts/validate-docs.mjs`.
+Path: `docs/state/gates/GATE_P1.md`. It must contain:
 
-1. **VERTICAL_SLICE_SPEC**: one act → 30 s replay → ≥3 facts in ≥2 strata with a physical variant; six
-   before/after captures; two equal-hash clients. Tie it to T2 and the tracer, with measured or explicitly
-   tunable numbers. No content volume promise before throughput is measured.
-2. **UX_SPEC**: HUD, menus, chat, inventory and map as an HTML/CSS overlay above the Babylon canvas;
-   Babylon.GUI only for world-anchored labels, nameplates and healthbars. A11y v1 items: remap, subtitles,
-   scale, contrast, motion reduction, colourblind, no flashing. Each item has a test id.
-3. **LOCALIZATION.md**: FR/EN parity from the WORLD_BIBLE glossary, no concatenated sentences, locale-independent
-   numeric formatting in core, and a 0-untranslated-keys gate.
-4. **TDDs and ADRs**: docs/tdd/ entries for the P2 systems with GIVEN/WHEN/THEN acceptance; docs/adr/ entries
-   for any architecture decision not already covered by A0001/A0002/A0003. Each file has title, status,
-   context and decision so `validate-docs.mjs` passes.
-5. **Risks register** in the slice spec: open concept debt, unmeasured throughput, blocked licences, and the
-   dependency-review exception — each with owner and deadline, no hidden risk.
-6. Extend `validate-docs.mjs` if needed to check the new sections; keep its structural-only scope and log
-   negatives under `docs/state/evidence/<utc>-P1-004/`. Commit the negative script in `tools/qa/`.
+| requirement | evidence |
+|---|---|
+| P1-001 VISION + docs gate | `docs/state/evidence/20261118T021621Z-P1-001/` |
+| GDD-001..004 | `…T022611Z-GDD-001/`, `…T024155Z-GDD-002/`, `…T024736Z-GDD-003/`, `…T025203Z-GDD-004/` |
+| P1-002 bible + lore gate | `…T025647Z-P1-002/` |
+| P1-003 ART_BIBLE + A0001 + art gate | `…T030121Z-P1-003/` |
+| P1-004 specs + TDDs | `…T030636Z-P1-004/` |
+| concept signed at this gate | `concept --check` exit 0; T1 25/25, FR 30/35 |
+| GDD coverage | 15/32 DRAFT, 14 critical closed; 17 STUB by D138 — not a defect |
+| scope math | `scope-math --check` 0; `--report` 2 with NOT COMPUTABLE |
+| CI proof | query the Actions API at the final head; record run ids and conclusions |
 
-Ownership: `docs/tdd/**` and `docs/adr/**` are append-only zones (any agent may create **new** files). The
-ux-designer and localization-manager must write only their own spec paths through a recorded handoff.
+**No agent self-signs a tier grant.** The signature block stays PENDING until the Director signs; a prior
+instruction about taking good decisions was applied to GATE:P0 (no tier change), not to S1 promotion.
 
-## 3. Open decisions carried forward
+## 3. After signature
 
-1. **ND-004 / ND-005 — OPEN.** Rotate the exposed tokens; steps in `docs/state/SECURITY_HANDOFF.md`.
-2. Other recorded decisions RESOLVED. GATE:P1 needs its Director signature after this task.
-3. `main` requires a PR, one review and 8 checks; force push disabled.
+GATE:P1 grants tier **S1**. NET-GATE phase starts: NET-001..006, PR-N1..N4, SEC-001, then NG-001 (human).
+No hero art, texture bake, motion or scene generation before NG-001 (I2). AI-001/AI-002 remain gated by
+GATE:P2 **and** the P0-006 whitelist.
 
-## 4. After P1-004
+## 4. Open decisions
 
-**GATE:P1** (human, grants S1) requires `[P1-001, GDD-001..GDD-004, P1-002, P1-003, P1-004]`. After signature,
-the NET-GATE phase starts: NET-001..006, PR-N1..N4, SEC-001, then NG-001 (human).
+1. ND-004 / ND-005 — rotate exposed tokens; `docs/state/SECURITY_HANDOFF.md`.
+2. All other recorded decisions RESOLVED. `main` protected; Director merges PR #1.
 
-## 5. Known red
+## 5. Environment
 
-- `scope-math --report` exit 2, `concept --score` exit 2 — unmeasured stays NOT COMPUTABLE.
-- 12 validators still fail by design; `pnpm verify` prints them as DEFERRED.
-- 17 GDD modules remain STUB — correct before their prototypes.
-
-## 6. Environment
-
-Node 22.23.4, pnpm 12.21.0, TypeScript 6.0.3, Vitest 5.1.0. Tesla T4 measured, no model used before the
-P0-006 whitelist. Secrets from env only; scripts in `tools/qa/`.
+Node 22.23.4, pnpm 12.21.0, TypeScript 6.0.3, Vitest 5.1.0. Tesla T4 measured, no model used. Secrets from
+env only; scripts in `tools/qa/`.
