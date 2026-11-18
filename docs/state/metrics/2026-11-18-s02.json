@@ -70,6 +70,12 @@
       "result": "17/17"
     },
     {
+      "cmd": "pnpm verify (after the state docs)",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T072941Z-P0-005.a/09-verify-post-docs.log",
+      "result": "17/17"
+    },
+    {
       "cmd": "node scripts/gdd-coverage.mjs --min 0.80",
       "exit": 0,
       "log": "docs/state/evidence/20261118T072941Z-P0-005.a/04-gdd-coverage.log",
