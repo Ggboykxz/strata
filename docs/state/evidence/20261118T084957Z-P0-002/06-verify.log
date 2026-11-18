@@ -7,7 +7,7 @@ enabled: 17 step(s), fail-fast
 $ tsc -b
 == lint — core-math ban
 $ node scripts/lint-core-math.mjs
-core-math ban — 6 file(s) under packages/core/src
+core-math ban — 7 file(s) under packages/core/src
 RESULT: PASS — 0 wall-clock reads, 0 unseeded randomness, 0 transcendentals, 0 foreign imports.
 == unit — vitest
 $ vitest run
@@ -15,13 +15,13 @@ $ vitest run
  RUN  v5.1.0 /content/strata
 
 
- Test Files  8 passed (8)
-      Tests  90 passed (90)
-   Start at  09:01:21
-   Duration  2.79s (import 46%, tests 33%, worker 11%, transform 9%)
+ Test Files  12 passed (12)
+      Tests  122 passed (122)
+   Start at  09:19:28
+   Duration  2.65s (import 46%, tests 30%, transform 13%, worker 11%)
 
-    Isolate  8 workers spawned · ~243ms startup each (spawn + environment, per file)
-             at least ~1.70s faster with isolate: false — reuses workers across files instead of one per file
+    Isolate  12 workers spawned · ~154ms startup each (spawn + environment, per file)
+             at least ~1.69s faster with isolate: false — reuses workers across files instead of one per file
 
 == validate-prompt-drift
 PASS  docs/state/PROMPT.lock parsed (version 1)
@@ -193,7 +193,7 @@ PASS  LOCKS.yaml schema and expiry
 resume plan
   session   2026-11-18-s02
   branch    session/20261118-hc-001-high-concept
-  next      NET-004
+  next      PR-N1
   open Director items:
     ND-004
     ND-005
@@ -226,7 +226,7 @@ D1  vision document (--check)
 OK    VISION.md: metadata, 8 sections, locked sentence, amendment and non-goals present
 
 D2  ADR structure
-OK    4 ADR(s) have title, status and a Context/Decision section
+OK    5 ADR(s) have title, status and a Context/Decision section
 
 D3  TDD structure
 OK    3 TDD file(s) have title, status, Context and GIVEN/WHEN/THEN
@@ -234,7 +234,7 @@ OK    3 TDD file(s) have title, status, Context and GIVEN/WHEN/THEN
 D4  slice, UX and localization specs
 OK    slice T2 numbers, 7 a11y controls and FR/EN parity rules present
 
-RESULT: PASS — 4 ADR(s), 3 TDD(s), 0 error(s). Structural check only; no claim validated.
+RESULT: PASS — 5 ADR(s), 3 TDD(s), 0 error(s). Structural check only; no claim validated.
 == validate-gdd --template (GDD-001)
 
 G1  module inventory: 32 files, expected 32

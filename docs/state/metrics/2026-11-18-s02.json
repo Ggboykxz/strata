@@ -99,7 +99,7 @@
     "wire_budget_over_factor": 3.9,
     "actions_runs": 8,
     "actions_runs_success": 8,
-    "ci_head": "78219d385a4432ead6bd2f01678c46a618313993",
+    "ci_head": "daa0c144a096ff958bd9a9d06899e7ad40fbe5a9",
     "anim_tests": 22,
     "anim_states": 5,
     "blend_ticks": 2,
@@ -655,7 +655,8 @@
     "NET-004 CI at 78219d3: 8/8 triggered workflows success; run ids in docs/state/evidence/20261118T090603Z-NET-004/10-ci-proof.log.",
     "A0005: Director said \"bypass les limites et go next\". Invariants, NET-GATE, Director-only actions and evidence-only remain in force.",
     "NET-006: wire v3 anim/resync frames, server-owned transitions and hit frames, jitter 3..8 ticks. Three defects logged and fixed in the thread.",
-    "Jitter bounds are tunables, not measured RTT. Tick CPU p95 and byte rates belong to PR-N1."
+    "Jitter bounds are tunables, not measured RTT. Tick CPU p95 and byte rates belong to PR-N1.",
+    "NET-006 CI at daa0c14: 8/8 triggered workflows success; run ids in docs/state/evidence/20261118T091539Z-NET-006/13-ci-proof.log."
   ],
   "result": {
     "phase": "P2NET",
@@ -747,7 +748,7 @@
         },
         {
           "dir": "docs/state/evidence/20261118T091539Z-NET-006/",
-          "logs": 13,
+          "logs": 14,
           "branch": "session"
         }
       ]
