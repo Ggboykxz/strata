@@ -1,0 +1,5 @@
+$ pnpm --filter @strata/dashboard build
+$ tsc -p tsconfig.json && node build.mjs
+dashboard build OK — 10 view groups, /tmp/opencode/dashboard-wt/apps/dashboard/dist
+  NOT COMPUTABLE fields: 20
+EXIT=0
