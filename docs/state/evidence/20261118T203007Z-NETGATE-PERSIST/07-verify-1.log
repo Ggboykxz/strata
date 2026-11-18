@@ -1,0 +1,49 @@
+$ pnpm verify
+$ node scripts/verify.mjs
+STRATA verify — P0-003 skeleton
+enabled: 19 step(s), fail-fast
+
+== typecheck
+$ tsc -b
+== lint — core-math ban
+$ node scripts/lint-core-math.mjs
+core-math ban — 11 file(s) under packages/core/src
+RESULT: PASS — 0 wall-clock reads, 0 unseeded randomness, 0 transcendentals, 0 foreign imports.
+== unit — vitest
+$ vitest run
+
+ RUN  v5.1.0 /tmp/strata-persist
+
+ ❯ apps/server/test/netgate/reconnect.test.ts (2 tests | 1 failed) 33859ms
+   ❯ NET-GATE reconnect-restore on real sockets (2)
+     × restores the same entity, hash and applied seq inside the reconnect window 30027ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  apps/server/test/netgate/reconnect.test.ts > NET-GATE reconnect-restore on real sockets > restores the same entity, hash and applied seq inside the reconnect window
+Error: Test timed out in 30000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ apps/server/test/netgate/reconnect.test.ts:32:3
+     30|
+     31| describe('NET-GATE reconnect-restore on real sockets', () => {
+     32|   it('restores the same entity, hash and applied seq inside the reconn…
+       |   ^
+     33|     const server: LiveServer = await startLiveServer({ roomId: 'reconn…
+     34|     const ticker = new Ticker(server.room);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 44 passed (45)
+      Tests  1 failed | 329 passed (330)
+   Start at  20:32:37
+   Duration  64.69s (tests 93%, import 5%, transform 1%, worker 1%)
+
+    Isolate  45 workers spawned · ~326ms startup each (spawn + environment, per file)
+             at least ~14.35s faster with isolate: false — reuses workers across files instead of one per file
+
+[ELIFECYCLE] Test failed. See above for more details.
+
+RESULT: FAIL — unit — vitest exited 1.
+[ELIFECYCLE] Command failed with exit code 1.
+EXIT=1
