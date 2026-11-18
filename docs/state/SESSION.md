@@ -7,8 +7,8 @@
 | branch | `session/20261118-hc-001-high-concept` |
 | phase / tier | P0 / current `S0`, authorized `S0` |
 | director | present for bootstrap; async from now |
-| last task | P0-004 (27 CI workflows + real `validate-workflows.mjs`) |
-| next task | **P0-005** — Colab bootstrap, watchdog, heartbeat, resume drill |
+| last task | P0-006 (AI license audit and whitelist) |
+| next task | **P0-007** — dashboard: workflow, locks, threads, concept, GDD, scope, netcode, economy |
 
 ## Done this session
 
@@ -26,6 +26,8 @@
 | WF-002 | `scripts/validate-ownership.mjs`, `scripts/validate-locks.mjs`, `verify` integration | both exit 0; 8/8 negative tests; `verify` 9/9 |
 | TRACER-001 | core tracer, protocol, WS server, Babylon client, `pnpm tracer --assert` | assert exit 0; desync exit 1; lint negative 1 |
 | P0-004 | 27 workflows, real `scripts/validate-workflows.mjs`, ownership map entry | validator exit 0; 8/8 negatives; `verify` 10/10 |
+| P0-005 | `tools/colab/`, `scripts/drill-resume.mjs` | drill exit 0; 7/7 negatives; `verify` 11/11 |
+| P0-006 | audit, whitelist, tier probe, `validate-manifest --audit` | validator exit 0; 8/8 negatives; `verify` 12/12 |
 
 **P0-001 and P0-002 were split** although only P0-001 triggered B8: the halves fail for different reasons and
 deserve separate rollback points. Commits: `094f31f`, `bd6f550` (P0-001); `1ceaf20`, `7e9d382` (P0-002).
@@ -71,6 +73,8 @@ their banners record the new owner (orchestrator) after A0002.
 - **ND-003 DEFERRED.** Private on the personal account is the recommendation until GATE:P0; nothing in
   P0-004 or TRACER-001 is blocked by it.
 - **ND-004 / ND-005 OPEN.** Rotating the GitHub PAT and HF token requires the Director's account access.
+- **ND-006 / ND-007 / ND-008 OPEN.** Licence/distribution decisions from P0-006; all have a recommendation
+  to reject for now and an audited fallback. See `docs/state/NEEDS_DIRECTOR.md`.
   A prefix scan found 0 token strings in `.git` or the tracked worktree. The agent cannot close these.
 
 Details, options and evidence: `docs/state/NEEDS_DIRECTOR.md` and
@@ -95,8 +99,10 @@ blueprint task currently owns the pin: recorded as a gap for the Director/next r
   unauthenticated API/raw reads return HTTP 200.
 - PR #1 is draft and stacked; P0-002 is pushed on the same branch (`7e9d382`).
 - `corepack enable` is done; pnpm is pinned to **12.21.0** and the lockfile is committed.
-- `pnpm verify` (**10 steps**, fail-fast) is the only entry point. It prints DEFERRED for determinism replay,
-  GDD coverage and the 18 stubs; none of those counts as green.
+- `pnpm verify` (**12 steps**, fail-fast) is the only entry point. It prints DEFERRED for determinism replay,
+  GDD coverage and the 17 stubs; none of those counts as green.
+- AI models are gated by `docs/legal/AI_MODEL_AUDIT.md` + `tools/asset-pipeline/whitelist.yaml`: 8 approved,
+  7 blocked pending Director (ND-006/007/008), 5 rejected. No model downloaded or run (I4).
 - 27 GitHub Actions workflows exist under `.github/workflows/`; 80 `uses:` entries are SHA-pinned. **No job
   has run yet** — acceptance was static. The first real CI result after this push is new evidence, not an
   assumption. 12 workflows calling declared stubs are manual-only.

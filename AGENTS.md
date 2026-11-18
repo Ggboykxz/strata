@@ -97,10 +97,13 @@ Anything else goes through a handoff. A conflict is resolved by a handoff or the
   renders the capsule with Babylon NullEngine. NET-GATE remains unpassed; the capsule is greybox.
 - P0-004 shipped 27 SHA-pinned workflows and a real `validate-workflows.mjs`. Acceptance was static: no
   Actions job has run yet. 12 stub-calling workflows are manual-only.
+- P0-005 added an idempotent bootstrap, a fail-closed watchdog and a read-only resume drill. P0-006 audited
+  the AI stack: 8 approved, 7 blocked pending Director, 5 rejected; no model has been used (I4).
 - **ND-001 resolved** (T1 EN 25/25, FR 30/35; FINDING-001 closed) and **ND-002 resolved** (A0002 option A,
-  D-002 closed, WF-002 is orchestrator's). See `docs/state/NEEDS_DIRECTOR.md`.
-- Known intentional red: `concept-integrity --check` (T3 novelty unsigned until GATE:P1),
-  `scope-math --report` (throughput unmeasured). ND-004/ND-005 token rotations remain Director actions.
+  D-002 closed, WF-002 is orchestrator's). **ND-003 resolved**: the repo is public (the Director must merge
+  PR #1; `main` is still empty). ND-004..ND-008 remain open.
+- Known intentional red: `scope-math --report` exit 2 (throughput unmeasured) and `concept --score` exit 2
+  until HC-003. `concept --check` is green: T3 was signed at GATE:P0.
 
 ## 9. Environment
 
