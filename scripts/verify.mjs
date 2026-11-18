@@ -23,6 +23,7 @@ const ENABLED = [
   ['validate-blueprint', 'node', ['scripts/validate-blueprint.mjs']],
   ['validate-ownership (WF-002)', 'node', ['scripts/validate-ownership.mjs']],
   ['validate-locks (WF-002)', 'node', ['scripts/validate-locks.mjs']],
+  ['validate-workflows (P0-004)', 'node', ['scripts/validate-workflows.mjs']],
 ];
 
 /* A stub is a validator that prints NOT IMPLEMENTED and exits 1 (P0-002 contract). */
