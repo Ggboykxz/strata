@@ -110,7 +110,8 @@ if (!signature.includes('"je signe tout"')) fail('signature block must carry the
 if (!signature.includes('criteria_unmet: 8/10')) fail('signature block must restate the 8 unmet criteria');
 
 // 6. Metrics must still say unpassed with art closed and no fake tick p95.
-const metricFiles = readdirSync(METRICS_DIR).filter((file) => file.endsWith('.json')).sort();
+// Session metrics only — concept.json is a CIS source, not a session snapshot (HC-003).
+const metricFiles = readdirSync(METRICS_DIR).filter((file) => /^\d{4}-\d{2}-\d{2}-s\d+\.json$/.test(file)).sort();
 if (!metricFiles.length) {
   fail('no metrics file');
 } else {
