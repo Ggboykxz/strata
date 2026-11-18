@@ -1,0 +1,41 @@
+version: 1
+# GENERATED from docs/legal/AI_MODEL_AUDIT.md (AUDIT-2026-11-18-P0-006). Do not hand-edit an approval.
+# Enforced by `node scripts/validate-manifest.mjs --audit`.
+audit: AUDIT-2026-11-18-P0-006
+date: 2026-11-18
+policy:
+  forbid_classes: [NON-COMMERCIAL, RESEARCH-ONLY]
+  forbid_licenses: [flux-1-dev-non-commercial-license, cc-by-nc-4.0, openrail++]
+  allow_with_director: [territory-restricted, community-capped, attribution-bound]
+  require_fields: [id, license, class, revision, source, output_rights, verdict]
+
+approved:
+  - {id: FLUX-SCHNELL, license: apache-2.0, class: PERMISSIVE, revision: 741f7c3ce8b383c54771c7003378a50191e9efe9, source: https://huggingface.co/black-forest-labs/FLUX.1-schnell, output_rights: commercial-allowed, verdict: APPROVED, tiers: [S1, S2, S3, S4]}
+  - {id: INSTANTMESH, license: Apache-2.0, class: PERMISSIVE, revision: 261eeb9e9f8b2b4b0d119366dda99c6fd7d35c64, source: https://github.com/TencentARC/InstantMesh, output_rights: commercial-allowed, verdict: APPROVED, tiers: [S1, S2, S3, S4]}
+  - {id: TRIPOSR, license: MIT, class: PERMISSIVE, revision: 6c440ca1ef32cedcc2257b99953add129199ed26, source: https://github.com/VAST-AI-Research/TripoSR, output_rights: commercial-allowed, verdict: APPROVED, tiers: [S0, S1, S2, S3, S4]}
+  - {id: MESH2MOTION, license: MIT+CC0, class: PERMISSIVE, revision: 1edc9340f9ccfba33e466dac3eddc06269b96d35, source: https://github.com/Mesh2Motion/mesh2motion-app, output_rights: cc0-animations-commercial, verdict: APPROVED, tiers: [S0, S1, S2, S3, S4]}
+  - {id: KOKORO, license: apache-2.0, class: PERMISSIVE, revision: f3ff3571791e39611d31c381e3a41a3af07b4987, source: https://huggingface.co/hexgrad/Kokoro-82M, output_rights: commercial-allowed, verdict: APPROVED, tiers: [S1, S2, S3, S4]}
+  - {id: JSFXR, license: Unlicense, class: PERMISSIVE, revision: 6d9eabbb7579f19b207be0e7ed52548ffdb32c90, source: https://github.com/chr15m/jsfxr, output_rights: public-domain, verdict: APPROVED, tiers: [S0, S1, S2, S3, S4]}
+  - {id: COMFYUI, license: GPL-3.0, class: PERMISSIVE, revision: f288702d2fa16d3cdf0035b15a9fcbc552cd88e7, source: https://github.com/Comfy-Org/ComfyUI, output_rights: unencumbered-outputs, verdict: APPROVED_WITH_CONDITIONS, tiers: [S1, S2, S3, S4]}
+  - {id: GLTF-TRANSFORM, license: MIT, class: PERMISSIVE, revision: 066192ec0b90d3f593a83fcb0a694c2055269087, source: https://github.com/donmccurdy/glTF-Transform, output_rights: commercial-allowed, verdict: APPROVED, tiers: [S0, S1, S2, S3, S4]}
+
+blocked_pending_director:
+  - {id: HUNYUAN3D, license: tencent-hunyuan-community, class: TERRITORY-RESTRICTED, revision: 9cd649ba6913f7a852e3286bad86bfa9a2d83dcf, reason: EU-UK-Korea-excluded-and-noncommercial-exceptions, fallback: InstantMesh}
+  - {id: HY-MOTION, license: tencent-hunyuan-community, class: TERRITORY-RESTRICTED, revision: 620dd559f8d964aac2f82f1204fe6a35ad8ad14d, reason: EU-UK-Korea-excluded-body-model-transitive-unaudited, fallback: MESH2MOTION}
+  - {id: HY-WORLD, license: tencent-hy-world-2.0-community, class: TERRITORY-RESTRICTED, revision: d78a16c91c7a56488894a1c8de4f5c7cc28aa8b0, reason: EU-UK-Korea-excluded-inference-code-not-released, fallback: procedural-heightmap}
+  - {id: SDXL, license: openrail++, class: COMMUNITY-CAPPED, revision: 462165984030d82259a11f4367a4eed129e94a7b, reason: attribution-and-distribution-scope-decision, fallback: FLUX-SCHNELL}
+  - {id: ACTIONFORGE, license: all-rights-reserved-tool, class: OUTPUT-RIGHTS-UNSTATED, revision: NOT_FOUND, reason: tool-proprietary-animations-cc0-outputs-unstated, fallback: Blender-IK}
+  - {id: HUNYUAN3D-V25, license: NOT_FOUND, class: NOT_FOUND, revision: NOT_FOUND, reason: requested-version-not-verified, fallback: newest-audited-version}
+  - {id: HUNYUAN3D-PAINT, license: NOT_FOUND, class: NOT_FOUND, revision: NOT_FOUND, reason: separate-permissive-text-not-verified, fallback: multiview-projection-bake}
+
+rejected:
+  - {id: FLUX-DEV, license: flux-1-dev-non-commercial-license, class: NON-COMMERCIAL, revision: 3de623fc3c33e44ffbe2bad470d0f45bccf2eb21, reason: outright-reject-step-3, fallback: FLUX-SCHNELL}
+  - {id: MUSICGEN, license: cc-by-nc-4.0, class: NON-COMMERCIAL, revision: b93be90515ccd0b9daedaa589e42bf5929693f1f, reason: weights-noncommercial-code-mit-does-not-launder, fallback: CC0-music}
+  - {id: WORLDGEN, license: Apache-2.0-code, class: NON-COMMERCIAL, revision: NOT_FOUND, reason: transitive-gated-FLUX-DEV, fallback: procedural-terrain}
+  - {id: ASSETFURNACE, license: Apache-2.0, class: SUPPLY-CHAIN, revision: 57bc88a15a0ee8266c259b2667e64608d3f7e292, reason: curl-pipe-bash-installer-forbidden-by-10.6, fallback: Blender-headless}
+  - {id: WORLDGROW, license: NOT_FOUND, class: NOT_FOUND, revision: NOT_FOUND, reason: paper-only-no-release-license, fallback: procedural-heightmap}
+
+director_decisions:
+  - {id: D-AUDIT-1, question: territory-restricted Tencent candidates, recommendation: reject-for-now, status: OPEN}
+  - {id: D-AUDIT-2, question: SDXL openrail++ distribution, recommendation: reject-use-FLUX-SCHNELL, status: OPEN}
+  - {id: D-AUDIT-3, question: ActionForge output rights, recommendation: reject-use-Blender-IK, status: OPEN}
