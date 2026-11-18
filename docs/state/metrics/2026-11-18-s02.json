@@ -141,7 +141,7 @@
     "wire_budget_over_factor": 3.9,
     "actions_runs": 8,
     "actions_runs_success": 8,
-    "ci_head": "5ee342c4666197c5835113bb66255ea7691968ed",
+    "ci_head": "7d25eeb69aeff8b74c7223a9c0b58849414ce6a5",
     "anim_tests": 22,
     "anim_states": 5,
     "blend_ticks": 2,
@@ -1092,7 +1092,8 @@
     "Local combat math is not a playtest or FUN validation. No art, no GPU/TPU (ND-012).",
     "PR-S1 CI at 5ee342c: 8/8 triggered workflows success; run ids in docs/state/evidence/20261118T100756Z-PR-S1/10-ci-proof.log.",
     "PR-S2: immutable fact log, FNV derivation, 5 facts/2 strata/5 swaps/30 captures, two clients agree on {factIds, variantIds, epoch}.",
-    "Not a T2 sign-off: no real geometry, blind-reviewer captures or browser replay — GB-001 and PR-S3 own those."
+    "Not a T2 sign-off: no real geometry, blind-reviewer captures or browser replay — GB-001 and PR-S3 own those.",
+    "PR-S2 CI at the attested head: 8/8 triggered workflows success; run ids in docs/state/evidence/20261118T101524Z-PR-S2/10-ci-proof.log."
   ],
   "result": {
     "phase": "P2NET",
@@ -1222,7 +1223,7 @@
         },
         {
           "dir": "docs/state/evidence/20261118T101524Z-PR-S2/",
-          "logs": 11,
+          "logs": 12,
           "branch": "session"
         }
       ]

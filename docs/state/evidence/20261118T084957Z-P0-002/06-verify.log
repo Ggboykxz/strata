@@ -15,13 +15,13 @@ $ vitest run
  RUN  v5.1.0 /content/strata
 
 
- Test Files  16 passed (16)
-      Tests  146 passed (146)
-   Start at  10:11:36
-   Duration  4.90s (tests 45%, import 39%, worker 8%, transform 8%)
+ Test Files  17 passed (17)
+      Tests  154 passed (154)
+   Start at  10:18:50
+   Duration  4.63s (tests 55%, import 30%, transform 8%, worker 7%)
 
-    Isolate  16 workers spawned · ~201ms startup each (spawn + environment, per file)
-             at least ~3.01s faster with isolate: false — reuses workers across files instead of one per file
+    Isolate  17 workers spawned · ~164ms startup each (spawn + environment, per file)
+             at least ~2.62s faster with isolate: false — reuses workers across files instead of one per file
 
 == validate-prompt-drift
 PASS  docs/state/PROMPT.lock parsed (version 1)
