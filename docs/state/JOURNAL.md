@@ -3,7 +3,7 @@
 | field | value |
 |---|---|
 | source | `docs/state/journal/` (append-only entries) |
-| entries | 47 |
+| entries | 48 |
 | regenerate | `node scripts/build-journal.mjs` |
 | check | `node scripts/build-journal.mjs --check` |
 
@@ -1535,3 +1535,16 @@ No GPU/TPU (ND-012), 8 unmeasured NET-GATE criteria, PAT/HF rotation and PR merg
   re-measurement — all CPU/time work.
 - On arrival: log both detect_tier.py probes (expect 16GB / 15 360 MiB), start AI-001 under locks; no binary in git,
   no model before audit verification (audit already complete).
+
+---
+
+# 2026-11-18T15:10:00Z · PR-N2 and PR #1 merge
+
+- **Director merged PR #1 into `main`** at `096fdfe` with a recorded admin review bypass: the Director is the
+  sole collaborator and the PR author, so self-approval cannot satisfy the required human review. All checks
+  including CodeQL were green; no CI was disabled and no gate skipped.
+- PR #2 remains open and conflicting; its unique evidence was ported at `d51a5c0`.
+- PR-N2 delivered deterministic matchmaking (6 → 3 rooms), 2 exact resumes, 1 late refusal, 3 teardowns.
+- Defect fixed: global queue client id vs room-local id collision; room association now explicit.
+- GDD-SHARDING 0.4, acc repaired, co-owner declared. Verify 19/19, full 169/169.
+- **GATE:P2NET is now satisfied.** Next: PR-S7; GATE:NET still needs a formal Director signature.
