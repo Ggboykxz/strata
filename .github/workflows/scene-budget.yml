@@ -1,14 +1,13 @@
-# DECLARED STUB until the owning task implements validate-scene-budget.mjs.
-# Manual trigger only: a stub must never be silently green on a PR.
-name: scene - draw calls
+# DECLARED STUB validate-scene-budget.mjs.
+name: scene-budget
 on: { workflow_dispatch: }
 permissions: { contents: read }
 concurrency:
-  group: scene-draw-calls-${{ github.ref }}
+  group: scene-budget-${{ github.ref }}
   cancel-in-progress: true
 jobs:
   validate:
-    name: 250 draw call budget
+    name: draw calls and parity
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:

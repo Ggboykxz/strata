@@ -1,12 +1,12 @@
-name: scope - zero sum ledger
+name: scope
 on: { push: { branches: [main] }, pull_request: }
 permissions: { contents: read }
 concurrency:
-  group: scope-zero-sum-ledger-${{ github.ref }}
+  group: scope-${{ github.ref }}
   cancel-in-progress: true
 jobs:
-  scope:
-    name: ledger and math
+  ledger:
+    name: zero-sum ledger
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:

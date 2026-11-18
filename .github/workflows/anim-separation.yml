@@ -1,14 +1,13 @@
-# DECLARED STUB until the owning task implements validate-anim-separation.mjs.
-# Manual trigger only: a stub must never be silently green on a PR.
-name: animation - separated architecture
+# DECLARED STUB validate-anim-separation.mjs.
+name: anim-separation
 on: { workflow_dispatch: }
 permissions: { contents: read }
 concurrency:
-  group: animation-separated-architecture-${{ github.ref }}
+  group: anim-separation-${{ github.ref }}
   cancel-in-progress: true
 jobs:
   validate:
-    name: mesh/animation GLB split
+    name: separated GLBs
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:

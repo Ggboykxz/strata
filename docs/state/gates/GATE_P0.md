@@ -42,10 +42,11 @@ A fourth CI-specific case exists in code: Actions checks out a detached HEAD, so
 
 ## 3. CI proof
 
-`09-ci-results.log` lists the latest GitHub Actions run per workflow on this branch at head `3c9c48fd`:
-13 workflows **success**, including `ci - pnpm verify`, `tracer`, `blueprint`, `ownership`, `locks`,
-`prompt drift`, `scope`, `concept`, `typecheck`, `lint`, `unit`, `workflow self-validation` and
-`codeql` (`44218930292`).
+`09-ci-results.log` in the evidence directory records the run at head `3c9c48fd`. After the name
+reconciliation, the new head must be checked again on GitHub before signature; static validation alone is
+not proof. The runs at `3c9c48fd` were: 13 workflows success, including `ci - pnpm verify`, `tracer`,
+`blueprint`, `ownership`, `locks`, `prompt drift`, `scope`, `concept`, `typecheck`, `lint`, `unit`,
+`workflow self-validation` and `codeql` (`44218930292`).
 
 The only non-green entry is `dependency - license review` at head `f206b767` (`44218555810`): the
 dependency-graph API returned **403** for this repository. It is now `workflow_dispatch`-only with the
@@ -77,10 +78,10 @@ No number was invented to make the dossier look complete.
    through a vertical slice, declared in `PROMPT.lock` and the Constitution's `## AMENDMENTS`. No scope,
    tier, task, gate or ledger value changed; the archived master is byte-identical and the drift gate passes.
    I11 forbids copying the commercial Ashes of Creation IP.
-3. **Workflow-name deviation.** Master §18 lists 27 explicit workflow names; P0-004 delivered 27 valid,
-   SHA-pinned workflows with different names. Either reconcile before signature or accept the deviation on
-   the record.
-4. `main` is still the empty root commit `36bd9af`. The Director must merge PR #1; no self-merge occurred.
+3. **Workflow-name deviation — RESOLVED.** The 27 workflows now use the exact master §18 names; see
+   `docs/state/evidence/20261118T020134Z-P0-004-RECONCILE/`. All real checks were preserved; the manual
+   placeholders print the gate that owns them rather than a fake green. `main` is still the empty root
+   commit `36bd9af`. The Director must merge PR #1; no self-merge occurred.
 
 ## 6. Signature
 

@@ -37,9 +37,9 @@ items below; the only unclosed evidence is the dependency-review exception on wh
 2. **A real GitHub Actions result.** The 27 workflows are statically valid but **no job has run**. Query the
    Actions API for this branch, record the run ids and conclusions. If red, fix the workflow before the
    gate; never mark a gate green on static validation alone.
-3. **Workflow-name reconciliation.** Master §18 lists 27 explicit workflow names; P0-004 delivered 27
-   gate-oriented names with a different set. Either rename/replace to match the master list or present a
-   recorded deviation to the Director as part of the gate dossier. Do not silently ignore it.
+3. **Workflow-name reconciliation — DONE.** The 27 files now use the exact master §18 names; evidence in
+   `docs/state/evidence/20261118T020134Z-P0-004-RECONCILE/`. Re-run CI at the new head before signature —
+   static validation is not proof of a GitHub run.
 4. **Ownership and locks evidence.** `validate-ownership` (165 globs, 0 ties) and `validate-locks` (empty
    registry) are green. Include their logs. The watchdog fails closed on expired locks; the CAS reclaim is
    recorded debt.

@@ -1,14 +1,15 @@
-name: ci - pnpm verify
+# The single definition of green: pnpm verify runs every enabled gate step.
+name: ci
 on: { push: { branches: [main] }, pull_request: }
 permissions: { contents: read }
 concurrency:
-  group: ci-pnpm-verify-${{ github.ref }}
+  group: ci-${{ github.ref }}
   cancel-in-progress: true
 jobs:
   verify:
     name: pnpm verify
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
       - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1 # v4

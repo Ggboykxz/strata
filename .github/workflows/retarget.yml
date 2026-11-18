@@ -1,14 +1,13 @@
-# DECLARED STUB until the owning task implements validate-retarget.mjs.
-# Manual trigger only: a stub must never be silently green on a PR.
-name: retarget - bone coverage
+# DECLARED STUB validate-retarget.mjs.
+name: retarget
 on: { workflow_dispatch: }
 permissions: { contents: read }
 concurrency:
-  group: retarget-bone-coverage-${{ github.ref }}
+  group: retarget-${{ github.ref }}
   cancel-in-progress: true
 jobs:
   validate:
-    name: skeleton mapping
+    name: bone coverage
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:

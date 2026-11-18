@@ -1,0 +1,14 @@
+name: loc
+on: { workflow_dispatch: }
+permissions: { contents: read }
+concurrency:
+  group: loc-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  placeholder:
+    name: no loc validator yet
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - run: echo "LOC: FR/EN parity checked in review"

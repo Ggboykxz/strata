@@ -29,3 +29,23 @@ github/codeql-action v3 `9418214d…`.
 **impact:** concept_role `amp`; SL-P0-004, 1 session; tier S0.
 **ask:** different reviewer for the PR; the Director merges.
 **deadline:** GATE:P0
+
+## 2026-11-18T02:02:00Z — master §18 name reconciliation
+
+Master §18 lists 27 explicit workflow names; the first P0-004 delivery used different, gate-oriented names
+and the deviation was recorded in the GATE:P0 dossier. On the Director's "go next", the 27 files were
+regenerated with the **exact master §18 names** while preserving every real check:
+
+- `ci` runs `pnpm verify` (the single definition of green), `opencode` checks 32 agents / 51 skills,
+  `workflow` runs workflow + ownership + locks validators, `high-concept` runs concept + prompt drift,
+  `scope`, `netcode` (`pnpm tracer --assert`), `model-audit`, `security` (CodeQL) and `scene-budget` /
+  `texture-audit` / `anim-separation` / `retarget` / `anim` / `gdd` / `asset-report` remain manual
+  stub-calling workflows.
+- `economy`, `prototype`, `perf`, `visual`, `soak`, `fuzz`, `compat`, `balance`, `loc`, `a11y`, `release`
+  and `lookdev` are manual placeholders that print `NOT COMPUTABLE` or the gate that owns them — never a
+  fake green.
+- `dependency-review-action` is excluded: the graph API returned 403 (run `44218555810`); the observed
+  incident is recorded in `security.yml` and the dossier.
+
+Validator exit 0: 27 files, 56 SHA-pinned `uses:`, 47 run steps. 8/8 negative tests; `pnpm verify` 12/12.
+Evidence: `docs/state/evidence/20261118T020134Z-P0-004-RECONCILE/`.

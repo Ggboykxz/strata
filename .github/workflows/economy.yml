@@ -1,0 +1,15 @@
+# ECON-001 not started; no validator to call.
+name: economy
+on: { workflow_dispatch: }
+permissions: { contents: read }
+concurrency:
+  group: economy-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  placeholder:
+    name: no economy sim yet
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - run: echo "ECONOMY: NOT COMPUTABLE until ECON-001"

@@ -178,7 +178,9 @@
     { "cmd": "pnpm --filter @strata/dashboard build", "exit": 0, "log": "docs/state/evidence/20261118T014550Z-P0-007/01-dashboard-build.log" },
     { "cmd": "bash /tmp/opencode/p007-negative.sh", "exit": 0, "log": "docs/state/evidence/20261118T014550Z-P0-007/02-negative-tests.log" },
     { "cmd": "node scripts/drill-resume.mjs --dry (clean / expired lock / corrupt heartbeat)", "exit": 0, "log": "docs/state/evidence/20261118T014957Z-GATE-P0/01-drill-clean.log" },
-    { "cmd": "GitHub Actions API — latest run per workflow", "exit": 0, "log": "docs/state/evidence/20261118T014957Z-GATE-P0/09-ci-results.log" }
+    { "cmd": "GitHub Actions API — latest run per workflow", "exit": 0, "log": "docs/state/evidence/20261118T014957Z-GATE-P0/09-ci-results.log" },
+    { "cmd": "node scripts/validate-workflows.mjs (master §18 names)", "exit": 0, "log": "docs/state/evidence/20261118T020134Z-P0-004-RECONCILE/02-validate-workflows.log" },
+    { "cmd": "bash /tmp/opencode/p004-negative.sh (after reconciliation)", "exit": 0, "log": "docs/state/evidence/20261118T020134Z-P0-004-RECONCILE/03-negative-tests.log" }
   ],
   "notes": [
     "every number above was produced by a command in this session; none is an estimate",
@@ -197,7 +199,7 @@
     "P0-007: build.mjs is the only source reader; data.json is the only page input; 14 NOT COMPUTABLE fields and byte-identical rebuild with STRATA_BUILD_UTC",
     "GATE:P0 dossier assembled unsigned: 3 kill-session drills, 13 green GitHub Actions runs at head 3c9c48fd, all local gates 0",
     "ND-009 resolved option A via ADR-A0003: long-term vision is a full MMORPG delivered through a vertical slice; PROMPT.lock amended [ADR-A0003] and Constitution ## AMENDMENTS; scope, tier, tasks and gates unchanged",
-    "Known deviation: P0-004's 27 workflow names do not match master §18's explicit list; recorded in the GATE:P0 dossier",
+    "Workflow names reconciled with master §18: 27 exact names, 56 SHA pins, 8/8 negative tests, verify 12/12",
     "P0-004 acceptance is static: no GitHub Actions job was executed in the sandbox; 12 workflows calling declared stubs are workflow_dispatch-only so a stub never becomes a permanently red PR gate",
     "WF-002's glob compiler mirrors validate-blueprint B2; consolidation into scripts/lib/ownership.mjs is a recorded tools-engineer handoff (I6: orchestrator cannot edit scripts/lib/**)",
     "TRACER-001: 2 replicas and 5 authoritative ticks reach equal FNV-1a hashes; forcing a desync exits 1, and Math.random in core still fails the AST lint",

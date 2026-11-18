@@ -1,12 +1,13 @@
-name: codeql - static analysis
+# dependency-review-action disabled: graph API returned 403 (run 44218555810).
+name: security
 on: { push: { branches: [main] }, pull_request: }
-permissions: { contents: read, security-events: write }
+permissions: { contents: read }
 concurrency:
-  group: codeql-static-analysis-${{ github.ref }}
+  group: security-${{ github.ref }}
   cancel-in-progress: true
 jobs:
-  analyze:
-    name: codeql
+  codeql:
+    name: static analysis
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:

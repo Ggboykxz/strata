@@ -1,0 +1,11 @@
+
+W1  inventory: 27 workflow file(s), expected 27
+OK    27 files parse; unique names, permissions, concurrency and timeouts present
+OK    56 uses: entries pinned to SHA; 0 moving refs
+
+W8  coverage — no parallel definition of green
+OK    verify, tracer assert and workflow self-validation are all invoked
+
+W9  7 workflow(s) call declared stubs and are manual-only: anim-separation.yml, anim.yml, asset-report.yml, gdd.yml, retarget.yml, scene-budget.yml, texture-audit.yml
+
+RESULT: PASS — 27 workflows, 56 pinned uses, 47 run steps, 0 error(s). Static validation only; no workflow was executed.

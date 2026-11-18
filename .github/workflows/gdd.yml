@@ -1,14 +1,13 @@
-# DECLARED STUB until the owning task implements validate-gdd.mjs.
-# Manual trigger only: a stub must never be silently green on a PR.
-name: gdd - module coverage
+# DECLARED STUB validate-gdd.mjs — manual until GDD-001 implements it.
+name: gdd
 on: { workflow_dispatch: }
 permissions: { contents: read }
 concurrency:
-  group: gdd-module-coverage-${{ github.ref }}
+  group: gdd-${{ github.ref }}
   cancel-in-progress: true
 jobs:
   validate:
-    name: GDD modules and 19 fields
+    name: GDD modules
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
