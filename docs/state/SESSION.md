@@ -89,7 +89,10 @@ blueprint task currently owns the pin: recorded as a gap for the Director/next r
 
 ## Carried state
 
-- Repo `github.com/Ggboykxz/strata`, private, default branch `main` (empty root commit `36bd9af`).
+- Repo `github.com/Ggboykxz/strata`, **public since 2026-11-18** (Director decision, ND-003), default branch
+  `main` still empty (root commit `36bd9af`) — **the Director must merge PR #1** for the landing page to show
+  the project. No self-merge was performed. README + Apache-2.0 LICENSE + NOTICE landed before the flip;
+  unauthenticated API/raw reads return HTTP 200.
 - PR #1 is draft and stacked; P0-002 is pushed on the same branch (`7e9d382`).
 - `corepack enable` is done; pnpm is pinned to **12.21.0** and the lockfile is committed.
 - `pnpm verify` (**10 steps**, fail-fast) is the only entry point. It prints DEFERRED for determinism replay,
@@ -107,6 +110,7 @@ blueprint task currently owns the pin: recorded as a gap for the Director/next r
   consolidating it into `scripts/lib/ownership.mjs` is a tools-engineer handoff recorded in the thread.
 - TypeScript is pinned to **6.0.3** because 7.x ships the native compiler without the JS AST API the
   core-math lint needs. Recorded in `docs/STACK.lock.md`.
-- The Director's PAT is still the only push path and still needs rotation (ND-004).
+- The Director's PAT is still the only push path and still needs rotation (ND-004) — now more urgent: the
+  repo is public while the token remains live. ND-005 (HF token) is also open.
 - `scripts/scope-math.mjs` carries an older duplicate YAML parser; unifying it with `scripts/lib/yaml.mjs`
   is a producer handoff, recorded in the P0-002 journal and thread.

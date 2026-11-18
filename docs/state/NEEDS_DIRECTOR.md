@@ -9,7 +9,7 @@ Nothing here blocks the work already done; each item blocks a named future task.
 |---|---|---|
 | ND-001 | **RESOLVED** — Option A applied | T1 EN 25/25, FR 30/35; FINDING-001 closed; T3 signed at GATE:P0 so concept `--check` exits 0 |
 | ND-002 | **RESOLVED** — ADR A0002 Option A accepted | D-002 closed, WF-002 no longer `refused_ownership` |
-| ND-003 | DEFERRED — current state matches the recommendation | revisit before GATE:P0; no action blocks P0-004 |
+| ND-003 | **RESOLVED** — repository made public 2026-11-18 | README + Apache-2.0 LICENSE + NOTICE landed before the flip |
 | ND-004 | **OPEN — requires the Director's account** | revoke the exposed GitHub PAT, issue a fine-grained one |
 | ND-005 | **OPEN — requires the Director's account** | revoke the exposed HF token, issue a fine-grained one |
 
@@ -61,7 +61,7 @@ before merge without rewriting history.
 
 ---
 
-## ND-003 — repository identity and visibility — DEFERRED
+## ND-003 — repository identity and visibility — RESOLVED
 
 **Question.** Personal account (`Ggboykxz`) or an organisation? Private or public?
 
@@ -69,10 +69,17 @@ before merge without rewriting history.
 constitution exists. §10.5 commits the project to open source (Apache-2.0 code, CC0/CC-BY assets, CC-BY docs).
 `package.json` declares Apache-2.0; a LICENSE/NOTICE pair still has to land before publication.
 
-**Status.** The current state — private, personal — **is** the published recommendation until `GATE:P0`.
-Nothing in P0-004 or TRACER-001 is blocked by it. The decision becomes urgent only when the gate dossier is
-assembled: flip public with README + LICENSE + NOTICE in place, and move to an organisation before any
-self-hosted runner is used (fork-PR rules differ).
+**Resolution (2026-11-18, Director instruction): public.** Before the flip, the repo gained a README that
+states the honest P0 status, the canonical Apache-2.0 `LICENSE`, and a `NOTICE` with exact third-party
+versions and licenses. A full scan of the tracked worktree and all git objects found **0** GitHub or HF
+token values. Verified after the flip: unauthenticated `GET /repos/Ggboykxz/strata` → **HTTP 200** and the
+README is readable from `raw.githubusercontent.com` without a token.
+
+**Remaining caveat.** The default branch `main` still holds only the empty root commit `36bd9af`: the
+Director must merge PR #1 before the public landing page shows the project. No self-merge was performed.
+
+**Escalated risk.** The exposed GitHub PAT (ND-004) is still live and the repository is now public.
+Rotation is more urgent than before; an agent still cannot revoke it without the Director's account.
 
 **Risk.** Public-by-accident is irreversible in practice (forks, caches, archives). Keep the visibility as
 it is until the decision is explicit.

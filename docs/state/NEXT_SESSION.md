@@ -69,9 +69,11 @@ CPU-safe work only; no HF call before the P0-006 license audit (I4).
 
 1. **ND-001 / ND-002 — RESOLVED.** HIGH_CONCEPT v1.2 (EN 25, FR 30, T3 signed at P0); A0002 option A,
    WF-002 implemented; `validate-workflows.mjs` given to release-engineer by §6 before P0-004 started.
-2. **ND-003 — DEFERRED.** Keep the repo private on the personal account until GATE:P0.
+2. **ND-003 — RESOLVED.** Repository is **public** since 2026-11-18. `main` is still empty; the Director
+   must merge PR #1. README + Apache-2.0 LICENSE + NOTICE landed before the flip.
 3. **ND-004 / ND-005 — OPEN, Director action.** Rotate the exposed GitHub PAT and HF token. Decision
    carried: do not revoke the PAT before a replacement exists, because that would break all pushes.
+   **The repo is public now — rotation is urgent.**
 
 ## 4. Order after P0-005
 
@@ -90,5 +92,6 @@ CPU-safe work only; no HF call before the P0-006 license audit (I4).
 
 - Node **22.23.4**, pnpm **12.21.0** (corepack), TypeScript **6.0.3**, Vitest **5.1.0**, Babylon **9.37.0**,
   ws **8.23.0** — `docs/STACK.lock.md`. `uv` is **not** installed; setup.sh must not assume it is.
-- No GPU on this machine. `detect_tier.py` must report that honestly.
+- A **Tesla T4 (15360 MiB reported, nominal 16 GB tier)** is visible; `tools/colab/detect_tier.py` measured
+  it. No model used before the P0-006 license audit (I4), and no GPU job without manifest checkpoints.
 - Never commit a token. Evidence logs capture commands; secrets must not appear in them.
