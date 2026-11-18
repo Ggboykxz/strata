@@ -1,0 +1,10 @@
+OK     exit=0  baseline: sealed repo passes
+OK     exit=1  tampered invariant I1 in the Constitution is caught
+OK     exit=0  a declared amendment (lock + AMENDMENTS section) is allowed
+OK     exit=1  an amendment declared without an AMENDMENTS section is refused
+OK     exit=1  a single appended byte to the master is caught
+OK     exit=1  a truncated master (no sentinel) is caught
+OK     exit=1  a missing PROMPT.lock is caught
+OK     exit=1  a dropped locked decision (D79) is caught
+
+RESULT: PASS — all 8 negative tests behaved as required.

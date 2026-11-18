@@ -1,0 +1,29 @@
+# PROMPT.lock — sealed identity of the master prompt this repository was materialized from.
+# Owner: orchestrator (P0-001). Checked by scripts/validate-prompt-drift.mjs (I5: a missing check fails).
+version: 1
+
+master:
+  path: tools/colab/prompts/SESSION_MASTER.md
+  archive: docs/archive/SESSION_MASTER_v8.1.md
+  version: "8.1"
+  sentinel: "<<<STRATA_END v8.1>>>"
+  size_cap_bytes: 100000
+  bytes: 99289
+  lines: 953
+  sha256: 91dd8ab5d336589e97c8128c9175b1752a5842c961deb0b396428c6b3f58b615
+  sealed_at: "2026-11-18T00:22:53Z"
+  sealed_by: orchestrator
+  verified:
+    - "tail -n1 == sentinel"
+    - "wc -c == 99289 < 100000"
+    - "sha256sum(master) == sha256sum(archive)"
+
+materialization:
+  constitution: docs/CONSTITUTION.md
+  blueprint: docs/blueprint/BLUEPRINT.yaml
+  agents: AGENTS.md
+  opencode: opencode.json
+
+# Decisions or invariants the constitution is allowed to state differently from the archived master.
+# Each entry requires a Director-signed ADR id. Empty = the constitution must quote the master verbatim.
+amended: []

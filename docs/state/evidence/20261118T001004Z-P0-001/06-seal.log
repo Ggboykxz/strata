@@ -1,0 +1,6 @@
+$ seal check: sentinel / size / sha256 / archive identity
+<<<STRATA_END v8.1>>>
+99289
+91dd8ab5d336589e97c8128c9175b1752a5842c961deb0b396428c6b3f58b615  tools/colab/prompts/SESSION_MASTER.md
+91dd8ab5d336589e97c8128c9175b1752a5842c961deb0b396428c6b3f58b615  docs/archive/SESSION_MASTER_v8.1.md
+cmp exit=0
