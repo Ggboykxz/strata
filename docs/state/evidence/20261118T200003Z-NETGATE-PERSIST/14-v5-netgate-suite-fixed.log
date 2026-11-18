@@ -1,0 +1,30 @@
+pnpm vitest run apps/server/test/netgate/ (v5 targetTick fix)
+
+ RUN  v5.1.0 /tmp/strata-persist
+
+ ❯ apps/server/test/netgate/reconnect.test.ts (2 tests | 1 failed) 18961ms
+   ❯ NET-GATE reconnect-restore on real sockets (2)
+     × restores the same entity, hash and applied seq inside the reconnect window 15145ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  apps/server/test/netgate/reconnect.test.ts > NET-GATE reconnect-restore on real sockets > restores the same entity, hash and applied seq inside the reconnect window
+Error: only 0/4 clients joined the room
+ ❯ connectFour apps/server/test/netgate/support.ts:285:37
+    283|   const joinDeadline = now() + 15000;
+    284|   while (server.room.members.length < 4) {
+    285|     if (now() > joinDeadline) throw new Error(`only ${server.room.memb…
+       |                                     ^
+    286|     await sleep(2);
+    287|   }
+ ❯ apps/server/test/netgate/reconnect.test.ts:37:23
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 1 passed (2)
+      Tests  1 failed | 2 passed (3)
+   Start at  20:13:34
+   Duration  28.47s (tests 97%, transform 1%, import 1%)
+
+EXIT=1
