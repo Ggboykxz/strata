@@ -1,0 +1,36 @@
+GET /api/models/sudo-ai/zero123plus-v1.2 (date-UTC 2026-11-18)
+sha 2da07e89919e1a130c9b5add1584c70c7aa065fd
+gated False private False
+license tags: ['diffusers', 'safetensors', 'diffusers:Zero123PlusPipeline', 'region:us']
+downloads 13959
+siblings:
+ - .gitattributes
+ - feature_extractor_clip/preprocessor_config.json
+ - feature_extractor_vae/preprocessor_config.json
+ - model_index.json
+ - scheduler/scheduler_config.json
+ - text_encoder/config.json
+ - text_encoder/model.safetensors
+ - tokenizer/merges.txt
+ - tokenizer/special_tokens_map.json
+ - tokenizer/tokenizer_config.json
+ - tokenizer/vocab.json
+ - unet/config.json
+ - unet/diffusion_pytorch_model.safetensors
+ - vae/config.json
+ - vae/diffusion_pytorch_model.safetensors
+ - vision_encoder/config.json
+ - vision_encoder/model.safetensors
+
+\$ curl -sI https://huggingface.co/sudo-ai/zero123plus-v1.2/resolve/main/diffusion_pytorch_model.bin | head -20
+HTTP/2 404 
+content-type: text/plain; charset=utf-8
+content-length: 15
+date: Wed, 18 Nov 2026 21:02:12 GMT
+etag: W/"f-mY2VvLxuxB7KhsoOdQTlMTccuAQ"
+x-powered-by: huggingface-moon
+x-request-id: Root=1-6afe1254-739f195b62df4223642ca88c
+ratelimit: "resolvers";r=2983;t=207
+ratelimit-policy: "fixed window";"resolvers";q=3000;w=300
+cross-origin-opener-policy: same-origin
+EXIT=0
