@@ -259,6 +259,8 @@ owners:
   - agent: release-engineer
     globs:
       - .github/workflows/**
+      # WORKFLOW.md §4.2/§6: the validator belongs to the agent who owns the domain.
+      - scripts/validate-workflows.mjs
 
   - agent: tools-engineer
     globs:

@@ -1,0 +1,10 @@
+OK     exit=0  baseline passes
+OK     exit=1  26 files
+OK     exit=1  28 files
+OK     exit=1  unpinned uses
+OK     exit=1  missing permissions
+OK     exit=1  PR head checkout
+OK     exit=1  stub on a PR
+OK     exit=1  unfrozen install
+
+RESULT: PASS — all 8 P0-004 negative tests behaved as required.

@@ -1,0 +1,11 @@
+
+W1  inventory: 27 workflow file(s), expected 27
+OK    27 files parse; unique names, permissions, concurrency and timeouts present
+OK    80 uses: entries pinned to SHA; 0 moving refs
+
+W8  coverage — no parallel definition of green
+OK    verify, tracer assert and workflow self-validation are all invoked
+
+W9  12 workflow(s) call declared stubs and are manual-only: anim-separation.yml, content-blueprints.yml, docs.yml, gdd.yml, kit.yml, lightmap.yml, lore.yml, model-audit.yml, netgate.yml, retarget.yml, scene-budget.yml, texture-set.yml
+
+RESULT: PASS — 27 workflows, 80 pinned uses, 52 run steps, 0 error(s). Static validation only; no workflow was executed.
