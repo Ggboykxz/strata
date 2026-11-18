@@ -1844,3 +1844,68 @@ locks:
     expires_at: "2026-11-18T20:58:00Z"
     status: released
 
+  # PR-N1 completion — 4-client latency matrix + real 30-minute soak (2026-11-18T15:07Z).
+  - path_glob: "AGENTS.md"
+    owner_agent: orchestrator
+    task_id: PR-N1
+    branch: session/20261118-prn1-matrix
+    acquired_at: "2026-11-18T15:07:00Z"
+    expires_at: "2026-11-18T16:07:00Z"
+    status: active
+
+  - path_glob: "apps/game/src/net/**"
+    owner_agent: netcode-engineer
+    task_id: PR-N1
+    branch: session/20261118-prn1-matrix
+    acquired_at: "2026-11-18T15:07:00Z"
+    expires_at: "2026-11-18T16:07:00Z"
+    status: active
+
+  - path_glob: "apps/game/test/**"
+    owner_agent: gameplay-engineer
+    task_id: PR-N1
+    branch: session/20261118-prn1-matrix
+    acquired_at: "2026-11-18T15:07:00Z"
+    expires_at: "2026-11-18T16:07:00Z"
+    status: active
+
+  - path_glob: "docs/design/gdd/GDD-NETCODE.md"
+    owner_agent: netcode-engineer
+    task_id: PR-N1
+    branch: session/20261118-prn1-matrix
+    acquired_at: "2026-11-18T15:07:00Z"
+    expires_at: "2026-11-18T16:07:00Z"
+    status: active
+
+  - path_glob: "docs/qa/prototypes/**"
+    owner_agent: qa-engineer
+    task_id: PR-N1
+    branch: session/20261118-prn1-matrix
+    acquired_at: "2026-11-18T15:07:00Z"
+    expires_at: "2026-11-18T16:07:00Z"
+    status: active
+
+  - path_glob: "docs/state/**"
+    owner_agent: orchestrator
+    task_id: PR-N1
+    branch: session/20261118-prn1-matrix
+    acquired_at: "2026-11-18T15:07:00Z"
+    expires_at: "2026-11-18T16:07:00Z"
+    status: active
+
+  - path_glob: "scripts/validate-netgate.mjs"
+    owner_agent: netcode-engineer
+    task_id: PR-N1
+    branch: session/20261118-prn1-matrix
+    acquired_at: "2026-11-18T15:07:00Z"
+    expires_at: "2026-11-18T16:07:00Z"
+    status: active
+
+  - path_glob: "tools/sim/load/**"
+    owner_agent: qa-engineer
+    task_id: PR-N1
+    branch: session/20261118-prn1-matrix
+    acquired_at: "2026-11-18T15:07:00Z"
+    expires_at: "2026-11-18T16:07:00Z"
+    status: active
+
