@@ -63,6 +63,7 @@ owners:
       - docs/design/VERTICAL_SLICE_SPEC.md
       - scripts/scope-*.mjs
       - scripts/validate-scope.mjs
+      - scripts/validate-docs.mjs
       - docs/state/NEEDS_DIRECTOR.md
 
   - agent: high-concept-guardian

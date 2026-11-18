@@ -1,0 +1,7 @@
+OK     exit=0  baseline passes
+OK     exit=2  missing VISION.md
+OK     exit=1  missing required section
+OK     exit=1  locked sentence removed
+OK     exit=1  ADR without status
+
+RESULT: PASS — all 5 P1-001 negative tests behaved as required.
