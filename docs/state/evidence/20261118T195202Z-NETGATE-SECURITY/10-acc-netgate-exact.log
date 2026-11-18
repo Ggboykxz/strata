@@ -1,0 +1,14 @@
+$ pnpm vitest run apps/server/test/netgate/
+
+ RUN  v5.1.0 /tmp/strata-security
+
+
+ Test Files  4 passed (4)
+      Tests  9 passed (9)
+   Start at  20:00:26
+   Duration  8.29s (tests 61%, import 30%, transform 7%, worker 2%)
+
+    Isolate  4 workers spawned · ~684ms startup each (spawn + environment, per file)
+             at least ~2.05s faster with isolate: false — reuses workers across files instead of one per file
+
+EXIT=0

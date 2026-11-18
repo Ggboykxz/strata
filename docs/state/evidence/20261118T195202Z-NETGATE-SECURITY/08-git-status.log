@@ -1,0 +1,6 @@
+$ git status --short
+ M docs/legal/THREAT_MODEL.md
+?? apps/server/test/netgate/
+?? docs/qa/prototypes/NET_GATE_SECURITY.md
+?? docs/state/evidence/20261118T195202Z-NETGATE-SECURITY/
+EXIT=0
