@@ -37,6 +37,15 @@ Both resolutions live in an **unmerged draft PR**. If the Director prefers ND-00
 B/C, the change is a normal PR amendment before merge — no history rewrite and no silent overwrite of the
 decision record. The ADR and HIGH_CONCEPT §7 preserve the rejected options and their rationale.
 
+## Added decision — T3 signed at GATE:P0 (2026-11-18T00:52Z)
+
+The HIGH_CONCEPT §5 grid said "signing deferred to GATE:P1", but master §1.4 says T3 is
+"re-signed at each gate" and GATE:P0 is a gate. I followed the master: the guardian signed at P0 with the
+N2 × N4 basis recorded in the document, and the signature is explicitly gate-scoped (re-sign with fresh
+prototype evidence at each later gate). This is a decision, not a loophole: `concept --check` now exits 0
+because the required signature exists, not because the check was weakened. Evidence
+`docs/state/evidence/20261118T004835Z-DIRECTOR-RESOLUTIONS/09-concept-signed-check.log`.
+
 ## next
 
 P0-004 (27 CI workflows + real `validate-workflows.mjs`), then WF-002 — now selectable, with its outputs

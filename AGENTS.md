@@ -91,6 +91,8 @@ Anything else goes through a handoff. A conflict is resolved by a handoff or the
 - `docs/blueprint/BLUEPRINT.yaml` holds 63 tasks and 11 gates; `scripts/validate-blueprint.mjs` enforces
   B1–B8 (0 errors, 12 declared warnings after A0002 removed the WF-002 refusal).
 - 32 agents and 51 skill stubs exist. One process wears every hat until the Director installs reviewers.
+- **T3 signed at GATE:P0** per master §1.4 ("re-signed at each gate"); `concept --check` exit 0. The
+  HC §5 signature records the N2 × N4 basis and the obligation to re-sign at later gates.
 - **ND-001 resolved** (T1 EN 25/25, FR 30/35; FINDING-001 closed) and **ND-002 resolved** (A0002 option A,
   D-002 closed, WF-002 is orchestrator's). See `docs/state/NEEDS_DIRECTOR.md`.
 - Known intentional red: `concept-integrity --check` (T3 novelty unsigned until GATE:P1),

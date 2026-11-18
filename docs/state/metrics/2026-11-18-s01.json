@@ -25,7 +25,7 @@
     "novelty_properties": 4,
     "open_concept_findings": 0,
     "concept_debt_open": 0,
-    "concept_check_remaining_debt": 1,
+    "concept_check_remaining_debt": 0,
     "ledger_entries": 12,
     "ledger_accepted_sessions": 25,
     "budget_P0": 30,
@@ -121,7 +121,8 @@
     { "cmd": "node scripts/concept-integrity.mjs --init", "exit": 0, "log": "docs/state/evidence/20261118T004835Z-DIRECTOR-RESOLUTIONS/03-concept-init.log" },
     { "cmd": "node scripts/validate-blueprint.mjs", "exit": 0, "log": "docs/state/evidence/20261118T004835Z-DIRECTOR-RESOLUTIONS/04-validate-blueprint.log" },
     { "cmd": "bash /tmp/opencode/bp-negative.sh", "exit": 0, "log": "docs/state/evidence/20261118T004835Z-DIRECTOR-RESOLUTIONS/07-blueprint-negative-tests.log" },
-    { "cmd": "pnpm verify", "exit": 0, "log": "docs/state/evidence/20261118T004835Z-DIRECTOR-RESOLUTIONS/08-verify.log" }
+    { "cmd": "pnpm verify", "exit": 0, "log": "docs/state/evidence/20261118T004835Z-DIRECTOR-RESOLUTIONS/08-verify.log" },
+    { "cmd": "node scripts/concept-integrity.mjs --check", "exit": 0, "log": "docs/state/evidence/20261118T004835Z-DIRECTOR-RESOLUTIONS/09-concept-signed-check.log" }
   ],
   "notes": [
     "every number above was produced by a command in this session; none is an estimate",
@@ -130,7 +131,7 @@
     "the master prompt is sealed against itself (sentinel, size, hash, verbatim section diff); it cannot be proven byte-identical to the Director's clipboard — stated in SESSION.md",
     "two secrets were exposed in chat (GitHub PAT ND-004, HF token ND-005); neither reached disk, git or an evidence log, and both must be rotated",
     "12 blueprint warnings are declared, not hidden: 3 B2 scaffold exemptions, 1 B3 deferral, 1 B4/B5 deferral covering 32 tasks, 7 B8 splits; the WF-002 refusal was closed by A0002",
-    "ND-001 closed: EN 25/25 and FR 30/35, FINDING-001/CD-001 closed, T1 limit unchanged; concept --check still exits 1 on the deliberately unsigned T3 (deferred to GATE:P1)",
+    "ND-001 closed: EN 25/25 and FR 30/35, FINDING-001/CD-001 closed, T1 limit unchanged; T3 signed at GATE:P0 per master §1.4 so concept --check exits 0",
     "ND-002 closed: ADR A0002 option A accepted, D-002 RESOLVED, WF-002 assigned to orchestrator with two named scripts/** exceptions; validate-blueprint now has 0 refusals",
     "ND-004/ND-005 remain open because token rotation requires the Director's GitHub and HF account access; a prefix scan found 0 secrets in git or the tracked worktree",
     "21 validator stubs exit 1 by design; a stub is counted as a warning, never as a passing acceptance",

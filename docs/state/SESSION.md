@@ -74,8 +74,8 @@ Details, options and evidence: `docs/state/NEEDS_DIRECTOR.md` and
 
 ## Known red (intentional)
 
-- `concept-integrity --check` exit 1 — T3 novelty grid unsigned until GATE:P1. T1 now passes (25/30).
 - `scope-math --report` exit 2 — throughput unmeasured by design.
+- The two WF-002 validators are still stubs; WF-002 is now owned by orchestrator and selectable.
 
 ## Config reality
 

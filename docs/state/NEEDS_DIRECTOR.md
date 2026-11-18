@@ -7,7 +7,7 @@ Nothing here blocks the work already done; each item blocks a named future task.
 
 | id | status | effect |
 |---|---|---|
-| ND-001 | **RESOLVED** — Option A applied | T1 EN 25/25, FR 30/35; FINDING-001 closed |
+| ND-001 | **RESOLVED** — Option A applied | T1 EN 25/25, FR 30/35; FINDING-001 closed; T3 signed at GATE:P0 so concept `--check` exits 0 |
 | ND-002 | **RESOLVED** — ADR A0002 Option A accepted | D-002 closed, WF-002 no longer `refused_ownership` |
 | ND-003 | DEFERRED — current state matches the recommendation | revisit before GATE:P0; no action blocks P0-004 |
 | ND-004 | **OPEN — requires the Director's account** | revoke the exposed GitHub PAT, issue a fine-grained one |

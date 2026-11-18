@@ -6,8 +6,8 @@
 | version | 1.1 (LOCKED — Director-signed amendment of 2026-11-18) |
 | owner | high-concept-guardian |
 | status | LOCKED — amended only by Director-signed ADR (`concept-amendment`) |
-| amended_by | ND-001 / FINDING-001 — Option A, Director instruction 2026-11-18 (scope of the 25-word T1 limit unchanged) |
-| last_validated | 2026-11-18T00:48Z |
+| amended_by | ND-001 / FINDING-001 — Option A, Director instruction 2026-11-18 (scope of the 25-word T1 limit unchanged); T3 signed at GATE:P0 per §1.4 |
+| last_validated | 2026-11-18T00:52Z |
 | validator | `node scripts/concept-integrity.mjs --check` |
 
 Authority: §1 of the STRATA master (v8.1). This document is the canonical concept source once
@@ -95,7 +95,7 @@ Blocking thresholds: **P2 ≥ 50 · P3 ≥ 80 · P4+ ≥ 85.**
 
 ---
 
-## 5. NOVELTY GRID v1 (unsigned — P0)
+## 5. NOVELTY GRID v1 (SIGNED — GATE:P0, 2026-11-18)
 
 Claim: the combination, not any single property, is the novelty.
 
@@ -107,7 +107,14 @@ Claim: the combination, not any single property, is the novelty.
 | N4 | paradox as an economic regulator | low | over-harvest spawns Rouille, which erases nodes in *other* eras |
 
 Uncombined properties: **N2 × N4** (spatial propagation driven by an economic regulator that
-penalises the actor's own future) is the defensible core. Signing deferred to GATE:P1.
+penalises the actor's own future) is the defensible core.
+
+**Signature — GATE:P0, 2026-11-18 — high-concept-guardian.**
+Basis for the signature, not a self-report: the table above records prior-art pressure for each property
+(high / low / medium / low); N1 and N3 are well-covered individually, while **N2 × N4** is the combination
+that is not. The claim is therefore about the *combination*, exactly as T3 requires, and the grid holds
+four properties against a minimum of three. Re-sign at each subsequent gate with the prototype evidence
+available at that gate (§1.4: "re-signed at each gate"); a signature at P0 is not a permanent certificate.
 
 ---
 
@@ -150,9 +157,9 @@ FR re-reviewed 2026-11-18 for parallelism and locked at 30 words:
 Cost: drops "while/becomes a wasteland" cadence; keeps burn → abbey → megacity → memory.
 Option B (raise the T1 EN limit to 30) was rejected: it would weaken the cheapest test we own.
 
-**Verification:** `node scripts/concept-integrity.mjs --check` no longer reports a T1 debt. T3 remains
-unsigned by design until GATE:P1, so `--check` still exits 1 on that one debt. A green check must mean the
-concept obeys its own tests; T3 is a separate, recorded deferral, not a hidden pass.
+**Verification:** `node scripts/concept-integrity.mjs --check` now passes T1 and T3 at GATE:P0
+(EN 25, FR 30, grid signed with the N2 × N4 basis above). The signature is gate-scoped: §1.4 requires a
+re-signature with fresh evidence at each later gate.
 
 ---
 
@@ -162,3 +169,4 @@ concept obeys its own tests; T3 is a separate, recorded deferral, not a hidden p
 |---|---|---|---|
 | 1.0 | 2026-11-18 | bootstrapped from master v8.1 §1; T1 measured; FINDING-001 opened | high-concept-guardian |
 | 1.1 | 2026-11-18 | ND-001 resolved: EN trimmed to 25 words, FR re-locked at 30; finding closed (limit unchanged) | Director instruction → high-concept-guardian |
+| 1.2 | 2026-11-18 | T3 novelty grid signed at GATE:P0 per master §1.4 ("re-signed at each gate"); basis N2 × N4 recorded | high-concept-guardian |

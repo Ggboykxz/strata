@@ -78,8 +78,7 @@ next session's input, not this task's evidence.
 
 ## 5. Known red (intentional, not regressions)
 
-- `concept-integrity.mjs --check` exit 1: unsigned T3 novelty grid (deferred to GATE:P1). T1 now passes
-  (EN 25/25, FR 30/35).
+- `concept-integrity.mjs --check` now exits 0: T1 EN 25/25, FR 30/35, T3 signed at GATE:P0.
 - `scope-math.mjs --report` exit 2: throughput unmeasured by design.
 - `concept-integrity --score` exit 2 until a measured CIS source exists (HC-003, P2).
 - 21 validators print `NOT IMPLEMENTED` and exit 1; `pnpm verify` lists them as DEFERRED and does not run them.
