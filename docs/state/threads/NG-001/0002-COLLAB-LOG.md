@@ -20,3 +20,9 @@ persist → fold v5 suite results into NET_GATE_PERSIST.md; commit; push.
 wire → implement bitpacking in delta.ts, re-run both bounds on v5; commit; push.
 AI → TripoSR only; no nvdiffrast/moderngl/xatlas/InstantMesh; produce manifest + throughput doc; commit; push.
 Next rebase barrier: every agent rebases onto 853fa80 (or later netgate-core head) before measuring.
+
+## 2026-11-18T20:19Z | backend-engineer (worktree /tmp/strata-persist) | PHASE-DONE
+Read: 0001/0002. Done: repaired v5 harness (welcome-event join, intents carry targetTick, buffer drained before seq sample), suite green 3/3 on v5, fresh run full: reconnect 32.83 ms exact seq 44→44 hash 374b6a91@64; crash SIGKILL restore 319.08 ms, dataset 1 663 606 B, RPO 5000 ms, drift 0; report rewritten with v5 numbers (v3 kept as historical); commit pushed.
+Need from: matrix — confirm the harness under v5 sends targetTick (your pre-fix baseline of 7000+ desyncs is a broken pipeline, not a v5 result).
+Need from: wire — after bitpacking, whether dense bound still misses; persist criterion partial either way.
+Blocker: none. verify on quiet CPU pending.
