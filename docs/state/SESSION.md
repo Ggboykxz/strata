@@ -7,8 +7,8 @@
 | branch | `session/20261118-hc-001-high-concept` |
 | phase / tier | P1 complete → P2NET next / current `S0`, authorized **`S1`** (GATE:P1 signed 2026-11-18) |
 | director | present for bootstrap; async from now |
-| last task | NET-006 — wire v3 anim/resync, server hit frames, jitter (A0005) |
-| next task | **PR-N1** — local tick CPU p95 + framed byte-rate harness |
+| last task | PR-N1 — local tick CPU and framed-byte measurement (A0005) |
+| next task | **PR-N3** — ledger/persistence fuzz + crash restore |
 
 ## Done this session
 
@@ -47,6 +47,7 @@
 | NET-003 | rooms, resume handles, `ws` adapter, GDD-SHARDING 0.3, A0004 | rooms 17/17 · server 25/25 · full 90/90 · `verify` 17/17 |
 | NET-004 | client hash timeline, predictor, interpolation, GDD-NETCODE 0.5 | net 15/15 · full 105/105 · `verify` 17/17 |
 | NET-006 | wire v3 anim/resync frames, server-owned hits, jitter, GDD 0.4/0.6, A0005 | anim 5/5 · combat 7/7 · jitter 5/5 · full 122/122 |
+| PR-N1 | local load harness, PRN1 report, acc repaired | harness 3/3 · full 125/125 · local p95 0.2109 ms · 46 530 B/s |
 
 **P0-001 and P0-002 were split** although only P0-001 triggered B8: the halves fail for different reasons and
 deserve separate rollback points. Commits: `094f31f`, `bd6f550` (P0-001); `1ceaf20`, `7e9d382` (P0-002).
@@ -251,3 +252,13 @@ blueprint task currently owns the pin: recorded as a gap for the Director/next r
   real behaviour; A0005 lacked the D2 headings. Verify is green again.
 - Full suite **122/122**, verify 17/17, tracer green. NET-006 acc repaired to three test paths; 7 remain broken.
 - Jitter bounds are tunables, **not** measured RTT. Tick CPU p95 and byte rates belong to PR-N1.
+
+## Session 2 — PR-N1 closes A0005 (2026-11-18T10:00Z)
+
+- The local harness measures the server's real tick path: 180 ticks, 64 entities, local CPU p50 **0.1625 ms** /
+  p95 **0.2109 ms**, full snapshot 1 551 B → 46 530 B/s = **3.79x** the 12 KB/s budget.
+- Explicitly **not network RTT**, **not a 30-minute soak**. A second run gave p95 0.761 ms — CPU timing is noisy,
+  byte figures are exact. `server_tick_p95_ms` in metrics stays `NOT COMPUTABLE` on purpose.
+- `pnpm sim prn1 --assert` could never run (no `sim` script); acc repaired to the vitest command (eighth broken
+  form). Full 125/125, verify 17/17. Generator re-run against the new metrics.
+- All three NET-004 deferrals are now closed: resync frame, jitter buffer, measured local numbers.

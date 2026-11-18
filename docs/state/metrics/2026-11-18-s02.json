@@ -1,7 +1,7 @@
 {
   "session": "2026-11-18-s02",
   "utc_start": "2026-11-18T07:23:00Z",
-  "utc_end": "2026-11-18T09:43:00Z",
+  "utc_end": "2026-11-18T10:00:00Z",
   "mode": "RESUME",
   "branch": "session/20261118-hc-001-high-concept",
   "tier": {
@@ -53,6 +53,11 @@
       "id": "NET-006",
       "status": "done",
       "blueprint_task": "NET-006"
+    },
+    {
+      "id": "PR-N1",
+      "status": "done",
+      "blueprint_task": "PR-N1"
     }
   ],
   "measured": {
@@ -126,7 +131,16 @@
     "jitter_max_ticks": 8,
     "anim_wire_tests": 5,
     "combat_tests": 7,
-    "jitter_tests": 5
+    "jitter_tests": 5,
+    "local_cpu_p50_ms": 0.1625,
+    "local_cpu_p95_ms": 0.2109,
+    "local_cpu_run2_p95_ms": 0.761,
+    "harness_ticks": 180,
+    "harness_entities": 64,
+    "harness_warmup_ticks": 20,
+    "framed_bytes_per_second": 46530,
+    "over_budget_factor": 3.79,
+    "acceptance_commands_remaining": 7
   },
   "cis": {
     "value": null,
@@ -622,6 +636,40 @@
       "cmd": "pnpm tracer --assert",
       "exit": 0,
       "log": "docs/state/evidence/20261118T091539Z-NET-006/11-tracer.log"
+    },
+    {
+      "cmd": "pnpm sim prn1 --assert (as written in the blueprint)",
+      "exit": 1,
+      "log": "docs/state/evidence/20261118T092125Z-PR-N1/00-acc-old-form.log",
+      "result": "no sim script"
+    },
+    {
+      "cmd": "pnpm vitest run tools/sim/load/test/prn1.test.ts --reporter=verbose",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T092125Z-PR-N1/01-acc-harness.log",
+      "result": "3/3, report printed"
+    },
+    {
+      "cmd": "pnpm typecheck",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T092125Z-PR-N1/02-typecheck.log"
+    },
+    {
+      "cmd": "pnpm test",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T092125Z-PR-N1/03-full-tests.log",
+      "result": "125/125, 13 files"
+    },
+    {
+      "cmd": "pnpm verify",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T092125Z-PR-N1/04-verify.log",
+      "result": "17/17"
+    },
+    {
+      "cmd": "node scripts/validate-blueprint.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T092125Z-PR-N1/05-blueprint.log"
     }
   ],
   "notes": [
@@ -656,7 +704,10 @@
     "A0005: Director said \"bypass les limites et go next\". Invariants, NET-GATE, Director-only actions and evidence-only remain in force.",
     "NET-006: wire v3 anim/resync frames, server-owned transitions and hit frames, jitter 3..8 ticks. Three defects logged and fixed in the thread.",
     "Jitter bounds are tunables, not measured RTT. Tick CPU p95 and byte rates belong to PR-N1.",
-    "NET-006 CI at daa0c14: 8/8 triggered workflows success; run ids in docs/state/evidence/20261118T091539Z-NET-006/13-ci-proof.log."
+    "NET-006 CI at daa0c14: 8/8 triggered workflows success; run ids in docs/state/evidence/20261118T091539Z-NET-006/13-ci-proof.log.",
+    "PR-N1 measured local CPU p50/p95 and exact framed byte rates; explicitly NOT network RTT and NOT a 30-minute soak.",
+    "CPU timings are noisy: two local runs gave p95 0.761 ms and 0.2109 ms. server_tick_p95_ms stays null; do not confuse them.",
+    "Full-snapshot rate 46530 B/s is 3.79x the 12 KB/s budget; NET-101 owns AoI/delta, not hidden here."
   ],
   "result": {
     "phase": "P2NET",
@@ -750,6 +801,11 @@
           "dir": "docs/state/evidence/20261118T091539Z-NET-006/",
           "logs": 14,
           "branch": "session"
+        },
+        {
+          "dir": "docs/state/evidence/20261118T092125Z-PR-N1/",
+          "logs": 7,
+          "branch": "session"
         }
       ]
     },
@@ -758,7 +814,7 @@
       "AUDIT-2026-11-18-P0-006"
     ],
     "enables": "Nothing player-facing: it protects the evidence chain — a resume prompt that cannot be silently truncated, a tier grant recorded verbatim, a deterministic tick and wire, and a dashboard that reports sources instead of memories.",
-    "next": "PR-N1 — local tick CPU p95 and framed byte-rate harness (A0005)",
+    "next": "PR-N3 — ledger + persistence + 10k tx dupe fuzz + crash restore (deps NET-003 satisfied)",
     "blockers": [
       "ND-004 PAT rotation",
       "ND-005 HF token rotation",
@@ -769,7 +825,7 @@
     ],
     "next_session_file": "docs/state/NEXT_SESSION.md",
     "full": {
-      "handoffs": "Nine handoff+proposal pairs under docs/state/threads/; all ACKed in-process. No external reviewer installed.",
+      "handoffs": "Ten handoff+proposal pairs under docs/state/threads/; all ACKed in-process. No external reviewer installed.",
       "concept_roles": "Roles executed by one process; T3 signed at GATE:P0 and re-signature deferred to the next gate. Signature ratio not recomputable from metrics.json.",
       "gdd_version_bumps": [
         "GDD-NETCODE 0.2 -> 0.3 -> 0.4",
@@ -780,14 +836,14 @@
         "GDD-NETCODE 0.5 -> 0.6"
       ],
       "scope_ledger_delta": "0 entries (12 -> 12, balanced)",
-      "content_math": "NOT COMPUTABLE — throughput unmeasured until HC-003/AI-001",
+      "content_math": "Local CPU p95 0.2109 ms (180-tick harness, 64 entities); network throughput still NOT COMPUTABLE.",
       "prototype_reports": [
         "docs/qa/prototypes/ — unchanged this session"
       ],
       "economy_metrics": "NOT COMPUTABLE — no economy simulation run (ECON-001)",
       "anim_checks": "A0001 separation intact; retarget coverage and foot slide NOT COMPUTABLE (AN-002)",
       "world_checks": "No world content this session",
-      "files_by_owner": "orchestrator: docs/state/**, docs/blueprint/**, scripts/session-result.mjs; gameplay-engineer: packages/core/src/{tick,index}.ts, apps/server/src/sim/; netcode-engineer: packages/protocol/**, GDD-NETCODE; animation-director: packages/core/src/anim-state/**, packages/content/animations/**, GDD-ANIM-ARCHITECTURE; tools-engineer: apps/dashboard/** backend-engineer: apps/server/src/rooms/** (NET-003, A0004). netcode-engineer: apps/game/src/net/**, packages/core/src/hash.ts (NET-004). netcode-engineer: protocol/src/anim.ts + wire v3, apps/server/src/combat/**, apps/game/src/net/jitter.ts (NET-006)."
+      "files_by_owner": "orchestrator: docs/state/**, docs/blueprint/**, scripts/session-result.mjs; gameplay-engineer: packages/core/src/{tick,index}.ts, apps/server/src/sim/; netcode-engineer: packages/protocol/**, GDD-NETCODE; animation-director: packages/core/src/anim-state/**, packages/content/animations/**, GDD-ANIM-ARCHITECTURE; tools-engineer: apps/dashboard/** backend-engineer: apps/server/src/rooms/** (NET-003, A0004). netcode-engineer: apps/game/src/net/**, packages/core/src/hash.ts (NET-004). netcode-engineer: protocol/src/anim.ts + wire v3, apps/server/src/combat/**, apps/game/src/net/jitter.ts (NET-006). qa-engineer: tools/sim/load/**, docs/qa/prototypes/PRN1.md (PR-N1, A0005)."
     }
   }
 }

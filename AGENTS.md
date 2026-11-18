@@ -150,6 +150,9 @@ Anything else goes through a handoff. A conflict is resolved by a handoff or the
 - **NET-006 landed with A0005**: wire v3 anim (17 B) + resync (10 B) frames, v2 peers refused, server-owned
   anim transitions and hit frames, 3..8-tick jitter buffer (tunable, not measured RTT). Full 122/122, verify
   17/17. Next: PR-N1 — local tick CPU p95 and framed byte-rate harness with a real logged command.
+- **PR-N1 closed the last A0005 deferral**: local harness, 180 ticks/64 entities, CPU p50 0.1625 ms / p95
+  0.2109 ms, full snapshot 46 530 B/s = 3.79x the 12 KB/s budget. Explicitly not RTT, not a soak; CPU timings
+  are noisy, byte figures exact. Next: PR-N3 (ledger/persistence fuzz).
 - Known intentional red: `scope-math --report` exit 2 (throughput unmeasured) and `concept --score` exit 2
   until HC-003. `concept --check` is green: T3 was signed at GATE:P0.
 

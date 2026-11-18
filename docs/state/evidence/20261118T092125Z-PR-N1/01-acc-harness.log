@@ -1,0 +1,29 @@
+$ pnpm vitest run tools/sim/load/test/prn1.test.ts --reporter=verbose
+
+ RUN  v5.1.0 /content/strata
+
+stdout | tools/sim/load/test/prn1.test.ts > PR-N1 local load harness > measures the real server code path and prints a labelled report
+{
+  "ticks": 180,
+  "warmup_ticks": 20,
+  "entities": 64,
+  "tick_cpu_p50_ms": 0.1625,
+  "tick_cpu_p95_ms": 0.2109,
+  "snapshot_bytes": 1551,
+  "snapshot_bytes_per_second": 46530,
+  "budget_bytes_per_second": 12288,
+  "over_budget_factor": 3.79,
+  "deterministic": true,
+  "label": "local simulation CPU and framed byte rates — NOT network RTT, NOT a 30-minute soak"
+}
+
+ ✓ tools/sim/load/test/prn1.test.ts > PR-N1 local load harness > measures the real server code path and prints a labelled report 54ms
+ ✓ tools/sim/load/test/prn1.test.ts > PR-N1 local load harness > is repeatable: two runs have the same framed byte rate and budgets 4ms
+ ✓ tools/sim/load/test/prn1.test.ts > PR-N1 local load harness > refuses invalid parameters 1ms
+
+ Test Files  1 passed (1)
+      Tests  3 passed (3)
+   Start at  09:21:26
+   Duration  302ms (tests 49%, transform 24%, import 22%, worker 5%)
+
+EXIT=0
