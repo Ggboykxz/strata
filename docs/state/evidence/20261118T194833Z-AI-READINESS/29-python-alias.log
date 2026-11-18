@@ -1,0 +1,10 @@
+$ python --version
+Python 3.13.16
+$ python -c "import sys; print(sys.executable); print(sys.version)"
+/usr/bin/python3
+3.13.16 (main, Oct  1 2026, 15:40:24) [GCC 13.3.0]
+$ ls -l /usr/local/bin/python
+-r-xr-xr-x 1 root root 155 Jan  1  2000 /usr/local/bin/python
+$ python -m pip list --format=freeze | wc -l
+722
+EXIT=0

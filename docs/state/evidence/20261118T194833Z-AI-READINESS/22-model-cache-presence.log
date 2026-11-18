@@ -1,0 +1,12 @@
+$ du -sh ~/.cache/huggingface 2>/dev/null
+no HF cache
+$ find /root/.cache/huggingface -maxdepth 3 -type d 2>/dev/null | head -20
+$ ls -la /content 2>/dev/null
+total 20
+drwxr-xr-x  1 root root 4096 Nov 18 19:49 .
+drwxr-xr-x  1 root root 4096 Nov 18 19:34 ..
+drwxr-xr-x  4 root root 4096 Nov 17 17:03 .config
+drwxr-xr-x  1 root root 4096 Nov 17 17:03 sample_data
+drwxr-xr-x 12 root root 4096 Nov 18 19:42 strata
+$ find / -maxdepth 3 -iname "*flux*" -o -maxdepth 3 -iname "*instantmesh*" 2>/dev/null | head
+EXIT=0

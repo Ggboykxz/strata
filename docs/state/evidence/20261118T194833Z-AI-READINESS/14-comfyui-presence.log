@@ -1,0 +1,19 @@
+$ command -v comfy
+EXIT=1
+$ command -v comfyui
+EXIT=1
+$ python3 -c 'import comfy'
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+    import comfy
+ModuleNotFoundError: No module named 'comfy'
+EXIT=1
+$ python3 -m pip show comfyui
+WARNING: Package(s) not found: comfyui
+EXIT=1
+$ ls -d /content/ComfyUI /content/comfyui /opt/ComfyUI /root/ComfyUI
+ls: cannot access '/content/ComfyUI': No such file or directory
+ls: cannot access '/content/comfyui': No such file or directory
+ls: cannot access '/opt/ComfyUI': No such file or directory
+ls: cannot access '/root/ComfyUI': No such file or directory
+EXIT=2
