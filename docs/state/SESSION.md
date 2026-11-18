@@ -7,8 +7,8 @@
 | branch | `session/20261118-hc-001-high-concept` |
 | phase / tier | P1 complete → P2NET next / current `S0`, authorized **`S1`** (GATE:P1 signed 2026-11-18) |
 | director | present for bootstrap; async from now |
-| last task | GATE:P1 signed by the Director → authorized_tier S1 |
-| next task | **NET-001** — isomorphic core tick, headless server, quantization, state hash |
+| last task | NET-001 — isomorphic core tick + headless host |
+| next task | **NET-002** — binary protocol, codec, version handshake |
 
 ## Done this session
 
@@ -40,6 +40,7 @@
 | P1-004 | 3 specs + 3 TDDs, extended `validate-docs.mjs` | 8/8 negatives; `verify` 17/17 |
 | P0-005.a | resume prompt sentinel + drift §7 + 4 new negatives; `state/locks` registry branch created | 12/12 negatives; drift 0; `verify` 17/17 |
 | GATE:P1 | Director signature recorded; `authorized_tier: S1`, GATES.yaml regenerated | `validate-blueprint` 0; `verify` 17/17 |
+| NET-001 | core tick, hash ring, headless `SimHost`; GDD-NETCODE 0.3; NET-001 acc repaired | core 19/19 · server 8/8 · `verify` 17/17 · tracer 0 |
 
 **P0-001 and P0-002 were split** although only P0-001 triggered B8: the halves fail for different reasons and
 deserve separate rollback points. Commits: `094f31f`, `bd6f550` (P0-001); `1ceaf20`, `7e9d382` (P0-002).
@@ -157,3 +158,17 @@ blueprint task currently owns the pin: recorded as a gap for the Director/next r
   sorted commit and released them after the evidence run. `task_id` had to be the blueprinted `P0-005`: the
   validator resolves ids against `BLUEPRINT.yaml`, so `.a` sub-labels cannot be lock keys.
 - **Still Director-only:** GATE:P1 signature (tier S1), ND-004/ND-005 rotation, and the PR #1 merge.
+
+## Session 2 — S1 opens (2026-11-18T08:05Z)
+
+- **GATE:P1 signed → S1.** `authorized_tier: S1`, `GATES.yaml` regenerated. `current_tier` stays `S0` because
+  `validate-blueprint` B6 computes a grant as `current + 1`; raising both reads as S1→S1 and fails.
+- **NET-001 done.** `packages/core/src/tick.ts` is the world: integer millimetres, canonical `(entity, seq)`
+  ordering, a bounded `(tick → hash)` ring compared **at the acked tick**, and a range contract that throws
+  instead of truncating. `apps/server/src/sim/host.ts` is the headless host — no socket, no clock, no Babylon.
+  GDD-NETCODE 0.2 → 0.3 in the same PR (I9). Core 19/19, server 8/8, full 29/29, verify 17/17, tracer green.
+- **Defect logged, not hidden.** The blueprint's acceptance `pnpm test --filter @strata/core` is invalid:
+  vitest has no `--filter`, exit 1. Repaired for NET-001; **11 other accs still carry it**. The inverse form
+  `pnpm --filter <pkg> test` exits 0 with no tests when the package has no `test` script — a silent false pass.
+  A follow-up task must convert all of them and add a B-series rule.
+- **Still Director-only:** ND-004/ND-005 rotation, PR #1 merge.

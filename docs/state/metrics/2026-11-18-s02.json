@@ -1,7 +1,7 @@
 {
   "session": "2026-11-18-s02",
   "utc_start": "2026-11-18T07:23:00Z",
-  "utc_end": "2026-11-18T07:50:00Z",
+  "utc_end": "2026-11-18T08:15:00Z",
   "mode": "RESUME",
   "branch": "session/20261118-hc-001-high-concept",
   "tier": {
@@ -14,8 +14,21 @@
     "art_allowed": false
   },
   "tasks": [
-    { "id": "P0-005.a", "blueprint_task": "P0-005", "status": "done" },
-    { "id": "GATE:P1", "status": "signed", "grants": "S1" }
+    {
+      "id": "P0-005.a",
+      "blueprint_task": "P0-005",
+      "status": "done"
+    },
+    {
+      "id": "GATE:P1",
+      "status": "signed",
+      "grants": "S1"
+    },
+    {
+      "id": "NET-001",
+      "status": "done",
+      "blueprint_task": "NET-001"
+    }
   ],
   "measured": {
     "resume_prompt_bytes": 2514,
@@ -36,22 +49,35 @@
     "gdd_draft": 15,
     "gdd_stub": 17,
     "gdd_signed": 0,
-    "gdd_reference_resolution": 1.0,
+    "gdd_reference_resolution": 1,
     "locks_acquired": 3,
     "locks_released": 3,
     "authorized_tier": "S1",
     "tier_grant_steps": 1,
     "deferred_non_p0_tasks": 17,
-    "art_tasks_in_authorized_phases": 0
+    "art_tasks_in_authorized_phases": 0,
+    "core_test_files": 2,
+    "core_tests": 19,
+    "server_tests": 8,
+    "full_tests": 29,
+    "determinism_ticks": 300,
+    "hash_ring_capacity": 128,
+    "containers_used": 0,
+    "broken_acceptance_commands_repaired": 1,
+    "broken_acceptance_commands_remaining": 11
   },
   "cis": {
     "value": null,
     "reason": "no measured source until HC-003 (P2); concept --score exits 2 by design"
   },
   "gdd_coverage": {
-    "value": 1.0,
+    "value": 1,
     "basis": "63/63 tasks with fully resolved refs (scripts/gdd-coverage.mjs --min 0.80)",
-    "maturity": { "draft": 15, "stub": 17, "signed": 0 }
+    "maturity": {
+      "draft": 15,
+      "stub": 17,
+      "signed": 0
+    }
   },
   "scope": {
     "ledger_entries": 12,
@@ -131,6 +157,65 @@
       "exit": 0,
       "log": "docs/state/evidence/20261118T074117Z-GATE-P1/05-verify.log",
       "result": "17/17"
+    },
+    {
+      "cmd": "pnpm test --filter @strata/core (as written in the blueprint)",
+      "exit": 1,
+      "log": "docs/state/evidence/20261118T081128Z-NET-001/00-acc-as-written.log",
+      "result": "CACError: vitest has no --filter"
+    },
+    {
+      "cmd": "pnpm vitest run packages/core",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T081128Z-NET-001/01-acc-core.log",
+      "result": "19/19"
+    },
+    {
+      "cmd": "pnpm vitest run apps/server",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T081128Z-NET-001/02-server-sim.log",
+      "result": "8/8"
+    },
+    {
+      "cmd": "pnpm typecheck",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T081128Z-NET-001/03-typecheck.log"
+    },
+    {
+      "cmd": "node scripts/lint-core-math.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T081128Z-NET-001/04-core-math.log",
+      "result": "0 clock, 0 RNG, 0 transcendental, 0 foreign import"
+    },
+    {
+      "cmd": "pnpm test",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T081128Z-NET-001/05-full-tests.log",
+      "result": "29/29, 5 files"
+    },
+    {
+      "cmd": "pnpm verify",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T081128Z-NET-001/06-verify.log",
+      "result": "17/17"
+    },
+    {
+      "cmd": "node scripts/validate-gdd.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T081128Z-NET-001/07-gdd.log",
+      "result": "32 modules"
+    },
+    {
+      "cmd": "node scripts/validate-blueprint.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T081128Z-NET-001/08-blueprint.log",
+      "result": "63 tasks, 12 declared warnings"
+    },
+    {
+      "cmd": "pnpm tracer --assert",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T081128Z-NET-001/09-tracer.log",
+      "result": "equal hashes, desync rejected"
     }
   ],
   "notes": [
@@ -139,6 +224,9 @@
     "The resume prompt now declares and carries <<<STRATA_RESUME_END v8.1>>>; the drift gate enforces it.",
     "The sealed master, PROMPT.lock, CONSTITUTION.md and the scope ledger are unchanged.",
     "S1 authorizes network work only: NET-GATE is still unpassed, so no hero art, texture bake, motion or scene generation (I2).",
-    "scripts/session-result.mjs (D146) is still a declared stub: this result was composed by hand from this file."
+    "scripts/session-result.mjs (D146) is still a declared stub: this result was composed by hand from this file.",
+    "NET-001: integer-only tick, canonical (entity, seq) ordering, wire range check, hash ring compared at the acked tick.",
+    "The blueprint acc pnpm test --filter is invalid (vitest has no --filter, exit 1); repaired for NET-001, 11 remain.",
+    "Tick p95 is still unmeasured: NET-006 owns the number. No throughput is claimed here."
   ]
 }

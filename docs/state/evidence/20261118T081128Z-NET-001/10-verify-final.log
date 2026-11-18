@@ -1,0 +1,301 @@
+$ pnpm verify
+$ node scripts/verify.mjs
+STRATA verify — P0-003 skeleton
+enabled: 17 step(s), fail-fast
+
+== typecheck
+$ tsc -b
+== lint — core-math ban
+$ node scripts/lint-core-math.mjs
+core-math ban — 3 file(s) under packages/core/src
+RESULT: PASS — 0 wall-clock reads, 0 unseeded randomness, 0 transcendentals, 0 foreign imports.
+== unit — vitest
+$ vitest run
+
+ RUN  v5.1.0 /content/strata
+
+
+ Test Files  5 passed (5)
+      Tests  29 passed (29)
+   Start at  08:13:07
+   Duration  1.09s (import 36%, tests 34%, worker 15%, transform 14%, environment 1%)
+
+    Isolate  5 workers spawned · ~157ms startup each (spawn + environment, per file)
+             at least ~628ms faster with isolate: false — reuses workers across files instead of one per file
+
+== validate-prompt-drift
+PASS  docs/state/PROMPT.lock parsed (version 1)
+PASS  amendments declared: ADR-A0003
+PASS  tools/colab/prompts/SESSION_MASTER.md ends with the sentinel
+PASS  tools/colab/prompts/SESSION_MASTER.md is 99289 bytes (< 100000)
+PASS  tools/colab/prompts/SESSION_MASTER.md size matches PROMPT.lock
+PASS  tools/colab/prompts/SESSION_MASTER.md sha256 matches PROMPT.lock
+PASS  docs/archive/SESSION_MASTER_v8.1.md is byte-identical to the sealed master
+PASS  CONSTITUTION.md declares materialized section §0
+PASS  CONSTITUTION.md declares materialized section §10
+PASS  CONSTITUTION.md declares materialized section §13
+PASS  CONSTITUTION.md declares materialized section §19
+PASS  CONSTITUTION.md declares materialized section §20
+PASS  CONSTITUTION.md cites the archived master
+PASS  CONSTITUTION.md restates the authority order
+PASS  archive §0.3 contains 15 invariants
+PASS  all 15 invariants are quoted verbatim in CONSTITUTION.md
+PASS  all 77 locked decisions (D79..D155) are quoted verbatim in CONSTITUTION.md
+PASS  tools/colab/prompts/SESSION_RESUME.md ends with the sentinel
+PASS  tools/colab/prompts/SESSION_RESUME.md carries the sentinel on exactly one line
+PASS  tools/colab/prompts/SESSION_RESUME.md is 2514 bytes (< 100000)
+PASS  tools/colab/prompts/SESSION_RESUME.md declares its own integrity rule
+
+RESULT: PASS — the repository matches its sealed master prompt.
+== validate-scope
+      phase     accepted   budget   margin
+      P0        25         30       5
+      P1        0          34       34
+      P2NET     0          40       40
+      P2SYS     0          32       32
+      P3ART     0          60       60
+
+      entries=12  accepted_sessions=25
+      budget_to_P4=196  (matches docs/SCOPE.md)
+
+      PASS  ledger balanced, schema complete, scope text in sync
+PASS  scope-math --check (ledger balanced, schema complete, scope text in sync)
+PASS  SCOPE.md section: truth about the genre
+PASS  SCOPE.md section: compute reality
+PASS  SCOPE.md section: capacity tiers
+PASS  SCOPE.md section: content math
+PASS  SCOPE.md section: session budget
+PASS  SCOPE.md section: cut order
+PASS  SCOPE.md never-cut list complete (10 items)
+PASS  no measurement is claimed while throughput is unmeasured
+PASS  quantitative claims carry REFERENCE / ASSUMPTION tags
+
+PASS  validate-scope  failures=0
+== scope-math --check
+phase     accepted   budget   margin
+P0        25         30       5
+P1        0          34       34
+P2NET     0          40       40
+P2SYS     0          32       32
+P3ART     0          60       60
+
+entries=12  accepted_sessions=25
+budget_to_P4=196  (matches docs/SCOPE.md)
+
+PASS  ledger balanced, schema complete, scope text in sync
+== validate-blueprint
+
+B0  structure (63 tasks, 11 gates)
+OK    every task has the 10 required fields and a known phase/role
+
+B1  dependency order and cycles
+OK    no unknown, later or cyclic dependency
+
+B2  ownership (agent ∪ co), append-only zones, scaffold exemption per §4.2
+WARN  B2 P0-002 scaffold exemption: docs/blueprint/GATES.yaml (orchestrator)
+WARN  B2 P0-003 scaffold exemption: packages/ (gameplay-engineer), apps/ (gameplay-engineer), docs/STACK.lock.md (producer)
+WARN  B2 TRACER-001 scaffold exemption: packages/core/ (gameplay-engineer), packages/protocol/ (netcode-engineer), apps/server/ (gameplay-engineer), apps/game/ (gameplay-engineer)
+OK    every non-scaffold out path resolves to agent ∪ co; no glob tie
+
+B3  gdd[], role, ledger entry, GDD maturity
+WARN  B3 GDD maturity is DEFERRED: no module exists before GDD-001 (P1), and P1 is not authorized yet
+OK    P0 tasks carry gdd[], role and a ledger entry; later phases deferred
+
+B4/B5  tier and art gate (selection-time, enforced on the authorized phase)
+WARN  B4/B5 deferred for 17 non-P0 tasks (tier > S1 or art): AI-001, AI-002, WG-001, AN-001, AN-002, P3-001, P3-002, P3-003, P3-004, P3-005, P3-006, NET-101, NET-102, NET-103, OPS-001, MOD-001, S3-ENTRY
+OK    P0 is within authorized_tier S1; 0 art task in an authorized phase
+
+B6  only a gate grants a tier
+OK    no task grants a tier; every gate grant is exactly one step
+
+B7  acceptance commands exist; stubs fail
+OK    every acc script exists; 15 are declared stubs (they exit 1 until implemented)
+
+B8  split heuristic (acc > 3 or out > 4)
+WARN  B8 P0-001 split required and declared (2 acc, 8 out)
+WARN  B8 P0-003 split required and declared (2 acc, 7 out)
+WARN  B8 GDD-002 split required and declared (1 acc, 6 out)
+WARN  B8 GDD-003 split required and declared (1 acc, 5 out)
+WARN  B8 GDD-004 split required and declared (1 acc, 5 out)
+WARN  B8 P1-004 split required and declared (1 acc, 5 out)
+WARN  B8 P3-001 split required and declared (2 acc, 5 out)
+OK    no oversized, undeclared task
+
+RESULT: PASS — 63 tasks, 11 gates, 0 error(s), 12 warning(s)
+== validate-ownership (WF-002)
+
+O1  structure: 32 owners, 168 globs, 7 catch-all
+OK    version, specificity rule, owner count, catch-all count and agent names are valid
+
+O2  glob compilation, ties and self-resolution
+OK    168 globs compile, no tie, every witness resolves to its declaring owner
+
+O3  task outputs inside owner ∪ co (scaffold exemptions printed)
+WARN  O3 P0-002 scaffold exemption: docs/blueprint/GATES.yaml (orchestrator)
+WARN  O3 P0-003 scaffold exemption: packages/ (gameplay-engineer)
+WARN  O3 P0-003 scaffold exemption: apps/ (gameplay-engineer)
+WARN  O3 P0-003 scaffold exemption: docs/STACK.lock.md (producer)
+WARN  O3 TRACER-001 scaffold exemption: packages/core/ (gameplay-engineer)
+WARN  O3 TRACER-001 scaffold exemption: packages/protocol/ (netcode-engineer)
+WARN  O3 TRACER-001 scaffold exemption: apps/server/ (gameplay-engineer)
+WARN  O3 TRACER-001 scaffold exemption: apps/game/ (gameplay-engineer)
+OK    every non-scaffold output resolves inside its task's owner set; 8 scaffold warning(s)
+
+O4  A0002 regression guard and scaffold declarations
+OK    A0002 ownership intact; every scaffold exemption is declared in the blueprint
+
+RESULT: PASS — 168 globs, 63 tasks, 0 error(s), 8 warning(s)
+== validate-locks (WF-002)
+
+L1  registry schema
+OK    version 1 · branch state/locks · ttl 60m · heartbeat 10m · 4 rules
+
+L2  0 lock entries
+OK    0 entries valid, 0 active lock(s), 0 collision(s)
+
+RESULT: PASS — registry structurally valid, 0 active locks (empty registry is valid)
+== validate-workflows (P0-004)
+
+W1  inventory: 27 workflow file(s), expected 27
+OK    27 files parse; unique names, permissions, concurrency and timeouts present
+OK    56 uses: entries pinned to SHA; 0 moving refs
+
+W8  coverage — no parallel definition of green
+OK    verify, tracer assert and workflow self-validation are all invoked
+
+W9  7 workflow(s) call declared stubs and are manual-only: anim-separation.yml, anim.yml, asset-report.yml, gdd.yml, retarget.yml, scene-budget.yml, texture-audit.yml
+
+RESULT: PASS — 27 workflows, 56 pinned uses, 47 run steps, 0 error(s). Static validation only; no workflow was executed.
+== resume drill --dry (P0-005)
+RESUME DRILL (--dry, read-only)
+
+§17 session start
+PASS  repository root
+      /content/strata
+PASS  pwd
+      14 change(s)
+PASS  git status --short
+      session/20261118-hc-001-high-concept
+PASS  git branch --show-current
+      15 commit(s) visible
+PASS  git log --oneline -15
+
+state files (I15)
+PASS  docs/state/SESSION.md present and non-empty
+PASS  docs/state/NEXT_SESSION.md present and non-empty
+PASS  docs/state/NEEDS_DIRECTOR.md present and non-empty
+      docs/state/metrics/2026-11-18-s02.json
+PASS  session metrics file
+WARN  heartbeat.json — absent (gitignored; expected on a fresh clone)
+      0 entr(y|ies), 0 expired active lock(s)
+PASS  LOCKS.yaml schema and expiry
+
+resume plan
+  session   2026-11-18-s02
+  branch    session/20261118-hc-001-high-concept
+  next      NET-002
+  open Director items:
+    ND-004
+    ND-005
+  protocol: pwd → git status → branch → git log -15 → recover WIP →
+            pnpm install --frozen-lockfile → pnpm verify → pnpm tracer --assert → one handoff → one task
+
+RESULT: PASS — 0 failure(s), 1 warning(s). Read-only drill; nothing written.
+== validate-manifest --audit (P0-006)
+
+M1  audit document and whitelist identity
+OK    AUDIT-2026-11-18-P0-006 — whitelist and document agree
+
+M2  approved entries
+OK    9 approved entries: fields, pins, sources and licences valid
+
+M3  blocked and rejected entries stay out of the whitelist
+OK    0 blocked, 11 rejected, 11 fallbacks — all traceable
+
+M4  Director decisions are resolved on the record
+OK    3 decision(s) resolved with evidence
+
+M5  tier probe measures hardware
+OK    tier probe reads the device and degrades to NO_GPU without inventing VRAM
+
+RESULT: PASS — 9 approved, 0 blocked, 11 rejected, 0 error(s). No model was downloaded or run.
+== validate-docs (P1-001)
+
+D1  vision document (--check)
+OK    VISION.md: metadata, 8 sections, locked sentence, amendment and non-goals present
+
+D2  ADR structure
+OK    3 ADR(s) have title, status and a Context/Decision section
+
+D3  TDD structure
+OK    3 TDD file(s) have title, status, Context and GIVEN/WHEN/THEN
+
+D4  slice, UX and localization specs
+OK    slice T2 numbers, 7 a11y controls and FR/EN parity rules present
+
+RESULT: PASS — 3 ADR(s), 3 TDD(s), 0 error(s). Structural check only; no claim validated.
+== validate-gdd --template (GDD-001)
+
+G1  module inventory: 32 files, expected 32
+OK    exactly the 32 modules named in master §3.2
+
+G2  STUB maturity and required fields (1, 2, 3, 17, 18)
+OK    32 modules: STUB fields or all 19 for DRAFT/SIGNED, no forbidden adjectives
+
+G3  index and 19-field template
+OK    index lists 19 fields, maturity rule and all 32 modules
+
+G4  critical modules for P2NET / P2SYS / P2 (computed, not typed)
+      23 tasks, 14 distinct modules: GDD-ANIM-ARCHITECTURE, GDD-COMBAT, GDD-CONSEQUENCE, GDD-CORE, GDD-CRAFT, GDD-ECONOMY, GDD-FACTION, GDD-NETCODE, GDD-PERSISTENCE, GDD-QUEST, GDD-SECURITY, GDD-SHARDING, GDD-TRADE, GDD-WORLD-SIM
+OK    every P2 gdd[] ref resolves to a real module
+
+RESULT: PASS — 32 modules, 0 error(s).
+== gdd-coverage --min 0.80 (GDD-001)
+gdd-coverage: 63/63 tasks with fully resolved refs = 100.0% (min 80%)
+
+RESULT: PASS — 100.0% >= 80%?
+== validate-lore (P1-002)
+
+L1  bible structure
+OK    7 sections and the locked sentence present
+
+L2  FR/EN glossary
+OK    6 FR/EN glossary entries, all three strata places covered
+
+L3  no borrowed IP
+OK    11 forbidden names absent from bible and quest module
+
+L4  quest nouns resolve
+OK    0 quest noun(s) referenced, all resolvable
+
+RESULT: PASS — 6 glossary entries, 0 error(s). Structural check only; no story judgement.
+== validate-art-bible (P1-003)
+
+A1  A0001 and separation rule
+OK    A0001 accepted with Context/Decision/Consequences; separation rule stated twice
+
+A2  art bible structure
+OK    9 sections and all 8 numeric ceilings present with sources
+
+A3  no art before NET-GATE
+OK    0 art:true tasks in authorized phases; greybox rule stated
+
+RESULT: PASS — art structure gate, 0 error(s). Visual quality is not judged here.
+
+DEFERRED — required by master §6, not buildable at P0-003:
+  - determinism replay (Node + Chromium hash equality): no sim before TRACER-001/NET-001
+  - gdd-coverage --min: no GDD module before GDD-001 (P1)
+  - 9 validate-*.mjs stub(s) + 2 other declared stub(s); each exits 1 until its owner implements it:
+      scripts/validate-anim-separation.mjs
+      scripts/validate-anim.mjs
+      scripts/validate-content-blueprints.mjs
+      scripts/validate-kit.mjs
+      scripts/validate-lightmap.mjs
+      scripts/validate-netgate.mjs
+      scripts/validate-retarget.mjs
+      scripts/validate-scene-budget.mjs
+      scripts/validate-texture-set.mjs
+      other: scripts/gdd-to-tests.mjs, scripts/session-result.mjs
+
+RESULT: PASS — 17/17 enabled steps green, 3 deferred groups listed above.
+EXIT=0

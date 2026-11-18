@@ -3,7 +3,7 @@
 | field | value |
 |---|---|
 | id | GDD-NETCODE |
-| version | 0.2 |
+| version | 0.3 |
 | owner | netcode-engineer |
 | status | DRAFT |
 
@@ -11,7 +11,7 @@
 
 ## 1. Identity, version, owner, status
 
-ID GDD-NETCODE, version 0.2, owner netcode-engineer, status **DRAFT**. Derived from P1-001 VISION and the locked HIGH_CONCEPT.
+ID GDD-NETCODE, version 0.3, owner netcode-engineer, status **DRAFT**. Derived from P1-001 VISION and the locked HIGH_CONCEPT.
 
 ## 2. Player-facing outcome
 
@@ -26,6 +26,7 @@ T2 requires two clients to observe the same fact_id, variant_id and epoch with e
 1. The server owns the tick; the client sends intents only. Intent seq is monotonic and validated before application.
 2. At tick N, the server broadcasts a snapshot containing the quantized state and its FNV-1a hash. The client resets to that state, then replays only intents with seq greater than snapshot.appliedSeq.
 3. A client hash that differs from the snapshot hash at the acked tick produces a desync event and is rejected, never silently reconciled.
+4. The simulation is integer-only: a coordinate is a millimetre integer, so the wire bound is a range check, never a lossy conversion. Intents are applied in canonical (entity, seq) order, so arrival order cannot change the state; a non-increasing seq is dropped.
 
 ## 5. Numbers with source
 
@@ -33,6 +34,8 @@ T2 requires two clients to observe the same fact_id, variant_id and epoch with e
 - p50 server tick <= 8 ms, p95 <= 25 ms | TUNABLE 4..25 ms | plan: soak test NET-006, record p95 from 30 min run
 - wire <= 12 KB/s down, <= 3 KB/s up at 64 AoI entities | SOURCE: master §6 budgets
 - desync detection <= 1 RTT; recovery <= 3 ticks | TUNABLE 1..5 ticks | plan: loss/jitter matrix PR-N2
+- coordinate quantization: 1 mm integer, int32 wire bound +/-2 147 483.647 m | SOURCE: packages/core/src/tick.ts QUANT_MM / WIRE_MAX_MM (a format bound, not a gameplay budget)
+- server hash history: 128 ticks = 4.27 s at 30 Hz | TUNABLE 64..256 ticks | plan: NET-004 reconciliation window, with the 'unknown ack' rate as the measurement
 
 ## 6. State machine
 
@@ -40,7 +43,7 @@ client: CONNECTING → PREDICTING → RECONCILED → DESYNCED → RESYNCING → 
 
 ## 7. Data contract
 
-protocol v1: IntentMessage{seq,dx,dz}, SnapshotMessage{state,hash,appliedSeq}, HashAckMessage{client,tick,hash}. JSON codec now; binary codec and version handshake in NET-002. Migration: version mismatch closes the socket and opens a version error event.
+protocol v1: IntentMessage{seq,dx,dz}, SnapshotMessage{state,hash,appliedSeq}, HashAckMessage{client,tick,hash}. NET-001: `appliedSeq` is per entity (`EntityState.seq`); a snapshot carries the seq of the entity it describes. JSON codec now; binary codec and version handshake in NET-002. Migration: version mismatch closes the socket and opens a version error event.
 
 ## 8. Edge cases
 
@@ -103,3 +106,4 @@ No physics engine, no Babylon on the server tick, no client-authoritative gamepl
 |---|---|---|---|
 | 0.1 | 2026-11-18 | STUB created by GDD-001 | game-designer |
 | 0.2 | 2026-11-18 | DRAFT: all 19 fields, sources and ranges | GDD-002 |
+| 0.3 | 2026-11-18 | NET-001: integer-only tick rules, quantization bound, hash ring | netcode-engineer |
