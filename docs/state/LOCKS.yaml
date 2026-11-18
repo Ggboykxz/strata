@@ -1454,7 +1454,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T16:45:00Z"
     expires_at: "2026-11-18T17:15:00Z"
-    status: active
+    status: released
 
   - path_glob: "docs/state/NEXT_SESSION.md"
     owner_agent: orchestrator
@@ -1462,5 +1462,5 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T16:45:00Z"
     expires_at: "2026-11-18T17:15:00Z"
-    status: active
+    status: released
 
