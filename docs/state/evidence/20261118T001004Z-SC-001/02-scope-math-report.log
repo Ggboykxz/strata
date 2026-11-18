@@ -1,0 +1,15 @@
+slice=vertical-slice-oakhollow
+kits        132
+props       480
+characters  15   (animations NOT charged per character, I3)
+archetypes  10
+unique      1
+required_variants=638
+sessions_needed=NOT COMPUTABLE  (assets_per_session is null — measured at AI-001, P3)
+months_needed=NOT COMPUTABLE    (sessions_per_week is null)
+SCENARIOS (not measurements):
+  6 assets/session -> 106.3 sessions -> 8.2 months @ 3/wk
+  12 assets/session -> 53.2 sessions -> 4.1 months @ 3/wk
+  24 assets/session -> 26.6 sessions -> 2.1 months @ 3/wk
+exit_code=2
+cmd=node scripts/scope-math.mjs --report

@@ -1,0 +1,25 @@
+      phase     accepted   budget   margin
+      P0        25         30       5
+      P1        0          34       34
+      P2NET     0          40       40
+      P2SYS     0          32       32
+      P3ART     0          60       60
+
+      entries=12  accepted_sessions=25
+      budget_to_P4=196  (matches docs/SCOPE.md)
+
+      PASS  ledger balanced, schema complete, scope text in sync
+PASS  scope-math --check (ledger balanced, schema complete, scope text in sync)
+PASS  SCOPE.md section: truth about the genre
+PASS  SCOPE.md section: compute reality
+PASS  SCOPE.md section: capacity tiers
+PASS  SCOPE.md section: content math
+PASS  SCOPE.md section: session budget
+PASS  SCOPE.md section: cut order
+PASS  SCOPE.md never-cut list complete (10 items)
+PASS  no measurement is claimed while throughput is unmeasured
+PASS  quantitative claims carry REFERENCE / ASSUMPTION tags
+
+PASS  validate-scope  failures=0
+exit_code=0
+cmd=node scripts/validate-scope.mjs

@@ -1,0 +1,6 @@
+tier=S3  players=200-500  host=T2 paid VPS + managed DB
+exit_evidence=funding approval + human on-call
+status=NOT AUTHORIZED — requires Director funding approval and a human on-call rotation (D82)
+cost_model=REFERENCE ONLY; no measured throughput exists, so no honest monthly number can be printed
+exit_code=0
+cmd=node scripts/scope-math.mjs --tier S3 --report
