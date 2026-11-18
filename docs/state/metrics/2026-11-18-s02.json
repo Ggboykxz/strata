@@ -84,7 +84,7 @@
     "wire_budget_over_factor": 3.9,
     "actions_runs": 8,
     "actions_runs_success": 8,
-    "ci_head": "50295d2ff812265a25509a1364537eade979944e",
+    "ci_head": "42dc8a3b84fbbbfe2c1d19a1d67c63c9bc086908",
     "anim_tests": 22,
     "anim_states": 5,
     "blend_ticks": 2,
@@ -385,6 +385,7 @@
     "NET-005: server-authoritative anim state machine in core; requests during ACTION are busy, during RECOVERY are queued to the last tick, ties by (sequence, clipId).",
     "False pass proven: pnpm vitest run packages/core -t animstate exits 0 with 41 tests skipped. Acceptance must name a path, or a -t pattern proven to match.",
     "GDD-ANIM-ARCHITECTURE 0.2 -> 0.3; corrupted open-questions table repaired, absent 0.2 changelog row not invented.",
-    "Parallel PR #2 repairs the dashboard on a separate branch (base = session branch): build 0, truth check 0, negative 1, verify 17/17, Actions 8/8."
+    "Parallel PR #2 repairs the dashboard on a separate branch (base = session branch): build 0, truth check 0, negative 1, verify 17/17, Actions 8/8.",
+    "NET-005 CI at 42dc8a3: 8/8 triggered workflows success; run ids in docs/state/evidence/20261118T083402Z-NET-005/11-ci-proof.log."
   ]
 }

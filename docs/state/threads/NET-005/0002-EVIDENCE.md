@@ -18,6 +18,8 @@ validated clip-event manifest and its published JSON Schema. No clip, rig or tex
 | `07-blueprint.log` | `node scripts/validate-blueprint.mjs` | 0 | 63 tasks, 12 declared warnings |
 | `08-tracer.log` | `pnpm tracer --assert` | 0 | equal hashes, desync rejected |
 | `09-schema-consistency.log` | `pnpm vitest run … -t "JSON Schema"` | 0 | schema enums match the code |
+| `10-verify-final.log` | `pnpm verify` after the docs edits | 0 | **17/17** |
+| `11-ci-proof.log` | GitHub Actions API at `42dc8a3` | 0 | **8/8 triggered workflows success** |
 
 **the acceptance trap got worse, and it was caught.** Repairing `pnpm test --filter … -t animstate` to
 `pnpm vitest run packages/core -t animstate` still exits **0** while skipping all 41 tests: the pattern
