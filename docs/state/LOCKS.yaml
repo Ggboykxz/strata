@@ -417,7 +417,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T09:30:00Z"
     expires_at: "2026-11-18T10:00:00Z"
-    status: active
+    status: released
 
   - path_glob: "apps/game/test/jitter.test.ts"
     owner_agent: gameplay-engineer
@@ -425,7 +425,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T09:30:00Z"
     expires_at: "2026-11-18T10:00:00Z"
-    status: active
+    status: released
 
   - path_glob: "apps/server/src/combat/anim-validation.ts"
     owner_agent: netcode-engineer
@@ -433,7 +433,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T09:30:00Z"
     expires_at: "2026-11-18T10:00:00Z"
-    status: active
+    status: released
 
   - path_glob: "apps/server/src/combat/hit-frames.ts"
     owner_agent: netcode-engineer
@@ -441,7 +441,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T09:30:00Z"
     expires_at: "2026-11-18T10:00:00Z"
-    status: active
+    status: released
 
   - path_glob: "apps/server/src/combat/index.ts"
     owner_agent: netcode-engineer
@@ -449,7 +449,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T09:30:00Z"
     expires_at: "2026-11-18T10:00:00Z"
-    status: active
+    status: released
 
   - path_glob: "apps/server/test/combat.test.ts"
     owner_agent: gameplay-engineer
@@ -457,7 +457,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T09:30:00Z"
     expires_at: "2026-11-18T10:00:00Z"
-    status: active
+    status: released
 
   - path_glob: "docs/blueprint/BLUEPRINT.yaml"
     owner_agent: orchestrator
@@ -465,7 +465,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T09:30:00Z"
     expires_at: "2026-11-18T10:00:00Z"
-    status: active
+    status: released
 
   - path_glob: "docs/blueprint/GATES.yaml"
     owner_agent: orchestrator
@@ -473,7 +473,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T09:30:00Z"
     expires_at: "2026-11-18T10:00:00Z"
-    status: active
+    status: released
 
   - path_glob: "docs/design/gdd/GDD-ANIM-ARCHITECTURE.md"
     owner_agent: animation-director
@@ -481,7 +481,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T09:30:00Z"
     expires_at: "2026-11-18T10:00:00Z"
-    status: active
+    status: released
 
   - path_glob: "docs/design/gdd/GDD-NETCODE.md"
     owner_agent: netcode-engineer
@@ -489,7 +489,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T09:30:00Z"
     expires_at: "2026-11-18T10:00:00Z"
-    status: active
+    status: released
 
   - path_glob: "packages/protocol/src/anim.ts"
     owner_agent: netcode-engineer
@@ -497,7 +497,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T09:30:00Z"
     expires_at: "2026-11-18T10:00:00Z"
-    status: active
+    status: released
 
   - path_glob: "packages/protocol/src/binary.ts"
     owner_agent: netcode-engineer
@@ -505,7 +505,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T09:30:00Z"
     expires_at: "2026-11-18T10:00:00Z"
-    status: active
+    status: released
 
   - path_glob: "packages/protocol/test/anim.test.ts"
     owner_agent: gameplay-engineer
@@ -513,7 +513,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T09:30:00Z"
     expires_at: "2026-11-18T10:00:00Z"
-    status: active
+    status: released
 
   - path_glob: "packages/protocol/test/binary.test.ts"
     owner_agent: gameplay-engineer
@@ -521,7 +521,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T09:30:00Z"
     expires_at: "2026-11-18T10:00:00Z"
-    status: active
+    status: released
 
   - path_glob: "packages/protocol/test/protocol.test.ts"
     owner_agent: gameplay-engineer
@@ -529,19 +529,19 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T09:30:00Z"
     expires_at: "2026-11-18T10:00:00Z"
-    status: active
+    status: released
   - path_glob: "apps/server/test/rooms.test.ts"
     owner_agent: gameplay-engineer
     task_id: NET-006
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T09:34:00Z"
     expires_at: "2026-11-18T10:04:00Z"
-    status: active
+    status: released
   - path_glob: "apps/server/src/rooms/room.ts"
     owner_agent: backend-engineer
     task_id: NET-006
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T09:35:00Z"
     expires_at: "2026-11-18T10:05:00Z"
-    status: active
+    status: released
 
