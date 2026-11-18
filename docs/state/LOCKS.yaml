@@ -166,7 +166,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T08:38:00Z"
     expires_at: "2026-11-18T09:38:00Z"
-    status: active
+    status: released
 
   - path_glob: "docs/blueprint/GATES.yaml"
     owner_agent: orchestrator
@@ -174,7 +174,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T08:38:00Z"
     expires_at: "2026-11-18T09:38:00Z"
-    status: active
+    status: released
 
   - path_glob: "docs/design/gdd/GDD-ANIM-ARCHITECTURE.md"
     owner_agent: animation-director
@@ -182,7 +182,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T08:38:00Z"
     expires_at: "2026-11-18T09:38:00Z"
-    status: active
+    status: released
 
   - path_glob: "packages/content/animations/examples/humanoid.greybox.v1.json"
     owner_agent: animation-director
@@ -190,7 +190,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T08:38:00Z"
     expires_at: "2026-11-18T09:38:00Z"
-    status: active
+    status: released
 
   - path_glob: "packages/content/animations/schema/anim_manifest.v1.schema.json"
     owner_agent: animation-director
@@ -198,7 +198,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T08:38:00Z"
     expires_at: "2026-11-18T09:38:00Z"
-    status: active
+    status: released
 
   - path_glob: "packages/core/src/anim-state/index.ts"
     owner_agent: animation-director
@@ -206,7 +206,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T08:38:00Z"
     expires_at: "2026-11-18T09:38:00Z"
-    status: active
+    status: released
 
   - path_glob: "packages/core/src/anim-state/machine.ts"
     owner_agent: animation-director
@@ -214,7 +214,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T08:38:00Z"
     expires_at: "2026-11-18T09:38:00Z"
-    status: active
+    status: released
 
   - path_glob: "packages/core/src/anim-state/manifest.ts"
     owner_agent: animation-director
@@ -222,7 +222,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T08:38:00Z"
     expires_at: "2026-11-18T09:38:00Z"
-    status: active
+    status: released
 
   - path_glob: "packages/core/src/index.ts"
     owner_agent: gameplay-engineer
@@ -230,7 +230,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T08:38:00Z"
     expires_at: "2026-11-18T09:38:00Z"
-    status: active
+    status: released
 
   - path_glob: "packages/core/test/anim-state.test.ts"
     owner_agent: gameplay-engineer
@@ -238,7 +238,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T08:38:00Z"
     expires_at: "2026-11-18T09:38:00Z"
-    status: active
+    status: released
 
   - path_glob: "packages/core/tsconfig.json"
     owner_agent: gameplay-engineer
@@ -246,7 +246,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T08:38:00Z"
     expires_at: "2026-11-18T09:38:00Z"
-    status: active
+    status: released
   - path_glob: "apps/dashboard/**"
     owner_agent: tools-engineer
     task_id: P0-007
