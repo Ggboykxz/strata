@@ -40,9 +40,10 @@
    can attempt a resume. Authentication is a later task; A0004 and GDD-NETCODE §7 say so explicitly.
 2. **No TLS in the harnesses.** All local tests use in-process sockets or fake sockets. No transport encryption
    is claimed.
-3. **The gate is not on the live path yet.** `apps/server/src/rooms/ws-adapter.ts` still calls `Room.handleBytes`
-   directly. GDD-SECURITY therefore does **not** claim "0 unvalidated message paths"; wiring the gate and proving
-   no bypass remains is SEC-002.
+3. **The gate is now on the live path (SEC-002).** `apps/server/src/rooms/ws-adapter.ts` routes every frame
+   through `MessageGate.accept()` before `Room.handleBytes`; a refused frame gets a `reject` frame and never
+   reaches the room. The remaining risk is that other ingress paths may be added later without the gate — CI
+   regression test: `apps/server/test/rooms.test.ts` proves malformed refused and valid admitted.
 4. **In-memory counters only.** Rate and reject counters reset on process restart; no distributed limiter, no
    persistence, no cross-shard enforcement.
 5. **No real socket flood test.** The 200-message burst is in-process. No measured packets/s, RTT or loss matrix.

@@ -8,7 +8,8 @@
  */
 import type { IncomingMessage } from 'node:http';
 import type { WebSocket, WebSocketServer } from 'ws';
-import { encodeFrame } from '@strata/protocol';
+import { PROTOCOL_VERSION, encodeFrame } from '@strata/protocol';
+import { MessageGate } from '../validation';
 import { RoomHub, type Room, type RoomClient } from './room';
 
 export interface ConnectionQuery {
@@ -44,6 +45,7 @@ function reject(socket: WebSocket): void {
 
 /** Bind rooms to an existing WebSocketServer. Caller owns the server and the tick loop. */
 export function attachRooms(wss: WebSocketServer, hub: RoomHub): void {
+  const gate = new MessageGate(); // SEC-002: no frame reaches a room without validation
   wss.on('connection', (socket: WebSocket, request: IncomingMessage) => {
     const query = parseConnectionQuery(request.url ?? '/');
     if (!query) { reject(socket); return; }
@@ -72,6 +74,11 @@ export function attachRooms(wss: WebSocketServer, hub: RoomHub): void {
       const bytes: Uint8Array = raw instanceof ArrayBuffer
         ? new Uint8Array(raw)
         : new Uint8Array(raw as ArrayLike<number>);
+      const verdict = gate.accept(clientId, room.currentTick, bytes);
+      if (!verdict.allowed) {
+        socket.send(encodeFrame({ kind: 'reject', version: PROTOCOL_VERSION, reason: 'malformed' }));
+        return;
+      }
       room.handleBytes(clientId, bytes);
     });
     socket.on('close', () => room.disconnect(clientId));

@@ -3,7 +3,7 @@
 | field | value |
 |---|---|
 | id | GDD-SECURITY |
-| version | 0.3 |
+| version | 0.4 |
 | owner | security-auditor |
 | status | DRAFT |
 
@@ -11,7 +11,7 @@
 
 ## 1. Identity, version, owner, status
 
-ID GDD-SECURITY, version 0.3, owner security-auditor, status **DRAFT**. Derived from P1-001 VISION and the locked HIGH_CONCEPT.
+ID GDD-SECURITY, version 0.4, owner security-auditor, status **DRAFT**. Derived from P1-001 VISION and the locked HIGH_CONCEPT.
 
 ## 2. Player-facing outcome
 
@@ -32,7 +32,7 @@ D3 traceability: every visible consequence resolves to a fact id and an actor id
 - max 30 intents/s per client | TUNABLE 10..60 | plan: PR-N3 flood test
 - snapshot encode <= 2 ms per client per tick | SOURCE: master §6 budgets
 - audit log retention >= 90 days | TUNABLE 30..365 days | plan: OPS-001 runbook
-- 0 unvalidated message paths | **NOT CLAIMED**: the gate exists but `attachRooms` still routes frames straight to `Room.handleBytes`; wiring is an open item
+- 0 unvalidated message paths on the live room path | SOURCE: SEC-002, apps/server/src/rooms/ws-adapter.ts routes every frame through MessageGate; regression test in apps/server/test/rooms.test.ts
 - rate limit = 30 intents per 30-tick window | SOURCE: apps/server/src/validation/rate-limit.ts
 - burst proof = 200 messages → 30 admitted, 170 refused with RATE_LIMIT | SOURCE: tests/security/message-gate.test.ts
 
@@ -89,6 +89,9 @@ rejected_messages_by_code, rate_limit_events, gm_actions_without_reason (must be
 - GIVEN a client-sent snapshot or a wrong hello version WHEN validated THEN it is refused with a reason and the counter increments.
 - GIVEN a GM action without a reason WHEN audited THEN it is refused and no entry is written.
 
+- GIVEN a malformed frame on the live room socket WHEN received THEN the adapter answers `reject` and the room state hash is unchanged.
+- GIVEN a valid hello frame WHEN received THEN it reaches the room and a `welcome` is returned.
+
 ## 16. Perf budget impact
 
 Validation <= 0.2 ms per message; rate-limit check is O(1) per client; audit write is off the tick path.
@@ -111,3 +114,4 @@ No client-side trust, no anti-cheat telemetry uploaded from the render process, 
 | 0.1 | 2026-11-18 | STUB created by GDD-001 | game-designer |
 | 0.2 | 2026-11-18 | DRAFT: all 19 fields, sources and ranges | GDD-002 |
 | 0.3 | 2026-11-18 | SEC-001: ingress gate, rate limit, reason counters, GM audit, honest residual risks | security-auditor |
+| 0.4 | 2026-11-18 | SEC-002: gate wired into the live room path; residual risk 3 mitigated | security-auditor |

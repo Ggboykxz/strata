@@ -7,9 +7,12 @@ import { Room, RoomHub, TokenIssuer, attachRooms, parseConnectionQuery, type Roo
 
 class FakeSocket implements RoomSocket {
   readonly sent: Uint8Array[] = [];
+  private readonly handlers = new Map<string, (raw?: unknown) => void>();
   closed = false;
   send(data: Uint8Array): void { this.sent.push(data); }
   close(): void { this.closed = true; }
+  on(event: string, handler: (raw?: unknown) => void): void { this.handlers.set(event, handler); }
+  emit(event: string, raw?: unknown): void { this.handlers.get(event)?.(raw); }
 }
 
 const frames = (socket: FakeSocket) => socket.sent.map((b) => decodeFrame(b));
@@ -190,6 +193,22 @@ describe('ws adapter boundary', () => {
       .toEqual({ roomId: 'arena', token: null, nonce: 7 });
     expect(parseConnectionQuery('/rooms?room=arena&nonce=x')).toBeNull();
     expect(parseConnectionQuery('/rooms')).toBeNull();
+  });
+
+  it('runs every inbound frame through MessageGate before the room (SEC-002)', () => {
+    const hub = new RoomHub({ seed: 3 });
+    const wss = new EventEmitter();
+    attachRooms(wss as unknown as WebSocketServer, hub);
+    const socket = new FakeSocket();
+    wss.emit('connection', socket as unknown as WebSocket, { url: '/rooms?room=gated&nonce=1' } as IncomingMessage);
+    const room = hub.get('gated')!;
+    const before = room.hash;
+    socket.emit('message', new Uint8Array([0xff]));
+    expect(frames(socket)[0]).toMatchObject({ kind: 'reject', reason: 'malformed' });
+    expect(room.hash).toBe(before);
+    socket.sent.length = 0;
+    socket.emit('message', encodeFrame({ kind: 'hello', version: 3, capabilities: 0 }));
+    expect(frames(socket)[0]).toMatchObject({ kind: 'welcome', version: 3 });
   });
 
   it('sends a reject frame and closes a connection without room or handle', () => {

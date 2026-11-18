@@ -1,7 +1,7 @@
 {
   "session": "2026-11-18-s02",
   "utc_start": "2026-11-18T07:23:00Z",
-  "utc_end": "2026-11-18T13:24:00Z",
+  "utc_end": "2026-11-18T13:38:00Z",
   "mode": "RESUME",
   "branch": "session/20261118-hc-001-high-concept",
   "tier": {
@@ -111,6 +111,11 @@
       "status": "done",
       "blueprint_task": "PR-S5",
       "note": "inflation target FAILS at 726478 bps; flagged TUNABLE"
+    },
+    {
+      "id": "SEC-002",
+      "status": "done",
+      "blueprint_task": "SEC-002"
     }
   ],
   "measured": {
@@ -262,7 +267,8 @@
     "verify_steps_before": 17,
     "mcp_playwright_pin": "@playwright/mcp@0.0.85",
     "false_pass_acc_legacy": 12,
-    "gate_ids_in_lock_validator": true
+    "gate_ids_in_lock_validator": true,
+    "gate_on_live_path": true
   },
   "cis": {
     "value": null,
@@ -1254,6 +1260,40 @@
       "cmd": "node scripts/validate-docs.mjs",
       "exit": 0,
       "log": "docs/state/evidence/20261118T105053Z-TOOL-FIXALL/07-docs.log"
+    },
+    {
+      "cmd": "pnpm vitest run apps/server/test/rooms.test.ts",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T105502Z-SEC-002/01-rooms.log",
+      "result": "18/18"
+    },
+    {
+      "cmd": "pnpm vitest run --config tests/security/vitest.config.ts",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T105502Z-SEC-002/02-security.log",
+      "result": "10/10"
+    },
+    {
+      "cmd": "pnpm typecheck",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T105502Z-SEC-002/03-typecheck.log"
+    },
+    {
+      "cmd": "pnpm test",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T105502Z-SEC-002/04-full.log",
+      "result": "167/167"
+    },
+    {
+      "cmd": "pnpm verify",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T105502Z-SEC-002/05-verify.log",
+      "result": "19/19"
+    },
+    {
+      "cmd": "node scripts/validate-docs.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T105502Z-SEC-002/06-docs.log"
     }
   ],
   "notes": [
@@ -1324,7 +1364,8 @@
     "Compressed 720 hourly epochs, not a 30 Hz replay. No real market, players or network. Gini recorded only.",
     "PR-S5 CI at 50f5f704a1c8f14f585f4472860a7728d8cfd1ab: 8/8 triggered workflows success; run ids in docs/state/evidence/20261118T103750Z-PR-S5/10-ci-proof.log.",
     "TOOL-FIXALL: Director said \"fix all problems n limits\". Fixed false-pass detection, verify 17->19, journal view, MCP pin, lock gate ids, stale STACK row, dashboard check port.",
-    "Not fixable by an agent remains recorded: no GPU/TPU, 8 unmeasured NET-GATE criteria, Director-only rotations/merges, ND-011, economy retune, SEC-002."
+    "Not fixable by an agent remains recorded: no GPU/TPU, 8 unmeasured NET-GATE criteria, Director-only rotations/merges, ND-011, economy retune, SEC-002.",
+    "SEC-002: every room socket frame now passes MessageGate before the room; malformed refused with reject, valid admitted. Residual risk 3 mitigated."
   ],
   "result": {
     "phase": "P2NET",
@@ -1476,6 +1517,11 @@
           "dir": "docs/state/evidence/20261118T105053Z-TOOL-FIXALL/",
           "logs": 8,
           "branch": "session"
+        },
+        {
+          "dir": "docs/state/evidence/20261118T105502Z-SEC-002/",
+          "logs": 8,
+          "branch": "session"
         }
       ]
     },
@@ -1484,7 +1530,7 @@
       "AUDIT-2026-11-18-P0-006"
     ],
     "enables": "Nothing player-facing: it protects the evidence chain — a resume prompt that cannot be silently truncated, a tier grant recorded verbatim, a deterministic tick and wire, and a dashboard that reports sources instead of memories.",
-    "next": "SEC-002 — route attachRooms through MessageGate, then measured economy retune",
+    "next": "Measured economy retune (PR-S5 inflation 7264.78% -> <=5%)",
     "blockers": [
       "ND-004 PAT rotation",
       "ND-005 HF token rotation",
@@ -1495,7 +1541,7 @@
     ],
     "next_session_file": "docs/state/NEXT_SESSION.md",
     "full": {
-      "handoffs": "Twenty-two handoff+proposal pairs under docs/state/threads/; all ACKed in-process. No external reviewer installed.",
+      "handoffs": "Twenty-three handoff+proposal pairs under docs/state/threads/; all ACKed in-process. No external reviewer installed.",
       "concept_roles": "Roles executed by one process; T3 signed at GATE:P0 and re-signature deferred to the next gate. Signature ratio not recomputable from metrics.json.",
       "gdd_version_bumps": [
         "GDD-NETCODE 0.2 -> 0.3 -> 0.4 -> 0.5 -> 0.6 -> 0.7",
@@ -1508,7 +1554,8 @@
         "GDD-CONSEQUENCE 0.2 -> 0.3",
         "GDD-CONSEQUENCE 0.3 -> 0.4",
         "GDD-CRAFT 0.2 -> 0.3",
-        "GDD-ECONOMY 0.2 -> 0.3"
+        "GDD-ECONOMY 0.2 -> 0.3",
+        "GDD-SECURITY 0.3 -> 0.4"
       ],
       "scope_ledger_delta": "0 entries (12 -> 12, balanced)",
       "content_math": "Local CPU p95 0.2109 ms (180-tick harness, 64 entities); network throughput still NOT COMPUTABLE.",
