@@ -162,6 +162,18 @@ describe('delta round-trip, removals and exact lengths', () => {
     expect(applied).toEqual({ tick: 2, entities: nextView.entities, hash: nextView.hash });
   });
 
+  it('falls back to a 22 B absolute entry when a velocity is not a packed step', () => {
+    const baseline = baselineFromSnapshot(snapshot(1, [entity(1, 0, 0, 0, 0, 0)]));
+    const view = snapshot(2, [entity(1, 50, 0, 25, 0, 1)]);
+    const delta = buildDelta(baseline, view);
+    expect(delta.changed.length).toBe(1);
+    expect(delta.changed[0]!.kind).toBe('absolute');
+    expect(encodeDeltaFrame(delta).byteLength).toBe(DELTA_HEADER_BYTES + ABSOLUTE_ENTRY_BYTES);
+    expect(applyDeltaFrame(baseline, decodeDeltaFrame(encodeDeltaFrame(delta)))).toEqual({
+      tick: 2, entities: view.entities, hash: view.hash,
+    });
+  });
+
   it('is idempotent for removals when the same delta is applied again', () => {
     const baseline = baselineFromSnapshot(baseView);
     const delta = buildDelta(baseline, nextView);
@@ -248,6 +260,12 @@ describe('malformed frames are refused', () => {
   it('refuses an absolute-count mismatch and a non-monotonic base tick', () => {
     expect(codeOf(() => decodeDeltaFrame(mutate(delta, (v) => v.setUint16(17, 2, true))))).toBe('truncated');
     expect(codeOf(() => decodeDeltaFrame(mutate(delta, (v) => v.setUint32(7, 4, true))))).toBe('out-of-range');
+  });
+
+  it('refuses an unknown 4-bit velocity step instead of guessing', () => {
+    // delta has one packed entry (entity 1, vx +50, vz 0): vpack lives at header + 4.
+    const bad = mutate(delta, (v) => v.setUint8(DELTA_HEADER_BYTES + 4, 0x21));
+    expect(codeOf(() => decodeDeltaFrame(bad))).toBe('out-of-range');
   });
 
   it('refuses duplicate changed ids and a changed id that is also removed', () => {

@@ -40,3 +40,21 @@ Executing centrally now:
 - AI-001: agent died mid-install (nvdiffrast abandoned per directive); parent completes the TripoSR path.
 
 Ask to Director: the subagent cap is a hard block; for parallel teams to keep working, a provider/plan with execution quota (or a model the cap allows) is required. Until then one session executes.
+
+## 20261118T2030Z | netcode-engineer (worktree /tmp/strata-wire) | PHASE-START (v2 rebase + acceptance)
+Read before work: 0001-COLLAB.md §3/§6 and the full 0002-COLLAB-LOG.md from origin/session/20261118-netgate-core via git show (the files were not yet in this worktree until the rebase).
+Did: committed the parent-authored v2 bit-packed chaining rewrite of packages/protocol/src/delta.ts + its tests + tools/netgate/wire (85b1596, rebased to d77efb6), then `git fetch origin && git rebase origin/session/20261118-netgate-core` → EXIT=0, clean, onto bb969b8. Integration protocol is v5 (INTENT_BYTES 15, snapshot header 19), so the wire control will be re-measured, not assumed from v1.
+Blocker: none yet; tests not run at this point.
+To ALL: answering orchestrator OPEN — wire does not need matrix data; the v2 dense-vs-budget answer follows in this file after the acceptance run. Persist: noted your v5 reconnect/crash numbers; no dependency on wire.
+
+## 20261118T2034Z | netcode-engineer (worktree /tmp/strata-wire) | PHASE-DONE (v2 acceptance green)
+Read: own PHASE-START above; no other agent's file edited.
+Did: first v2 acceptance (evidence `docs/state/evidence/20261118T203045Z-NETGATE-WIRE/`) EXIT install 0 / tests 1 / typecheck 0. Real defect found: the parent's "6 B" packed entry wrote id u16 + dx/dz i8 + vx/vz i8 + seqDelta u8 = 7 B, overrunning the DataView. Fixed honestly in delta.ts only: vpack is now one byte of two 4-bit velocity steps (0 = 0, 1 = +50, 0xF = -50 mm/tick), low nibble vx / high nibble vz, with unknown nibbles refused and non-step velocities sent as the 22 B absolute fallback. Control expectations moved to the rebased v5 protocol: 1 555 B snapshot -> 46 650 B/s down, 15 B intents + 13 B ack -> 840 B/s up. Re-run: 30/30 tests green. Measured dense v2 down: best 7 258.7 / average 9 385.475 / worst 11 755.6 B/s — all under 12 288. Four-client: 1 627 / 1 798.475 / 1 951.4 B/s. Up 840 B/s both. Final evidence dir follows.
+Blocker: none.
+To ALL: answering persist's question — persist does not depend on wire; wire v2 down bound now passes locally. Matrix: v2 byte figures are local only; your RTT/loss matrix remains the gate evidence, not this harness.
+
+## 20261118T2036Z | netcode-engineer (worktree /tmp/strata-wire) | PHASE-START (docs + integration)
+Read: own PHASE-DONE above and the final v2 JSON report in `docs/state/evidence/20261118T203438Z-NETGATE-WIRE/04-measurement-report.log`.
+Did: rewrote docs/qa/prototypes/NET_GATE_WIRE.md with the measured v2 layout (21 B header, 6 B nibble-packed entry, 22 B absolute fallback), both bounds, the plain statement that dense average PASSES 12 288 B/s at 9 385.475 B/s, and the v1 miss retained as the superseded baseline. No gate claim: local bytes only. No 16 m sensitivity run because 32 m passed both bounds.
+Blocker: none; commit and push are the remaining actions.
+To ALL: parent — wire is ready to merge; please do not restate v1's 1.205× miss as current. Matrix — the dense worst is 11 755.6 B/s with 532.4 B/s headroom; sustained loss re-anchors via keyframes, so your matrix remains the real loss evidence.

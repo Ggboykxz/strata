@@ -21,13 +21,17 @@
  *   header, 21 B: type u8 (0x20), version u8 (2), flags u8, tick u32, baseTick u32, hash u32,
  *                 packedCount u16, absoluteCount u16, removedCount u16
  *   keyframe entity, 24 B: id u32, x i32, z i32, vx i32, vz i32, seq u32
- *   packed delta entry, 6 B: id u16, dx i8, dz i8, vx i8, vz i8, seqDelta u8
+ *   packed delta entry, 6 B: id u16, dx i8, dz i8, vpack u8, seqDelta u8
  *   absolute delta entry, 22 B: id u16, x i32, z i32, vx i32, vz i32, seq u32
  *   removed id, 2 B: id u16
  *
+ * vpack is two 4-bit velocity steps: low nibble = vx, high nibble = vz.
+ * Step codes: 0 = 0 mm/tick, 1 = +50 mm/tick, 0xF = -50 mm/tick. Any other nibble is refused at
+ * decode (deterministic binary only). The core walk is ±50 mm/tick, so every normal step is packable;
+ * a velocity outside {-50, 0, +50} falls back to a 22 B absolute entry, which carries the exact i32.
+ *
  * Packed entries come first (ascending id), absolute entries after them (ascending id), removed ids last.
- * No per-entry tag byte: the section counts say where each section ends. An entity is packed whenever
- * every field fits i8 — which is always the case for a per-tick step inside the AoI cap.
+ * No per-entry tag byte: the section counts say where each section ends.
  */
 import { hashWorld, toWireMm, type EntityState, type WorldState } from '@strata/core';
 import { MAX_ENTITIES } from './binary';
@@ -49,6 +53,21 @@ const KEYFRAME_FLAG = 0x01;
 const MAX_U16 = 0xffff;
 const MAX_U32 = 0xffff_ffff;
 const HASH_RE = /^[0-9a-f]{8}$/;
+
+/** Four-bit velocity step codes: 0, +50 and -50 mm/tick. Anything else needs the absolute entry. */
+function velocityNibble(value: number): number | null {
+  if (value === 0) return 0;
+  if (value === 50) return 1;
+  if (value === -50) return 0x0f;
+  return null;
+}
+
+function nibbleVelocity(nibble: number): number {
+  if (nibble === 0) return 0;
+  if (nibble === 1) return 50;
+  if (nibble === 0x0f) return -50;
+  throw new DeltaProtocolError('out-of-range', `unknown velocity nibble 0x${nibble.toString(16)}`);
+}
 
 export type DeltaErrorCode =
   | 'unknown-type'
@@ -250,8 +269,9 @@ function checkEntry(entry: DeltaEntry): void {
   if (entry.kind === 'relative') {
     checkI8(entry.dx, 'entry.dx');
     checkI8(entry.dz, 'entry.dz');
-    checkI8(entry.vx, 'entry.vx');
-    checkI8(entry.vz, 'entry.vz');
+    if (velocityNibble(entry.vx) === null || velocityNibble(entry.vz) === null) {
+      throw new DeltaProtocolError('out-of-range', `velocity (${entry.vx},${entry.vz}) is not a packed step`);
+    }
     checkU8(entry.seqDelta, 'entry.seqDelta');
     return;
   }
@@ -401,8 +421,8 @@ export function buildDelta(baseline: DeltaBaseline, snapshot: AoiSnapshot): Delt
     const seqDelta = entity.seq - previous.seq;
     const packable = dx >= -128 && dx <= 127
       && dz >= -128 && dz <= 127
-      && entity.vx >= -128 && entity.vx <= 127
-      && entity.vz >= -128 && entity.vz <= 127
+      && velocityNibble(entity.vx) !== null
+      && velocityNibble(entity.vz) !== null
       && seqDelta >= 0 && seqDelta <= 255;
     if (packable) {
       packed.push({ kind: 'relative', id: entity.id, dx, dz, vx: entity.vx, vz: entity.vz, seqDelta });
@@ -525,9 +545,10 @@ export function encodeDeltaFrame(frame: DeltaFrame): Uint8Array {
     view.setUint16(offset, entry.id, true);
     view.setInt8(offset + 2, entry.dx);
     view.setInt8(offset + 3, entry.dz);
-    view.setInt8(offset + 4, entry.vx);
-    view.setInt8(offset + 5, entry.vz);
-    view.setUint8(offset + 6, entry.seqDelta);
+    const vxStep = velocityNibble(entry.vx)!;
+    const vzStep = velocityNibble(entry.vz)!;
+    view.setUint8(offset + 4, (vzStep << 4) | vxStep);
+    view.setUint8(offset + 5, entry.seqDelta);
     offset += RELATIVE_ENTRY_BYTES;
   }
   for (const entry of frame.changed) {
@@ -618,14 +639,15 @@ export function decodeDeltaFrame(bytes: Uint8Array): DeltaFrame {
   const changed: DeltaEntry[] = [];
   let offset = DELTA_HEADER_BYTES;
   for (let index = 0; index < packedCount; index += 1) {
+    const vpack = view.getUint8(offset + 4);
     changed.push({
       kind: 'relative',
       id: view.getUint16(offset, true),
       dx: view.getInt8(offset + 2),
       dz: view.getInt8(offset + 3),
-      vx: view.getInt8(offset + 4),
-      vz: view.getInt8(offset + 5),
-      seqDelta: view.getUint8(offset + 6),
+      vx: nibbleVelocity(vpack & 0x0f),
+      vz: nibbleVelocity((vpack >> 4) & 0x0f),
+      seqDelta: view.getUint8(offset + 5),
     });
     offset += RELATIVE_ENTRY_BYTES;
   }

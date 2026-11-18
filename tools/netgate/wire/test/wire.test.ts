@@ -17,14 +17,14 @@ import {
 } from '../netgate_wire';
 
 describe('wire budget arithmetic', () => {
-  it('reproduces the PR-N1 control exactly: 1 551 B x 30 Hz = 46 530 B/s down', () => {
+  it('reproduces the v5 integration control exactly: 1 555 B x 30 Hz = 46 650 B/s down', () => {
     const control = measureControl(buildWorlds('dense', 600));
-    expect(control.fullSnapshotBytes).toBe(1_551);
-    expect(control.maxFrameBytes).toBe(1_551);
-    expect(control.down.bestBytesPerSecond).toBe(46_530);
-    expect(control.down.averageBytesPerSecond).toBe(46_530);
-    expect(control.down.worstBytesPerSecond).toBe(46_530);
-    expect(control.up.averageBytesPerSecond).toBe((11 + 13) * 30);
+    expect(control.fullSnapshotBytes).toBe(1_555);
+    expect(control.maxFrameBytes).toBe(1_555);
+    expect(control.down.bestBytesPerSecond).toBe(46_650);
+    expect(control.down.averageBytesPerSecond).toBe(46_650);
+    expect(control.down.worstBytesPerSecond).toBe(46_650);
+    expect(control.up.averageBytesPerSecond).toBe((15 + 13) * 30);
   });
 
   it('keeps the master §6 budgets at 12 288 B/s down and 3 072 B/s up', () => {
@@ -99,7 +99,9 @@ describe('keyframe recovery after loss', () => {
         || (tick === 61 && kind === 'keyframe')
       ),
     });
-    expect(lossy.framesDropped).toBeGreaterThanOrEqual(5);
+    // Chained re-anchoring turns most scheduled delta drops into keyframes, so only the drops that
+    // actually occur are counted: the tick-1 and tick-61 keyframes and one delta before re-anchor.
+    expect(lossy.framesDropped).toBe(3);
     expect(lossy.desyncs).toBe(0);
     expect(lossy.finalViewHash).toBe(lossy.finalServerHash);
   });
@@ -118,7 +120,7 @@ describe('measurement report', () => {
     expect(first.scenarios.map((scenario) => scenario.scenario)).toEqual(['dense', 'four-client']);
 
     for (const scenario of first.scenarios) {
-      expect(scenario.control.down.averageBytesPerSecond).toBe(46_530);
+      expect(scenario.control.down.averageBytesPerSecond).toBe(46_650);
       expect(scenario.treatment.desyncs).toBe(0);
       expect(scenario.treatment.allFinalHashesMatch).toBe(true);
       expect(scenario.treatment.down.bestBytesPerSecond).toBeLessThan(scenario.control.down.bestBytesPerSecond);
@@ -129,16 +131,14 @@ describe('measurement report', () => {
 
     const dense = first.scenarios.find((scenario) => scenario.scenario === 'dense')!;
     const fourClient = first.scenarios.find((scenario) => scenario.scenario === 'four-client')!;
-    // The lower bound passes with room; the all-64-moving bound is the honest question. The assertion
-    // records the measured truth, not a NET-GATE pass: the dense average and worst client still miss.
+    // v2 6 B packed entries move both measured bounds under the down budget. These assertions record
+    // framed-byte arithmetic in a local harness, not a NET-GATE pass (no sockets, loss matrix or soak).
     expect(fourClient.treatment.down.worstBytesPerSecond).toBeLessThan(dense.treatment.down.worstBytesPerSecond);
     expect(fourClient.treatment.up.worstBytesPerSecond).toBeLessThanOrEqual(UP_BUDGET_BYTES_PER_SECOND);
-    expect(fourClient.budget.downMetBest).toBe(true);
-    expect(fourClient.budget.downMetAverage).toBe(true);
     expect(fourClient.budget.downMetWorst).toBe(true);
     expect(dense.budget.downMetBest).toBe(true);
-    expect(dense.budget.downMetAverage).toBe(false);
-    expect(dense.budget.downMetWorst).toBe(false);
+    expect(dense.budget.downMetAverage).toBe(true);
+    expect(dense.budget.downMetWorst).toBe(true);
     expect(dense.budget.upMetWorst).toBe(true);
   });
 
