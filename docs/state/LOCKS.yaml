@@ -247,4 +247,11 @@ locks:
     acquired_at: "2026-11-18T08:38:00Z"
     expires_at: "2026-11-18T09:38:00Z"
     status: active
+  - path_glob: "apps/dashboard/**"
+    owner_agent: tools-engineer
+    task_id: P0-007
+    branch: session/20261118-dashboard-truth
+    acquired_at: "2026-11-18T08:42:00Z"
+    expires_at: "2026-11-18T09:42:00Z"
+    status: active
 
