@@ -12,6 +12,7 @@ hardcoded P0-007 claims are gone, and a regression guard fails when a stale valu
 | `03-negative-stale-value.log` | same check after injecting `modules: 0` into the builder | **1** | 2 problems, names both |
 | `04-truth-check-restored.log` | check after restoring the builder | 0 | green again |
 | `05-verify.log` | `pnpm verify` (after `pnpm install --frozen-lockfile` in the fresh worktree) | 0 | **17/17** |
+| `06-ci-proof.log` | GitHub Actions API at `0da522b` | 0 | **8/8 triggered workflows success** |
 
 **before / after, read from `data.json`**
 
