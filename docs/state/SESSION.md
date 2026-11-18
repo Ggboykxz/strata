@@ -7,8 +7,8 @@
 | branch | `session/20261118-hc-001-high-concept` |
 | phase / tier | P1 complete → P2NET next / current `S0`, authorized **`S1`** (GATE:P1 signed 2026-11-18) |
 | director | present for bootstrap; async from now |
-| last task | SEC-001 — ingress validation, rate limits, threat model |
-| next task | **NG-001** — NET-GATE dossier for the Director |
+| last task | NG-001 — NET-GATE dossier; Director signed with risk (A0006) |
+| next task | **PR-S1** — combat TTK/windows/hit-stop prototype (greybox) |
 
 ## Done this session
 
@@ -51,6 +51,7 @@
 | PR-N3 | bigint zero-sum ledger, idempotency, checksum restore, GDD 0.3/0.3 | fuzz 7/7 · full 132/132 · drift 0 · 10k tx |
 | PR-N4 | rewind ring, integer LOS/range/cooldown, GDD-NETCODE 0.7 | lagcomp 10/10 · full 142/142 · 30 shots |
 | SEC-001 | message gate, rate limit, GM audit, threat model, GDD-SECURITY 0.3 | security 10/10 · full 142/142 · 30/200 admitted |
+| NG-001 | honest NET-GATE dossier + real validator; A0006 signature | integrity 0 · readiness 1 · tamper 1 · FULL 0 |
 
 **P0-001 and P0-002 were split** although only P0-001 triggered B8: the halves fail for different reasons and
 deserve separate rollback points. Commits: `094f31f`, `bd6f550` (P0-001); `1ceaf20`, `7e9d382` (P0-002).
@@ -299,3 +300,14 @@ blueprint task currently owns the pin: recorded as a gap for the Director/next r
 - `pnpm test --filter @strata/security` could never run (`CACError`); acc repaired to a dedicated vitest config
   under `tests/security/`. Eleventh broken form; 7 `pnpm test --filter` accs remain.
 - Security 10/10, main suite 142/142, verify 17/17. GATE:P2NET is now satisfied; NG-001 is selectable.
+
+## Session 2 — NG-001 and the blanket Director signature (2026-11-18T10:44Z)
+
+- The NET-GATE dossier carries all 10 master §5.2 criteria honestly: **2 met, 8 not-measured/partial/failing**.
+  `validate-netgate.mjs` checks dossier integrity (exit 0) while `--assert-ready` exits **1** — a validator pass
+  is not a gate pass. Injecting `wire-budget: met` makes the validator fail closed.
+- **The Director said "je signe tout"**, transcribed verbatim in A0006, `NET_GATE.md` §6 and `GATE_NET.md`.
+  Recorded as **`signed-with-risk`, not passed**: no criterion, measurement or unmeasured field was changed.
+- PR #1 and PR #2 were **not merged** — an agent must not self-merge; the Director must do it from their account.
+  No art was produced. Art is allowed only by risk acceptance, with the seven residual risks still attached.
+- FULL §20 result emitted. Next: PR-S1 (P2-SYS greybox), with re-measurement of the 8 criteria still owed.

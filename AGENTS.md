@@ -162,6 +162,9 @@ Anything else goes through a handoff. A conflict is resolved by a handoff or the
 - **SEC-001 closed P2NET**: ingress gate with counted reason codes, 30-per-window rate limit and GM audit;
   200-message burst → 30 admitted. Threat model lists seven residual risks — no auth/TLS, gate not wired into
   `attachRooms` (SEC-002), in-memory counters, retention is OPS-001. Security 10/10, verify 17/17. Next: NG-001.
+- **NG-001 / A0006**: NET-GATE dossier is honest (2 of 10 criteria met). Director said "je signe tout" — recorded
+  verbatim as **`signed-with-risk`, NOT passed**; `--assert-ready` still exits 1 (8 unmet). No agent merged PR #1/#2
+  and no art was produced. Next: PR-S1 (P2-SYS greybox). Re-measurement of the 8 criteria remains owed.
 - Known intentional red: `scope-math --report` exit 2 (throughput unmeasured) and `concept --score` exit 2
   until HC-003. `concept --check` is green: T3 was signed at GATE:P0.
 

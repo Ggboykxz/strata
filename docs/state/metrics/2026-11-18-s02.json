@@ -1,7 +1,7 @@
 {
   "session": "2026-11-18-s02",
   "utc_start": "2026-11-18T07:23:00Z",
-  "utc_end": "2026-11-18T10:18:00Z",
+  "utc_end": "2026-11-18T10:44:00Z",
   "mode": "RESUME",
   "branch": "session/20261118-hc-001-high-concept",
   "tier": {
@@ -10,8 +10,14 @@
     "granted_by": "GATE:P1 signed 2026-11-18 by the Director (\"Oui, signe S1\")"
   },
   "netgate": {
-    "status": "unpassed",
-    "art_allowed": false
+    "status": "signed-with-risk",
+    "art_allowed": true,
+    "risk_accepted": true,
+    "criteria_unmet": 8,
+    "director_statement": "je signe tout",
+    "signed_at": "2026-11-18",
+    "source": "A0006 + docs/qa/prototypes/NET_GATE.md",
+    "note": "Director signed with full knowledge of 8 unmet criteria; evidence and unmeasured fields unchanged."
   },
   "tasks": [
     {
@@ -73,6 +79,12 @@
       "id": "SEC-001",
       "status": "done",
       "blueprint_task": "SEC-001"
+    },
+    {
+      "id": "NG-001",
+      "status": "done",
+      "blueprint_task": "NG-001",
+      "note": "dossier assembled unsigned then Director signed with risk (A0006)"
     }
   ],
   "measured": {
@@ -180,7 +192,12 @@
     "burst_refused": 170,
     "rate_limit_per_window": 30,
     "rate_window_ticks": 30,
-    "unvalidated_paths_claimed": false
+    "unvalidated_paths_claimed": false,
+    "gate_criteria": 10,
+    "gate_criteria_met": 2,
+    "gate_criteria_unmet": 8,
+    "gate_validator_integrity_exit": 0,
+    "gate_assert_ready_exit": 1
   },
   "cis": {
     "value": null,
@@ -863,6 +880,40 @@
       "cmd": "node scripts/validate-blueprint.mjs",
       "exit": 0,
       "log": "docs/state/evidence/20261118T094911Z-SEC-001/08-blueprint.log"
+    },
+    {
+      "cmd": "node scripts/validate-netgate.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T095646Z-NG-001/01-integrity.log",
+      "result": "honest dossier, signature recorded"
+    },
+    {
+      "cmd": "node scripts/validate-netgate.mjs --assert-ready",
+      "exit": 1,
+      "log": "docs/state/evidence/20261118T095646Z-NG-001/02-readiness-fail.log",
+      "result": "8/10 criteria unmet — expected"
+    },
+    {
+      "cmd": "node scripts/validate-netgate.mjs after injecting wire-budget: met",
+      "exit": 1,
+      "log": "docs/state/evidence/20261118T095646Z-NG-001/03-negative-tamper.log",
+      "result": "fail closed"
+    },
+    {
+      "cmd": "node scripts/session-result.mjs --format full",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T095646Z-NG-001/04-full-result.log"
+    },
+    {
+      "cmd": "pnpm verify",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T095646Z-NG-001/05-verify.log",
+      "result": "17/17"
+    },
+    {
+      "cmd": "pnpm tracer --assert",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T095646Z-NG-001/06-tracer.log"
     }
   ],
   "notes": [
@@ -910,7 +961,11 @@
     "PR-N4 CI at b1d67a5: 8/8 triggered workflows success; run ids in docs/state/evidence/20261118T093621Z-PR-N4/10-ci-proof.log.",
     "SEC-001: ingress gate, 30-per-window rate limit, counted reason codes, GM audit. 200-message burst -> 30 admitted.",
     "No 0-unvalidated-paths claim: attachRooms still bypasses the gate (SEC-002). No auth/TLS, in-memory counters, retention is OPS-001.",
-    "SEC-001 CI at fb595cd: 8/8 triggered workflows success; run ids in docs/state/evidence/20261118T094911Z-SEC-001/10-ci-proof.log."
+    "SEC-001 CI at fb595cd: 8/8 triggered workflows success; run ids in docs/state/evidence/20261118T094911Z-SEC-001/10-ci-proof.log.",
+    "A0006: Director said \"je signe tout\" — verbatim. NET-GATE recorded as signed-with-risk, 8/10 criteria unmet; --assert-ready still fails.",
+    "No agent fabricated a signature and no evidence was changed to obtain it. PR merges remain Director-only.",
+    "NG-001: NET-GATE dossier honest (2 met / 8 unmet). Director said \"je signe tout\" — recorded verbatim in A0006 as signed-with-risk, not passed.",
+    "Gate signature does not make criteria measured: --assert-ready still exits 1. PR merges remain Director-only; no art produced."
   ],
   "result": {
     "phase": "P2NET",
@@ -1024,6 +1079,11 @@
           "dir": "docs/state/evidence/20261118T094911Z-SEC-001/",
           "logs": 12,
           "branch": "session"
+        },
+        {
+          "dir": "docs/state/evidence/20261118T095646Z-NG-001/",
+          "logs": 8,
+          "branch": "session"
         }
       ]
     },
@@ -1032,7 +1092,7 @@
       "AUDIT-2026-11-18-P0-006"
     ],
     "enables": "Nothing player-facing: it protects the evidence chain — a resume prompt that cannot be silently truncated, a tier grant recorded verbatim, a deterministic tick and wire, and a dashboard that reports sources instead of memories.",
-    "next": "NG-001 — NET-GATE dossier for the Director",
+    "next": "PR-S1 — combat TTK/windows/hit-stop prototype (P2-SYS, greybox only)",
     "blockers": [
       "ND-004 PAT rotation",
       "ND-005 HF token rotation",
@@ -1043,7 +1103,7 @@
     ],
     "next_session_file": "docs/state/NEXT_SESSION.md",
     "full": {
-      "handoffs": "Thirteen handoff+proposal pairs under docs/state/threads/; all ACKed in-process. No external reviewer installed.",
+      "handoffs": "Fourteen handoff+proposal pairs under docs/state/threads/; all ACKed in-process. No external reviewer installed.",
       "concept_roles": "Roles executed by one process; T3 signed at GATE:P0 and re-signature deferred to the next gate. Signature ratio not recomputable from metrics.json.",
       "gdd_version_bumps": [
         "GDD-NETCODE 0.2 -> 0.3 -> 0.4",
@@ -1055,7 +1115,9 @@
         "GDD-PERSISTENCE 0.2 -> 0.3",
         "GDD-TRADE 0.2 -> 0.3",
         "GDD-NETCODE 0.6 -> 0.7",
-        "GDD-SECURITY 0.2 -> 0.3"
+        "GDD-SECURITY 0.2 -> 0.3",
+        "GDD-SECURITY 0.2 -> 0.3",
+        "GDD-NETCODE 0.6 -> 0.7"
       ],
       "scope_ledger_delta": "0 entries (12 -> 12, balanced)",
       "content_math": "Local CPU p95 0.2109 ms (180-tick harness, 64 entities); network throughput still NOT COMPUTABLE.",
@@ -1065,7 +1127,7 @@
       "economy_metrics": "Ledger 10k fuzz: drift 0 minor units, 1000 duplicates deduped, 1 conflict, restore verified. Inflation/Gini still NOT COMPUTABLE (ECON-001).",
       "anim_checks": "A0001 separation intact; retarget coverage and foot slide NOT COMPUTABLE (AN-002)",
       "world_checks": "No world content this session",
-      "files_by_owner": "orchestrator: docs/state/**, docs/blueprint/**, scripts/session-result.mjs; gameplay-engineer: packages/core/src/{tick,index}.ts, apps/server/src/sim/; netcode-engineer: packages/protocol/**, GDD-NETCODE; animation-director: packages/core/src/anim-state/**, packages/content/animations/**, GDD-ANIM-ARCHITECTURE; tools-engineer: apps/dashboard/** backend-engineer: apps/server/src/rooms/** (NET-003, A0004). netcode-engineer: apps/game/src/net/**, packages/core/src/hash.ts (NET-004). netcode-engineer: protocol/src/anim.ts + wire v3, apps/server/src/combat/**, apps/game/src/net/jitter.ts (NET-006). qa-engineer: tools/sim/load/**, docs/qa/prototypes/PRN1.md (PR-N1, A0005). backend-engineer: packages/core/src/ledger/**, tools/sim/persist/** (PR-N3); economy-designer: GDD-TRADE 0.3. netcode-engineer: tools/sim/net/prn4_lagcomp.ts (PR-N4). security-auditor: apps/server/src/validation/**, tests/security/**, docs/legal/THREAT_MODEL.md (SEC-001)."
+      "files_by_owner": "orchestrator: docs/state/**, docs/blueprint/**, scripts/session-result.mjs; gameplay-engineer: packages/core/src/{tick,index}.ts, apps/server/src/sim/; netcode-engineer: packages/protocol/**, GDD-NETCODE; animation-director: packages/core/src/anim-state/**, packages/content/animations/**, GDD-ANIM-ARCHITECTURE; tools-engineer: apps/dashboard/** backend-engineer: apps/server/src/rooms/** (NET-003, A0004). netcode-engineer: apps/game/src/net/**, packages/core/src/hash.ts (NET-004). netcode-engineer: protocol/src/anim.ts + wire v3, apps/server/src/combat/**, apps/game/src/net/jitter.ts (NET-006). qa-engineer: tools/sim/load/**, docs/qa/prototypes/PRN1.md (PR-N1, A0005). backend-engineer: packages/core/src/ledger/**, tools/sim/persist/** (PR-N3); economy-designer: GDD-TRADE 0.3. netcode-engineer: tools/sim/net/prn4_lagcomp.ts (PR-N4). security-auditor: apps/server/src/validation/**, tests/security/**, docs/legal/THREAT_MODEL.md (SEC-001). producer + netcode-engineer: docs/qa/prototypes/NET_GATE.md, docs/state/gates/GATE_NET.md, scripts/validate-netgate.mjs (NG-001, A0006)."
     }
   }
 }
