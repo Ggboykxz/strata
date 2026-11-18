@@ -111,7 +111,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T08:25:00Z"
     expires_at: "2026-11-18T09:25:00Z"
-    status: active
+    status: released
 
   - path_glob: "docs/blueprint/GATES.yaml"
     owner_agent: orchestrator
@@ -119,7 +119,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T08:25:00Z"
     expires_at: "2026-11-18T09:25:00Z"
-    status: active
+    status: released
 
   - path_glob: "docs/design/gdd/GDD-NETCODE.md"
     owner_agent: netcode-engineer
@@ -127,7 +127,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T08:25:00Z"
     expires_at: "2026-11-18T09:25:00Z"
-    status: active
+    status: released
 
   - path_glob: "packages/protocol/src/binary.ts"
     owner_agent: netcode-engineer
@@ -135,7 +135,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T08:25:00Z"
     expires_at: "2026-11-18T09:25:00Z"
-    status: active
+    status: released
 
   - path_glob: "packages/protocol/src/index.ts"
     owner_agent: netcode-engineer
@@ -143,7 +143,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T08:25:00Z"
     expires_at: "2026-11-18T09:25:00Z"
-    status: active
+    status: released
 
   - path_glob: "packages/protocol/test/binary.test.ts"
     owner_agent: netcode-engineer
@@ -151,7 +151,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T08:25:00Z"
     expires_at: "2026-11-18T09:25:00Z"
-    status: active
+    status: released
 
   - path_glob: "packages/protocol/test/protocol.test.ts"
     owner_agent: netcode-engineer
@@ -159,5 +159,5 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T08:25:00Z"
     expires_at: "2026-11-18T09:25:00Z"
-    status: active
+    status: released
 
