@@ -7,8 +7,8 @@
 | branch | `session/20261118-hc-001-high-concept` |
 | phase / tier | P0 / current `S0`, authorized `S0` |
 | director | present for bootstrap; async from now |
-| last task | TRACER-001 (walking skeleton, equal state hashes) |
-| next task | **P0-004** — 27 CI workflows + real `scripts/validate-workflows.mjs` |
+| last task | P0-004 (27 CI workflows + real `validate-workflows.mjs`) |
+| next task | **P0-005** — Colab bootstrap, watchdog, heartbeat, resume drill |
 
 ## Done this session
 
@@ -25,6 +25,7 @@
 | HC-001 (amend) | HIGH_CONCEPT v1.1 → v1.2, T3 signed at GATE:P0 | `concept --init` 0, `--check` 0 |
 | WF-002 | `scripts/validate-ownership.mjs`, `scripts/validate-locks.mjs`, `verify` integration | both exit 0; 8/8 negative tests; `verify` 9/9 |
 | TRACER-001 | core tracer, protocol, WS server, Babylon client, `pnpm tracer --assert` | assert exit 0; desync exit 1; lint negative 1 |
+| P0-004 | 27 workflows, real `scripts/validate-workflows.mjs`, ownership map entry | validator exit 0; 8/8 negatives; `verify` 10/10 |
 
 **P0-001 and P0-002 were split** although only P0-001 triggered B8: the halves fail for different reasons and
 deserve separate rollback points. Commits: `094f31f`, `bd6f550` (P0-001); `1ceaf20`, `7e9d382` (P0-002).
@@ -91,8 +92,13 @@ blueprint task currently owns the pin: recorded as a gap for the Director/next r
 - Repo `github.com/Ggboykxz/strata`, private, default branch `main` (empty root commit `36bd9af`).
 - PR #1 is draft and stacked; P0-002 is pushed on the same branch (`7e9d382`).
 - `corepack enable` is done; pnpm is pinned to **12.21.0** and the lockfile is committed.
-- `pnpm verify` (**9 steps**, fail-fast) is the only entry point. It prints DEFERRED for determinism replay,
-  GDD coverage and the 19 stubs; none of those counts as green.
+- `pnpm verify` (**10 steps**, fail-fast) is the only entry point. It prints DEFERRED for determinism replay,
+  GDD coverage and the 18 stubs; none of those counts as green.
+- 27 GitHub Actions workflows exist under `.github/workflows/`; 80 `uses:` entries are SHA-pinned. **No job
+  has run yet** — acceptance was static. The first real CI result after this push is new evidence, not an
+  assumption. 12 workflows calling declared stubs are manual-only.
+- `scripts/validate-workflows.mjs` is release-engineer-owned by WORKFLOW.md §6; the explicit map entry was
+  added before the handoff (165 globs, 0 ties). The D-002 class of conflict is now caught before it starts.
 - TRACER-001 is green: 1 capsule, fixed 30 Hz authoritative tick, two reconciled replicas with equal FNV-1a
   hashes, Babylon NullEngine render in CI. `pnpm tracer --assert` exists; forcing a desync makes it exit 1.
 - Babylon **9.37.0 (Apache-2.0)** and `ws` **8.23.0 (MIT)** are pinned in `STACK.lock.md`. NullEngine is

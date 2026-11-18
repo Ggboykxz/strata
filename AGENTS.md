@@ -95,6 +95,8 @@ Anything else goes through a handoff. A conflict is resolved by a handoff or the
   HC §5 signature records the N2 × N4 basis and the obligation to re-sign at later gates.
 - TRACER-001 is green: `pnpm tracer --assert` proves equal server/client hashes, rejects a forced desync and
   renders the capsule with Babylon NullEngine. NET-GATE remains unpassed; the capsule is greybox.
+- P0-004 shipped 27 SHA-pinned workflows and a real `validate-workflows.mjs`. Acceptance was static: no
+  Actions job has run yet. 12 stub-calling workflows are manual-only.
 - **ND-001 resolved** (T1 EN 25/25, FR 30/35; FINDING-001 closed) and **ND-002 resolved** (A0002 option A,
   D-002 closed, WF-002 is orchestrator's). See `docs/state/NEEDS_DIRECTOR.md`.
 - Known intentional red: `concept-integrity --check` (T3 novelty unsigned until GATE:P1),
