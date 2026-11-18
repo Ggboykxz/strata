@@ -7,18 +7,18 @@
  *
  * The codec is isomorphic (no Node, no DOM) and carries no dependency beyond the core range contract.
  * It is a *correctness* codec: it packs fields exactly, but it does not delta-compress or bit-pack. The
- * 12 KB/s down budget at 64 AoI entities is NET-101's job; a full snapshot here is 1 551 bytes, which is
- * ~46.5 KB/s at 30 Hz — measured, over budget, and deliberately left to the AoI task (see the test).
+ * 12 KB/s down budget at 64 AoI entities is NET-101's job; a full v4 snapshot here is 1 555 bytes, which is
+ * ~46.65 KB/s at 30 Hz — measured, over budget, and deliberately left to the AoI task (see the test).
  */
-import { toWireMm } from '@strata/core';
+import { hashEntity, toWireMm } from '@strata/core';
 import { ANIM_STATES, type AnimStateName, type Axis, type EntityState, type WorldState } from '@strata/core';
 
 /** Bumped whenever the wire layout changes. A peer with another version is refused, never truncated. */
-export const PROTOCOL_VERSION = 3;
+export const PROTOCOL_VERSION = 4;
 
 /** Version bounds the handshake accepts. One version today; a range so NET-004 can widen it. */
-export const SUPPORTED_MIN_VERSION = 3;
-export const SUPPORTED_MAX_VERSION = 3;
+export const SUPPORTED_MIN_VERSION = 4;
+export const SUPPORTED_MAX_VERSION = 4;
 
 /** AoI cap from D90: never more than 64 entities in a snapshot. */
 export const MAX_ENTITIES = 64;
@@ -37,7 +37,7 @@ export const FrameType = {
 export type FrameTypeValue = (typeof FrameType)[keyof typeof FrameType];
 
 export const INTENT_BYTES = 11;
-export const SNAPSHOT_HEADER_BYTES = 15;
+export const SNAPSHOT_HEADER_BYTES = 19;
 export const ENTITY_BYTES = 24;
 export const HASH_ACK_BYTES = 13;
 export const ANIM_BYTES = 17;
@@ -85,7 +85,10 @@ export interface SnapshotFrame {
   readonly kind: 'snapshot';
   readonly tick: number;
   readonly appliedSeq: number;
+  /** Server audit hash of the whole world at this tick. */
   readonly hash: string;
+  /** Hash of the recipient's own entity at this tick — the only state a client can predict. */
+  readonly viewHash: string;
   readonly entities: readonly EntityState[];
 }
 
@@ -197,7 +200,8 @@ export function encodeFrame(msg: WireMessage): Uint8Array {
       dv.setUint32(1, checkU32(msg.tick, 'tick'), true);
       dv.setUint32(5, checkU32(msg.appliedSeq, 'appliedSeq'), true);
       dv.setUint32(9, hashToU32(msg.hash), true);
-      dv.setUint16(13, msg.entities.length, true);
+      dv.setUint32(13, hashToU32(msg.viewHash), true);
+      dv.setUint16(17, msg.entities.length, true);
       let o = SNAPSHOT_HEADER_BYTES;
       for (const e of msg.entities) {
         dv.setUint32(o, checkU32(e.id, 'id'), true);
@@ -295,7 +299,7 @@ export function decodeFrame(bytes: Uint8Array): WireMessage {
     }
     case FrameType.Snapshot: {
       if (bytes.length < SNAPSHOT_HEADER_BYTES) throw new ProtocolError('truncated', 'snapshot header truncated');
-      const count = dv.getUint16(13, true);
+      const count = dv.getUint16(17, true);
       if (count > MAX_ENTITIES) throw new ProtocolError('too-many-entities', `${count} entities > ${MAX_ENTITIES}`);
       const expected = SNAPSHOT_HEADER_BYTES + count * ENTITY_BYTES;
       if (bytes.length !== expected) throw lengthError(bytes.length, expected);
@@ -317,6 +321,7 @@ export function decodeFrame(bytes: Uint8Array): WireMessage {
         tick: dv.getUint32(1, true),
         appliedSeq: dv.getUint32(5, true),
         hash: u32ToHash(dv.getUint32(9, true)),
+        viewHash: u32ToHash(dv.getUint32(13, true)),
         entities,
       };
     }
@@ -374,13 +379,27 @@ function lengthError(got: number, want: number): ProtocolError {
     : new ProtocolError('truncated', `frame is ${got} bytes, expected ${want}`);
 }
 
-/** Build the snapshot frame of a world state at its tick. */
-export function snapshotFromWorld(world: WorldState, hash: string): SnapshotFrame {
+/**
+ * Build the snapshot frame of a world state at its tick.
+ *
+ * `viewEntityId` names the recipient's entity: the frame then carries `viewHash`, the hash that client
+ * can reproduce from its own predictions. Without it (tracer, single-entity replay) `viewHash === hash`.
+ * `appliedSeq` defaults to the highest seq in the world, but a per-client frame passes the recipient's
+ * own seq so the client never replays an intent the server already applied (GDD-NETCODE §7).
+ */
+export function snapshotFromWorld(
+  world: WorldState,
+  hash: string,
+  viewEntityId?: number,
+  appliedSeq?: number,
+): SnapshotFrame {
+  const own = viewEntityId === undefined ? undefined : world.entities.find((e) => e.id === viewEntityId);
   return {
     kind: 'snapshot',
     tick: world.tick,
-    appliedSeq: world.entities.reduce((max, e) => Math.max(max, e.seq), 0),
+    appliedSeq: appliedSeq ?? world.entities.reduce((max, e) => Math.max(max, e.seq), 0),
     hash,
+    viewHash: own ? hashEntity(world.tick, own) : hash,
     entities: world.entities,
   };
 }

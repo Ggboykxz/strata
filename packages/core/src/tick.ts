@@ -164,6 +164,18 @@ export function fnv1a32(values: readonly number[]): number {
 }
 
 /**
+ * Hash of one entity at a named tick: tick, then (id, x, z, vx, vz, seq). A client only knows the
+ * intents of its own entity, so this is the only state it can reproduce exactly in a multi-client
+ * room; the global `hashWorld` remains the server's audit hash (see NET-104 / A0010).
+ */
+export function hashEntity(tick: number, entity: EntityState): string {
+  if (!Number.isInteger(tick) || tick < 0) throw new QuantizationError('tick must be a non-negative integer');
+  const values: number[] = [tick, entity.id, toWireMm(entity.x), toWireMm(entity.z),
+    toWireMm(entity.vx), toWireMm(entity.vz), entity.seq];
+  return fnv1a32(values).toString(16).padStart(8, '0');
+}
+
+/**
  * Hash of the world at its own tick: tick, then every entity by ascending id with (id, x, z, vx, vz,
  * seq). Throws if the state left the integer/wire domain — a silent truncation would hide a desync.
  */

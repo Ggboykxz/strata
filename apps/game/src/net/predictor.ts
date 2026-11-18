@@ -6,12 +6,21 @@
  * server has applied, replay the rest. A hash mismatch is a **desync**: rejected, never silently reconciled
  * (GDD-NETCODE §4.3), and a resync is requested on the next input.
  */
-import { HashTimeline, hashWorld, stepWorld, type Axis, type EntityState, type MoveCommand, type WorldState } from '@strata/core';
+import {
+  HashTimeline, hashEntity, hashWorld, stepWorld,
+  type Axis, type EntityState, type MoveCommand, type WorldState,
+} from '@strata/core';
 
-/** The shape of a snapshot the predictor needs. `SnapshotFrame` from NET-002 satisfies it. */
+/**
+ * The shape of a snapshot the predictor needs. `SnapshotFrame` from NET-002 satisfies it.
+ *
+ * `viewHash` is the hash of this client's own entity — the only state a client can reproduce when
+ * other players move. Older single-entity callers omit it and fall back to the global `hash` (A0010).
+ */
 export interface SnapshotView {
   readonly tick: number;
   readonly hash: string;
+  readonly viewHash?: string;
   readonly appliedSeq: number;
   readonly entities: readonly EntityState[];
 }
@@ -37,7 +46,8 @@ export class Predictor {
   constructor(initial: WorldState, readonly entityId: number, capacity = 128) {
     this.world = { tick: initial.tick, entities: [...initial.entities] };
     this.timeline = new HashTimeline(capacity);
-    this.timeline.put(initial.tick, hashWorld(this.world));
+    const own = this.world.entities.find((e) => e.id === this.entityId);
+    this.timeline.put(initial.tick, own ? hashEntity(initial.tick, own) : hashWorld(this.world));
   }
 
   get state(): WorldState { return this.world; }
@@ -55,13 +65,15 @@ export class Predictor {
     this.world = stepWorld(this.world, [command]);
     this.lastSubmittedSeq = seq;
     this.pending.push({ ...command, tick: this.world.tick });
-    this.timeline.put(this.world.tick, hashWorld(this.world));
+    const own = this.world.entities.find((e) => e.id === this.entityId)!;
+    this.timeline.put(this.world.tick, hashEntity(this.world.tick, own));
     return true;
   }
 
   /** Reset to a server snapshot, then replay only intents it has not applied. */
   reconcile(snapshot: SnapshotView): ReconcileVerdict {
-    let verdict: ReconcileVerdict = this.timeline.verify(snapshot.tick, snapshot.hash);
+    const expected = snapshot.viewHash ?? snapshot.hash;
+    let verdict: ReconcileVerdict = this.timeline.verify(snapshot.tick, expected);
     const own = snapshot.entities.find((e) => e.id === this.entityId);
     if (!own) verdict = 'desync'; // our entity vanished from the authoritative world
 
@@ -79,7 +91,7 @@ export class Predictor {
       entities: [...snapshot.entities].sort((a, b) => a.id - b.id),
     };
     this.lastAckedSeqValue = own?.seq ?? snapshot.appliedSeq;
-    this.timeline.put(snapshot.tick, hashWorld(this.world));
+    this.timeline.put(snapshot.tick, own ? hashEntity(snapshot.tick, own) : hashWorld(this.world));
     this.timeline.forgetBefore(snapshot.tick);
 
     if (verdict === 'desync') return verdict;

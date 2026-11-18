@@ -28,7 +28,7 @@
 |---|---|---|
 | untrusted bytes | `decodeFrame` rejects malformed lengths/types; reason `malformed` counted | `tests/security/message-gate.test.ts` |
 | unknown kinds | client-sent snapshot refused (`client-snapshot`); unknown kinds refused | same |
-| version | v3 only; v2/v4 refused, never coerced (GDD-NETCODE §7) | `packages/protocol/test/binary.test.ts` |
+| version | v4 only; v3/v5 refused, never coerced (GDD-NETCODE §7, A0010) | `packages/protocol/test/binary.test.ts` |
 | flood | 30 intents per 30-tick window; 200-message burst → 30 admitted, 170 `RATE_LIMIT` | `tests/security/message-gate.test.ts` |
 | replay | monotonic seq per client; `forget()` on logout clears seq and rate state | same |
 | hit claims | no wire kind for a hit result; PR-N4 ignores `claimed` | PR-N4 evidence |

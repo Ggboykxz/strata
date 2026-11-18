@@ -137,11 +137,15 @@ export class Room {
     this.phaseValue = 'draining';
   }
 
-  /** Snapshot for one client, with the per-entity applied seq the client will replay after. */
+  /**
+   * Snapshot for one client: the whole world (needed to interpolate other players) plus `viewHash`,
+   * the hash of that client's own entity, and its own applied seq. A client cannot predict remote
+   * intents, so the global hash is audit-only (A0010 / NET-104).
+   */
   snapshotFor(client: RoomClient): SnapshotFrame | null {
     const entity = this.host.state.entities.find((e) => e.id === client.entityId);
     if (!entity) return null;
-    return { kind: 'snapshot', tick: this.tickValue, hash: this.hash, appliedSeq: entity.seq, entities: [entity] };
+    return snapshotFromWorld(this.host.state, this.hash, client.entityId, entity.seq);
   }
 
   private send(client: RoomClient, message: WireMessage): void {
@@ -184,12 +188,14 @@ export class Room {
     return false; // a server does not accept snapshots from clients (I1)
   }
 
-  /** Advance the authoritative tick, broadcast one snapshot per connected client, then sweep handles. */
+  /** Advance the authoritative tick, send each client its own snapshot, then sweep handles. */
   tick(): RoomTick {
     const result = this.host.step();
     this.tickValue = result.tick;
-    const snapshot = snapshotFromWorld(this.host.state, result.hash);
-    for (const client of this.members) this.send(client, snapshot);
+    for (const client of this.members) {
+      const snapshot = this.snapshotFor(client);
+      if (snapshot) this.send(client, snapshot);
+    }
 
     for (const client of this.members) {
       if (client.socket === null && client.disconnectedAtTick !== null

@@ -10,23 +10,23 @@ import {
 
 const intent: WireMessage = { kind: 'intent', entity: 7, seq: 42, dx: 1, dz: -1 };
 const hashack: WireMessage = { kind: 'hashack', client: 3, tick: 900, hash: 'deadbeef' };
-const hello: WireMessage = { kind: 'hello', version: 3, capabilities: 0b1010_0101 };
-const welcome: WireMessage = { kind: 'welcome', version: 3 };
-const reject: WireMessage = { kind: 'reject', version: 3, reason: 'version' };
+const hello: WireMessage = { kind: 'hello', version: 4, capabilities: 0b1010_0101 };
+const welcome: WireMessage = { kind: 'welcome', version: 4 };
+const reject: WireMessage = { kind: 'reject', version: 4, reason: 'version' };
 
 function roundTrip(msg: WireMessage): WireMessage {
   return decodeFrame(encodeFrame(msg));
 }
 
 function snapshot(entities: SnapshotFrame['entities']): SnapshotFrame {
-  return { kind: 'snapshot', tick: 12, appliedSeq: 9, hash: '0a0b0c0d', entities };
+  return { kind: 'snapshot', tick: 12, appliedSeq: 9, hash: '0a0b0c0d', viewHash: '01020304', entities };
 }
 
 describe('binary framing', () => {
-  it('declares v3 and supports exactly that version today', () => {
-    expect(PROTOCOL_VERSION).toBe(3);
-    expect(SUPPORTED_MIN_VERSION).toBe(3);
-    expect(SUPPORTED_MAX_VERSION).toBe(3);
+  it('declares v4 and supports exactly that version today', () => {
+    expect(PROTOCOL_VERSION).toBe(4);
+    expect(SUPPORTED_MIN_VERSION).toBe(4);
+    expect(SUPPORTED_MAX_VERSION).toBe(4);
   });
 
   it('packs every frame to its exact declared length', () => {
@@ -88,7 +88,7 @@ describe('strict decoding', () => {
 
   it('refuses a snapshot whose declared count disagrees with its length', () => {
     const frame = encodeFrame(snapshot([]));
-    frame[13] = 1; // count = 1, but no entity bytes follow
+    frame[17] = 1; // count = 1, but no entity bytes follow
     expect(() => decodeFrame(frame)).toThrow(ProtocolError);
   });
 
@@ -131,17 +131,17 @@ describe('strict decoding', () => {
 
 describe('version handshake', () => {
   it('welcomes the supported version', () => {
-    expect(negotiate(3)).toEqual({ kind: 'welcome', version: 3 });
+    expect(negotiate(4)).toEqual({ kind: 'welcome', version: 4 });
   });
 
   it('rejects an older and a newer version — never coerces', () => {
-    expect(negotiate(2)).toEqual({ kind: 'reject', version: 3, reason: 'version' });
-    expect(negotiate(4)).toEqual({ kind: 'reject', version: 3, reason: 'version' });
-    expect(negotiate(0)).toEqual({ kind: 'reject', version: 3, reason: 'version' });
+    expect(negotiate(3)).toEqual({ kind: 'reject', version: 4, reason: 'version' });
+    expect(negotiate(5)).toEqual({ kind: 'reject', version: 4, reason: 'version' });
+    expect(negotiate(0)).toEqual({ kind: 'reject', version: 4, reason: 'version' });
   });
 
   it('round-trips the reject frame it produces', () => {
-    expect(roundTrip(negotiate(99))).toEqual({ kind: 'reject', version: 3, reason: 'version' });
+    expect(roundTrip(negotiate(99))).toEqual({ kind: 'reject', version: 4, reason: 'version' });
   });
 });
 
@@ -167,13 +167,13 @@ describe('snapshot from the core world', () => {
     expect(snapshotFromWorld(world, '00000000').appliedSeq).toBe(9);
   });
 
-  it('measures the worst-case frame: 64 entities is 1 551 bytes, over the 12 KB/s budget', () => {
+  it('measures the worst-case frame: 64 entities is 1 555 bytes, over the 12 KB/s budget', () => {
     const entities = Array.from({ length: MAX_ENTITIES }, (_, i) => ({
       id: i + 1, x: i, z: -i, vx: 50, vz: -50, seq: i,
     }));
     const bytes = encodeFrame(snapshot(entities)).byteLength;
-    expect(bytes).toBe(1551);
-    // 30 Hz full snapshots would be 46 530 B/s. The budget is NET-101's (AoI + delta), not this codec's.
+    expect(bytes).toBe(1555);
+    // 30 Hz full snapshots would be 46 650 B/s. The budget is NET-101's (AoI + delta), not this codec's.
     expect(bytes * 30).toBeGreaterThan(12 * 1024);
   });
 });

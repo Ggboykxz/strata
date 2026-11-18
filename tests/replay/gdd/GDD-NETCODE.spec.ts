@@ -13,7 +13,7 @@ const ACCEPTANCE = [
   "GIVEN Math.random injected into packages/core WHEN pnpm lint runs THEN it exits 1.",
   "GIVEN a v1 and a v3 hello WHEN `negotiate` runs THEN both return `reject{reason:'version'}` and neither is coerced.",
   "GIVEN every v2 message class WHEN it is encoded and decoded THEN the value is identical (round-trip).",
-  "GIVEN a 64-entity snapshot WHEN encoded THEN it is exactly 1 551 bytes and over the 12 KB/s budget, recorded as NET-101's problem.",
+  "GIVEN a 64-entity snapshot WHEN encoded THEN it is exactly 1 555 bytes (v4, A0010) and over the 12 KB/s budget, recorded as NET-101's problem.",
   "GIVEN a local intent and a matching server snapshot WHEN reconciled THEN the verdict is `ok` and only intents with seq above the entity's appliedSeq are replayed.",
   "GIVEN a wrong snapshot hash, or a missing own entity WHEN reconciled THEN the verdict is `desync`, pending intents are cleared, resync is requested and the authoritative state is adopted exactly.",
   "GIVEN two snapshots WHEN sampled at render ticks THEN interpolation yields integer millimetres and the buffer never rewinds.",

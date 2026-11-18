@@ -42,7 +42,7 @@ describe('message gate', () => {
     const gate = new MessageGate();
     expect(gate.accept(1, 1, encodeFrame({ kind: 'hello', version: 2, capabilities: 0 })))
       .toMatchObject({ reason: 'wrong-version' });
-    expect(gate.accept(1, 1, encodeFrame({ kind: 'hello', version: 3, capabilities: 0 })).allowed).toBe(true);
+    expect(gate.accept(1, 1, encodeFrame({ kind: 'hello', version: 4, capabilities: 0 })).allowed).toBe(true);
   });
 
   it('enforces monotonic sequence and rejects a replayed intent', () => {

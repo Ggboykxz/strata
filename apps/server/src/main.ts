@@ -14,7 +14,9 @@ import { TracerServer } from './tracer';
 const tracer = new TracerServer();
 const tracerPort = Number(process.env.TRACER_PORT ?? 8787);
 const roomPort = Number(process.env.ROOM_PORT ?? 8788);
-const rooms = new RoomHub();
+// NET-GATE requires four clients in one room; the room default stays conservative, the host is explicit.
+const roomCapacity = Number(process.env.ROOM_CAPACITY ?? 4);
+const rooms = new RoomHub({ capacity: roomCapacity });
 
 async function listen(wss: WebSocketServer, path: string): Promise<number> {
   await new Promise<void>((resolve, reject) => {

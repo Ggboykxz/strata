@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import {
-  HashTimeline, WALK_MM_PER_TICK, createWorld, hashWorld, stepWorld,
+  HashTimeline, WALK_MM_PER_TICK, createWorld, hashEntity, hashWorld, stepWorld,
   type WorldState,
 } from '@strata/core';
 import {
@@ -12,6 +12,7 @@ const world0 = (seed = 7) => createWorld(seed, 2);
 const snapshotOf = (world: WorldState): SnapshotView => ({
   tick: world.tick,
   hash: hashWorld(world),
+  viewHash: hashEntity(world.tick, world.entities.find((e) => e.id === 1)!),
   appliedSeq: world.entities.reduce((max, e) => Math.max(max, e.seq), 0),
   entities: world.entities,
 });
@@ -96,7 +97,7 @@ describe('prediction', () => {
     const p = new Predictor(world0(), 1);
     p.input(1, 1, 0);
     const server = stepWorld(world0(), [{ entity: 1, seq: 1, dx: 1, dz: 0 }]);
-    const bad: SnapshotView = { ...snapshotOf(server), hash: 'deadbeef' };
+    const bad: SnapshotView = { ...snapshotOf(server), hash: 'deadbeef', viewHash: 'deadbeef' };
     expect(p.reconcile(bad)).toBe('desync');
     expect(p.desyncs).toBe(1);
     expect(p.needsResync).toBe(true);
@@ -114,6 +115,21 @@ describe('prediction', () => {
     expect(p.reconcile({ tick: 1, hash: '00000000', appliedSeq: 0, entities: other })).toBe('desync');
     expect(p.desyncs).toBe(1);
     expect(p.state.entities.map((e) => e.id)).toEqual([2]);
+  });
+
+  it('verifies the client-scoped hash when another entity moved in the same tick', () => {
+    const p = new Predictor(world0(7), 1);
+    expect(p.input(1, 1, 0)).toBe(true);
+    const server = stepWorld(world0(7), [
+      { entity: 1, seq: 1, dx: 1, dz: 0 },
+      { entity: 2, seq: 1, dx: -1, dz: 0 },
+    ]);
+    const snapshot = snapshotOf(server);
+    const own = server.entities.find((e) => e.id === 1)!;
+    expect(snapshot.hash).not.toBe(hashEntity(server.tick, own)); // the global hash cannot be reproduced
+    expect(snapshot.viewHash).toBe(hashEntity(server.tick, own));
+    expect(p.reconcile(snapshot)).toBe('ok');
+    expect(p.desyncs).toBe(0);
   });
 
   it('does not flag the first snapshot as a desync when no prediction existed', () => {

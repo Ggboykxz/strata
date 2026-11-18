@@ -65,6 +65,8 @@ Lag-comp validation contract: `Shot{shooter, target, tick, claimed}` and `WorldH
 
 NET-006 wire additions: kind `anim` (0x04, 17 B) carries the anim_state by entity; kind `resync` (0x05, 10 B) carries `{client, tick, reason}` where reason is one of `hash-mismatch | missing-entity | timeout`. A resync is a **request**; the server still chooses the snapshot (I1). Protocol v3 refuses v2/v4 hellos instead of silently interoperating.
 
+A0010 wire addition: protocol **v4** adds `viewHash` (u32) to the snapshot header, the hash of the recipient's own entity at that tick. `hash` remains the server audit hash of the whole world and is never compared to a client prediction. The snapshot header is **19 bytes**, so a 64-entity snapshot is **1 555 bytes = 46 650 B/s** at 30 Hz — still over the 12 KB/s budget and still NET-101's fix. v4 refuses v3 hellos.
+
 NET-004 client contract: `SnapshotView{tick, hash, appliedSeq, entities[]}` is the subset of SnapshotFrame the predictor consumes; `appliedSeq` is authoritative per entity (`EntityState.seq`), never inferred from the header. A pending intent carries `{entity, seq, dx, dz, tick}` so replay can step empty ticks back to the intent's original tick. Hashes are compared at the tick named by the snapshot, not at 'now'.
 
 protocol v1 (JSON, TRACER-001) remains exported until the game client moves to v2. Migration: a version outside the supported range is answered with `reject{reason:'version'}` and the socket closes; it is never coerced.
@@ -115,7 +117,7 @@ tick_hash_mismatch (count), rtt_ms (p50/p95), snapshot_bytes (p95), reconnect_co
 - GIVEN Math.random injected into packages/core WHEN pnpm lint runs THEN it exits 1.
 - GIVEN a v1 and a v3 hello WHEN `negotiate` runs THEN both return `reject{reason:'version'}` and neither is coerced.
 - GIVEN every v2 message class WHEN it is encoded and decoded THEN the value is identical (round-trip).
-- GIVEN a 64-entity snapshot WHEN encoded THEN it is exactly 1 551 bytes and over the 12 KB/s budget, recorded as NET-101's problem.
+- GIVEN a 64-entity snapshot WHEN encoded THEN it is exactly 1 555 bytes (v4, A0010) and over the 12 KB/s budget, recorded as NET-101's problem.
 - GIVEN a local intent and a matching server snapshot WHEN reconciled THEN the verdict is `ok` and only intents with seq above the entity's appliedSeq are replayed.
 - GIVEN a wrong snapshot hash, or a missing own entity WHEN reconciled THEN the verdict is `desync`, pending intents are cleared, resync is requested and the authoritative state is adopted exactly.
 - GIVEN two snapshots WHEN sampled at render ticks THEN interpolation yields integer millimetres and the buffer never rewinds.
