@@ -21,7 +21,7 @@ rules:
 locks:
   - path_glob: "scripts/validate-prompt-drift.mjs"
     owner_agent: orchestrator
-    task_id: P0-005.a
+    task_id: P0-005
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T07:27:40Z"
     expires_at: "2026-11-18T08:27:40Z"
@@ -29,7 +29,7 @@ locks:
 
   - path_glob: "tools/colab/prompts/SESSION_RESUME.md"
     owner_agent: tools-engineer
-    task_id: P0-005.a
+    task_id: P0-005
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T07:27:40Z"
     expires_at: "2026-11-18T08:27:40Z"
@@ -37,7 +37,7 @@ locks:
 
   - path_glob: "tools/qa/negative-prompt-drift.sh"
     owner_agent: tools-engineer
-    task_id: P0-005.a
+    task_id: P0-005
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T07:27:40Z"
     expires_at: "2026-11-18T08:27:40Z"
