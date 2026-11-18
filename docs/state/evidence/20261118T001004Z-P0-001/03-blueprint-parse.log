@@ -1,0 +1,10 @@
+top-level keys     : version, project, current_tier, authorized_tier, policy, gates, tasks
+version             : 8
+current/authorized  : S0 / S0
+gates               : 11  -> GATE:P0, GATE:P1, GATE:P2NET, GATE:NET, GATE:P2SYS, GATE:P2, GATE:P3, GATE:P4, GATE:P4N, GATE:P8, GATE:S3
+tasks               : 63
+phases              : P0, P1, P2, P2NET, P2SYS, P3ART, P4, P4N, P8
+duplicate task ids  : none
+tasks missing a required field: none
+art-flagged tasks   : 11 (all gated on GATE:NET by B5)
+RESULT: parsed by PyYAML 6.0.3 — structural counts above; semantic validation is validate-blueprint.mjs (P0-002).

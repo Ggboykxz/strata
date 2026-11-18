@@ -75,3 +75,22 @@ Contents RW · Pull requests RW · Workflows RW · Actions R · Metadata R · 90
 **Risk.** A classic PAT with `delete_repo` + `admin:org` is account takeover if it leaks anywhere
 else — CI logs, a shell history, a pasted stack trace. Rotation costs two minutes; the alternative
 costs the repository.
+
+---
+
+## ND-005 — HF token exposed in chat (security, do this first)
+
+**Question.** Revoke the Hugging Face token that was pasted into the session?
+
+**Context.** A `hf_…` token was pasted directly into the conversation on 2026-11-18. It is therefore in
+the transcript and must be treated as compromised, exactly like the GitHub PAT (ND-004). It was **not**
+written to disk, not committed, and not passed to any command: every shell command is logged under
+`docs/state/evidence/`, so using it there would have spread it further. `opencode.json` reads
+`{env:HF_TOKEN}` and contains no secret.
+
+**Recommendation.** Revoke it at `huggingface.co/settings/tokens`, create a **fine-grained** token with
+write access limited to the STRATA datasets/models repositories, and export it only in the local shell
+(`export HF_TOKEN=…`) or in Colab's secret store. Never paste it into a chat, an issue or a PR.
+
+**Risk.** A live HF token can read and overwrite the account's models and datasets, and can create
+repositories under the account. Rotation is free; a poisoned asset revision is not.

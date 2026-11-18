@@ -1,0 +1,5 @@
+PASS opencode.json validates against https://opencode.ai/config.json (draft 2020-12)
+     default_agent: orchestrator
+     agents       : orchestrator
+     mcp servers  : context7, playwright, github, hf
+     permissions  : 3 global + 13 orchestrator

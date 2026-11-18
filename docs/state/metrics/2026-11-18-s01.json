@@ -1,7 +1,7 @@
 {
   "session": "2026-11-18-s01",
   "utc_start": "2026-11-18T00:10:04Z",
-  "utc_end": "2026-11-18T00:55:00Z",
+  "utc_end": "2026-11-18T00:28:00Z",
   "mode": "BOOTSTRAP",
   "branch": "session/20261118-hc-001-high-concept",
   "tier": { "current": "S0", "authorized": "S0" },
@@ -9,7 +9,9 @@
   "tasks": [
     { "id": "HC-001", "status": "done" },
     { "id": "SC-001", "status": "done" },
-    { "id": "WF-001", "status": "done" }
+    { "id": "WF-001", "status": "done" },
+    { "id": "P0-001.a", "status": "done" },
+    { "id": "P0-001.b", "status": "done" }
   ],
   "measured": {
     "hc_t1_en_words": 29,
@@ -31,7 +33,21 @@
     "distinct_globs": 155,
     "glob_ties": 0,
     "catch_all_entries": 7,
-    "append_only_zones": 4
+    "append_only_zones": 4,
+    "master_bytes": 99289,
+    "master_lines": 953,
+    "master_sha256": "91dd8ab5d336589e97c8128c9175b1752a5842c961deb0b396428c6b3f58b615",
+    "constitution_bytes": 18790,
+    "invariants_quoted_verbatim": 15,
+    "locked_decisions_quoted_verbatim": 77,
+    "drift_negative_tests": 8,
+    "drift_negative_tests_passing": 8,
+    "blueprint_tasks": 63,
+    "blueprint_gates": 11,
+    "blueprint_phases": 9,
+    "blueprint_duplicate_ids": 0,
+    "blueprint_tasks_missing_fields": 0,
+    "opencode_mcp_servers": 4
   },
   "cis": { "value": null, "reason": "no measured source until HC-003 (P2)" },
   "gdd_coverage": { "value": null, "reason": "no GDD modules until GDD-001 (P1)" },
@@ -45,11 +61,18 @@
     { "cmd": "node scripts/scope-math.mjs --tier S3 --report", "exit": 0, "log": "docs/state/evidence/20261118T001004Z-SC-001/03-scope-math-tier-s3.log" },
     { "cmd": "node scripts/validate-scope.mjs", "exit": 0, "log": "docs/state/evidence/20261118T001004Z-SC-001/04-validate-scope.log" },
     { "cmd": "test -f docs/state/OWNERSHIP.yaml", "exit": 0, "log": "docs/state/evidence/20261118T001004Z-WF-001/01-ownership-file.log" },
-    { "cmd": "node /tmp/opencode/own-check.mjs", "exit": 0, "log": "docs/state/evidence/20261118T001004Z-WF-001/02-ownership-map.log" }
+    { "cmd": "node /tmp/opencode/own-check.mjs", "exit": 0, "log": "docs/state/evidence/20261118T001004Z-WF-001/02-ownership-map.log" },
+    { "cmd": "test -f docs/CONSTITUTION.md", "exit": 0, "log": "docs/state/evidence/20261118T001004Z-P0-001/01-constitution-present.log" },
+    { "cmd": "bash /tmp/opencode/drift-negative.sh", "exit": 0, "log": "docs/state/evidence/20261118T001004Z-P0-001/02-drift-negative-tests.log" },
+    { "cmd": "python3 -c 'yaml.safe_load(BLUEPRINT.yaml)'", "exit": 0, "log": "docs/state/evidence/20261118T001004Z-P0-001/03-blueprint-parse.log" },
+    { "cmd": "jsonschema validate opencode.json", "exit": 0, "log": "docs/state/evidence/20261118T001004Z-P0-001/04-opencode-config-schema.log" },
+    { "cmd": "node scripts/validate-prompt-drift.mjs", "exit": 0, "log": "docs/state/evidence/20261118T001004Z-P0-001/05-validate-prompt-drift.log" }
   ],
   "notes": [
     "every number above was produced by a command in this session; none is an estimate",
     "exit 1 on --check, exit 2 on --report and --score are designed behaviour, not regressions",
-    "assets_per_session and months_needed are null on purpose: no GPU session has been measured"
+    "assets_per_session and months_needed are null on purpose: no GPU session has been measured",
+    "the master prompt is sealed against itself (sentinel, size, hash, verbatim section diff); it cannot be proven byte-identical to the Director's clipboard — stated in SESSION.md",
+    "two secrets were exposed in chat (GitHub PAT ND-004, HF token ND-005); neither reached disk, git or an evidence log, and both must be rotated"
   ]
 }
