@@ -1563,7 +1563,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T18:06:00Z"
     expires_at: "2026-11-18T18:36:00Z"
-    status: active
+    status: released
 
   - path_glob: "docs/blueprint/GATES.yaml"
     owner_agent: orchestrator
@@ -1571,7 +1571,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T18:06:00Z"
     expires_at: "2026-11-18T18:36:00Z"
-    status: active
+    status: released
 
   - path_glob: "docs/design/gdd/GDD-CONSEQUENCE.md"
     owner_agent: game-designer
@@ -1579,7 +1579,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T18:06:00Z"
     expires_at: "2026-11-18T18:36:00Z"
-    status: active
+    status: released
 
   - path_glob: "docs/state/metrics/2026-11-18-s02.json"
     owner_agent: orchestrator
@@ -1587,7 +1587,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T18:06:00Z"
     expires_at: "2026-11-18T18:36:00Z"
-    status: active
+    status: released
 
   - path_glob: "docs/state/metrics/concept.json"
     owner_agent: orchestrator
@@ -1595,7 +1595,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T18:06:00Z"
     expires_at: "2026-11-18T18:36:00Z"
-    status: active
+    status: released
 
   - path_glob: "scripts/concept-demo.mjs"
     owner_agent: high-concept-guardian
@@ -1603,7 +1603,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T18:06:00Z"
     expires_at: "2026-11-18T18:36:00Z"
-    status: active
+    status: released
 
   - path_glob: "tests/replay/hc_demo_30s.spec.ts"
     owner_agent: high-concept-guardian
@@ -1611,7 +1611,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T18:06:00Z"
     expires_at: "2026-11-18T18:36:00Z"
-    status: active
+    status: released
 
   - path_glob: "vitest.config.ts"
     owner_agent: tools-engineer
@@ -1619,12 +1619,12 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T18:06:00Z"
     expires_at: "2026-11-18T18:36:00Z"
-    status: active
+    status: released
   - path_glob: "apps/dashboard/build.mjs"
     owner_agent: tools-engineer
     task_id: HC-003
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T18:12:00Z"
     expires_at: "2026-11-18T18:42:00Z"
-    status: active
+    status: released
 
