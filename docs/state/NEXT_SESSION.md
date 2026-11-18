@@ -2,11 +2,11 @@
 
 | field | value |
 |---|---|
-| written | 2026-11-18T00:45Z |
+| written | 2026-11-18T01:00Z |
 | branch | `session/20261118-hc-001-high-concept` — **PR #1** (draft) https://github.com/Ggboykxz/strata/pull/1 |
 | mode | RESUME |
-| next task | **P0-004** — 27 CI workflows + a real `scripts/validate-workflows.mjs` |
-| blocker | **ND-004 / ND-005 only** — token rotation needs the Director's account. ND-001 and ND-002 are resolved; ND-003 is deferred by design until GATE:P0. |
+| next task | **TRACER-001** — walking skeleton: 1 capsule, 30 Hz tick, WebSocket, equal state hash |
+| blocker | **ND-004 / ND-005 only** — token rotation needs the Director's account. Everything on disk is green. |
 
 ---
 
@@ -14,81 +14,76 @@
 
 | task | status | evidence |
 |---|---|---|
-| HC-001 | done | `docs/state/evidence/20261118T001004Z-HC-001/` |
+| HC-001 | done (+ v1.1 ND-001, v1.2 T3 signature) | `…T001004Z-HC-001/`, `…T004835Z-DIRECTOR-RESOLUTIONS/` |
 | SC-001 | done | `docs/state/evidence/20261118T001004Z-SC-001/` |
 | WF-001 | done | `docs/state/evidence/20261118T001004Z-WF-001/` |
 | P0-001 | done | `docs/state/evidence/20261118T001004Z-P0-001/` |
 | P0-002 | done | `docs/state/evidence/20261118T001004Z-P0-002/` |
 | P0-003 | done | `docs/state/evidence/20261118T004153Z-P0-003/` |
+| WF-002 | done | `docs/state/evidence/20261118T005800Z-WF-002/` |
 
 Re-verify before touching anything:
 
 ```bash
-pnpm install --frozen-lockfile && pnpm verify   # 7/7 enabled, exit 0
-node scripts/validate-blueprint.mjs             # 63 tasks, 0 errors, 12 declared warnings
-node scripts/validate-prompt-drift.mjs          # sealed prompt intact
+pnpm verify                              # 9/9 enabled steps, exit 0
+node scripts/validate-blueprint.mjs      # 63 tasks, 0 errors, 12 declared warnings
+node scripts/concept-integrity.mjs --check  # 0 debt at GATE:P0 (re-sign at P1)
 ```
 
-## 2. P0-004 — definition of done
+Decision recorded: **TRACER-001 is selected before P0-004**. Both depend only on P0-003, but TRACER is
+`sig` and P0-004 is `amp` (selection order), and D137 puts the walking skeleton before bulk GDD work.
 
-Source: `docs/blueprint/BLUEPRINT.yaml` line 42. Agent **release-engineer**; output `.github/workflows/`;
-acceptance `node scripts/validate-workflows.mjs` — which is currently a **declared stub**. P0-004 must
-implement it, not just call it.
+## 2. TRACER-001 — definition of done
 
-1. **27 workflow files** under `.github/workflows/`, named by concern and non-overlapping. They must cover,
-   at minimum: the P0 verify pipeline, workflow self-validation, netcode/NET-GATE evidence, animation
-   separation, model-license audit, secret scanning, dependency review, evidence archival, and a release
-   gate that cannot bypass `GATE:*`. The full list is the release-engineer's design; record it in a table
-   in the task evidence.
-2. **Every `uses:` pinned to a full 40-hex commit SHA**, with the version in a comment. A tag or branch is a
-   failure, not a warning.
-3. **Least privilege**: top-level `permissions:` is explicit; `contents: write` only where a job writes.
-   `pull_request_target` is banned unless the workflow never checks out the PR head — the validator enforces
-   that specific rule.
-4. **Every job** has `timeout-minutes`, a `concurrency` group where it can overlap, and, where Node runs,
-   `pnpm install --frozen-lockfile` followed by the repository's own `pnpm verify` — never a parallel
-   definition of "green".
-5. **`scripts/validate-workflows.mjs`** (real, no stub banner) checks: exactly 27 files; unique `name:`; the
-   SHA pin rule; explicit permissions; `pull_request_target` rule; every referenced local script exists;
-   every workflow that claims to run tests invokes `pnpm verify`. Exit 1 with the file and line on failure.
-6. **Negative tests, logged**: unpinned `uses:`, missing `permissions:`, forbidden `pull_request_target`
-   checkout, a 26th/28th file. Each must make the validator exit 1.
-7. Evidence under `docs/state/evidence/<utc>-P0-004/`: validator run, the four negative cases, and the
-   27-file table with purpose + gate.
+Source: `docs/blueprint/BLUEPRINT.yaml` line 41. Agent **tools-engineer**, `scaffold: true`, `sig`,
+7 output paths under `packages/core/`, `packages/protocol/`, `apps/server/`, `apps/game/`.
+Acceptance: **`pnpm tracer --assert`**.
 
-Note: CI cannot be *executed* from this environment without a push; the acceptance is static validation.
-Do not claim a workflow ran when it did not. When pushed, the workflows run on GitHub — their result is the
-next session's input, not this task's evidence.
+1. **Core** (`packages/core`): one capsule state at a fixed 30 Hz tick, a seeded PRNG, integer/quantized
+   state, and a deterministic state hash. I14 is already enforced by the core-math AST lint — do not weaken
+   it. No gameplay, no ECS beyond what one capsule needs.
+2. **Protocol** (`packages/protocol`): exactly the messages the tracer needs (intent, snapshot, hash ack),
+   versioned. No zod until it has an exact pin in `docs/STACK.lock.md`; plain typed codecs are enough here.
+3. **Server** (`apps/server`): authoritative tick, one WebSocket connection, validates intents, broadcasts
+   snapshots. Pin the WebSocket library with an exact version and record its license in `STACK.lock.md`.
+4. **Client** (`apps/game`): consumes snapshots, predicts locally, reconciles, interpolates, and renders the
+   capsule with Babylon. Babylon is **NOT INSTALLED** — pin an exact version in `STACK.lock.md` before its
+   first import (MIT, verify from the registry, never from memory). `NullEngine` is allowed in tooling/CI;
+   it is banned from the server tick.
+5. **`pnpm tracer --assert`**: one command, exit 0 only when the server hash and both client hashes match
+   at an acked tick, and when a deliberately desynced replica is *rejected*. Log the command and exit code
+   under `docs/state/evidence/<utc>-TRACER-001/`.
+6. **Negative tests, logged**: inject a desync → assert exits 1; inject `Math.random` into core → lint exits 1
+   (proves the I14 gate still holds while adding real sim code).
+7. No hero asset, texture bake, motion or scene generation. **I2**: a capsule is greybox; NET-GATE stays
+   unpassed. `art:` remains absent from the task.
 
 ## 3. Open decisions carried forward
 
-1. **ND-001 / ND-002 — RESOLVED 2026-11-18.** HIGH_CONCEPT v1.1 (EN 25, FR 30, FINDING-001 closed) and
-   ADR A0002 option A (D-002 closed, WF-002 owned by orchestrator). No action needed to start P0-004.
-2. **ND-003 — DEFERRED.** Keep the repo private on the personal account until GATE:P0; revisit with a
-   README + LICENSE + NOTICE before flipping public.
+1. **ND-001 / ND-002 — RESOLVED.** HIGH_CONCEPT v1.2 (EN 25, FR 30, T3 signed at P0) and A0002 option A
+   (D-002 closed, WF-002 implemented and wired into `verify`).
+2. **ND-003 — DEFERRED.** Keep the repo private on the personal account until GATE:P0.
 3. **ND-004 / ND-005 — OPEN, Director action.** The exposed GitHub PAT and HF token must be revoked and
    replaced with fine-grained credentials. The agent cannot do it; pushes still use the compromised PAT.
+   Replacing it before rotation would break all pushes, so the known risk is carried, not hidden.
 
-## 4. Order after P0-004
+## 4. Order after TRACER-001
 
-1. **WF-002** real ownership/lock validators — unblocked by A0002; its two outputs are orchestrator-owned.
-   It is now selectable, but P0-004 comes first because CI must enforce it.
-2. **TRACER-001** walking skeleton (D137) — depends on P0-003 and WF-002.
-3. P0-005..P0-007, then the `GATE:P0` dossier with its 3 drills.
+1. **P0-004** — 27 CI workflows + real `scripts/validate-workflows.mjs` (currently a stub).
+2. P0-005..P0-007, then the `GATE:P0` dossier with its 3 drills.
+3. WF-002's duplicated glob compiler → `scripts/lib/ownership.mjs` (tools-engineer, recorded debt).
 
 ## 5. Known red (intentional, not regressions)
 
-- `concept-integrity.mjs --check` now exits 0: T1 EN 25/25, FR 30/35, T3 signed at GATE:P0.
 - `scope-math.mjs --report` exit 2: throughput unmeasured by design.
 - `concept-integrity --score` exit 2 until a measured CIS source exists (HC-003, P2).
-- 21 validators print `NOT IMPLEMENTED` and exit 1; `pnpm verify` lists them as DEFERRED and does not run them.
-- `validate-workflows.mjs` is one of those 21 until P0-004 replaces it.
+- 19 validators print `NOT IMPLEMENTED` and exit 1; `pnpm verify` lists them as DEFERRED and does not run them.
+- `validate-workflows.mjs` is one of those 19 until P0-004 replaces it.
 
 ## 6. Environment notes
 
-- Node **22.23.4**, pnpm **12.21.0** (via corepack), TypeScript **6.0.3**, Vitest **5.1.0** — see
-  `docs/STACK.lock.md`. `engine-strict=true`; a wrong Node fails the install.
+- Node **22.23.4**, pnpm **12.21.0** (corepack), TypeScript **6.0.3**, Vitest **5.1.0** — `docs/STACK.lock.md`.
 - `pnpm verify` = typecheck → lint (core-math AST ban) → unit → prompt drift → scope → scope-math →
-  blueprint. Fail-fast; DEFERRED groups printed.
+  blueprint → ownership → locks. Fail-fast; DEFERRED groups printed.
 - Python 3 with PyYAML 6.0.3 and jsonschema available for cross-checks only.
 - Never commit a token. Evidence logs capture commands; secrets must not appear in them.

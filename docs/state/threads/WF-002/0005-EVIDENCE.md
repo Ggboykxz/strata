@@ -27,3 +27,9 @@ steps. It is recorded in the journal and executed by tools-engineer in the follo
 **ask:** code-reviewer critique answered on the record in `0004-DECISION.md`. Author ≠ reviewer still holds
 for the eventual merge; the Director merges.
 **deadline:** GATE:P0
+
+## 2026-11-18T01:00:00Z — integration (tools-engineer handoff executed)
+
+Handoff accepted: `scripts/verify.mjs` now runs both validators as enabled steps
+(`05-verify-integrated.log`, exit 0, **9/9** steps). They are no longer counted among the deferred stubs;
+19 declared stubs remain, each still exiting 1 until its owner implements it.

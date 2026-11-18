@@ -7,8 +7,8 @@
 | branch | `session/20261118-hc-001-high-concept` |
 | phase / tier | P0 / current `S0`, authorized `S0` |
 | director | present for bootstrap; async from now |
-| last task | P0-003 (monorepo skeleton + `pnpm verify`) |
-| next task | **P0-004** — 27 CI workflows + real `scripts/validate-workflows.mjs` |
+| last task | WF-002 (real ownership + lock validators, wired into `verify`) |
+| next task | **TRACER-001** — walking skeleton (sig before P0-004 amp; D137) |
 
 ## Done this session
 
@@ -22,6 +22,8 @@
 | P0-002.a | `.opencode/agents/` (32), `.opencode/skills/` (51) | 32/32 owners covered, 51/51 skills resolve |
 | P0-002.b | `scripts/lib/yaml.mjs`, `scripts/validate-blueprint.mjs`, `docs/blueprint/GATES.yaml`, 21 stubs | validator exit 0 + 6/6 negative tests; 21/21 stubs exit 1 |
 | P0-003 | workspace (2 packages, 3 apps, 1 sim lib), `verify`, `STACK.lock.md` | frozen install exit 0; `pnpm verify` 7/7 + 4 negative tests |
+| HC-001 (amend) | HIGH_CONCEPT v1.1 → v1.2, T3 signed at GATE:P0 | `concept --init` 0, `--check` 0 |
+| WF-002 | `scripts/validate-ownership.mjs`, `scripts/validate-locks.mjs`, `verify` integration | both exit 0; 8/8 negative tests; `verify` 9/9 |
 
 **P0-001 and P0-002 were split** although only P0-001 triggered B8: the halves fail for different reasons and
 deserve separate rollback points. Commits: `094f31f`, `bd6f550` (P0-001); `1ceaf20`, `7e9d382` (P0-002).
@@ -75,7 +77,7 @@ Details, options and evidence: `docs/state/NEEDS_DIRECTOR.md` and
 ## Known red (intentional)
 
 - `scope-math --report` exit 2 — throughput unmeasured by design.
-- The two WF-002 validators are still stubs; WF-002 is now owned by orchestrator and selectable.
+- The two WF-002 validators are real and enabled in `verify`; 19 declared stubs remain, all failing by design.
 
 ## Config reality
 
@@ -88,8 +90,13 @@ blueprint task currently owns the pin: recorded as a gap for the Director/next r
 - Repo `github.com/Ggboykxz/strata`, private, default branch `main` (empty root commit `36bd9af`).
 - PR #1 is draft and stacked; P0-002 is pushed on the same branch (`7e9d382`).
 - `corepack enable` is done; pnpm is pinned to **12.21.0** and the lockfile is committed.
-- `pnpm verify` (7 steps, fail-fast) is the only entry point. It prints DEFERRED for determinism replay,
-  GDD coverage and the 21 stubs; none of those counts as green.
+- `pnpm verify` (**9 steps**, fail-fast) is the only entry point. It prints DEFERRED for determinism replay,
+  GDD coverage and the 19 stubs; none of those counts as green.
+- TRACER-001 is selected next over P0-004: both depend only on P0-003, but TRACER is `sig` and P0-004 is `amp`
+  (selection order), and D137 puts the walking skeleton before bulk GDD work. Babylon stays NOT INSTALLED
+  until the TRACER handoff pins it with an exact version.
+- The glob compiler is duplicated between `validate-blueprint.mjs` B2 and `validate-ownership.mjs`;
+  consolidating it into `scripts/lib/ownership.mjs` is a tools-engineer handoff recorded in the thread.
 - TypeScript is pinned to **6.0.3** because 7.x ships the native compiler without the JS AST API the
   core-math lint needs. Recorded in `docs/STACK.lock.md`.
 - The Director's PAT is still the only push path and still needs rotation (ND-004).

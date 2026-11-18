@@ -14,7 +14,8 @@
     { "id": "P0-001.b", "status": "done" },
     { "id": "P0-002.a", "status": "done" },
     { "id": "P0-002.b", "status": "done" },
-    { "id": "P0-003", "status": "done" }
+    { "id": "P0-003", "status": "done" },
+    { "id": "WF-002", "status": "done" }
   ],
   "measured": {
     "hc_t1_en_words": 25,
@@ -64,8 +65,10 @@
     "agent_missing_skill_links": 0,
     "skill_stubs": 51,
     "skill_missing_descriptions": 0,
-    "validator_stubs": 21,
-    "validator_stubs_failing": 21,
+    "validator_stubs": 19,
+    "validator_stubs_failing": 19,
+    "ownership_globs": 164,
+    "wf002_negative_tests": 8,
     "yaml_parser_documents_equal_to_pyyaml": 3,
     "workspace_projects": 7,
     "workspace_packages": 2,
@@ -74,7 +77,7 @@
     "node_version": "22.23.4",
     "pnpm_version": "12.21.0",
     "typescript_version": "6.0.3",
-    "verify_steps_enabled": 7,
+    "verify_steps_enabled": 9,
     "verify_deferred_groups": 3,
     "unit_test_files": 3,
     "unit_tests": 4,
@@ -122,7 +125,11 @@
     { "cmd": "node scripts/validate-blueprint.mjs", "exit": 0, "log": "docs/state/evidence/20261118T004835Z-DIRECTOR-RESOLUTIONS/04-validate-blueprint.log" },
     { "cmd": "bash /tmp/opencode/bp-negative.sh", "exit": 0, "log": "docs/state/evidence/20261118T004835Z-DIRECTOR-RESOLUTIONS/07-blueprint-negative-tests.log" },
     { "cmd": "pnpm verify", "exit": 0, "log": "docs/state/evidence/20261118T004835Z-DIRECTOR-RESOLUTIONS/08-verify.log" },
-    { "cmd": "node scripts/concept-integrity.mjs --check", "exit": 0, "log": "docs/state/evidence/20261118T004835Z-DIRECTOR-RESOLUTIONS/09-concept-signed-check.log" }
+    { "cmd": "node scripts/concept-integrity.mjs --check", "exit": 0, "log": "docs/state/evidence/20261118T004835Z-DIRECTOR-RESOLUTIONS/09-concept-signed-check.log" },
+    { "cmd": "node scripts/validate-ownership.mjs", "exit": 0, "log": "docs/state/evidence/20261118T005800Z-WF-002/01-validate-ownership.log" },
+    { "cmd": "node scripts/validate-locks.mjs", "exit": 0, "log": "docs/state/evidence/20261118T005800Z-WF-002/02-validate-locks.log" },
+    { "cmd": "bash /tmp/opencode/wf2-negative.sh", "exit": 0, "log": "docs/state/evidence/20261118T005800Z-WF-002/03-negative-tests.log" },
+    { "cmd": "pnpm verify (9 enabled steps)", "exit": 0, "log": "docs/state/evidence/20261118T005800Z-WF-002/05-verify-integrated.log" }
   ],
   "notes": [
     "every number above was produced by a command in this session; none is an estimate",
@@ -134,7 +141,8 @@
     "ND-001 closed: EN 25/25 and FR 30/35, FINDING-001/CD-001 closed, T1 limit unchanged; T3 signed at GATE:P0 per master §1.4 so concept --check exits 0",
     "ND-002 closed: ADR A0002 option A accepted, D-002 RESOLVED, WF-002 assigned to orchestrator with two named scripts/** exceptions; validate-blueprint now has 0 refusals",
     "ND-004/ND-005 remain open because token rotation requires the Director's GitHub and HF account access; a prefix scan found 0 secrets in git or the tracked worktree",
-    "21 validator stubs exit 1 by design; a stub is counted as a warning, never as a passing acceptance",
+    "21 validator stubs were created by P0-002; WF-002 implemented 2, leaving 19, all still exiting 1 by design",
+    "WF-002's glob compiler mirrors validate-blueprint B2; consolidation into scripts/lib/ownership.mjs is a recorded tools-engineer handoff (I6: orchestrator cannot edit scripts/lib/**)",
     "the generator scripts live in /tmp and are not committed; their output (agents, skills, stubs) is",
     "the four negative P0-003 entries exit nonzero on purpose: they prove typecheck, the core-math ban, vitest and verify can fail before being trusted",
     "TypeScript is pinned to 6.0.3, not 7.0.2: the 7.x package ships the native compiler and no JS AST API, which scripts/lint-core-math.mjs needs; documented in docs/STACK.lock.md",
