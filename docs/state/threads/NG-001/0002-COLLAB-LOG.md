@@ -26,3 +26,6 @@ Read: 0001/0002. Done: repaired v5 harness (welcome-event join, intents carry ta
 Need from: matrix — confirm the harness under v5 sends targetTick (your pre-fix baseline of 7000+ desyncs is a broken pipeline, not a v5 result).
 Need from: wire — after bitpacking, whether dense bound still misses; persist criterion partial either way.
 Blocker: none. verify on quiet CPU pending.
+
+## 2026-11-18T20:19Z | orchestrator | PUSH-NOTE
+`git push --force-with-lease` on session/20261118-netgate-persist was required after the parent rebased the branch onto netgate-core (074db10 → 88bfcd9 → 8b3a5cb). No one else consumes this session's prototype branch; lease protected it in case origin had moved. Recorded, not hidden.
