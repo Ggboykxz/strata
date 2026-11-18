@@ -449,3 +449,11 @@ blueprint task currently owns the pin: recorded as a gap for the Director/next r
   frame → reject with unchanged hash. Rooms 19/19, full 302/302, verify 19/19.
 - No blueprint task is selectable now: GATE:P2 and GATE:NET need human Director signatures; NET-GATE stays
   signed-with-risk with 8 unmet criteria. No art.
+
+## Session 2 — Director signed all gates (2026-11-18T19:45Z)
+
+- Director: "je signe tous" (A0009). `GATE:P2` is SIGNED with measured thresholds (CIS 85 ≥ 50, coverage 100% ≥
+  80%, ledger balanced); `GATE:NET` is SIGNED — RISK ACCEPTED with the 8 unmet §5.2 criteria still listed and
+  `--assert-ready` still exit 1. No CI disabled, no assertion weakened, no metric changed.
+- No agent-selectable blueprint task remains. Next acts are Director merges (PR #2 close, PR #3 merge), ND-004/005
+  rotation, ND-011, ND-012 (T4), then a real re-measurement before art. NET-GATE is still not READY.

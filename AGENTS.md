@@ -210,6 +210,9 @@ Anything else goes through a handoff. A conflict is resolved by a handoff or the
 - **Live room endpoint wired**: main.ts serves rooms on 8788 through `attachRooms`/MessageGate, 30 Hz tick,
   real loopback test proving welcome/reject. Full 302/302, verify 19/19. No agent-selectable task remains:
   GATE:P2 and GATE:NET need Director signatures; NET-GATE still signed-with-risk.
+- **GATE:P2 SIGNED; GATE:NET SIGNED — RISK ACCEPTED** (A0009, Director "je signe tous"). CIS 85, coverage 100%;
+  the 8 unmet NET-GATE criteria remain measured as unmet. No art before a real re-measurement. No agent-selectable
+  task left: merges, tokens, T4 and hardware decisions are Director acts.
 - Known intentional red: `scope-math --report` exit 2 (throughput unmeasured) and `concept --score` exit 2
   until HC-003. `concept --check` is green: T3 was signed at GATE:P0.
 

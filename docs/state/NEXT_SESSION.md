@@ -9,7 +9,7 @@
 | tier | current `S0`, authorized **`S1`** |
 | last task | **GDD-005** — GDD→test transpiler + drift detection; coverage 100% |
 | next task | **PR-S7** — world tick + bounded Rouille cascade (P2-SYS) |
-| blocker | PR #1 and #2 merges (Director must do it), ND-004/ND-005 rotation. ND-011 needs one answer (TPU scope). |
+| blocker | **No agent-selectable task.** Director: close PR #2, merge PR #3, ND-004/005 rotation, ND-011, ND-012 (T4). |
 
 ---
 
