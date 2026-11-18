@@ -1306,7 +1306,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T14:58:00Z"
     expires_at: "2026-11-18T15:28:00Z"
-    status: active
+    status: released
 
   - path_glob: "docs/blueprint/GATES.yaml"
     owner_agent: orchestrator
@@ -1314,7 +1314,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T14:58:00Z"
     expires_at: "2026-11-18T15:28:00Z"
-    status: active
+    status: released
 
   - path_glob: "docs/design/gdd/GDD-SHARDING.md"
     owner_agent: backend-engineer
@@ -1322,7 +1322,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T14:58:00Z"
     expires_at: "2026-11-18T15:28:00Z"
-    status: active
+    status: released
 
   - path_glob: "docs/state/metrics/2026-11-18-s02.json"
     owner_agent: orchestrator
@@ -1330,7 +1330,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T14:58:00Z"
     expires_at: "2026-11-18T15:28:00Z"
-    status: active
+    status: released
 
   - path_glob: "tools/sim/persist/prn2_rooms.ts"
     owner_agent: backend-engineer
@@ -1338,7 +1338,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T14:58:00Z"
     expires_at: "2026-11-18T15:28:00Z"
-    status: active
+    status: released
 
   - path_glob: "tools/sim/persist/test/prn2.test.ts"
     owner_agent: backend-engineer
@@ -1346,5 +1346,5 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T14:58:00Z"
     expires_at: "2026-11-18T15:28:00Z"
-    status: active
+    status: released
 
