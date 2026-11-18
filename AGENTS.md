@@ -104,6 +104,8 @@ Anything else goes through a handoff. A conflict is resolved by a handoff or the
 - GATE:P0 dossier assembled unsigned: 3 drills, 13 green Actions runs, 1 dependency-review exception
   (graph API 403). ADR-A0003 amends the long-term vision to a full MMORPG; P0 scope unchanged. No agent
   signs a gate.
+- P1-001 added a concept-first VISION derived from HIGH_CONCEPT v1.3 and ADR-A0003, plus a real
+  validate-docs gate. P1 work runs under the Director's recorded "go next"; GATE:P0 remains unsigned.
 - **ND-001 resolved** (T1 EN 25/25, FR 30/35; FINDING-001 closed) and **ND-002 resolved** (A0002 option A,
   D-002 closed, WF-002 is orchestrator's). **ND-003 resolved**: the repo is public (the Director must merge
   PR #1; `main` is still empty). ND-004..ND-008 remain open.

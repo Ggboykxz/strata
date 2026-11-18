@@ -89,6 +89,11 @@ No number was invented to make the dossier look complete.
 > **Director signature: PENDING.** No agent signs a gate. The dossier states evidence and open risks; it
 > does not declare `GATE:P0` passed.
 
+**Director continuation instruction (2026-11-18).** After this dossier was assembled, the Director issued
+"go next" four times. That instruction is recorded as authorization to **select P1 work** under the
+existing scope; it is not a forged signature. The signature field above remains PENDING until the Director
+applies a typed signature. No task, gate, ledger value or tier changed because of this instruction.
+
 ---
 
 ## Appendix — assembly thread
