@@ -1,0 +1,13 @@
+
+ RUN  v5.1.0 /tmp/strata-matrix
+
+
+ Test Files  2 passed (2)
+      Tests  19 passed (19)
+   Start at  21:06:32
+   Duration  4.87s (tests 80%, import 13%, transform 4%, worker 2%)
+
+    Isolate  2 workers spawned · ~697ms startup each (spawn + environment, per file)
+             at least ~697ms faster with isolate: false — reuses workers across files instead of one per file
+
+EXIT=0

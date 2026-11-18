@@ -1,0 +1,10 @@
+
+ RUN  v5.1.0 /tmp/strata-matrix
+
+
+ Test Files  1 passed (1)
+      Tests  1 passed (1)
+   Start at  20:10:57
+   Duration  60.51s (tests 100%)
+
+EXIT=0
