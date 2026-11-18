@@ -1463,4 +1463,51 @@ locks:
     acquired_at: "2026-11-18T16:45:00Z"
     expires_at: "2026-11-18T17:15:00Z"
     status: released
+  - path_glob: "docs/blueprint/BLUEPRINT.yaml"
+    owner_agent: orchestrator
+    task_id: PR-S3
+    branch: session/20261118-hc-001-high-concept
+    acquired_at: "2026-11-18T16:54:00Z"
+    expires_at: "2026-11-18T17:24:00Z"
+    status: active
+
+  - path_glob: "docs/blueprint/GATES.yaml"
+    owner_agent: orchestrator
+    task_id: PR-S3
+    branch: session/20261118-hc-001-high-concept
+    acquired_at: "2026-11-18T16:54:00Z"
+    expires_at: "2026-11-18T17:24:00Z"
+    status: active
+
+  - path_glob: "docs/design/gdd/GDD-QUEST.md"
+    owner_agent: narrative
+    task_id: PR-S3
+    branch: session/20261118-hc-001-high-concept
+    acquired_at: "2026-11-18T16:54:00Z"
+    expires_at: "2026-11-18T17:24:00Z"
+    status: active
+
+  - path_glob: "docs/state/metrics/2026-11-18-s02.json"
+    owner_agent: orchestrator
+    task_id: PR-S3
+    branch: session/20261118-hc-001-high-concept
+    acquired_at: "2026-11-18T16:54:00Z"
+    expires_at: "2026-11-18T17:24:00Z"
+    status: active
+
+  - path_glob: "tools/sim/systems/prs3_quests.ts"
+    owner_agent: prototype-engineer
+    task_id: PR-S3
+    branch: session/20261118-hc-001-high-concept
+    acquired_at: "2026-11-18T16:54:00Z"
+    expires_at: "2026-11-18T17:24:00Z"
+    status: active
+
+  - path_glob: "tools/sim/systems/test/prs3.test.ts"
+    owner_agent: prototype-engineer
+    task_id: PR-S3
+    branch: session/20261118-hc-001-high-concept
+    acquired_at: "2026-11-18T16:54:00Z"
+    expires_at: "2026-11-18T17:24:00Z"
+    status: active
 
