@@ -1,0 +1,3 @@
+$ every declared stub (verify.mjs excluded: it holds the marker as a filter): node <script>; expect exit 1 + marker
+stubs_ok=21 stubs_broken=0
+exit=0

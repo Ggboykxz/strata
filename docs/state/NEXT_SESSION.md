@@ -6,7 +6,7 @@
 | branch | `session/20261118-hc-001-high-concept` — **PR #1** (draft) https://github.com/Ggboykxz/strata/pull/1 |
 | mode | RESUME |
 | next task | **P0-004** — 27 CI workflows + a real `scripts/validate-workflows.mjs` |
-| blocker | none on disk. ND-002 blocks WF-002, not P0-004. |
+| blocker | **ND-004 / ND-005 only** — token rotation needs the Director's account. ND-001 and ND-002 are resolved; ND-003 is deferred by design until GATE:P0. |
 
 ---
 
@@ -25,7 +25,7 @@ Re-verify before touching anything:
 
 ```bash
 pnpm install --frozen-lockfile && pnpm verify   # 7/7 enabled, exit 0
-node scripts/validate-blueprint.mjs             # 63 tasks, 0 errors, 13 declared warnings
+node scripts/validate-blueprint.mjs             # 63 tasks, 0 errors, 12 declared warnings
 node scripts/validate-prompt-drift.mjs          # sealed prompt intact
 ```
 
@@ -62,20 +62,24 @@ next session's input, not this task's evidence.
 
 ## 3. Open decisions carried forward
 
-1. **ND-002 / ADR A0002** — PROPOSED, option A (orchestrator owns the two workflow validators). WF-002 stays
-   `refused_ownership` until the Director signs.
-2. **ND-001** — T1 EN 29 > 25 words. Lore canon; blocks GATE:P0 sign-off only.
-3. **ND-004 / ND-005** — both pasted tokens must be rotated. Pushes still depend on ND-004.
+1. **ND-001 / ND-002 — RESOLVED 2026-11-18.** HIGH_CONCEPT v1.1 (EN 25, FR 30, FINDING-001 closed) and
+   ADR A0002 option A (D-002 closed, WF-002 owned by orchestrator). No action needed to start P0-004.
+2. **ND-003 — DEFERRED.** Keep the repo private on the personal account until GATE:P0; revisit with a
+   README + LICENSE + NOTICE before flipping public.
+3. **ND-004 / ND-005 — OPEN, Director action.** The exposed GitHub PAT and HF token must be revoked and
+   replaced with fine-grained credentials. The agent cannot do it; pushes still use the compromised PAT.
 
 ## 4. Order after P0-004
 
-1. **WF-002** real ownership/lock validators — blocked by ND-002.
+1. **WF-002** real ownership/lock validators — unblocked by A0002; its two outputs are orchestrator-owned.
+   It is now selectable, but P0-004 comes first because CI must enforce it.
 2. **TRACER-001** walking skeleton (D137) — depends on P0-003 and WF-002.
 3. P0-005..P0-007, then the `GATE:P0` dossier with its 3 drills.
 
 ## 5. Known red (intentional, not regressions)
 
-- `concept-integrity.mjs --check` exit 1: FINDING-001 (T1 EN 29 > 25 words) + unsigned T3.
+- `concept-integrity.mjs --check` exit 1: unsigned T3 novelty grid (deferred to GATE:P1). T1 now passes
+  (EN 25/25, FR 30/35).
 - `scope-math.mjs --report` exit 2: throughput unmeasured by design.
 - `concept-integrity --score` exit 2 until a measured CIS source exists (HC-003, P2).
 - 21 validators print `NOT IMPLEMENTED` and exit 1; `pnpm verify` lists them as DEFERRED and does not run them.

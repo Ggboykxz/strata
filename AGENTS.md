@@ -80,20 +80,26 @@ Only an ADR signed by the Director can suspend an invariant. A repo doc outranks
 
 `docs/state/OWNERSHIP.yaml` is the machine-readable map; the most specific glob wins and a tie is a map error.
 Append-only zones (`docs/state/threads/**`, `docs/adr/**`, `docs/tdd/**`, `docs/qa/prototypes/**`) accept new files
-from any agent, never rewrites. The orchestrator writes docs and state only; anything else goes through a handoff.
-A conflict is resolved by a handoff or the arbitration ladder in `docs/WORKFLOW.md` §4.6 — never by editing anyway.
+from any agent, never rewrites. The orchestrator writes docs and state only; the two workflow validators
+`scripts/validate-ownership.mjs` and `scripts/validate-locks.mjs` are its only code exceptions (A0002).
+Anything else goes through a handoff. A conflict is resolved by a handoff or the arbitration ladder in
+`docs/WORKFLOW.md` §4.6 — never by editing anyway.
 
 ## 8. Current state (update this section at every session close)
 
 - Phase **P0**, `current_tier` **S0**, `authorized_tier` **S0**. `GATE:P0` unsigned. **NET-GATE unpassed**: no art.
-- `docs/blueprint/BLUEPRINT.yaml` holds 63 tasks and 11 gates; semantic validation arrives with P0-002.
-- Known intentional red: `concept-integrity --check` (FINDING-001 + unsigned T3), `scope-math --report` (throughput
-  unmeasured), WF-002 (`refused_ownership`, see `docs/state/NEEDS_DIRECTOR.md` ND-002).
-- 32 agents and their skills are created by P0-002; until then one process wears every hat and records it.
+- `docs/blueprint/BLUEPRINT.yaml` holds 63 tasks and 11 gates; `scripts/validate-blueprint.mjs` enforces
+  B1–B8 (0 errors, 12 declared warnings after A0002 removed the WF-002 refusal).
+- 32 agents and 51 skill stubs exist. One process wears every hat until the Director installs reviewers.
+- **ND-001 resolved** (T1 EN 25/25, FR 30/35; FINDING-001 closed) and **ND-002 resolved** (A0002 option A,
+  D-002 closed, WF-002 is orchestrator's). See `docs/state/NEEDS_DIRECTOR.md`.
+- Known intentional red: `concept-integrity --check` (T3 novelty unsigned until GATE:P1),
+  `scope-math --report` (throughput unmeasured). ND-004/ND-005 token rotations remain Director actions.
 
 ## 9. Environment
 
-- Node 22 is available. `pnpm` is **absent** until P0-003 (`corepack enable`).
+- Node 22.23.4 with pnpm **12.21.0** pinned via corepack (`corepack enable` done); lockfile committed.
+  TypeScript 6.0.3, Vitest 5.1.0 — `docs/STACK.lock.md` is authoritative.
 - `python3` + PyYAML are available; Blender, ComfyUI and a GPU are **not** on this machine.
 - Secrets are read from env only: `GITHUB_TOKEN`, `HF_TOKEN`, `OPENCODE_API_KEY`, `REPO_URL`, `DATABASE_URL`,
   `REDIS_URL`. Never echo them; never put them in a command line that lands in a log.

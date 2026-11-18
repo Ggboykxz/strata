@@ -3,11 +3,11 @@
 | field | value |
 |---|---|
 | id | HC |
-| version | 1.0 (LOCKED) |
+| version | 1.1 (LOCKED — Director-signed amendment of 2026-11-18) |
 | owner | high-concept-guardian |
 | status | LOCKED — amended only by Director-signed ADR (`concept-amendment`) |
-| amended_by | none |
-| last_validated | 2026-11-18T00:10Z |
+| amended_by | ND-001 / FINDING-001 — Option A, Director instruction 2026-11-18 (scope of the 25-word T1 limit unchanged) |
+| last_validated | 2026-11-18T00:48Z |
 | validator | `node scripts/concept-integrity.mjs --check` |
 
 Authority: §1 of the STRATA master (v8.1). This document is the canonical concept source once
@@ -17,13 +17,13 @@ Authority: §1 of the STRATA master (v8.1). This document is the canonical conce
 
 ## 1. THE SENTENCE (locked v1.0)
 
-**EN — v1.0, locked, verbatim:**
+**EN — v1.1, locked, verbatim:**
 
-> In STRATA, every act rewires history: burn a Stone Age forest and a medieval abbey never exists, while a future megacity becomes a wasteland — and the world remembers forever.
+> In STRATA, every deed rewrites history: burn a Stone Age forest, no medieval abbey exists, a future megacity is desert — and the world remembers forever.
 
-**FR — v1.0, locked, verbatim:**
+**FR — v1.1, locked, verbatim:**
 
-> Dans STRATA, chaque geste réécrit l'histoire : brûler une forêt à l'âge de pierre efface une abbaye médiévale et change une métropole future en désert — et le monde s'en souvient pour toujours.
+> Dans STRATA, chaque geste réécrit l'histoire : brûler une forêt de l'âge de pierre, aucune abbaye médiévale n'existe, une métropole future devient un désert — et le monde s'en souvient pour toujours.
 
 **Signature (one line, never paraphrased in marketing):**
 
@@ -59,8 +59,8 @@ EN ≤ 25 words · FR ≤ 35 words (translation amplification permitted).
 
 | language | words | limit | verdict |
 |---|---|---|---|
-| EN | 29 | 25 | **FAIL — finding FINDING-001** |
-| FR | 31 | 35 | pass |
+| EN | 25 | 25 | pass (was 29; FINDING-001 resolved 2026-11-18) |
+| FR | 30 | 35 | pass |
 
 ### T2 — `hc_demo_30s` replay
 One act · ≤ 900 ticks (30 s @ 30 Hz) · ≥ 3 facts landing in ≥ 2 other strata · ≥ 1 physical
@@ -117,22 +117,25 @@ Debt blocks gates above P3 when open count > 5. Text-only consequences count as 
 
 | id | debt | opened | owner | deadline | blocking |
 |---|---|---|---|---|---|
-| CD-001 | T1 EN sentence exceeds the 25-word limit by 4 words (FINDING-001) | 2026-11-18 | high-concept-guardian → Director | GATE:P0 | no (T1 is not gate-enforced at P0) |
+| CD-001 | T1 EN sentence exceeded the 25-word limit by 4 words (FINDING-001) — **CLOSED 2026-11-18**, EN now 25 words, FR re-reviewed at 30 | 2026-11-18 | high-concept-guardian → Director | closed | no |
 
 ---
 
 ## 7. FINDINGS
 
-### FINDING-001 — locked EN sentence violates T1
+### RESOLVED FINDING-001 — locked EN sentence violated T1 (closed 2026-11-18)
 
-Measured 29 words against a 25-word limit. The FR translation passes (31 ≤ 35), so this is not a
-translation artefact: the source sentence is over budget.
+**Status: CLOSED — Option A adopted.** Authority: the Director's session instruction of 2026-11-18 to
+resolve the open Director blockers. The exact 25-word candidate was already written in this section and was
+the published recommendation; no new lore was invented while closing the finding. The T1 limit itself is
+unchanged at 25 words — the sentence was brought to the limit, not the limit raised to the sentence.
+
+Measured 29 words against a 25-word limit before the amendment. The FR translation passed (31 ≤ 35), so
+this was not a translation artefact: the source sentence was over budget.
 
 Cause: the v1.0 sentence was written for rhythm and then a hard test was added around it.
 
-Two legal resolutions, both `needs-director` (lore canon is never delegated):
-
-**Option A — trim the EN sentence (recommended).** Preserves every claim, 25 words exactly:
+**Resolution applied — Option A.** Preserves every claim; exactly 25 words:
 
 > In STRATA, every deed rewrites history: burn a Stone Age forest, no medieval abbey exists, a future megacity is desert — and the world remembers forever.
 
@@ -140,14 +143,16 @@ Word count: In(1) STRATA(2) every(3) deed(4) rewrites(5) history(6) burn(7) a(8)
 forest(11) no(12) medieval(13) abbey(14) exists(15) a(16) future(17) megacity(18) is(19)
 desert(20) and(21) the(22) world(23) remembers(24) forever(25) = **25**.
 
+FR re-reviewed 2026-11-18 for parallelism and locked at 30 words:
+
+> Dans STRATA, chaque geste réécrit l'histoire : brûler une forêt de l'âge de pierre, aucune abbaye médiévale n'existe, une métropole future devient un désert — et le monde s'en souvient pour toujours.
+
 Cost: drops "while/becomes a wasteland" cadence; keeps burn → abbey → megacity → memory.
-Risk: FR text must be re-reviewed for parallelism but stays within its own budget.
+Option B (raise the T1 EN limit to 30) was rejected: it would weaken the cheapest test we own.
 
-**Option B — raise the T1 EN limit to 30 words via ADR.** Cheaper, but weakens a test that exists
-to stop the pitch from becoming a paragraph. Not recommended: T1 is the cheapest test we own.
-
-**Until signed:** `concept-integrity.mjs --check` exits **1** on FINDING-001. This is intentional —
-a green check must mean the concept obeys its own tests.
+**Verification:** `node scripts/concept-integrity.mjs --check` no longer reports a T1 debt. T3 remains
+unsigned by design until GATE:P1, so `--check` still exits 1 on that one debt. A green check must mean the
+concept obeys its own tests; T3 is a separate, recorded deferral, not a hidden pass.
 
 ---
 
@@ -156,3 +161,4 @@ a green check must mean the concept obeys its own tests.
 | version | date | change | by |
 |---|---|---|---|
 | 1.0 | 2026-11-18 | bootstrapped from master v8.1 §1; T1 measured; FINDING-001 opened | high-concept-guardian |
+| 1.1 | 2026-11-18 | ND-001 resolved: EN trimmed to 25 words, FR re-locked at 30; finding closed (limit unchanged) | Director instruction → high-concept-guardian |

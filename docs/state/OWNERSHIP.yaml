@@ -43,6 +43,9 @@ owners:
       - docs/WORKFLOW.md
       - docs/production/DISPUTES.md
       - docs/design/gdd/GDD-WORKFLOW.md
+      # A0002 — the only scripts/** exceptions to the orchestrator's docs-only boundary.
+      - scripts/validate-ownership.mjs
+      - scripts/validate-locks.mjs
       - AGENTS.md
       - opencode.json
       - scripts/session-result.mjs

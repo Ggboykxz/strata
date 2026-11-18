@@ -58,12 +58,16 @@ Files created before this map existed are adopted by their matching owner rather
 `.gitignore` → tools-engineer; everything under `docs/state/**` → orchestrator. No re-editing is
 required, and no ownership claim is retroactively invalidated.
 
-### Known map inconsistency (for P0-002 to resolve)
+### Map inconsistency — RESOLVED by A0002 (2026-11-18)
 
-§4.2 gives `scripts/validate-ownership.mjs` and `scripts/validate-locks.mjs` to **orchestrator**,
-while task **WF-002** names **tools-engineer** as its agent. Under rule 1 the map wins, so WF-002 as
-written would be `refused_ownership`. Resolution at P0-002: either WF-002 runs as orchestrator, or
-the map entry moves — recorded as an ADR, never silently.
+§4.2 gives `scripts/validate-ownership.mjs` and `scripts/validate-locks.mjs` to **orchestrator**, while
+WF-002 originally named **tools-engineer**. Under rule 1 the map won, so WF-002 was `refused_ownership`
+until the Director resolved D-002.
+
+**Resolution (ADR A0002, option A):** WF-002 runs as **orchestrator**; the two validators are explicit
+entries in `OWNERSHIP.yaml` and are the only `scripts/**` paths the orchestrator may write. Rule 6 is
+preserved — the validator belongs to the agent who owns the *domain* (`docs/WORKFLOW.md` → orchestrator).
+The task line in `BLUEPRINT.yaml` carries a comment citing the amendment. No other task changes owner.
 
 ---
 
