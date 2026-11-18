@@ -48,7 +48,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T08:11:11Z"
     expires_at: "2026-11-18T09:11:11Z"
-    status: active
+    status: released
 
   - path_glob: "apps/server/test/sim.test.ts"
     owner_agent: gameplay-engineer
@@ -56,7 +56,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T08:11:11Z"
     expires_at: "2026-11-18T09:11:11Z"
-    status: active
+    status: released
 
   - path_glob: "docs/blueprint/BLUEPRINT.yaml"
     owner_agent: orchestrator
@@ -64,7 +64,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T08:11:11Z"
     expires_at: "2026-11-18T09:11:11Z"
-    status: active
+    status: released
 
   - path_glob: "docs/blueprint/GATES.yaml"
     owner_agent: orchestrator
@@ -72,7 +72,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T08:11:11Z"
     expires_at: "2026-11-18T09:11:11Z"
-    status: active
+    status: released
 
   - path_glob: "docs/design/gdd/GDD-NETCODE.md"
     owner_agent: netcode-engineer
@@ -80,7 +80,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T08:11:11Z"
     expires_at: "2026-11-18T09:11:11Z"
-    status: active
+    status: released
 
   - path_glob: "packages/core/src/index.ts"
     owner_agent: gameplay-engineer
@@ -88,7 +88,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T08:11:11Z"
     expires_at: "2026-11-18T09:11:11Z"
-    status: active
+    status: released
 
   - path_glob: "packages/core/src/tick.ts"
     owner_agent: gameplay-engineer
@@ -96,7 +96,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T08:11:11Z"
     expires_at: "2026-11-18T09:11:11Z"
-    status: active
+    status: released
 
   - path_glob: "packages/core/test/tick.test.ts"
     owner_agent: gameplay-engineer
@@ -104,4 +104,4 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T08:11:11Z"
     expires_at: "2026-11-18T09:11:11Z"
-    status: active
+    status: released
