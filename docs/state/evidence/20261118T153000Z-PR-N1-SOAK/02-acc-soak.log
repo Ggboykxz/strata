@@ -1,0 +1,119 @@
+COMMAND: PRN1_SOAK=1 PRN1_SOAK_MINUTES=30 PRN1_EVIDENCE_DIR=docs/state/evidence/20261118T153000Z-PR-N1-SOAK pnpm vitest run tools/sim/load/test/prn1-soak.test.ts --reporter=verbose
+UTC_START: 2026-11-18T15:29:46Z
+
+ RUN  v5.1.0 /content/strata
+
+stdout | tools/sim/load/test/prn1-soak.test.ts > PR-N1 real-time soak > runs 30 real minutes at 30 Hz with four clients and zero desyncs
+PR-N1 soak · 60s · tick 1801 · desyncs 0 · verified 5442 · rss 83.2 MB
+
+stdout | tools/sim/load/test/prn1-soak.test.ts > PR-N1 real-time soak > runs 30 real minutes at 30 Hz with four clients and zero desyncs
+PR-N1 soak · 120s · tick 3602 · desyncs 0 · verified 10846 · rss 75.8 MB
+
+stdout | tools/sim/load/test/prn1-soak.test.ts > PR-N1 real-time soak > runs 30 real minutes at 30 Hz with four clients and zero desyncs
+PR-N1 soak · 180s · tick 5402 · desyncs 0 · verified 16237 · rss 83.0 MB
+
+stdout | tools/sim/load/test/prn1-soak.test.ts > PR-N1 real-time soak > runs 30 real minutes at 30 Hz with four clients and zero desyncs
+PR-N1 soak · 240s · tick 7203 · desyncs 0 · verified 21655 · rss 96.3 MB
+
+stdout | tools/sim/load/test/prn1-soak.test.ts > PR-N1 real-time soak > runs 30 real minutes at 30 Hz with four clients and zero desyncs
+PR-N1 soak · 300s · tick 9003 · desyncs 0 · verified 27036 · rss 96.7 MB
+
+stdout | tools/sim/load/test/prn1-soak.test.ts > PR-N1 real-time soak > runs 30 real minutes at 30 Hz with four clients and zero desyncs
+PR-N1 soak · 360s · tick 10803 · desyncs 0 · verified 32497 · rss 82.8 MB
+
+stdout | tools/sim/load/test/prn1-soak.test.ts > PR-N1 real-time soak > runs 30 real minutes at 30 Hz with four clients and zero desyncs
+PR-N1 soak · 420s · tick 12603 · desyncs 0 · verified 37898 · rss 83.6 MB
+
+stdout | tools/sim/load/test/prn1-soak.test.ts > PR-N1 real-time soak > runs 30 real minutes at 30 Hz with four clients and zero desyncs
+PR-N1 soak · 480s · tick 14403 · desyncs 0 · verified 43346 · rss 96.8 MB
+
+stdout | tools/sim/load/test/prn1-soak.test.ts > PR-N1 real-time soak > runs 30 real minutes at 30 Hz with four clients and zero desyncs
+PR-N1 soak · 540s · tick 16203 · desyncs 0 · verified 48786 · rss 97.8 MB
+
+stdout | tools/sim/load/test/prn1-soak.test.ts > PR-N1 real-time soak > runs 30 real minutes at 30 Hz with four clients and zero desyncs
+PR-N1 soak · 600s · tick 18004 · desyncs 0 · verified 54240 · rss 98.8 MB
+
+stdout | tools/sim/load/test/prn1-soak.test.ts > PR-N1 real-time soak > runs 30 real minutes at 30 Hz with four clients and zero desyncs
+PR-N1 soak · 660s · tick 19804 · desyncs 0 · verified 59659 · rss 100.0 MB
+
+stdout | tools/sim/load/test/prn1-soak.test.ts > PR-N1 real-time soak > runs 30 real minutes at 30 Hz with four clients and zero desyncs
+PR-N1 soak · 720s · tick 21605 · desyncs 0 · verified 65043 · rss 101.3 MB
+
+stdout | tools/sim/load/test/prn1-soak.test.ts > PR-N1 real-time soak > runs 30 real minutes at 30 Hz with four clients and zero desyncs
+PR-N1 soak · 780s · tick 23406 · desyncs 0 · verified 70482 · rss 102.3 MB
+
+stdout | tools/sim/load/test/prn1-soak.test.ts > PR-N1 real-time soak > runs 30 real minutes at 30 Hz with four clients and zero desyncs
+PR-N1 soak · 840s · tick 25206 · desyncs 0 · verified 75828 · rss 102.3 MB
+
+stdout | tools/sim/load/test/prn1-soak.test.ts > PR-N1 real-time soak > runs 30 real minutes at 30 Hz with four clients and zero desyncs
+PR-N1 soak · 900s · tick 27006 · desyncs 0 · verified 81246 · rss 102.5 MB
+
+stdout | tools/sim/load/test/prn1-soak.test.ts > PR-N1 real-time soak > runs 30 real minutes at 30 Hz with four clients and zero desyncs
+PR-N1 soak · 960s · tick 28807 · desyncs 0 · verified 86735 · rss 102.6 MB
+
+stdout | tools/sim/load/test/prn1-soak.test.ts > PR-N1 real-time soak > runs 30 real minutes at 30 Hz with four clients and zero desyncs
+PR-N1 soak · 1020s · tick 30608 · desyncs 0 · verified 92141 · rss 102.6 MB
+
+stdout | tools/sim/load/test/prn1-soak.test.ts > PR-N1 real-time soak > runs 30 real minutes at 30 Hz with four clients and zero desyncs
+PR-N1 soak · 1080s · tick 32408 · desyncs 0 · verified 97548 · rss 102.6 MB
+
+stdout | tools/sim/load/test/prn1-soak.test.ts > PR-N1 real-time soak > runs 30 real minutes at 30 Hz with four clients and zero desyncs
+PR-N1 soak · 1140s · tick 34208 · desyncs 0 · verified 102955 · rss 104.4 MB
+
+stdout | tools/sim/load/test/prn1-soak.test.ts > PR-N1 real-time soak > runs 30 real minutes at 30 Hz with four clients and zero desyncs
+PR-N1 soak · 1200s · tick 36009 · desyncs 0 · verified 108364 · rss 104.6 MB
+
+stdout | tools/sim/load/test/prn1-soak.test.ts > PR-N1 real-time soak > runs 30 real minutes at 30 Hz with four clients and zero desyncs
+PR-N1 soak · 1260s · tick 37809 · desyncs 0 · verified 113784 · rss 104.6 MB
+
+stdout | tools/sim/load/test/prn1-soak.test.ts > PR-N1 real-time soak > runs 30 real minutes at 30 Hz with four clients and zero desyncs
+PR-N1 soak · 1320s · tick 39610 · desyncs 0 · verified 119201 · rss 104.7 MB
+
+stdout | tools/sim/load/test/prn1-soak.test.ts > PR-N1 real-time soak > runs 30 real minutes at 30 Hz with four clients and zero desyncs
+PR-N1 soak · 1380s · tick 41411 · desyncs 0 · verified 124621 · rss 104.9 MB
+
+stdout | tools/sim/load/test/prn1-soak.test.ts > PR-N1 real-time soak > runs 30 real minutes at 30 Hz with four clients and zero desyncs
+PR-N1 soak · 1440s · tick 43212 · desyncs 0 · verified 130075 · rss 105.1 MB
+
+stdout | tools/sim/load/test/prn1-soak.test.ts > PR-N1 real-time soak > runs 30 real minutes at 30 Hz with four clients and zero desyncs
+PR-N1 soak · 1500s · tick 45012 · desyncs 0 · verified 135530 · rss 104.0 MB
+
+stdout | tools/sim/load/test/prn1-soak.test.ts > PR-N1 real-time soak > runs 30 real minutes at 30 Hz with four clients and zero desyncs
+PR-N1 soak · 1560s · tick 46813 · desyncs 0 · verified 140911 · rss 104.0 MB
+
+stdout | tools/sim/load/test/prn1-soak.test.ts > PR-N1 real-time soak > runs 30 real minutes at 30 Hz with four clients and zero desyncs
+PR-N1 soak · 1620s · tick 48613 · desyncs 0 · verified 146309 · rss 104.0 MB
+
+stdout | tools/sim/load/test/prn1-soak.test.ts > PR-N1 real-time soak > runs 30 real minutes at 30 Hz with four clients and zero desyncs
+PR-N1 soak · 1680s · tick 50413 · desyncs 0 · verified 151745 · rss 104.0 MB
+
+stdout | tools/sim/load/test/prn1-soak.test.ts > PR-N1 real-time soak > runs 30 real minutes at 30 Hz with four clients and zero desyncs
+PR-N1 soak · 1740s · tick 52214 · desyncs 0 · verified 157197 · rss 105.1 MB
+
+ × tools/sim/load/test/prn1-soak.test.ts > PR-N1 real-time soak > runs 30 real minutes at 30 Hz with four clients and zero desyncs 1800261ms
+   → Maximum call stack size exceeded
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tools/sim/load/test/prn1-soak.test.ts > PR-N1 real-time soak > runs 30 real minutes at 30 Hz with four clients and zero desyncs
+RangeError: Maximum call stack size exceeded
+ ❯ reportFor tools/sim/load/prn1_matrix.ts:574:26
+    572|       p50_mm: round(percentile(corrections, 50), 3),
+    573|       p95_mm: round(percentile(corrections, 95), 3),
+    574|       max_mm: round(Math.max(0, ...corrections), 3),
+       |                          ^
+    575|       over_2m: corrections.filter((value) => value > 2000).length,
+    576|     },
+ ❯ runSoak tools/sim/load/prn1_matrix.ts:732:16
+ ❯ tools/sim/load/test/prn1-soak.test.ts:15:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed (1)
+   Start at  15:29:47
+   Duration  1800.55s (tests 100%)
+
+EXIT=1
+UTC_END: 2026-11-18T15:59:48Z

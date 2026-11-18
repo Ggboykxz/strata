@@ -1,0 +1,10 @@
+COMMAND: node scripts/validate-netgate.mjs --assert-ready
+UTC: 2026-11-18T16:36:07Z
+validate-netgate — PASS — dossier honest, evidence-complete, signature recorded as risk-accepted
+NET-GATE readiness: NOT READY — 4/10 criteria not met
+  - wire-budget: failing
+  - reconnect-restore: partial
+  - crash-restore-rpo: partial
+  - threat-and-anticheat: partial
+validate-netgate --assert-ready — FAIL — 4 criteria unmet; the recorded signature is a risk acceptance, not evidence of readiness.
+EXIT=1

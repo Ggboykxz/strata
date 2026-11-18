@@ -217,8 +217,20 @@ Anything else goes through a handoff. A conflict is resolved by a handoff or the
   Default branch is still the session branch. Remaining: token rotation, T4, TPU scope and 8 NET-GATE measurements.
 - **GPU handoff**: `docs/state/GPU_HANDOFF.md` is the memory bridge for the new runtime (probes, audited models,
   art contract, the 8 NET-GATE criteria, conventions). GPU arrival does not authorize art: readiness must pass.
-- Known intentional red: `scope-math --report` exit 2 (throughput unmeasured) and `concept --score` exit 2
-  until HC-003. `concept --check` is green: T3 was signed at GATE:P0.
+- **PR-N1 matrix measured** on `session/20261118-prn1-matrix`: 24 requested cells × 4 clients × 64 entities,
+  28 694 verified snapshots, 0 desyncs / 0 integrity failures, correction p95 50 mm / max 450 mm, server tick
+  p95 max 0.4411 ms in-process; wire still fails at 3.79× (NET-101 owns AoI/delta). Predictor now scopes
+  prediction to the client's own entity; GDD-NETCODE 0.8, `apps/game/test/net.test.ts` 22/22.
+- **PR-N1 soak met**: the first full 1,800 s run held 0 desyncs but threw
+  `RangeError: Maximum call stack size exceeded` in report building (`Math.max(0, ...160k)`); its `EXIT=1` log is
+  kept and not counted. `maxSample()` + a 300k-sample regression test fixed it; the fresh run exited 0 at
+  16:31:25Z with 1,800.03 s, 54,001 ticks, 162,586 verified snapshots, 0 desyncs, correction p95 50 mm / max
+  250 mm, server tick p95 0.1632 ms.
+- NET-GATE after PR-N1: **4/10 criteria unmet** (wire, reconnect crash half, crash/RPO, threat/auth). The
+  signature-time 8/10 count is preserved in the dossier and metrics; `--assert-ready` still exits 1. No art (I2),
+  no self-merge — the Director merges PR-N1.
+- Known intentional red: `scope-math --report` exit 2 (throughput unmeasured). `concept --score` now exits 0
+  with CIS 85/100 (HC-003); `concept --check` is green: T3 was signed at GATE:P0.
 
 ## 9. Environment
 

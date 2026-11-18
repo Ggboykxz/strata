@@ -1,0 +1,5 @@
+COMMAND: node scripts/gdd-to-tests.mjs
+UTC: 2026-11-18T16:36:27Z
+gdd-to-tests — generated 17 specs in tests/replay/gdd/ (15 STUB modules skipped)
+structural drift checks only — behavioral proof stays in docs/state/evidence/
+EXIT=0

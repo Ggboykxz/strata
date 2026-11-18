@@ -1,0 +1,4 @@
+COMMAND: node apps/dashboard/check.mjs
+UTC: 2026-11-18T16:38:20Z
+dashboard truth check — PASS — deterministic, sourced, no hardcoded values
+EXIT=0

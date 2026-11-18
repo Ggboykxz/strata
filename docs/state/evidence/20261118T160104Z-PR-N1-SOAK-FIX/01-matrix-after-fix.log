@@ -1,0 +1,18 @@
+COMMAND: pnpm vitest run tools/sim/load/test/prn1-matrix.test.ts --reporter=verbose
+
+ RUN  v5.1.0 /content/strata
+
+ ✓ tools/sim/load/test/prn1-matrix.test.ts > PR-N1 NET-GATE matrix > computes the maximum of a soak-sized sample without spreading it into Math.max 59ms
+ ✓ tools/sim/load/test/prn1-matrix.test.ts > PR-N1 NET-GATE matrix > declares the full RTT x loss x jitter matrix exactly once 4ms
+ ✓ tools/sim/load/test/prn1-matrix.test.ts > PR-N1 NET-GATE matrix > runs the full 24-cell matrix with four clients and zero desyncs 5117ms
+ ✓ tools/sim/load/test/prn1-matrix.test.ts > PR-N1 NET-GATE matrix > proves reconnect: same entity, seq not reset, exact authoritative state 480ms
+ ✓ tools/sim/load/test/prn1-matrix.test.ts > PR-N1 NET-GATE matrix > keeps the 64-entity wire budget failing until NET-101 495ms
+ ✓ tools/sim/load/test/prn1-matrix.test.ts > PR-N1 NET-GATE matrix > is deterministic for transport outcomes across two identical runs 387ms
+ ✓ tools/sim/load/test/prn1-matrix.test.ts > PR-N1 NET-GATE matrix > refuses invalid harness parameters 2ms
+
+ Test Files  1 passed (1)
+      Tests  7 passed (7)
+   Start at  16:01:11
+   Duration  7.17s (tests 95%, transform 4%, import 1%)
+
+EXIT=0

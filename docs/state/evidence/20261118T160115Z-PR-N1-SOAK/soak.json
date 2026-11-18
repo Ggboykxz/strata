@@ -1,0 +1,61 @@
+{
+  "label": "real-time 30 Hz soak over the in-process emulated link; wall time, not simulated time",
+  "requested_minutes": 30,
+  "wall_seconds": 1800.03,
+  "ticks": 54001,
+  "effective_hz": 30,
+  "clients": 4,
+  "entities": 64,
+  "emulated": {
+    "up_ticks": 2,
+    "down_ticks": 3,
+    "jitter_ticks": 1,
+    "lead_ticks": 2,
+    "rtt_ms": 166.67
+  },
+  "desyncs": 0,
+  "verified_snapshots": 162586,
+  "speculative_snapshots": 37814,
+  "server_ahead_snapshots": 15584,
+  "no_prediction_snapshots": 2,
+  "hashacks_sent": 215990,
+  "ack_missing_ticks": 0,
+  "server_desyncs": 0,
+  "gate_rejections": 0,
+  "hash_integrity_failures": 0,
+  "ahead_ticks": 23450,
+  "input_refusals": 0,
+  "corrections": {
+    "samples": 215984,
+    "p50_mm": 0,
+    "p95_mm": 50,
+    "max_mm": 250,
+    "over_2m": 0
+  },
+  "server_tick_ms": {
+    "p50": 0.0856,
+    "p95": 0.1632,
+    "max": 4.2273
+  },
+  "wire": {
+    "down_bytes_per_client_per_s": 46526.98,
+    "up_bytes_per_client_per_s": 520.73,
+    "down_total_bytes_per_s": 186107.94,
+    "down_budget_bytes_per_s": 12288,
+    "up_budget_bytes_per_s": 3072,
+    "over_budget_factor": 3.786
+  },
+  "memory": {
+    "rss_start_mb": 68.8,
+    "rss_end_mb": 104.2,
+    "rss_peak_mb": 106.1,
+    "heap_used_end_mb": 33.3
+  },
+  "checks": {
+    "duration": true,
+    "desyncs": true,
+    "corrections": true,
+    "verified": true,
+    "server_tick": true
+  }
+}

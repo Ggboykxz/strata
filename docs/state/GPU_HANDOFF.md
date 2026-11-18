@@ -6,7 +6,7 @@
 | Director statement (verbatim) | "Documentes tous car je passe sur GPU" |
 | branch | `session/20261118-hc-001-high-concept` — **PR #1 merged**, PR #2 closed, PR #3 merged into `main` (`a84733e`, 1 032 files) |
 | gates | P0 / P1 / P2 **SIGNED**; P2NET / P2SYS satisfied; **GATE:NET SIGNED — RISK ACCEPTED** |
-| NET-GATE readiness | **NOT READY** — 8 of 10 master §5.2 criteria unmet; `validate-netgate --assert-ready` exits 1 |
+| NET-GATE readiness | **NOT READY** — 4 of 10 master §5.2 criteria unmet after PR-N1 (8 at signature); `validate-netgate --assert-ready` exits 1 |
 | current hardware | no GPU, no TPU in this runtime; T4 16 GB declared by the Director (ND-012) |
 | quality doctrine | A0008 (quality over time, original IP only), A0009 (blanket Director signatures) |
 
@@ -18,12 +18,12 @@ number here is from memory.
 | item | value | source |
 |---|---|---|
 | `pnpm verify` | **19/19** enabled steps green | last `pnpm verify` log |
-| full tests | **302** across 42 files | last `pnpm test` log |
+| full tests | **319 passed + 1 skipped (320)** across 44 files | last `pnpm test` log |
 | CIS | **85/100** — wow density **0** (no playtest) | `docs/state/metrics/concept.json` |
 | GDD coverage | **100%** (63/63 refs) | `scripts/gdd-coverage.mjs --min 0.80` |
-| scope ledger | 12 entries, balanced | `docs/state/metrics/2026-11-18-s02.json` |
+| scope ledger | 12 entries, balanced | `docs/state/metrics/2026-11-18-s03.json` |
 | Actions | **8/8** success at attested heads | `*-ci-proof.log` in evidence dirs |
-| evidence | 31 directories, **299 logs** | same metrics file |
+| evidence | 36 directories, **322 logs** | `docs/state/metrics/2026-11-18-s03.json` |
 | drift/replay guards | prompt seal, blueprint B9, dashboard truth, journal freshness, GDD drift specs | `pnpm verify` steps |
 | netcode | deterministic 30 Hz tick, equal hashes, desync rejected, exact-length binary v3 | NET-001..006 evidence |
 | art | **none produced**; greybox only | I2 / A0008 |
@@ -56,12 +56,13 @@ P0-006 targets XLA, and art remains CUDA/T4-only unless a new audit entry exists
 |---|---|
 | hardware probes and evidence | **any generated asset** — no mesh, texture bake, motion or scene before NET-GATE is READY (I2, A0008) |
 | re-running audited validators and harnesses on the new machine | AI-001 / AI-002 (`art: true`) until `--assert-ready` exits 0 |
-| the 8 NET-GATE measurement tasks (CPU/time work; a GPU is not required) | art pipeline smoke until the GATE:P2 / GATE:NET signatures are recorded on the new runtime's evidence chain |
+| the 4 remaining NET-GATE measurement tasks (CPU/time work; a GPU is not required) | art pipeline smoke until the GATE:P2 / GATE:NET signatures are recorded on the new runtime's evidence chain |
 | preparing handoffs, locks, manifests, provenance templates | HF token use before ND-005 rotation (use the new token from env, never printed) |
 | architecture decisions through ADRs | copying the quality benchmark's IP — I11 forbids it (A0008 §Context) |
 
-A Director-signed gate is a **risk acceptance**, not a measurement. A0009 recorded `je signe tous`; the 8 criteria
-below are still unmet. Starting art earlier would need an explicit Director-signed ADR suspending I2 — none exists.
+A Director-signed gate is a **risk acceptance**, not a measurement. A0009 recorded `je signe tous`; the 4 criteria
+below are still unmet (8 at signature time). Starting art earlier would need an explicit Director-signed ADR
+suspending I2 — none exists.
 
 ## 4. Audited stack — use only this (P0-006)
 
@@ -107,21 +108,23 @@ Blueprint art tasks: AI-001 (`tools/asset-pipeline/comfy/`, `smoke.py`, `docs/qa
 says `python tools/asset-pipeline/smoke.py` — on this runtime the interpreter is `python3`; repair the acc in the
 same PR if needed rather than adding a shell alias.
 
-## 6. The 8 unmet NET-GATE criteria — how to close them
+## 6. The remaining NET-GATE criteria — how to close them
 
 Dossier: `docs/qa/prototypes/NET_GATE.md`. Validator: `node scripts/validate-netgate.mjs --assert-ready` (exit 1
-today). The 2 met criteria are the headless 30 Hz server (`pnpm tracer --assert`) and the 10k ledger fuzz (drift 0).
+today). At signature time 2 of 10 criteria were met (the headless 30 Hz server and the 10k ledger fuzz). PR-N1
+(2026-11-18) measured four more: the 4-client matrix, a real 30-minute soak, desync correction and server tick p95
+(in-process). The first soak attempt failed in report building and is preserved, not counted. **Four remain.**
 
 | criterion | state | what closes it |
 |---|---|---|
-| four-client matrix | not-measured | harness with 4 clients across RTT 0/50/150/300 ms × loss 0/2/5 % × jitter 0/30 ms; zero desync mismatches |
-| soak-30min | not-measured | 30-minute run with a recorded p95 of tick time and error counters |
-| desync correction | not-measured | correction p95 < 0.3 m and no rubber-band > 2 m from that run |
-| server tick p95 | not-measured | p95 <= 25 ms **under the 4-client load**; local CPU p95 0,2109 ms is NOT a substitute |
+| four-client matrix | **met (in-process)** | 24 requested cells, 0 desyncs, 0 integrity failures, 28 694 verified snapshots; actual RTT 33.3/66.7/166.7/300 ms, loss client→server only |
+| soak-30min | **met** | real 1,800.03 s wall clock, 54,001 ticks at 30 Hz, 0 desyncs, 0 integrity failures, correction p95 50 mm / max 250 mm; first attempt's report bug retained, see `docs/qa/prototypes/PRN1_MATRIX.md` §4 |
+| desync correction | **met** | p95 50 mm < 0.3 m, max 450 mm, 0 over 2 m (the 450 mm is in-flight lead, not divergence) |
+| server tick p95 | **met in-process** | p95 max 0.4411 ms under 4 clients / 64 entities; not a production deployment number |
 | wire budget | **failing** | 1 551 B full snapshot × 30 Hz = **46 530 B/s** vs 12 288 B/s (3,79×) → NET-101 AoI + delta |
-| reconnect exact state | partial | 4-client disconnect/resume proving identical entity, hash and applied seq |
-| crash restore / RPO | partial | measured dataset, restore <= 3 s, published RPO <= 60 s |
-| threat & anti-cheat | partial | auth/TLS decisions, persistent counters, retention runbook (OPS-001); SEC-002 wiring is already done |
+| reconnect exact state | **partial** | reconnect half proven (same entity, seq 106, exact hash, late resume refused); crash restore and RPO still missing |
+| crash restore / RPO | **partial** | measured dataset, restore <= 3 s, published RPO <= 60 s |
+| threat & anti-cheat | **partial** | auth/TLS decisions, persistent counters, retention runbook (OPS-001); SEC-002 wiring is already done |
 
 Every closing command must log stdout+stderr, its exit code and its head SHA under `docs/state/evidence/`. Then update
 the dossier statuses and re-run the validator. Do not change a status without a log (I13).
@@ -159,7 +162,7 @@ python3 tools/colab/detect_tier.py
 
 # gate status
 node scripts/validate-netgate.mjs
-node scripts/validate-netgate.mjs --assert-ready   # must be 1 until the 8 criteria are measured
+node scripts/validate-netgate.mjs --assert-ready   # must be 1 until the 4 remaining criteria are measured
 
 # concept / docs / result
 node scripts/concept-integrity.mjs --check
@@ -176,7 +179,7 @@ Director signs an explicit ADR suspending I2.
 - **ND-004 / ND-005** — rotate the exposed GitHub PAT and HF token.
 - **ND-011** — TPU v5e-1: training-only or audited generation path?
 - **ND-012** — T4 16 GB arrival (this move).
-- **NET-GATE re-measurement** — the 8 criteria above; formal `GATE:NET` re-signature after readiness if desired.
+- **NET-GATE re-measurement** — the 4 remaining criteria above; formal `GATE:NET` re-signature after readiness if desired.
 - Repo default branch is still `session/20261118-hc-001-high-concept`; switch to `main` in Settings → Branches
   if that is the intent.
 
