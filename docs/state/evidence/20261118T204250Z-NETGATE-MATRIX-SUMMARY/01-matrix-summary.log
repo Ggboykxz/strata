@@ -1,0 +1,8 @@
+pnpm vitest run apps/server/test/netgate/matrix-cell.test.ts --reporter=verbose
+Consolidation of the v5 matrix rerun (commit 6b703f6, seed 20261118, world 1337, 4 clients, 30 Hz, app-level emulation, seed 20261118). Source logs: docs/state/evidence/20261118T202616Z-NETGATE-MATRIX/NN-*.log (01..24 cells, 27 control). Source metrics: docs/state/metrics/20261118-netgate-matrix.json (run_id prefix v5b-).
+
+Result: cells pass at loss=0 and jitter=0 (0 desyncs each at RTT 0/150/300 ms; 404 at 50 ms jitter0 loss0). Every cell with loss>0 or jitter=30 ms desynchronizes at ~1 250..1 700 reconciles per cell (24 cells + control 27 = 37 223 desync events total; ok reconciles 11 136; unknown 0). Root cause: a delivered-too-late intent is dropped at ingress (v5 `late_intents`), the client predicts it forever, and reconcile diverges permanently (see docs/state/threads/NG-001/0003-LATE-INTENT-CHAIN.md). Tick p95 measured <= 0.28 ms on the 4-entity room in all cells. Down bytes/client/s 3 100..3 460.
+
+Verdict: four-client-matrix criterion NOT met. desync-correction NOT met. server-tick-p95 met constrained to the matrix room. soak-30min: running; not verdict until its log exits.
+
+EXIT=0

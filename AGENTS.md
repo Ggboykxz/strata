@@ -221,11 +221,12 @@ Anything else goes through a handoff. A conflict is resolved by a handoff or the
 - Known intentional red: `scope-math --report` exit 2 (throughput unmeasured) and `concept --score` exit 2
   until HC-003. `concept --check` is green: T3 was signed at GATE:P0.
 
+- **NET-GATE re-measurement (2026-11-18 session)**: v4 `viewHash` per client merged (A0010, false desyncs removed, header 19 B, 1 555 B/46 650 B/s = 3.80×, still failing); v5 target-tick input contract merged (15 B intents, 327 tests green at tip). Integration rides PR #17. Collaboration + discussion now mandatory for agents (`NG-001/0001-COLLAB`, log `0002`). Wire measured-partial via chained bitpacked codec v2 (unverified). Reconnect (32.83 ms exact) and crash/RPO (319.08 ms, 5 000 ms published) measured-partial on v5. T4 16 GB runs AI-001 under Director I2 bypass A0012 (TripoSR; FLUX stays NOT COMPUTABLE); no art produced. 4-client matrix + soak v5 rerun underway; no gate claim accepted until `--assert-ready` = 0.
 ## 9. Environment
 
 - Node 22.23.4 with pnpm **12.21.0** pinned via corepack (`corepack enable` done); lockfile committed.
   TypeScript 6.0.3, Vitest 5.1.0 — `docs/STACK.lock.md` is authoritative.
-- `python3` + PyYAML are available; Blender, ComfyUI and a GPU are **not** on this machine.
+- `python3` + PyYAML are available; a Tesla T4 16 GB is on this machine (probes green); Blender and ComfyUI are **not** installed.
 - Secrets are read from env only: `GITHUB_TOKEN`, `HF_TOKEN`, `OPENCODE_API_KEY`, `REPO_URL`, `DATABASE_URL`,
   `REDIS_URL`. Never echo them; never put them in a command line that lands in a log.
 

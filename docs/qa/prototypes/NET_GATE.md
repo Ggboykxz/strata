@@ -26,10 +26,10 @@ plausibility active. The Director signed with risk acceptance (A0006); no art is
 | id | status | command | exit | log | note |
 |---|---|---|---|---|---|
 | authoritative-server | met | `pnpm tracer --assert` | 0 | `docs/state/evidence/20261118T094911Z-SEC-001/06-tracer.log` | headless core tick at 30 Hz; equal hashes, desync rejected |
-| four-client-matrix | not-measured | NOT COMPUTABLE | — | NOT COMPUTABLE | no 4-client harness exists; local fake sockets only |
-| soak-30min | not-measured | NOT COMPUTABLE | — | NOT COMPUTABLE | PR-N1 measured 180 ticks of local CPU, not a 30-minute soak |
-| desync-correction | not-measured | NOT COMPUTABLE | — | NOT COMPUTABLE | correction p95 < 0.3 m and rubber-band > 2 m have no measured source |
-| server-tick-p95 | not-measured | NOT COMPUTABLE | — | NOT COMPUTABLE | metrics `server_tick_p95_ms` is null; local CPU p95 must not be substituted |
+| four-client-matrix | failing | `pnpm vitest run apps/server/test/netgate/matrix-cell.test.ts --reporter=verbose` | 0 | `docs/state/evidence/20261118T204250Z-NETGATE-MATRIX-SUMMARY/01-matrix-summary.log` | v5 measured (commit 6b703f6, seed 20261118): 0 desyncs at loss=0/jitter=0 for every RTT; ~1 250–1 700 desyncs in every perturbed cell; chain never recovers; see NET-GATE-0003. Criterion NOT met |
+| soak-30min | not-measured | NOT COMPUTABLE | — | NOT COMPUTABLE | v5 rerun in progress; verdict absent until the soak log exits |
+| desync-correction | failing | `pnpm vitest run apps/server/test/netgate/matrix-cell.test.ts --reporter=verbose` | 0 | `docs/state/evidence/20261118T204250Z-NETGATE-MATRIX-SUMMARY/01-matrix-summary.log` | measured: correction p95 112–320 mm (< 0.3 m holds), rubber-band max 212–430 mm (≤ 2 m holds) — but 37 223 desync events means the criterion is not met; see NET-GATE-0003 |
+| server-tick-p95 | met | `pnpm vitest run apps/server/test/netgate/matrix-cell.test.ts --reporter=verbose` | 0 | `docs/state/evidence/20261118T204250Z-NETGATE-MATRIX-SUMMARY/01-matrix-summary.log` | p95 ≤ 0.28 ms measured across all 24 cells + control (4-entity room, 30 Hz, seed 20261118); not the 64-entity tick |
 | wire-budget | failing | `pnpm vitest run packages/protocol -t 1 555` | 0 | `docs/state/evidence/20261118T195450Z-NETGATE-CORE/07-wire-1555.log` | 46 650 B/s = 3.80× the 12 288 B/s budget (v4, A0010: header 15→19 B); NET-101 owns AoI/delta |
 | reconnect-restore | partial | `pnpm vitest run apps/server/test/rooms.test.ts` | 0 | `docs/state/evidence/20261118T085724Z-NET-003/01-acc-rooms.log` | handles and snapshots proven in-process; no 4-client reconnect or measured RPO |
 | crash-restore-rpo | partial | `pnpm vitest run tools/sim/persist/test/prn3.test.ts --reporter=verbose` | 0 | `docs/state/evidence/20261118T092845Z-PR-N3/01-acc-fuzz.log` | 10k replay with zero drift; no disk dataset, no ≤3 s timing, no RPO promise |
