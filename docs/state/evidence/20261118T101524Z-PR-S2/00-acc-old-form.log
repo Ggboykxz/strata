@@ -1,0 +1,6 @@
+$ pnpm sim prs2 --assert
+Error: ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL
+
+  × Command "sim" not found
+
+EXIT=1

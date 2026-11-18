@@ -1,0 +1,33 @@
+$ pnpm vitest run tools/sim/world/test/prs2.test.ts --reporter=verbose
+
+ RUN  v5.1.0 /content/strata
+
+stdout | tools/sim/world/test/prs2.test.ts > PR-S2 harness > prints a deterministic labelled local report
+{
+  "facts_in_window": 5,
+  "late_facts": 1,
+  "strata": 2,
+  "variant_swaps": 5,
+  "captures": 30,
+  "clients_agree": true,
+  "verdict_pass": true,
+  "reasons": [],
+  "deterministic": true,
+  "label": "local greybox propagation — not a T2 sign-off"
+}
+
+ ✓ tools/sim/world/test/prs2.test.ts > immutable fact log > derives the same fact id from the same inputs and a new id from a changed payload 3ms
+ ✓ tools/sim/world/test/prs2.test.ts > immutable fact log > refuses a duplicate id and sorts by (tick, fact_id) 1ms
+ ✓ tools/sim/world/test/prs2.test.ts > immutable fact log > records a late fact but excludes it from the T2 window 1ms
+ ✓ tools/sim/world/test/prs2.test.ts > deterministic derivation > derives consequences and keeps separate chains for two facts in one tick 1ms
+ ✓ tools/sim/world/test/prs2.test.ts > deterministic derivation > gives two clients byte-identical reports 1ms
+ ✓ tools/sim/world/test/prs2.test.ts > T2 verdict > passes a script with 3 facts, 2+ strata, a variant swap and 6 captures 0ms
+ ✓ tools/sim/world/test/prs2.test.ts > T2 verdict > names every failed requirement 1ms
+ ✓ tools/sim/world/test/prs2.test.ts > PR-S2 harness > prints a deterministic labelled local report 15ms
+
+ Test Files  1 passed (1)
+      Tests  8 passed (8)
+   Start at  10:15:25
+   Duration  274ms (import 33%, transform 32%, tests 28%, worker 6%)
+
+EXIT=0

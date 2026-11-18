@@ -3,7 +3,7 @@
 | field | value |
 |---|---|
 | id | GDD-CONSEQUENCE |
-| version | 0.2 |
+| version | 0.3 |
 | owner | game-designer |
 | status | DRAFT |
 
@@ -11,7 +11,7 @@
 
 ## 1. Identity, version, owner, status
 
-ID GDD-CONSEQUENCE, version 0.2, owner game-designer, status **DRAFT**. Derived from VISION v1.0 and the locked HIGH_CONCEPT.
+ID GDD-CONSEQUENCE, version 0.3, owner game-designer, status **DRAFT**. Derived from VISION v1.0 and the locked HIGH_CONCEPT.
 
 ## 2. Player-facing outcome
 
@@ -33,6 +33,8 @@ T2 is the blocking demo: 1 act, <=900 ticks, >=3 facts, >=2 strata, >=1 physical
 - >= 3 facts, >= 2 strata, >= 1 variant swap | SOURCE: master T2
 - 6 before/after captures per replay | SOURCE: master T2
 - 2 clients must report identical fact_id, variant_id and epoch | SOURCE: master T2 / D137
+- fact id and consequence derivation = FNV-1a over immutable fact fields | SOURCE: packages/world-state/src/index.ts (PR-S2)
+- variant ids = 1..4 over 3 strata, baseline 0 | SOURCE: packages/world-state/src/index.ts deriveConsequence; a text-only change does not satisfy T2
 
 ## 6. State machine
 
@@ -41,6 +43,8 @@ ACT → FACTS_WRITTEN(3+) → PROPAGATED(2+ strata) → VARIANT_SWAPPED → CAPT
 ## 7. Data contract
 
 fact v1 {fact_id, actor_id, tick, kind, payload_hash}; consequence v1 {fact_id, stratum_id, variant_id, epoch, capture_ids[]}. Migration: a changed payload_hash creates a new fact id, never rewrites an old one.
+
+PR-S2 reference implementation: `packages/world-state/` holds the immutable `FactLog`, the deterministic `deriveConsequence`, the per-client `ClientReport` and the `t2Verdict`. Client agreement is compared on `{factIds, variantIds, epoch}` only — the `client` id is not part of the proof. Facts are stored even after tick 900 but excluded from the replay window.
 
 ## 8. Edge cases
 
@@ -82,6 +86,9 @@ facts_per_act, strata_affected, variant_swaps, capture_count, reviewer_inference
 - GIVEN six captures WHEN a blind reviewer reads them THEN the causal chain is inferred.
 - GIVEN two clients WHEN the replay runs THEN fact_id, variant_id and epoch are identical.
 
+- GIVEN an immutable fact script WHEN derived on two clients THEN fact_id, variant_id and epoch reports are byte-identical.
+- GIVEN fewer than 3 facts, fewer than 2 strata, no geometry variant swap or one client WHEN verdict is computed THEN it fails and names the requirement.
+
 ## 16. Perf budget impact
 
 Propagation completes within the 900-tick budget; no chain work on the render thread; captures are generated off the tick path.
@@ -94,8 +101,8 @@ No text-only consequence, no pre-authored epoch change, no single-client-only de
 
 | question | owner | deadline |
 |---|---|---|
-| W | h | i |
-| W | h | o |
+| Can a blind reviewer infer the chain from the 6 captures in this greybox form? | qa-engineer + narrative | PR-S3 replay |
+| What real geometry swap does variant_id 1..4 map to in Oakhollow? | level-designer | GB-001 |
 
 ## 19. Changelog
 
@@ -103,3 +110,4 @@ No text-only consequence, no pre-authored epoch change, no single-client-only de
 |---|---|---|---|
 | 0.1 | 2026-11-18 | STUB created by GDD-001 | game-designer |
 | 0.2 | 2026-11-18 | DRAFT: all 19 fields, T2/T4 numbers and sources | GDD-003 |
+| 0.3 | 2026-11-18 | PR-S2: immutable facts, FNV derivation, T2 verdict contract | gameplay-engineer |

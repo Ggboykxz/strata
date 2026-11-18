@@ -328,3 +328,12 @@ blueprint task currently owns the pin: recorded as a gap for the Director/next r
 - GDD-COMBAT 0.3; acc repaired to a real vitest command (twelfth broken form). Full 146/146, verify 17/17.
 - The art handoff stands: no asset generated, T4 16 GB requested (ND-012), AI-001..AN-002 still blocked by
   `GATE:P2`. Next: PR-S2 (consequence propagation).
+
+## Session 2 — PR-S2 propagation (2026-11-18T11:34Z)
+
+- `packages/world-state/` holds an immutable fact log, FNV-1a derivation and a T2 verdict that names failed
+  requirements. Script: 5 facts in window, 1 late excluded, 2 strata, 5 swaps, 30 captures, two clients agreeing
+  on `{factIds, variantIds, epoch}`. Deterministic pass.
+- Two test defects fixed: client id excluded from agreement comparison; test script spans 2+ strata. Acc repaired
+  (thirteenth broken form), GDD-CONSEQUENCE 0.3. Full 154/154, verify 17/17.
+- Not a T2 sign-off: GB-001 and PR-S3 own geometry, captures and replay. No art, no GPU/TPU (ND-012).

@@ -168,6 +168,9 @@ Anything else goes through a handoff. A conflict is resolved by a handoff or the
 - **PR-S1 landed**: greybox combat math (4 hits, 11-tick cycle, 36-tick / 1200 ms TTK, 8-tick hit-stop), integer
   ticks, illegal windows refused. Full 146/146, verify 17/17. Not a playtest or FUN proof. Next: PR-S2. Art still
   blocked by GATE:P2 and no GPU/TPU (ND-012).
+- **PR-S2 landed**: immutable facts, FNV propagation and a T2 verdict naming failed requirements; 5 facts / 2
+  strata / 30 captures, two clients agreeing on `{factIds, variantIds, epoch}`. Full 154/154, verify 17/17.
+  Not a T2 sign-off. Next: GB-001 greybox Oakhollow.
 - Known intentional red: `scope-math --report` exit 2 (throughput unmeasured) and `concept --score` exit 2
   until HC-003. `concept --check` is green: T3 was signed at GATE:P0.
 
