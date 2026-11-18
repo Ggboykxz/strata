@@ -1,0 +1,11 @@
+{
+  "files": [],
+  "references": [
+    { "path": "packages/core" },
+    { "path": "packages/protocol" },
+    { "path": "apps/game" },
+    { "path": "apps/server" },
+    { "path": "apps/dashboard" },
+    { "path": "tools/sim/lib" }
+  ]
+}

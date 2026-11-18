@@ -7,8 +7,8 @@
 | branch | `session/20261118-hc-001-high-concept` |
 | phase / tier | P0 / current `S0`, authorized `S0` |
 | director | present for bootstrap; async from now |
-| last task | P0-002 (split `.a` agents/skills, `.b` validators/stubs) |
-| next task | **P0-003** — monorepo + `pnpm verify` (prerequisite: `corepack enable`) |
+| last task | P0-003 (monorepo skeleton + `pnpm verify`) |
+| next task | **P0-004** — 27 CI workflows + real `scripts/validate-workflows.mjs` |
 
 ## Done this session
 
@@ -21,9 +21,12 @@
 | P0-001.b | `AGENTS.md`, `opencode.json`, `docs/blueprint/BLUEPRINT.yaml` | config validates against the published schema; blueprint parses |
 | P0-002.a | `.opencode/agents/` (32), `.opencode/skills/` (51) | 32/32 owners covered, 51/51 skills resolve |
 | P0-002.b | `scripts/lib/yaml.mjs`, `scripts/validate-blueprint.mjs`, `docs/blueprint/GATES.yaml`, 21 stubs | validator exit 0 + 6/6 negative tests; 21/21 stubs exit 1 |
+| P0-003 | workspace (2 packages, 3 apps, 1 sim lib), `verify`, `STACK.lock.md` | frozen install exit 0; `pnpm verify` 7/7 + 4 negative tests |
 
 **P0-001 and P0-002 were split** although only P0-001 triggered B8: the halves fail for different reasons and
 deserve separate rollback points. Commits: `094f31f`, `bd6f550` (P0-001); `1ceaf20`, `7e9d382` (P0-002).
+**P0-003 triggers B8 but landed as one commit**: a workspace without its packages cannot typecheck, and a
+skeleton without `verify` cannot pass. The B8 warning stays; the reason is in the journal.
 
 ## The master prompt is sealed
 
@@ -63,14 +66,18 @@ an error. The two disputed files (`validate-ownership.mjs`, `validate-locks.mjs`
 ## Config reality
 
 `opencode.json` names the four MCP servers required by §16; all four endpoints were probed this session.
-`playwright` runs through `npx -y @playwright/mcp` — **unpinned**, to be pinned by P0-006 after audit
-(§10.6), recorded rather than guessed.
+`playwright` runs through `npx -y @playwright/mcp` — **unpinned**, and §10.6 forbids unpinned tooling. No
+blueprint task currently owns the pin: recorded as a gap for the Director/next release task, not guessed away.
 
 ## Carried state
 
 - Repo `github.com/Ggboykxz/strata`, private, default branch `main` (empty root commit `36bd9af`).
 - PR #1 is draft and stacked; P0-002 is pushed on the same branch (`7e9d382`).
-- `pnpm` is absent; `corepack enable` is a P0-003 prerequisite.
+- `corepack enable` is done; pnpm is pinned to **12.21.0** and the lockfile is committed.
+- `pnpm verify` (7 steps, fail-fast) is the only entry point. It prints DEFERRED for determinism replay,
+  GDD coverage and the 21 stubs; none of those counts as green.
+- TypeScript is pinned to **6.0.3** because 7.x ships the native compiler without the JS AST API the
+  core-math lint needs. Recorded in `docs/STACK.lock.md`.
 - The Director's PAT is still the only push path and still needs rotation (ND-004).
 - `scripts/scope-math.mjs` carries an older duplicate YAML parser; unifying it with `scripts/lib/yaml.mjs`
   is a producer handoff, recorded in the P0-002 journal and thread.

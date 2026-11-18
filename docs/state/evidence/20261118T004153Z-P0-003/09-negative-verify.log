@@ -1,0 +1,13 @@
+$ pnpm verify   # with a deliberate type error: fail-fast
+$ node scripts/verify.mjs
+STRATA verify — P0-003 skeleton
+enabled: 7 step(s), fail-fast
+
+== typecheck
+$ tsc -b
+packages/core/src/__negative__.ts(1,14): error TS2322: Type 'string' is not assignable to type 'number'.
+[ELIFECYCLE] Command failed with exit code 2.
+
+RESULT: FAIL — typecheck exited 2.
+[ELIFECYCLE] Command failed with exit code 1.
+EXIT=1

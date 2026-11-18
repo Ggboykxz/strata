@@ -1,0 +1,10 @@
+{
+  "name": "@strata/server",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@strata/core": "workspace:*",
+    "@strata/protocol": "workspace:*"
+  }
+}

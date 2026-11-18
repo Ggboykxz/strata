@@ -1,7 +1,7 @@
 {
   "session": "2026-11-18-s01",
   "utc_start": "2026-11-18T00:10:04Z",
-  "utc_end": "2026-11-18T00:39:00Z",
+  "utc_end": "2026-11-18T00:43:00Z",
   "mode": "RESUME",
   "branch": "session/20261118-hc-001-high-concept",
   "tier": { "current": "S0", "authorized": "S0" },
@@ -13,7 +13,8 @@
     { "id": "P0-001.a", "status": "done" },
     { "id": "P0-001.b", "status": "done" },
     { "id": "P0-002.a", "status": "done" },
-    { "id": "P0-002.b", "status": "done" }
+    { "id": "P0-002.b", "status": "done" },
+    { "id": "P0-003", "status": "done" }
   ],
   "measured": {
     "hc_t1_en_words": 29,
@@ -62,6 +63,18 @@
     "validator_stubs": 21,
     "validator_stubs_failing": 21,
     "yaml_parser_documents_equal_to_pyyaml": 3,
+    "workspace_projects": 7,
+    "workspace_packages": 2,
+    "workspace_apps": 3,
+    "workspace_tools_libs": 1,
+    "node_version": "22.23.4",
+    "pnpm_version": "12.21.0",
+    "typescript_version": "6.0.3",
+    "verify_steps_enabled": 7,
+    "verify_deferred_groups": 3,
+    "unit_test_files": 3,
+    "unit_tests": 4,
+    "p003_negative_tests": 4,
     "opencode_mcp_servers": 4
   },
   "cis": { "value": null, "reason": "no measured source until HC-003 (P2)" },
@@ -89,7 +102,16 @@
     { "cmd": "node /tmp/opencode/gen-agents.mjs", "exit": 0, "log": "docs/state/evidence/20261118T001004Z-P0-002/05-agents-skills.log" },
     { "cmd": "node --input-type=module -e '<agent/skill consistency check>'", "exit": 0, "log": "docs/state/evidence/20261118T001004Z-P0-002/06-opencode-tree.log" },
     { "cmd": "node scripts/validate-blueprint.mjs --emit-gates", "exit": 0, "log": "docs/state/evidence/20261118T001004Z-P0-002/07-emit-gates.log" },
-    { "cmd": "node parse <3 docs> + python3 yaml.safe_load + deep equal", "exit": 0, "log": "docs/state/evidence/20261118T001004Z-P0-002/08-yaml-equality.log" }
+    { "cmd": "node parse <3 docs> + python3 yaml.safe_load + deep equal", "exit": 0, "log": "docs/state/evidence/20261118T001004Z-P0-002/08-yaml-equality.log" },
+    { "cmd": "pnpm install --frozen-lockfile", "exit": 0, "log": "docs/state/evidence/20261118T004153Z-P0-003/01-install-frozen.log" },
+    { "cmd": "pnpm typecheck", "exit": 0, "log": "docs/state/evidence/20261118T004153Z-P0-003/02-typecheck.log" },
+    { "cmd": "pnpm lint", "exit": 0, "log": "docs/state/evidence/20261118T004153Z-P0-003/03-lint.log" },
+    { "cmd": "pnpm test", "exit": 0, "log": "docs/state/evidence/20261118T004153Z-P0-003/04-unit.log" },
+    { "cmd": "pnpm verify", "exit": 0, "log": "docs/state/evidence/20261118T004153Z-P0-003/05-verify.log" },
+    { "cmd": "pnpm typecheck (deliberate type error)", "exit": 2, "log": "docs/state/evidence/20261118T004153Z-P0-003/06-negative-typecheck.log" },
+    { "cmd": "pnpm lint (Math.random + Date.now in core)", "exit": 1, "log": "docs/state/evidence/20261118T004153Z-P0-003/07-negative-lint.log" },
+    { "cmd": "pnpm test (deliberately failing assertion)", "exit": 1, "log": "docs/state/evidence/20261118T004153Z-P0-003/08-negative-unit.log" },
+    { "cmd": "pnpm verify (deliberate type error, fail-fast)", "exit": 1, "log": "docs/state/evidence/20261118T004153Z-P0-003/09-negative-verify.log" }
   ],
   "notes": [
     "every number above was produced by a command in this session; none is an estimate",
@@ -99,6 +121,9 @@
     "two secrets were exposed in chat (GitHub PAT ND-004, HF token ND-005); neither reached disk, git or an evidence log, and both must be rotated",
     "13 blueprint warnings are declared, not hidden: 3 B2 scaffold exemptions, 1 open dispute D-002, 1 B3 deferral, 1 B4/B5 deferral covering 32 tasks, 7 B8 splits",
     "21 validator stubs exit 1 by design; a stub is counted as a warning, never as a passing acceptance",
-    "the generator scripts live in /tmp and are not committed; their output (agents, skills, stubs) is"
+    "the generator scripts live in /tmp and are not committed; their output (agents, skills, stubs) is",
+    "the four negative P0-003 entries exit nonzero on purpose: they prove typecheck, the core-math ban, vitest and verify can fail before being trusted",
+    "TypeScript is pinned to 6.0.3, not 7.0.2: the 7.x package ships the native compiler and no JS AST API, which scripts/lint-core-math.mjs needs; documented in docs/STACK.lock.md",
+    "P0-003's 7 output paths trigger B8 and the task is declared split in the blueprint, but it landed as one commit: a workspace without its packages cannot typecheck and a skeleton without verify cannot pass. The split is a size label, not a bisectable boundary here"
   ]
 }
