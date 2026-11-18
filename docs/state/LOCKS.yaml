@@ -1219,7 +1219,7 @@ locks:
 
   - path_glob: "docs/design/gdd/GDD-ECONOMY.md"
     owner_agent: economy-designer
-    task_id: ECON-RETUNE
+    task_id: PR-S5
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T13:46:00Z"
     expires_at: "2026-11-18T14:16:00Z"
@@ -1227,7 +1227,7 @@ locks:
 
   - path_glob: "docs/qa/prototypes/ECONOMY_REPORT.md"
     owner_agent: qa-engineer
-    task_id: ECON-RETUNE
+    task_id: PR-S5
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T13:46:00Z"
     expires_at: "2026-11-18T14:16:00Z"
@@ -1235,7 +1235,7 @@ locks:
 
   - path_glob: "docs/state/metrics/2026-11-18-s02.json"
     owner_agent: orchestrator
-    task_id: ECON-RETUNE
+    task_id: PR-S5
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T13:46:00Z"
     expires_at: "2026-11-18T14:16:00Z"
@@ -1243,7 +1243,7 @@ locks:
 
   - path_glob: "tools/sim/economy/prs5_economy.ts"
     owner_agent: economy-designer
-    task_id: ECON-RETUNE
+    task_id: PR-S5
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T13:46:00Z"
     expires_at: "2026-11-18T14:16:00Z"
