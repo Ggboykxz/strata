@@ -3,7 +3,7 @@
 | field | value |
 |---|---|
 | id | GDD-TRADE |
-| version | 0.2 |
+| version | 0.3 |
 | owner | economy-designer |
 | status | DRAFT |
 
@@ -11,7 +11,7 @@
 
 ## 1. Identity, version, owner, status
 
-ID GDD-TRADE, version 0.2, owner economy-designer, status **DRAFT**. Derived from VISION v1.0 and the locked HIGH_CONCEPT.
+ID GDD-TRADE, version 0.3, owner economy-designer, status **DRAFT**. Derived from VISION v1.0 and the locked HIGH_CONCEPT.
 
 ## 2. Player-facing outcome
 
@@ -33,6 +33,7 @@ N4 paradox as regulator; D4 players antagonise their own future.
 - listing TTL <= 600 s | TUNABLE 60..3600 s | plan: ECON-001 simulation
 - trade fee 1% rounded down in minor units | TUNABLE 0..5% | plan: ECON-001 measured sink
 - arbitrage cost delay >= 1 epoch | TUNABLE 1..3 epochs | plan: ECON-001 report
+- money representation = bigint minor units, zero-sum per transaction | SOURCE: D150; packages/core/src/ledger/entry.ts (PR-N3)
 
 ## 6. State machine
 
@@ -41,6 +42,8 @@ LISTED → MATCHED → LEDGER_COMMITTED → FACT_WRITTEN → COST_SCHEDULED → 
 ## 7. Data contract
 
 trade_listing v1 {listing_id, seller_id, item_id, price_minor, fact_id, expires_tick}; trade_commit v1 {listing_id, buyer_id, idempotency_key, tick}. Migration: new fee schedule creates a new listing version; old listings remain readable.
+
+Trade settlement posts a zero-sum pair of bigint minor-unit entries through the PR-N3 ledger: one debit, one credit, one idempotency key. A duplicate settlement is deduplicated; a changed payload under the same key is a conflict, never a second charge.
 
 ## 8. Edge cases
 
@@ -94,8 +97,8 @@ No float price, no real-money transaction, no auction house without provenance, 
 
 | question | owner | deadline |
 |---|---|---|
-| W | h | i |
-| H | o | w |
+| Is the 1% fee rounded down to the minor unit on both ledger entries? | economy-designer | ECON-001 |
+| What happens to a trade whose ledger conflict arrives after the item moved? | economy-designer + backend-engineer | ECON-001 |
 
 ## 19. Changelog
 
@@ -103,3 +106,4 @@ No float price, no real-money transaction, no auction house without provenance, 
 |---|---|---|---|
 | 0.1 | 2026-11-18 | STUB created by GDD-001 | game-designer |
 | 0.2 | 2026-11-18 | DRAFT: all 19 fields and sourced economy numbers | GDD-004 |
+| 0.3 | 2026-11-18 | PR-N3: bigint zero-sum settlement, idempotency, conflict | economy-designer |

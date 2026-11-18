@@ -10,6 +10,7 @@
 export const CORE_VERSION = '0.0.0';
 
 export * from './hash';
+export * from './ledger';
 export * from './anim-state';
 export * from './tick';
 export * from './tracer';

@@ -1,0 +1,32 @@
+$ pnpm vitest run tools/sim/persist/test/prn3.test.ts --reporter=verbose
+
+ RUN  v5.1.0 /content/strata
+
+stdout | tools/sim/persist/test/prn3.test.ts > PR-N3 10k fuzz harness > posts 10 000 transactions, dedupes, conflicts, and restores cleanly
+{
+  "transactions": 10000,
+  "posted": 10000,
+  "duplicates": 1000,
+  "conflicts": 1,
+  "refused": 0,
+  "replay_posts_after_restore": 0,
+  "drift_minor_units": "0",
+  "restored_ok": true,
+  "checkpoint_tick": 10000,
+  "label": "local structural fuzz — no database, no multi-process concurrency, no disk benchmark"
+}
+
+ ✓ tools/sim/persist/test/prn3.test.ts > minor-unit ledger > moves bigint minor units with zero drift 7ms
+ ✓ tools/sim/persist/test/prn3.test.ts > minor-unit ledger > refuses invalid entries before changing any balance 2ms
+ ✓ tools/sim/persist/test/prn3.test.ts > minor-unit ledger > is idempotent for an identical replay and conflicts on a changed payload 1ms
+ ✓ tools/sim/persist/test/prn3.test.ts > checkpoint and crash restore > restores balances and rejects a replayed script as duplicates 24ms
+ ✓ tools/sim/persist/test/prn3.test.ts > checkpoint and crash restore > refuses a tampered checkpoint instead of repairing it 1ms
+ ✓ tools/sim/persist/test/prn3.test.ts > PR-N3 10k fuzz harness > posts 10 000 transactions, dedupes, conflicts, and restores cleanly 312ms
+ ✓ tools/sim/persist/test/prn3.test.ts > PR-N3 10k fuzz harness > refuses an invalid fuzz size 1ms
+
+ Test Files  1 passed (1)
+      Tests  7 passed (7)
+   Start at  09:28:46
+   Duration  593ms (tests 85%, transform 7%, import 7%, worker 1%)
+
+EXIT=0

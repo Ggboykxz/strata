@@ -153,6 +153,9 @@ Anything else goes through a handoff. A conflict is resolved by a handoff or the
 - **PR-N1 closed the last A0005 deferral**: local harness, 180 ticks/64 entities, CPU p50 0.1625 ms / p95
   0.2109 ms, full snapshot 46 530 B/s = 3.79x the 12 KB/s budget. Explicitly not RTT, not a soak; CPU timings
   are noisy, byte figures exact. Next: PR-N3 (ledger/persistence fuzz).
+- **PR-N3 landed**: zero-sum bigint minor-unit ledger with idempotency and checksummed crash restore; 10k
+  duplicate fuzz ends at **0 drift** with 0 reposts after restore. Full 132/132, verify 17/17. Next: PR-N4
+  (lag compensation). No database or RPO promise is implied by the local fuzz.
 - Known intentional red: `scope-math --report` exit 2 (throughput unmeasured) and `concept --score` exit 2
   until HC-003. `concept --check` is green: T3 was signed at GATE:P0.
 

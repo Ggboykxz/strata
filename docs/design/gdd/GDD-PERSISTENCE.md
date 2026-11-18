@@ -3,7 +3,7 @@
 | field | value |
 |---|---|
 | id | GDD-PERSISTENCE |
-| version | 0.2 |
+| version | 0.3 |
 | owner | backend-engineer |
 | status | DRAFT |
 
@@ -11,7 +11,7 @@
 
 ## 1. Identity, version, owner, status
 
-ID GDD-PERSISTENCE, version 0.2, owner backend-engineer, status **DRAFT**. Derived from P1-001 VISION and the locked HIGH_CONCEPT.
+ID GDD-PERSISTENCE, version 0.3, owner backend-engineer, status **DRAFT**. Derived from P1-001 VISION and the locked HIGH_CONCEPT.
 
 ## 2. Player-facing outcome
 
@@ -32,6 +32,8 @@ D3 requires the causal chain to be replayable from the fact log with an attribut
 - cold start <= 10 s, restore <= 3 s on the measured dataset | SOURCE: master §6 budgets
 - ledger drift = 0 under retry storms | TUNABLE retry count 1..1000 | plan: PR-S4 soak
 - checkpoint every 600 s | SOURCE: master §17 watchdog interval
+- fuzz size = 10 000 transactions, drift **0** minor units | SOURCE: tools/sim/persist/prn3_ledger.ts report (PR-N1 harness pattern)
+- duplicate replay = 1 000 duplicates from a 10 000-tx script, 0 reposts after restore | SOURCE: tools/sim/persist/test/prn3.test.ts
 
 ## 6. State machine
 
@@ -40,6 +42,7 @@ EMPTY → LOADING → REPLAYING → VERIFYING → READY → WRITING → CHECKPOI
 ## 7. Data contract
 
 fact_log v1 {fact_id, actor_id, tick, payload_hash}; ledger_entry v1 {id, debit, credit, minor_units, idempotency_key}. Migration: v(n) → v(n+1) requires an offline replay script and a checksum proof.
+`minor_units` is a **bigint** (D150), never a float. `idempotency_key` maps to a deterministic FNV-1a payload hash: an identical replay returns `duplicate` without posting again; the same key with a different payload raises `conflict` and is never an overwrite. `checkpoint v1 {version, tick, checksum, balances[], applied[], log[]}` is a plain object; restore replays the log and refuses on any balance, applied-key or checksum mismatch.
 
 ## 8. Edge cases
 
@@ -48,6 +51,10 @@ fact_log v1 {fact_id, actor_id, tick, payload_hash}; ledger_entry v1 {id, debit,
 3. Checksum mismatch refuses READY and writes a JOURNAL entry.
 4. Two shards restore from the same snapshot with different seek positions: both converge to the same checksum.
 5. Snapshot older than the retention window: restore fails with an explicit reason.
+
+6. A duplicate idempotency key with an identical payload: `duplicate`, no balance change.
+7. A duplicate key with a different payload: `conflict` error, no overwrite, no balance change.
+8. A tampered checkpoint: restore fails with a checksum error; the ledger is never silently repaired.
 
 ## 9. Failure states
 
@@ -81,6 +88,10 @@ restore_seconds (p95), ledger_drift (must be 0), checkpoint_bytes, replay_fact_c
 - GIVEN a corrupt fact payload WHEN replay runs THEN the bad fact id is named and READY is refused.
 - GIVEN a killed shard mid-checkpoint WHEN restart runs THEN restore completes within the measured 3 s budget.
 
+- GIVEN 10 000 transactions WHEN the fuzz runs THEN posted=10 000, drift=0 and a replay posts 0 transactions.
+- GIVEN a checkpoint WHEN the harness simulates a crash and restores THEN balances and applied keys match exactly.
+- GIVEN a changed payload under an existing key WHEN posted THEN a conflict is raised and balances are unchanged.
+
 ## 16. Perf budget impact
 
 Restore p95 <= 3 s on the measured dataset; checkpoint write <= 600 s interval; ledger verification O(n) over facts.
@@ -93,8 +104,8 @@ No cloud database as source of truth, no float currency, no client-side writes t
 
 | question | owner | deadline |
 |---|---|---|
-| R | e | t |
-| W | h | i |
+| Which durable store backs checkpoints, and what is the measured RPO at 10k transactions? | sre-engineer | NET-102 |
+| Should a conflict be surfaced to the player or resolved by a GM audit? | producer | PR-S4 |
 
 ## 19. Changelog
 
@@ -102,3 +113,4 @@ No cloud database as source of truth, no float currency, no client-side writes t
 |---|---|---|---|
 | 0.1 | 2026-11-18 | STUB created by GDD-001 | game-designer |
 | 0.2 | 2026-11-18 | DRAFT: all 19 fields, sources and ranges | GDD-002 |
+| 0.3 | 2026-11-18 | PR-N3: bigint minor units, idempotency, checkpoint checksum, 10k fuzz | backend-engineer |
