@@ -397,3 +397,10 @@ blueprint task currently owns the pin: recorded as a gap for the Director/next r
   fixed. GDD-SHARDING 0.4. Full 169/169, verify 19/19. `GATE:P2NET` satisfied.
 - Next: PR-S7 (P2-SYS). `GATE:NET` still awaits a formal Director signature; NET-GATE dossier remains
   signed-with-risk with 8 unmet measurement criteria.
+
+## Session 2 — PR-S7 bounded world cascade (2026-11-18T15:55Z)
+
+- 12-node greybox graph, Rouille cascade bounded at 12 ticks with fan-out 2: 12 facts / 12 erases, last active
+  tick 10, 9 duplicate-erase refusals, deterministic. No node erased twice.
+- GDD-WORLD-SIM promoted STUB -> DRAFT (19 fields, sourced numbers). Test 4/4, full 173/173, verify 19/19.
+- No terrain, renderer, art or browser tick measure. Next: PR-S8.

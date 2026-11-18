@@ -3,7 +3,7 @@
 | field | value |
 |---|---|
 | source | `docs/state/journal/` (append-only entries) |
-| entries | 48 |
+| entries | 49 |
 | regenerate | `node scripts/build-journal.mjs` |
 | check | `node scripts/build-journal.mjs --check` |
 
@@ -1548,3 +1548,29 @@ No GPU/TPU (ND-012), 8 unmeasured NET-GATE criteria, PAT/HF rotation and PR merg
 - Defect fixed: global queue client id vs room-local id collision; room association now explicit.
 - GDD-SHARDING 0.4, acc repaired, co-owner declared. Verify 19/19, full 169/169.
 - **GATE:P2NET is now satisfied.** Next: PR-S7; GATE:NET still needs a formal Director signature.
+
+---
+
+# 2026-11-18T15:55:00Z · PR-S7 · bounded world cascade
+
+- **scope** next P2-SYS sig task: world tick + bounded Rouille cascade
+- **agent / branch** gameplay-engineer · `session/20261118-hc-001-high-concept`
+- **file** `tools/sim/world/prs7_worldtick.ts`, PRS7 report, GDD-WORLD-SIM 0.2 DRAFT
+
+## measured
+- 12-tick bound, fan-out 2, threshold 10 minor units; 12 facts / 12 erases, last active tick 10
+- 9 duplicate-erase refusals; deterministic; test 4/4, full 173/173, verify 19/19
+
+## decision
+The cascade terminates at the stated bound; due spawns after it are recorded as dropped, never applied. An
+already-erased node produces a counter and no second fact. GDD-WORLD-SIM promoted STUB → DRAFT with all 19 fields.
+
+## defect fixed
+One test asserted a 1-unit over-harvest would be refused at a 5-unit remaining amount; the implementation
+correctly accepts it. The assertion now requests 10 units, matching the GDD rule. No implementation weakening.
+
+## limit
+No terrain, renderer, art, AI model, 30 Hz replay or browser tick measure. Bounds are greybox tunables.
+
+## next
+PR-S8 — anim state machine server transitions + illegal-state fuzz.

@@ -7,7 +7,7 @@
 | also open | **PR #2** dashboard truth repair — `session/20261118-dashboard-truth`, base = session branch |
 | mode | RESUME |
 | tier | current `S0`, authorized **`S1`** |
-| last task | **PR-N2** — matchmaking/exact resume; GDD-SHARDING 0.4; PR #1 merged |
+| last task | **PR-S7** — bounded world cascade; GDD-WORLD-SIM 0.2 DRAFT |
 | next task | **PR-S7** — world tick + bounded Rouille cascade (P2-SYS) |
 | blocker | PR #1 and #2 merges (Director must do it), ND-004/ND-005 rotation. ND-011 needs one answer (TPU scope). |
 
@@ -45,10 +45,10 @@ acceptance and with the seven residual risks from `docs/legal/THREAT_MODEL.md` a
 PR #1 and PR #2 were **not merged** — an agent must not self-merge. The Director must merge them from their own
 account. ND-004/ND-005 token rotation also remains a Director action.
 
-## 4. PR-S7 — next (S0, P2SYS)
+## 4. PR-S8 — next (S1, P2SYS)
 
-`{id: PR-S7, ph: P2SYS, tier: S0, t: "World tick + Rouille cascade bounded", agent: gameplay-engineer,
-role: sig, gdd: [GDD-WORLD-SIM], deps: [PR-S2], out: [tools/sim/world/prs7_worldtick.ts, docs/qa/prototypes/PRS7.md]}`
+`{id: PR-S8, ph: P2SYS, tier: S1, t: "Anim state machine server transitions + illegal-state fuzz", agent: animation-director,
+role: sig, gdd: [GDD-ANIM-ARCHITECTURE#states], deps: [NET-006], out: [tools/sim/anim/prs8_animstate.ts, docs/qa/prototypes/PRS8.md]}`
 
 Deps satisfied. Its acc still uses a broken `pnpm sim …` form — repair to a real vitest path in the same PR and
 declare `co: [qa-engineer]` for the append-only report up front. Deliver a deterministic world tick with a

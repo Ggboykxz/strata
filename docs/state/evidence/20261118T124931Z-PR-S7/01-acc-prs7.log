@@ -1,0 +1,27 @@
+$ pnpm vitest run tools/sim/world/test/prs7.test.ts --reporter=verbose
+
+ RUN  v5.1.0 /content/strata
+
+stdout | tools/sim/world/test/prs7.test.ts > PR-S7 harness > prints a deterministic labelled local report
+{
+  "bound_ticks": 12,
+  "facts": 12,
+  "erases": 12,
+  "dropped_after_bound": 0,
+  "double_erase_refusals": 9,
+  "last_active_tick": 10,
+  "deterministic": true,
+  "label": "local greybox world tick — not a world demo"
+}
+
+ ✓ tools/sim/world/test/prs7.test.ts > bounded Rouille cascade > terminates at the bound and never erases a node twice 4ms
+ ✓ tools/sim/world/test/prs7.test.ts > bounded Rouille cascade > records facts after the bound without erasing 1ms
+ ✓ tools/sim/world/test/prs7.test.ts > bounded Rouille cascade > refuses an over-harvest on an erased or unknown node 0ms
+ ✓ tools/sim/world/test/prs7.test.ts > PR-S7 harness > prints a deterministic labelled local report 2ms
+
+ Test Files  1 passed (1)
+      Tests  4 passed (4)
+   Start at  12:49:32
+   Duration  248ms (import 39%, transform 38%, tests 13%, worker 10%)
+
+EXIT=0
