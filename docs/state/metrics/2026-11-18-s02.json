@@ -136,7 +136,7 @@
     "wire_budget_over_factor": 3.9,
     "actions_runs": 8,
     "actions_runs_success": 8,
-    "ci_head": "90fed4d169a95cc65c59072b00591419d522a0b2",
+    "ci_head": "5ee342c4666197c5835113bb66255ea7691968ed",
     "anim_tests": 22,
     "anim_states": 5,
     "blend_ticks": 2,
@@ -1029,7 +1029,8 @@
     "NG-001 CI at 90fed4d: 8/8 triggered workflows success; run ids in docs/state/evidence/20261118T095646Z-NG-001/08-ci-proof.log.",
     "FULL result fields reconciled with git and the lock registry: 98 commits, 105 lock entries, 16 thread dirs, 4 prototype reports.",
     "PR-S1: greybox TTK 36 ticks / 1200 ms, 11-tick cycle, 8-tick hit-stop; integer ticks, illegal windows refused.",
-    "Local combat math is not a playtest or FUN validation. No art, no GPU/TPU (ND-012)."
+    "Local combat math is not a playtest or FUN validation. No art, no GPU/TPU (ND-012).",
+    "PR-S1 CI at 5ee342c: 8/8 triggered workflows success; run ids in docs/state/evidence/20261118T100756Z-PR-S1/10-ci-proof.log."
   ],
   "result": {
     "phase": "P2NET",
@@ -1154,7 +1155,7 @@
         },
         {
           "dir": "docs/state/evidence/20261118T100756Z-PR-S1/",
-          "logs": 11,
+          "logs": 12,
           "branch": "session"
         }
       ]
