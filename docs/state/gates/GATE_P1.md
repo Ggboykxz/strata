@@ -50,6 +50,10 @@ manual placeholders or stub callers. Static validation alone is not proof — th
 Exception carried from GATE:P0: `dependency-review-action` cannot run because the dependency-graph API
 returns 403; local pin and licence validators remain blocking. Accepted at GATE:P0 and still recorded here.
 
+Signature head `ad30f2f`: **8/8 triggered workflows success again** (`workflow`, `model-audit`,
+`high-concept`, `opencode`, `netcode`, `ci`, `scope`, `security`). Run ids and conclusions are in
+`docs/state/evidence/20261118T074117Z-GATE-P1/06-ci-proof.log`.
+
 ## 4. GDD maturity
 
 15 of 32 modules are DRAFT; 14 critical modules are closed; 17 remain STUB by D138 (no prototype exists for
