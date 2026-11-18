@@ -457,3 +457,12 @@ blueprint task currently owns the pin: recorded as a gap for the Director/next r
   `--assert-ready` still exit 1. No CI disabled, no assertion weakened, no metric changed.
 - No agent-selectable blueprint task remains. Next acts are Director merges (PR #2 close, PR #3 merge), ND-004/005
   rotation, ND-011, ND-012 (T4), then a real re-measurement before art. NET-GATE is still not READY.
+
+## Session 2 — Director closed and merged the PRs (2026-11-18T20:07Z)
+
+- Verified through the GitHub API: **PR #2 closed without merging**; **PR #3 merged into `main`** at `a84733e`
+  (1 032 files). `main` is no longer the bare root commit.
+- Repo default branch is still `session/20261118-hc-001-high-concept`; switching it to `main` remains a Director
+  settings action.
+- Remaining Director items: ND-004/ND-005 token rotation, ND-011 TPU scope, ND-012 T4 16 GB and the 8 unmeasured
+  NET-GATE criteria. No art before a real readiness result (A0008).

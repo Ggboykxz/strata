@@ -3,7 +3,7 @@
 | field | value |
 |---|---|
 | source | `docs/state/journal/` (append-only entries) |
-| entries | 57 |
+| entries | 58 |
 | regenerate | `node scripts/build-journal.mjs` |
 | check | `node scripts/build-journal.mjs --check` |
 
@@ -1668,3 +1668,15 @@ PR-S8 — anim state machine server transitions + illegal-state fuzz.
 - Fix: select only `YYYY-MM-DD-sN.json` session metrics, same rule as the dashboard builder.
 - Generator re-run: short 0, full 0, byte-identical 0, fail-closed negatives 1, verify 19/19.
 - No metric changed; no invariant suspended. The two tools now share the same file-selection rule.
+
+---
+
+# 2026-11-18T20:07:00Z · Director closed and merged the PRs
+
+- Verified via GitHub API: PR #2 **closed without merging** (its P0-007 evidence was ported at `d51a5c0`);
+  PR #3 **merged into `main`** at `a84733e`, 1 032 files. `main` is no longer the bare root commit.
+- Repo default branch is still `session/20261118-hc-001-high-concept`; Director may switch it to `main` in
+  Settings → Branches.
+- No agent merged anything: the Director performed both actions from their own account.
+- Remaining Director items: ND-004/ND-005 rotation, ND-011 TPU scope, ND-012 T4 16 GB, and the 8 unmeasured
+  NET-GATE criteria. No art before a real readiness result (A0008).

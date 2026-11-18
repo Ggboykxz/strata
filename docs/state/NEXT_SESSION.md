@@ -9,7 +9,7 @@
 | tier | current `S0`, authorized **`S1`** |
 | last task | **GDD-005** — GDD→test transpiler + drift detection; coverage 100% |
 | next task | **PR-S7** — world tick + bounded Rouille cascade (P2-SYS) |
-| blocker | **No agent-selectable task.** Director: close PR #2, merge PR #3, ND-004/005 rotation, ND-011, ND-012 (T4). |
+| blocker | **No agent-selectable task.** PRs done (#2 closed, #3 merged at `a84733e`). Left: ND-004/005 rotation, ND-011, ND-012 (T4), 8 NET-GATE measurements. |
 
 ---
 
@@ -57,7 +57,7 @@ account. ND-004/ND-005 token rotation also remains a Director action.
 GATE:P2 requires GATE:NET (human signature), GATE:P2SYS (done), HC-003 (done, CIS 85/100), GDD-005 (done, 100%
 coverage + drift detection) and `cis_min: 50`. The remaining act is the Director's formal GATE:P2 signature.
 GATE:NET also awaits a human signature; NET-GATE stays `signed-with-risk` with 8 unmet criteria. No art before
-both gates are actually passed (A0008). PR #3 remains open; PR #2 should be closed without merging.
+both gates are actually passed (A0008). PR #3 is merged into `main` (`a84733e`); PR #2 is closed without merging. The repo default branch is still the session branch — Director may switch it to `main` in Settings → Branches.
 
 ## 4b. Babylon 9 feature research (Director input)
 
