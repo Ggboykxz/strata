@@ -43,10 +43,9 @@ number was invented to make the dossier look complete.
 
 ## 3. CI proof
 
-GitHub Actions runs at head `fea7306` are queried in `docs/state/evidence/20261118T031000Z-GATE-P1/01-ci-results.log`.
-Eight workflows trigger on PR/push (`ci`, `high-concept`, `model-audit`, `netcode`, `opencode`, `scope`,
-`security`, `workflow`); the other 19 master-named files are manual placeholders or stub callers. Static
-validation alone is not proof — the run conclusions are the evidence.
+GitHub Actions at head `fea7306` recorded **8/8 triggered workflows success** (`ci`, `high-concept`,
+`model-audit`, `netcode`, `opencode`, `scope`, `security`, `workflow`). The other 19 master-named files are
+manual placeholders or stub callers. Static validation alone is not proof — the run conclusions are the evidence.
 
 Exception carried from GATE:P0: `dependency-review-action` cannot run because the dependency-graph API
 returns 403; local pin and licence validators remain blocking. Accepted at GATE:P0 and still recorded here.
