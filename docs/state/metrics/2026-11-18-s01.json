@@ -1,0 +1,30 @@
+{
+  "session": "2026-11-18-s01",
+  "utc_start": "2026-11-18T00:10:04Z",
+  "mode": "BOOTSTRAP",
+  "branch": "session/20261118-hc-001-high-concept",
+  "tier": { "current": "S0", "authorized": "S0" },
+  "netgate": { "status": "unpassed", "art_allowed": false },
+  "measured": {
+    "hc_t1_en_words": 29,
+    "hc_t1_en_limit": 25,
+    "hc_t1_fr_words": 31,
+    "hc_t1_fr_limit": 35,
+    "cis_component_sum": 100,
+    "novelty_properties": 4,
+    "open_concept_findings": 1,
+    "concept_debt_open": 1
+  },
+  "cis": { "value": null, "reason": "no measured source until HC-003 (P2)" },
+  "gdd_coverage": { "value": null, "reason": "no GDD modules until GDD-001 (P1)" },
+  "scope": { "ledger_entries": 0, "balanced": null },
+  "acceptance": [
+    { "cmd": "node scripts/concept-integrity.mjs --init", "exit": 0, "log": "docs/state/evidence/20261118T001004Z-HC-001/01-concept-integrity-init.log" },
+    { "cmd": "node scripts/concept-integrity.mjs --check", "exit": 1, "log": "docs/state/evidence/20261118T001004Z-HC-001/02-concept-integrity-check.log" },
+    { "cmd": "node scripts/concept-integrity.mjs --score", "exit": 2, "log": "docs/state/evidence/20261118T001004Z-HC-001/03-concept-integrity-score.log" }
+  ],
+  "notes": [
+    "every number above was produced by a command in this session; none is an estimate",
+    "exit 1 on --check and exit 2 on --score are the designed behaviour, not regressions"
+  ]
+}

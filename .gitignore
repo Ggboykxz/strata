@@ -1,0 +1,34 @@
+# secrets — never committed (I7, §10.2)
+.env
+.env.*
+*.pem
+*.key
+.credentials/
+
+# runtimes
+node_modules/
+.pnpm-store/
+dist/
+build/
+coverage/
+*.tsbuildinfo
+
+# python / ml
+__pycache__/
+*.pyc
+.venv/
+.uv/
+*.safetensors
+*.ckpt
+*.pt
+
+# binaries belong on HF, never in git (§10.3)
+*.glb
+*.gltf
+*.fbx
+*.blend1
+*.ktx2
+*.basis
+
+# local state that must never be shared
+docs/state/heartbeat.json
