@@ -67,7 +67,7 @@ Move to an org before P0-004 if CI will ever use self-hosted runners (fork-PR ru
 
 **Context.** The token used this session was pasted in chat and carries **full account scopes**
 (`admin:enterprise`, `admin:org`, `delete_repo`, `ssh_signing_key`, `user`, `workflow`, …). The
-string is in the conversation transcript. No copy reached disk or git (`grep -rl 'ghp_' .git/` clean).
+string is in the conversation transcript. No copy reached disk or git: a token-prefix scan of `.git/` and of the worktree returned clean.
 
 **Recommendation.** Revoke immediately, issue a **fine-grained** token limited to `Ggboykxz/strata`:
 Contents RW · Pull requests RW · Workflows RW · Actions R · Metadata R · 90-day expiry.

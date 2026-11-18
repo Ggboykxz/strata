@@ -3,7 +3,7 @@
 | field | value |
 |---|---|
 | written | 2026-11-18T00:50Z |
-| branch | `session/20261118-hc-001-high-concept` (PR pending) |
+| branch | `session/20261118-hc-001-high-concept` — **PR #1** (draft) https://github.com/Ggboykxz/strata/pull/1 |
 | next task | **P0-001** — Constitution + AGENTS.md + opencode.json + BLUEPRINT.yaml + PROMPT.lock |
 | blocker | **hard**: P0-001 hashes the master prompt and archives it. The file must exist in the repo. |
 
@@ -66,4 +66,4 @@ The PAT used to create this repo was pasted in chat and carried **full account s
 (`admin:org`, `delete_repo`, `ssh_signing_key`, `user`). Rotate it before the next session and
 replace it with a fine-grained token scoped to `Ggboykxz/strata` (Contents RW, Pull requests RW,
 Workflows RW, Actions R, Metadata R). Nothing secret was written to disk or committed:
-`grep -rl 'ghp_' .git/` returned clean.
+a token-prefix scan of `.git/` returned clean.
