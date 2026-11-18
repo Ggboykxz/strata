@@ -1850,7 +1850,7 @@ locks:
     task_id: PR-N1
     branch: session/20261118-prn1-matrix
     acquired_at: "2026-11-18T15:07:00Z"
-    expires_at: "2026-11-18T16:07:00Z"
+    expires_at: "2026-11-18T18:00:00Z"
     status: active
 
   - path_glob: "apps/game/src/net/**"
@@ -1858,7 +1858,7 @@ locks:
     task_id: PR-N1
     branch: session/20261118-prn1-matrix
     acquired_at: "2026-11-18T15:07:00Z"
-    expires_at: "2026-11-18T16:07:00Z"
+    expires_at: "2026-11-18T18:00:00Z"
     status: active
 
   - path_glob: "apps/game/test/**"
@@ -1866,7 +1866,7 @@ locks:
     task_id: PR-N1
     branch: session/20261118-prn1-matrix
     acquired_at: "2026-11-18T15:07:00Z"
-    expires_at: "2026-11-18T16:07:00Z"
+    expires_at: "2026-11-18T18:00:00Z"
     status: active
 
   - path_glob: "docs/design/gdd/GDD-NETCODE.md"
@@ -1874,7 +1874,7 @@ locks:
     task_id: PR-N1
     branch: session/20261118-prn1-matrix
     acquired_at: "2026-11-18T15:07:00Z"
-    expires_at: "2026-11-18T16:07:00Z"
+    expires_at: "2026-11-18T18:00:00Z"
     status: active
 
   - path_glob: "docs/qa/prototypes/**"
@@ -1882,7 +1882,7 @@ locks:
     task_id: PR-N1
     branch: session/20261118-prn1-matrix
     acquired_at: "2026-11-18T15:07:00Z"
-    expires_at: "2026-11-18T16:07:00Z"
+    expires_at: "2026-11-18T18:00:00Z"
     status: active
 
   - path_glob: "docs/state/**"
@@ -1890,7 +1890,7 @@ locks:
     task_id: PR-N1
     branch: session/20261118-prn1-matrix
     acquired_at: "2026-11-18T15:07:00Z"
-    expires_at: "2026-11-18T16:07:00Z"
+    expires_at: "2026-11-18T18:00:00Z"
     status: active
 
   - path_glob: "scripts/validate-netgate.mjs"
@@ -1898,7 +1898,7 @@ locks:
     task_id: PR-N1
     branch: session/20261118-prn1-matrix
     acquired_at: "2026-11-18T15:07:00Z"
-    expires_at: "2026-11-18T16:07:00Z"
+    expires_at: "2026-11-18T18:00:00Z"
     status: active
 
   - path_glob: "tools/sim/load/**"
@@ -1906,6 +1906,6 @@ locks:
     task_id: PR-N1
     branch: session/20261118-prn1-matrix
     acquired_at: "2026-11-18T15:07:00Z"
-    expires_at: "2026-11-18T16:07:00Z"
+    expires_at: "2026-11-18T18:00:00Z"
     status: active
 
