@@ -1,0 +1,14 @@
+$ python tools/asset-pipeline/smoke.py
+AI-001 smoke — default (offline) verification
+  generated_at_utc 20261118T210238Z
+tier probe: python tools/asset-pipeline/detect_tier.py
+  {"gpu": true, "gpu_name": "Tesla T4", "vram_mib": 15360, "vram_gb": 15.0, "tier": "16GB", "policy": "T4 nominal 16 GB (ECC-reserved); FLUX-schnell 8-bit hero, Blender bake, KTX2", "source": "nvidia-smi", "audit": "AUDIT-2026-11-18-P0-006"}
+  model pin rev-parse 107cefdc244c39106fa830359024f6a2f1c78871
+  prompt_hash recomputed 26896a0cb9653cf5654c4ea2d27be91d1cd00045714dfa845ffddf4803db4eaf
+  weights bytes=1677246742 sha256=429e2c6b22a0923967459de24d67f05962b235f79cde6b032aa7ed2ffcd970ee
+  input bytes=18519 sha256=effe6dbe4fa21e4e88a1055c47b30ae5cf0a11625346a8780ff5d69dbf289bd0
+  output.glb bytes=3773188 sha256=9ad2fac19c9f10b4c9fca17f8f2dbb7845283b65e02adc3c04734e707e0ee05d
+  evidence wall_seconds=25.734 peak_mib=3163.0 vertices=94306.0 faces=188608.0
+  manifest asset_id=ai-001-hero-mesh-0001 licence_id=TRIPOSR
+RESULT PASS — pins, presence, sha256 and evidence-backed measured numbers agree
+EXIT=0

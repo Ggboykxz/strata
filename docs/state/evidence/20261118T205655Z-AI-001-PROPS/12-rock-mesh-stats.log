@@ -1,0 +1,9 @@
+$ PYTHONPATH=/content/ai/shim /content/ai/venv-trisr/bin/python - <<PY  # rock GLB stats
+geometry_count 1
+vertices 70777
+faces 141552
+bytes 2832052
+sha256 6908e19673d8bf9370b0a5b312c3c6a5485ea8a12d6a0ff51c3d7a0399200dba
+animation_tracks 0
+PY
+EXIT=0

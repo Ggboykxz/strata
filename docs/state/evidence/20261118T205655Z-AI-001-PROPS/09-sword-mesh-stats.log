@@ -1,0 +1,9 @@
+$ PYTHONPATH=/content/ai/shim /content/ai/venv-trisr/bin/python - <<PY  # sword GLB stats
+geometry_count 1
+vertices 38660
+faces 77316
+bytes 1547344
+sha256 4d41336dc15e7f0e2290782f291524d95bfd2ad0f3be39dcdc3a716f2a5ed17a
+animation_tracks 0
+PY
+EXIT=0

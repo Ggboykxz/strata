@@ -1,0 +1,46 @@
+{
+  "asset_manifest": "v1",
+  "asset_id": "ai-001-rock-mesh-0001",
+  "licence_id": "TRIPOSR",
+  "licence": "MIT (TripoSR code and pretrained model; GitHub LICENSE + HF tag license:mit)",
+  "model_source": "https://github.com/VAST-AI-Research/TripoSR",
+  "weights_source": "https://huggingface.co/stabilityai/TripoSR",
+  "model_revision": "107cefdc244c39106fa830359024f6a2f1c78871",
+  "weights_revision": "5b521936b01fbe1890f6f9baed0254ab6351c04a",
+  "weights_sha256": "429e2c6b22a0923967459de24d67f05962b235f79cde6b032aa7ed2ffcd970ee",
+  "weights_bytes": 1677246742,
+  "prompt_hash": "d4e3a0526280aea84033a2e4bdf53535767222ca32d47ed5c1f9d5deb798bd81",
+  "tier": "16GB",
+  "gpu": "Tesla T4",
+  "vram_visible_mib": 14912,
+  "throughput": {
+    "measured_seconds": 22.846,
+    "vram_peak_mib": 3163,
+    "vram_peak_bytes": 3316645888,
+    "measurement": "nvidia-smi --query-gpu=timestamp,memory.used,utilization.gpu --format=csv,noheader -lms 250, 90 samples",
+    "evidence": "docs/state/evidence/20261118T205655Z-AI-001-PROPS/10-rock-inference.log; 11-rock-vram-peak.log"
+  },
+  "input_sha256": "ba7c8793f18ad0bb218018b67d5a9f8c882e65ca4400d9d6b35e0367dd793a16",
+  "input_generator": "tools/asset-pipeline/gen_props.py",
+  "input_label": "rock",
+  "output_sha256": {
+    "glb": "6908e19673d8bf9370b0a5b312c3c6a5485ea8a12d6a0ff51c3d7a0399200dba",
+    "obj": null
+  },
+  "output_bytes": 2832052,
+  "mesh_stats": {
+    "vertices": 70777,
+    "faces": 141552,
+    "geometry_count": 1,
+    "animation_tracks": 0
+  },
+  "generated_at": "2026-11-18T21:00:28Z",
+  "class": "ai-generated-smoke-bypass-A0012-A0014",
+  "authority": "A0014 (Director asset-line continuation) under A0012 constraints; AUDIT-2026-11-18-P0-006",
+  "input_note": "Original synthetic procedural faceted rock on a flat gray background, authored by tools/asset-pipeline/gen_props.py; no borrowed art, no photo, no commercial IP; 256x256 RGB.",
+  "notes": [
+    "Smoke prop under A0014/A0012. Not production-ready: no retopo, no texture bake/PBR, no LOD, no rig, no quality or beauty claim.",
+    "FLUX hero image remains NOT COMPUTABLE (HTTP 401 gated weights; no HF token supplied).",
+    "No NET-GATE claim; no gate file edited; no binaries in git (all outputs under /content/ai)."
+  ]
+}

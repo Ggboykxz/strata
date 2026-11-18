@@ -1,0 +1,14 @@
+$ python3 tools/asset-pipeline/gen_props.py (retry after fix)
+wrote /content/ai/sword_input.png
+label sword
+input_sha256 00f179f0121a527e445706b38e2dfa68a8e64143d4656b546ac305eb84272c0f
+prompt_hash 036ff7fabc470d856a5489d2321d48969aac5d78e4390b8ead6685a83c7ad4b0
+wrote /content/ai/rock_input.png
+label rock
+input_sha256 ba7c8793f18ad0bb218018b67d5a9f8c882e65ca4400d9d6b35e0367dd793a16
+prompt_hash d4e3a0526280aea84033a2e4bdf53535767222ca32d47ed5c1f9d5deb798bd81
+wrote /content/ai/pine_input.png
+label pine
+input_sha256 3ef20bf38369f3eff22fd7737008264f663fa2ed17db97f25562519a0f882b19
+prompt_hash 9d2a26dd90b2dcc15b11890276f61104d12dcaa90f6e4ac476c8f54442faf839
+EXIT=0

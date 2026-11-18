@@ -1,0 +1,7 @@
+$ python3 - <<PY  # per-prop manifest vs local binaries + evidence prompt hashes
+sword PASS {'licence': True, 'model_revision': True, 'weights': True, 'prompt_hash': True, 'input': True, 'output': True, 'class': True}
+rock PASS {'licence': True, 'model_revision': True, 'weights': True, 'prompt_hash': True, 'input': True, 'output': True, 'class': True}
+pine PASS {'licence': True, 'model_revision': True, 'weights': True, 'prompt_hash': True, 'input': True, 'output': True, 'class': True}
+RESULT: all three prop manifests verified against local binaries and evidence
+PY
+EXIT=0

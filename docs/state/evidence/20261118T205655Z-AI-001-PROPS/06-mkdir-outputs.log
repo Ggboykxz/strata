@@ -1,0 +1,3 @@
+$ mkdir -p /content/ai/output-{sword,rock,pine}/0  # upstream run.py needs the per-image dir with --no-remove-bg
+CREATED
+EXIT=0

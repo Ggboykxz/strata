@@ -1,0 +1,5 @@
+$ python3 -c "peak from 13-pine-vram.csv, 250 ms poll"
+samples 113 peak_mib 3163
+$ nvidia-smi --query-gpu=memory.used,utilization.gpu --format=csv,noheader
+0 MiB, 0 %
+EXIT=0

@@ -1,0 +1,9 @@
+$ PYTHONPATH=/content/ai/shim /content/ai/venv-trisr/bin/python - <<PY  # pine GLB stats
+geometry_count 1
+vertices 78068
+faces 156132
+bytes 3123668
+sha256 a57ab4274ac14ded48fe47372bd6490eee4031f1e38b8c6cb943a713f625876f
+animation_tracks 0
+PY
+EXIT=0

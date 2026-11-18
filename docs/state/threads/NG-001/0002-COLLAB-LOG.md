@@ -79,3 +79,25 @@ Line for ALL: AI-001 closes here with evidence, not assertions; the parent owns 
 
 ## 2026-11-18T20:41Z | asset-pipeline (AI-001) | PUSH BLOCKED — PARENT ACTION
 The final delivery-note commit was created locally, but `git push origin session/20261118-netgate-art` failed with EXIT 128: `fatal: could not read Username for 'https://github.com': No such device or address` (evidence 20261118T202814Z-TRIPOSR-RUN/47-push-attempt.log). No credential helper and `gh auth status` reports not logged in; no token was requested, printed or used (I7). origin/session/20261118-netgate-art remains at f79fbed (the parent's central commit, which already contains all AI-001 artifacts); the local commit with this entry must be pushed by the parent who owns the credentials. No gate work or repo-content change beyond this log.
+
+## 2026-11-18T20:57Z | asset-pipeline (A0014 props) | BEFORE PHASE 1 (AUTHORITY + INPUTS)
+Read before any work: 0001 §6 and newest 0002 on origin/session/20261118-netgate-core c60a732 (all agents' entries read; no other agent's entry edited), plus A0014 read at /content/strata/docs/adr/A0014_asset-line-continuation.md (Director verbatim "continue avec les assets"; the ADR exists in the parent's worktree, NOT yet in this branch — I do not commit it, parent owns docs/adr integration). Worktree /tmp/strata-art, branch session/20261118-netgate-art, HEAD e478388 (already pushed by parent).
+Scope accepted: THREE prop meshes only (sword, rock, pine) from the original synthetic flat-gray inputs; no hero, no FLUX image, no rigs/animation, no texture bake, no gate files. Audited path remains TripoSR only (pin 107cefdc…, HF snapshot 5b521936…), shims first on PYTHONPATH, one GPU job at a time.
+State found: parent-authored untracked tools/asset-pipeline/gen_props.py and evidence dir 20261118T205655Z-AI-001-PROPS/ with parent's 01 (gen_props EXIT 1) and 02 (retry EXIT 0) — I will not edit those; my logs start at 05.
+Next: verify the three input sha256s and generator prompt hashes, then one inference per prop with a 250 ms VRAM poll, mesh stats, three manifests, docs/qa/AI_PROPS.md, commit with trailers, NO push (parent pushes).
+Line for ALL: A0014 adds smoke props only; no production-art or NET-GATE claim; FLUX remains NOT COMPUTABLE (401).
+
+## 2026-11-18T21:02Z | asset-pipeline (A0014 props) | PHASE 2 DONE — THREE INFERENCES
+Read: 0001 §6 + 0002 (newest on origin core c60a732) before this phase. Worktree /tmp/strata-art. One GPU job at a time; GPU 0 MiB after each run.
+Evidence dir 20261118T205655Z-AI-001-PROPS, new logs 05..15 (parent's 01/02 untouched), each with EXIT= last line: 05 input verification EXIT 0 — all three input sha256 match the parent's stated values, deterministic regeneration identical, all 256×256 RGB flat gray (216,216,216), gen_props.py sha256 089b8ff9…; 06 mkdir output/0 EXIT 0 (upstream --no-remove-bg bug workaround).
+- sword: 07 EXIT 0 wall **20.088 s**; 08 peak **3163 MiB** (80 samples @250 ms); 09 mesh **38 660 v / 77 316 f**, 1 547 344 B, sha256 4d41336d…
+- rock: 10 EXIT 0 wall **22.846 s**; 11 peak **3163 MiB** (90 samples); 12 mesh **70 777 v / 141 552 f**, 2 832 052 B, sha256 6908e196…
+- pine: 13 EXIT 0 wall **28.715 s**; 14 peak **3163 MiB** (113 samples); 15 mesh **78 068 v / 156 132 f**, 3 123 668 B, sha256 a57ab427…
+All three: 1 geometry, 0 animation tracks (I3), same audited TripoSR weights/snapshot, shims only, no FLUX/rig/bake. Next: three manifests + docs/qa/AI_PROPS.md + acceptances, then commit (NO push).
+Line for the parent: A0014 delivered exactly three smoke props, measured as above; no quality claim, no gate claim; FLUX hero image remains NOT COMPUTABLE.
+
+## 2026-11-18T21:04Z | asset-pipeline (A0014 props) | PHASE 3 DONE — COMMITTING (NO PUSH)
+Read: 0001 §6 + newest 0002 before this phase. Worktree /tmp/strata-art. All three prop manifests written (asset_manifest v1, TRIPOSR, revision 107cefdc…, HF snapshot 5b521936…, weights sha256 429e2c6b…, per-prop prompt hashes, measured seconds/VRAM, class ai-generated-smoke-bypass-A0012-A0014); docs/qa/AI_PROPS.md written with measured tables, exact commands, EXIT summary, NOT COMPUTABLE list and limitations (no retopo/bake/rig/LOD).
+Acceptances (evidence 20261118T205655Z-AI-001-PROPS): json.tool ×3 EXIT 0; validate-manifest --audit EXIT 0; per-prop binary/hash verification EXIT 0 (sword/rock/pine all PASS); existing hero smoke.py regression EXIT 0. No inference failed. GPU free after all three runs.
+Committing locally with trailers; NOT pushing — parent owns credentials (my earlier push attempt EXIT 128, logged). No binary staged; no gate file, hero asset, FLUX path, apps/packages or metrics touched.
+Line for the parent: A0014 prop leg is complete and measured; please commit A0014 itself into the integration branch (it lives in /content/strata, not here) and push this branch when convenient.
