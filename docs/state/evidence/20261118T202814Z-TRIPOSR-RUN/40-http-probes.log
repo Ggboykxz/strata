@@ -1,0 +1,5 @@
+$ for U in <FLUX gated file> <InstantMesh ckpt> <TripoSR ckpt>; do curl -sI -o /dev/null -w "%{http_code}"; done  # metadata-only HEAD probes, no weights fetched
+https://huggingface.co/black-forest-labs/FLUX.1-schnell/resolve/main/transformer/diffusion_pytorch_model-00001-of-00003.safetensors -> HTTP 401
+https://huggingface.co/TencentARC/InstantMesh/resolve/main/instant_mesh_large.ckpt -> HTTP 302
+https://huggingface.co/stabilityai/TripoSR/resolve/main/model.ckpt -> HTTP 302
+EXIT=0

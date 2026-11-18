@@ -1,0 +1,7 @@
+$ PYTHONPATH=/content/ai/shim /content/ai/venv-trisr/bin/python -c "import trimesh,hashlib; p="/content/ai/output/0/mesh.glb"; m=trimesh.load(p); print("vertices",len(m.vertices),"faces",len(m.faces),"bytes",__import__("os").path.getsize(p),"sha256",hashlib.sha256(open(p,"rb").read()).hexdigest(),"animation",len(m.animation))"
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+    import trimesh,hashlib,os; p='/content/ai/output/0/mesh.glb'; m=trimesh.load(p); print('vertices',len(m.vertices),'faces',len(m.faces),'bytes',os.path.getsize(p),'sha256',hashlib.sha256(open(p,'rb').read()).hexdigest(),'animation',len(m.animation))
+                                                                                                          ^^^^^^^^^^
+AttributeError: 'Scene' object has no attribute 'vertices'
+EXIT=1

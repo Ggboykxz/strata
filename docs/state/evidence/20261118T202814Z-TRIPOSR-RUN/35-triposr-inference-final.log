@@ -1,0 +1,19 @@
+$ PYTHONPATH=/content/ai/shim /content/ai/venv-trisr/bin/python /content/ai/graph/TripoSR/run.py /content/ai/hero_input_white.png --pretrained-model-name-or-path /content/ai/models/triposr --output-dir /content/ai/output --no-remove-bg --model-save-format glb
+# attempt 3: attempt 2 computed the mesh in 32.418 s but failed at export (upstream run.py never creates output/0 with --no-remove-bg); 34-* pre-created it. No model/OOM change.
+2026-11-18 20:33:48,312 - INFO - Initializing model ...
+/content/ai/venv-trisr/lib/python3.13/site-packages/transformers/utils/generic.py:441: FutureWarning: `torch.utils._pytree._register_pytree_node` is deprecated. Please use `torch.utils._pytree.register_pytree_node` instead.
+  _torch_pytree._register_pytree_node(
+/content/ai/venv-trisr/lib/python3.13/site-packages/transformers/utils/generic.py:309: FutureWarning: `torch.utils._pytree._register_pytree_node` is deprecated. Please use `torch.utils._pytree.register_pytree_node` instead.
+  _torch_pytree._register_pytree_node(
+2026-11-18 20:34:03,064 - INFO - Initializing model finished in 14752.49ms.
+2026-11-18 20:34:03,064 - INFO - Processing images ...
+2026-11-18 20:34:03,073 - INFO - Processing images finished in 8.90ms.
+2026-11-18 20:34:03,073 - INFO - Running image 1/1 ...
+2026-11-18 20:34:03,073 - INFO - Running model ...
+2026-11-18 20:34:05,840 - INFO - Running model finished in 2766.29ms.
+2026-11-18 20:34:05,840 - INFO - Extracting mesh ...
+2026-11-18 20:34:09,225 - INFO - Extracting mesh finished in 3385.50ms.
+2026-11-18 20:34:09,226 - INFO - Exporting mesh ...
+2026-11-18 20:34:09,267 - INFO - Exporting mesh finished in 41.23ms.
+wall_seconds 25.734
+EXIT=0

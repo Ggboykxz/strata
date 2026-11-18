@@ -1,0 +1,14 @@
+$ sha256sum /content/ai/models/instantmesh/*.ckpt
+22701cd25201d624ebb1568b93cf91b43a2c32006835c08fe73e1f3c9f6c44b5  /content/ai/models/instantmesh/instant_mesh_base.ckpt
+329f7aae9b583fd7c1b27d0221463db7b808a03c48a1f7aa26649af6a03b91a1  /content/ai/models/instantmesh/instant_mesh_large.ckpt
+$ ls -la /content/ai/models/instantmesh
+total 2703532
+drwxr-xr-x 3 root root       4096 Nov 18 20:06 .
+drwxr-xr-x 3 root root       4096 Nov 18 20:06 ..
+drwxr-xr-x 3 root root       4096 Nov 18 20:06 .cache
+-rw-r--r-- 1 root root 1253574354 Nov 18 20:06 instant_mesh_base.ckpt
+-rw-r--r-- 1 root root 1514818077 Nov 18 20:06 instant_mesh_large.ckpt
+$ stat -c " " /content/ai/models/instantmesh/*.ckpt
+1253574354 /content/ai/models/instantmesh/instant_mesh_base.ckpt
+1514818077 /content/ai/models/instantmesh/instant_mesh_large.ckpt
+EXIT=0

@@ -1,0 +1,34 @@
+$ hf api model info stabilityai/TripoSR
+Usage: hf [OPTIONS] [COMMAND] [ARGS]...
+Try 'hf --help' for help.
+
+Error: No such command 'api'.
+
+Available commands for 'hf':
+  auth                           Manage authentication (login, logout, etc.).
+  buckets                        Commands to interact with buckets.
+  cache                          Manage local cache directory.
+  collections                    Interact with collections on the Hub.
+  cp                             Copy files between local paths, repositories, and buckets.
+  datasets                       Interact with datasets on the Hub.
+  discussions                    Manage discussions and pull requests on the Hub.
+  download                       Download files from the Hub.
+  endpoints                      Manage Hugging Face Inference Endpoints.
+  env                            Print information about the environment.
+  extensions                     Manage hf CLI extensions.
+  jobs                           Run and manage Jobs on the Hub.
+  models                         Interact with models on the Hub.
+  papers                         Interact with papers on the Hub.
+  repos                          Manage repos on the Hub.
+  sandbox                        Run and manage experimental sandboxes on Hugging Face Jobs.
+  skills                         Manage skills for AI assistants.
+  spaces                         Interact with spaces on the Hub.
+  sync                           Sync files between local directory and a bucket.
+  update                         Update the `hf` CLI to the latest version.
+  upload                         Upload a file or a folder to the Hub.
+  upload-large-folder            [Deprecated] Upload a large folder to the Hub.
+  version                        Print information about the hf version.
+  webhooks                       Manage webhooks on the Hub.
+
+Run 'hf --help' for full details.
+EXIT=2

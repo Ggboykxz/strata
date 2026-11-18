@@ -1,0 +1,24 @@
+$ git -C /content/ai/graph/InstantMesh checkout 08822c52fdc399b93ea00e4fa9e596344ed52ccc
+Note: switching to '08822c52fdc399b93ea00e4fa9e596344ed52ccc'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at 08822c5 Update README.md
+$ git -C /content/ai/graph/InstantMesh rev-parse HEAD
+08822c52fdc399b93ea00e4fa9e596344ed52ccc
+$ git -C /content/ai/graph/InstantMesh log -1 --format=%H %cI
+08822c52fdc399b93ea00e4fa9e596344ed52ccc 2025-01-03T17:09:13+08:00
+EXIT=0

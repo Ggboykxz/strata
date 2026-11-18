@@ -1,0 +1,11 @@
+$ CUDA_HOME=/usr/local/cuda MAX_JOBS=2 uv pip install --python /content/ai/venv-mesh/bin/python --no-cache --no-build-isolation "git+https://github.com/NVlabs/nvdiffrast/@253ac4fcea7de5f396371124af597e6cc957bfae"
+Using Python 3.13.16 environment at: /content/ai/venv-mesh
+Resolved 2 packages in 304ms
+   Updating https://github.com/NVlabs/nvdiffrast/ (253ac4fcea7de5f396371124af597e6cc957bfae)
+    Updated https://github.com/NVlabs/nvdiffrast/ (253ac4fcea7de5f396371124af597e6cc957bfae)
+   Building nvdiffrast @ git+https://github.com/NVlabs/nvdiffrast/@253ac4fcea7de5f396371124af597e6cc957bfae
+      Built nvdiffrast @ git+https://github.com/NVlabs/nvdiffrast/@253ac4fcea7de5f396371124af597e6cc957bfae
+Prepared 1 package in 7m 55s
+Installed 1 package in 1ms
+ + nvdiffrast==0.4.0 (from git+https://github.com/NVlabs/nvdiffrast/@253ac4fcea7de5f396371124af597e6cc957bfae)
+EXIT=0

@@ -1,0 +1,3 @@
+$ git ls-remote https://github.com/TencentARC/InstantMesh HEAD
+08822c52fdc399b93ea00e4fa9e596344ed52ccc	HEAD
+EXIT=0

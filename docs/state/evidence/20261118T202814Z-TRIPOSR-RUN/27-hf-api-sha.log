@@ -1,0 +1,3 @@
+$ curl -s --max-time 30 https://huggingface.co/api/models/stabilityai/TripoSR | python3 -c "import json,sys; d=json.load(sys.stdin); print(d["id"], d["sha"], d["private"], d["gated"], d.get("tags"))"
+stabilityai/TripoSR 5b521936b01fbe1890f6f9baed0254ab6351c04a False False ['3d', 'image-to-3d', 'dataset:allenai/objaverse', 'arxiv:2311.04400', 'arxiv:2403.02151', 'license:mit', 'region:us']
+EXIT=0

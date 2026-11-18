@@ -1,0 +1,10 @@
+$ python tools/asset-pipeline/smoke.py --full
+AI-001 smoke --full (GPU inference, out-of-repo outputs)
+tier probe: python tools/asset-pipeline/detect_tier.py
+  {"gpu": true, "gpu_name": "Tesla T4", "vram_mib": 15360, "vram_gb": 15.0, "tier": "16GB", "policy": "T4 nominal 16 GB (ECC-reserved); FLUX-schnell 8-bit hero, Blender bake, KTX2", "source": "nvidia-smi", "audit": "AUDIT-2026-11-18-P0-006"}
+  command: /content/ai/venv-trisr/bin/python /content/ai/graph/TripoSR/run.py /content/ai/hero_input_white.png --pretrained-model-name-or-path /content/ai/models/triposr --output-dir /content/ai/output-full --no-remove-bg --model-save-format glb
+  wall_seconds 21.292
+  inference EXIT=0 (log /content/ai/output-full/inference.log)
+  vram_peak_mib 3163
+  glb bytes 3773188 sha256 9ad2fac19c9f10b4c9fca17f8f2dbb7845283b65e02adc3c04734e707e0ee05d
+EXIT=0

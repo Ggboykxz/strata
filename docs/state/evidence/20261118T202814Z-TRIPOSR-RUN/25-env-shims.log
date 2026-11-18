@@ -1,0 +1,38 @@
+$ test -x /content/ai/venv-trisr/bin/python && /content/ai/venv-trisr/bin/python --version
+Python 3.13.16
+$ /content/ai/venv-trisr/bin/python -c "from transformers.models.vit.modeling_vit import ViTModel; import torchmcubes, rembg; print(ViTModel.__module__)"
+/content/ai/venv-trisr/lib/python3.13/site-packages/transformers/utils/generic.py:441: FutureWarning: `torch.utils._pytree._register_pytree_node` is deprecated. Please use `torch.utils._pytree.register_pytree_node` instead.
+  _torch_pytree._register_pytree_node(
+/content/ai/venv-trisr/lib/python3.13/site-packages/transformers/utils/generic.py:309: FutureWarning: `torch.utils._pytree._register_pytree_node` is deprecated. Please use `torch.utils._pytree.register_pytree_node` instead.
+  _torch_pytree._register_pytree_node(
+ViTModel real: transformers.models.vit.modeling_vit
+torchmcubes shim: /content/ai/shim/torchmcubes.py
+rembg shim: /content/ai/shim/rembg.py
+$ sha256sum tools/asset-pipeline/gen_input_white.py /content/ai/hero_input_white.png
+3037084ee53ef6cdbc728c62b756b52613c12c6b960a591605612445a37ecca5  tools/asset-pipeline/gen_input_white.py
+effe6dbe4fa21e4e88a1055c47b30ae5cf0a11625346a8780ff5d69dbf289bd0  /content/ai/hero_input_white.png
+$ cat /content/ai/shim/rembg.py /content/ai/shim/torchmcubes.py
+"""TripoSR smoke shim: explicit refusal. AI-001 runs with --no-remove-bg, so rembg (and its model) are never used."""
+
+
+def new_session(*args, **kwargs):
+    raise NotImplementedError("rembg is intentionally absent from the AI-001 smoke path (--no-remove-bg); no background-removal model is downloaded or used")
+
+
+def remove(*args, **kwargs):
+    raise NotImplementedError("rembg is intentionally absent from the AI-001 smoke path (--no-remove-bg); no background-removal model is downloaded or used")
+"""TripoSR smoke shim: torchmcubes (git-only, CUDA build) -> scikit-image marching_cubes.
+
+The 3D model weights and the marching-cubes algorithm are unchanged (classic marching cubes); only the
+CUDA extension build is avoided. See docs/qa/AI_THROUGHPUT.md for the recorded deviation.
+"""
+import numpy as np
+import torch
+from skimage.measure import marching_cubes as _sk_mc
+
+
+def marching_cubes(volume, isolevel):
+    vol = volume.detach().cpu().numpy()
+    verts, faces, _normals, _values = _sk_mc(vol, isolevel)
+    return torch.from_numpy(verts.astype(np.float32)), torch.from_numpy(faces.astype(np.int64))
+EXIT=0

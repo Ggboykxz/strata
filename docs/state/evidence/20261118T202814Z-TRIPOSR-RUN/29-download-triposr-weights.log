@@ -1,0 +1,6 @@
+$ hf download stabilityai/TripoSR --local-dir /content/ai/models/triposr
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Still waiting to acquire lock on /content/ai/models/triposr/.cache/huggingface/.gitignore.lock (elapsed: 0.1 seconds)
+Still waiting to acquire lock on /content/ai/models/triposr/.cache/huggingface/.gitignore.lock (elapsed: 0.1 seconds)
+path=/content/ai/models/triposr
+EXIT=0

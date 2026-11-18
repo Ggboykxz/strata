@@ -1,0 +1,37 @@
+$ uv pip install --python /content/ai/venv-trisr/bin/python torch torchvision
+Using Python 3.13.16 environment at: /content/ai/venv-trisr
+Resolved 32 packages in 160ms
+Installed 32 packages in 349ms
+ + cuda-bindings==13.5.0
+ + cuda-pathfinder==1.9.0
+ + cuda-toolkit==13.2.2
+ + filelock==4.2.12
+ + fsspec==2026.9.0
+ + jinja2==3.1.6
+ + markupsafe==3.0.4
+ + mpmath==1.3.0
+ + networkx==3.7
+ + numpy==2.5.5
+ + nvidia-cublas==13.4.1.3
+ + nvidia-cuda-cccl==13.3.5.0.6
+ + nvidia-cuda-cupti==13.2.86
+ + nvidia-cuda-nvrtc==13.2.86
+ + nvidia-cuda-runtime==13.2.86
+ + nvidia-cudnn-cu13==9.26.0.51
+ + nvidia-cufft==12.2.0.57
+ + nvidia-cufile==1.17.1.22
+ + nvidia-cusolver==12.2.0.11
+ + nvidia-cusparse==12.7.10.12
+ + nvidia-cusparselt-cu13==0.8.1
+ + nvidia-nccl-cu13==2.30.7
+ + nvidia-nvjitlink==13.5.37
+ + nvidia-nvshmem-cu13==3.7.2
+ + nvidia-nvtx==13.2.86
+ + pillow==13.0.0
+ + setuptools==84.2.1
+ + sympy==1.14.0
+ + torch==2.15.0
+ + torchvision==0.29.2
+ + triton==3.9.0
+ + typing-extensions==4.16.0
+EXIT=0

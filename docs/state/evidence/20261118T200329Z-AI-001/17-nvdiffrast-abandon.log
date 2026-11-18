@@ -1,0 +1,8 @@
+$ rm -rf /content/ai/venv-mesh   # abandon nvdiffrast install per binding correction (baab942-era)
+6.2G	/content/ai/venv-mesh
+REMOVED
+$ ls /content/ai
+graph
+hero_input.png
+models
+EXIT=0
