@@ -1,0 +1,27 @@
+$ stat -c "%n %s bytes" /content/ai/output/0/mesh.glb
+/content/ai/output/0/mesh.glb 3773188 bytes
+$ sha256sum /content/ai/output/0/mesh.glb
+9ad2fac19c9f10b4c9fca17f8f2dbb7845283b65e02adc3c04734e707e0ee05d  /content/ai/output/0/mesh.glb
+$ ls -la /content/ai/output-{sword,rock,pine}/0/
+/content/ai/output-pine/0/:
+total 8
+drwxr-xr-x 2 root root 4096 Nov 18 20:59 .
+drwxr-xr-x 3 root root 4096 Nov 18 20:59 ..
+
+/content/ai/output-rock/0/:
+total 2776
+drwxr-xr-x 2 root root    4096 Nov 18 21:00 .
+drwxr-xr-x 3 root root    4096 Nov 18 20:59 ..
+-rw-r--r-- 1 root root 2832052 Nov 18 21:00 mesh.glb
+
+/content/ai/output-sword/0/:
+total 1520
+drwxr-xr-x 2 root root    4096 Nov 18 20:59 .
+drwxr-xr-x 3 root root    4096 Nov 18 20:59 ..
+-rw-r--r-- 1 root root 1547344 Nov 18 20:59 mesh.glb
+$ node --version; npm --version
+v22.23.4
+10.8.2
+=== EXPECTED sha256: 9ad2fac19c9f10b4c9fca17f8f2dbb7845283b65e02adc3c04734e707e0ee05d ===
+=== MATCH: YES (see sha256sum above) ===
+EXIT=0

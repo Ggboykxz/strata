@@ -1,0 +1,14 @@
+$ ls -la package.json package-lock.json; ls node_modules/.bin/gltf-transform
+lrwxrwxrwx 1 root root    33 Nov 18 21:01 node_modules/.bin/gltf-transform -> ../@gltf-transform/cli/bin/cli.js
+-rw-r--r-- 1 root root   333 Nov 18 21:01 package.json
+-rw-r--r-- 1 root root 89155 Nov 18 21:01 package-lock.json
+$ node -e "print exact installed versions"
+@gltf-transform/cli@4.5.1 license="MIT"
+@gltf-transform/core@4.5.1 license="MIT"
+@gltf-transform/functions@4.5.1 license="MIT"
+@gltf-transform/extensions@4.5.1 license="MIT"
+draco3d@1.5.9 license="Apache-2.0"
+draco3dgltf@1.5.9 license="Apache-2.0"
+$ gltf-transform --version
+4.5.1
+EXIT=0

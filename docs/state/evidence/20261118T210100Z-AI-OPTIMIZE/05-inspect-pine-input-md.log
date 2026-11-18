@@ -1,0 +1,61 @@
+=== inspect (pine, --format md) ===
+$ gltf-transform inspect /content/ai/output-pine/0/mesh.glb --format md
+input bytes=3123668 mtime=2026-11-18 21:01:14.719977521 +0000
+a57ab4274ac14ded48fe47372bd6490eee4031f1e38b8c6cb943a713f625876f  /content/ai/output-pine/0/mesh.glb
+
+ OVERVIEW
+ ────────────────────────────────────────────
+| key                | value                             |
+| ---                | ---                               |
+| version            | 2.0                               |
+| generator          | https://github.com/mikedh/trimesh |
+| extensionsUsed     | none                              |
+| extensionsRequired | none                              |
+
+
+
+ SCENES
+ ────────────────────────────────────────────
+| #   | name | rootName   | bboxMin                      | bboxMax                   | renderVertexCount¹ | uploadVertexCount | uploadNaiveVertexCount |
+| --- | ---  | ---        | ---                          | ---                       | ---                | ---               | ---                    |
+| 0   |      | geometry_0 | -0.48618, -0.43727, -0.29523 | 0.45353, 0.45477, 0.35538 | 468,396            | 78,068            | 78,068                 |
+
+¹ Expected number of vertices processed by the vertex shader for one render
+  pass, without considering the vertex cache.
+
+² Expected number of vertices uploaded to GPU, assuming each Accessor
+  is uploaded only once. Actual number uploaded may be higher, 
+  dependent on the implementation and vertex buffer layout.
+
+³ Expected number of vertices uploaded to GPU, assuming each Primitive
+  is uploaded once, duplicating vertex attributes shared among Primitives.
+
+
+
+ MESHES
+ ────────────────────────────────────────────
+| #   | name       | mode      | meshPrimitives | glPrimitives | vertices | indices | attributes                    | instances | size¹   |
+| --- | ---        | ---       | ---            | ---          | ---      | ---     | ---                           | ---       | ---     |
+| 0   | geometry_0 | TRIANGLES | 1              | 156,132      | 78,068   | u32     | COLOR_0:u8_norm, POSITION:f32 | 1         | 3.12 MB |
+
+⁴ size estimates GPU memory required by a mesh, in isolation. If accessors are
+  shared by other mesh primitives, but the meshes themselves are not reused, then
+  the sum of all mesh sizes will overestimate the asset's total size. See "dedup".
+
+
+
+ MATERIALS
+ ────────────────────────────────────────────
+No materials found.
+
+
+ TEXTURES
+ ────────────────────────────────────────────
+No textures found.
+
+
+ ANIMATIONS
+ ────────────────────────────────────────────
+No animations found.
+
+EXIT=0

@@ -1,0 +1,31 @@
+$ mkdir -p /content/ai/output-0
+EXIT=0
+$ gltf-transform optimize /content/ai/output/0/mesh.glb /content/ai/output-0/mesh-opt.glb --compress draco --simplify false --weld false --texture-compress false
+warn: Ignoring --no-weld, required for Draco compression.
+❯ dedup
+✔ dedup                23ms
+❯ instance
+✔ instance             19ms
+❯ palette
+✔ palette              15ms
+❯ flatten
+✔ flatten              9ms
+❯ join
+✔ join                 516ms
+❯ resample
+✔ resample             3ms
+❯ prune
+✔ prune                6ms
+❯ sparse
+✔ sparse               494ms
+❯ draco
+✔ draco                849ms
+
+info: mesh.glb (3.77 MB) → mesh-opt.glb (387.56 KB)
+EXIT=0
+$ stat + sha256 (before/after)
+/content/ai/output/0/mesh.glb bytes=3773188
+/content/ai/output-0/mesh-opt.glb bytes=387560
+9ad2fac19c9f10b4c9fca17f8f2dbb7845283b65e02adc3c04734e707e0ee05d  /content/ai/output/0/mesh.glb
+d1e9062db1371ed6556fb38e45ae8125da4a06bf9682293666d4f84198eebc5f  /content/ai/output-0/mesh-opt.glb
+EXIT=0

@@ -1,0 +1,27 @@
+$ cat package.json
+{
+  "name": "strata-gltf-transform-tooling",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Isolated, pinned glTF-Transform toolchain for STRATA AI-001 mesh optimization. Not a repo dependency.",
+  "dependencies": {
+    "@gltf-transform/cli": "4.5.1",
+    "@gltf-transform/core": "4.5.1",
+    "draco3d": "1.5.9"
+  }
+}
+$ npm install --prefix /content/ai/tooling/gltf-transform @gltf-transform/cli@4.5.1 @gltf-transform/core@4.5.1 draco3d@1.5.9
+npm warn deprecated glob@10.5.0: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+
+added 178 packages, and audited 179 packages in 27s
+
+39 packages are looking for funding
+  run `npm fund` for details
+
+4 moderate severity vulnerabilities
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+
+Run `npm audit` for details.
+EXIT=0
