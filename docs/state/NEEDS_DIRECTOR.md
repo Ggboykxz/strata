@@ -15,6 +15,7 @@ Nothing here blocks the work already done; each item blocks a named future task.
 | ND-006 | **RESOLVED** — rejected, fallbacks recorded | Tencent community licences exclude EU/UK/Korea |
 | ND-007 | **RESOLVED** — rejected, FLUX.1-schnell fallback | SDXL `openrail++` attribution/distribution scope |
 | ND-008 | **RESOLVED — REVERSED** — ActionForge approved with conditions | CC0 output rights verified from publisher notices |
+| ND-009 | **OPEN — new** | full-MMORPG vision vs sealed "MMORPG-shaped RPG" wording |
 
 ND-004 and ND-005 cannot be closed by an agent: GitHub and Hugging Face rotations require account access
 and, on GitHub, a UI flow. This is stated rather than simulated. Evidence that no secret reached the repo:
@@ -189,3 +190,33 @@ rig and props are CC0 1.0 — commercial use, no attribution, no permission need
 rights §8.1 step 6 asks about. Verified sha256 `8b56bdd7…`. ActionForge is APPROVED_WITH_CONDITIONS: use
 CC0 outputs only; never copy or redistribute the tool's code. The recommendation to reject is withdrawn on
 the record rather than silently overwritten.
+
+---
+
+## ND-009 — product vision: full MMORPG, not an RPG-shaped slice (new, Director statement)
+
+**Statement (2026-11-18, French):** "pas de rpg mais un mmorpg total comme ashe of creation".
+
+**Interpretation.** The Director wants STRATA to be a **full MMORPG** in the tradition of Ashes of
+Creation — a persistent, player-driven world whose nodes and economy evolve through player action — not
+merely an "MMORPG-shaped systemic RPG". This conflicts with the sealed master wording §0/§1, which
+deliberately scopes P0 to a browser vertical slice.
+
+**Original-IP constraint (I11).** Ashes of Creation is a commercial IP. Only generic mechanics may inspire
+STRATA: dynamically changing world state, player-driven economy, consequence visibility. No names, lore,
+maps, node names, art, skeletons or proprietary systems may be copied. STRATA's cross-stratum consequence
+propagation and its Rouille economic regulator are already original equivalents.
+
+**Options.**
+- **A (recommended)** adopt this as the **long-term product vision** and amend the wording by a
+  Director-signed ADR using the sealed-master escape hatch (`PROMPT.lock amended:` + `## AMENDMENTS`
+  in `docs/archive/SESSION_MASTER_v8.1.md`). Keep the P0 vertical slice, the zero-sum Scope Ledger and all
+  gates unchanged; the full MMORPG is the S3/S4 target with its own funding decision.
+- **B** change the P0 scope to a full MMORPG now: reopen `SCOPE_LEDGER.yaml`, raise `authorized_tier`,
+  re-plan 63 tasks and 11 gates, and obtain Director funding. This invalidates the GATE:P0 dossier being
+  assembled.
+- **C** treat Ashes of Creation as inspiration only; keep the current sealed wording. No change.
+
+**Status: OPEN — agent made no change to the sealed master, CONSTITUTION, HIGH_CONCEPT or SCOPE.**
+No agent can silently edit a sealed document. Until the Director picks an option, all artifacts keep the
+current wording and GATE:P0 proceeds on the existing scope.

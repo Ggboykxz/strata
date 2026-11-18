@@ -1,0 +1,18 @@
+PASS  docs/state/PROMPT.lock parsed (version 1)
+PASS  tools/colab/prompts/SESSION_MASTER.md ends with the sentinel
+PASS  tools/colab/prompts/SESSION_MASTER.md is 99289 bytes (< 100000)
+PASS  tools/colab/prompts/SESSION_MASTER.md size matches PROMPT.lock
+PASS  tools/colab/prompts/SESSION_MASTER.md sha256 matches PROMPT.lock
+PASS  docs/archive/SESSION_MASTER_v8.1.md is byte-identical to the sealed master
+PASS  CONSTITUTION.md declares materialized section §0
+PASS  CONSTITUTION.md declares materialized section §10
+PASS  CONSTITUTION.md declares materialized section §13
+PASS  CONSTITUTION.md declares materialized section §19
+PASS  CONSTITUTION.md declares materialized section §20
+PASS  CONSTITUTION.md cites the archived master
+PASS  CONSTITUTION.md restates the authority order
+PASS  archive §0.3 contains 15 invariants
+PASS  all 15 invariants are quoted verbatim in CONSTITUTION.md
+PASS  all 77 locked decisions (D79..D155) are quoted verbatim in CONSTITUTION.md
+
+RESULT: PASS — the repository matches its sealed master prompt.

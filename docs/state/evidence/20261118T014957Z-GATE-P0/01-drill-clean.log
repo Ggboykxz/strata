@@ -1,0 +1,34 @@
+RESUME DRILL (--dry, read-only)
+
+§17 session start
+PASS  repository root
+      /content/strata
+PASS  pwd
+      3 change(s)
+PASS  git status --short
+      session/20261118-hc-001-high-concept
+PASS  git branch --show-current
+      15 commit(s) visible
+PASS  git log --oneline -15
+
+state files (I15)
+PASS  docs/state/SESSION.md present and non-empty
+PASS  docs/state/NEXT_SESSION.md present and non-empty
+PASS  docs/state/NEEDS_DIRECTOR.md present and non-empty
+      docs/state/metrics/2026-11-18-s01.json
+PASS  session metrics file
+WARN  heartbeat.json — absent (gitignored; expected on a fresh clone)
+      0 entr(y|ies), 0 expired active lock(s)
+PASS  LOCKS.yaml schema and expiry
+
+resume plan
+  session   2026-11-18-s01
+  branch    session/20261118-hc-001-high-concept
+  next      GATE:P0 dossier
+  open Director items:
+    ND-004
+    ND-005
+  protocol: pwd → git status → branch → git log -15 → recover WIP →
+            pnpm install --frozen-lockfile → pnpm verify → pnpm tracer --assert → one handoff → one task
+
+RESULT: PASS — 0 failure(s), 1 warning(s). Read-only drill; nothing written.

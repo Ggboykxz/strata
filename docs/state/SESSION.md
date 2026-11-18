@@ -7,8 +7,8 @@
 | branch | `session/20261118-hc-001-high-concept` |
 | phase / tier | P0 / current `S0`, authorized `S0` |
 | director | present for bootstrap; async from now |
-| last task | P0-007 (read-only dashboard) |
-| next task | **GATE:P0 dossier** — 3 kill-session drills + real CI run; Director signs the gate |
+| last task | GATE:P0 dossier assembled (unsigned) |
+| next task | **Director decision** — sign `GATE:P0` or rule on ND-009 (full-MMORPG vision) |
 
 ## Done this session
 
@@ -29,6 +29,7 @@
 | P0-005 | `tools/colab/`, `scripts/drill-resume.mjs` | drill exit 0; 7/7 negatives; `verify` 11/11 |
 | P0-006 | audit, whitelist, tier probe, `validate-manifest --audit` | validator exit 0; 8/8 negatives; `verify` 12/12 |
 | P0-007 | `apps/dashboard/build.mjs`, generated views | build exit 0; 7/7 checks; byte-identical rebuild |
+| GATE:P0 | `docs/state/gates/GATE_P0.md` — assembled dossier | 3 drills, 13 green CI runs, all local gates 0 |
 
 **P0-001 and P0-002 were split** although only P0-001 triggered B8: the halves fail for different reasons and
 deserve separate rollback points. Commits: `094f31f`, `bd6f550` (P0-001); `1ceaf20`, `7e9d382` (P0-002).
@@ -77,6 +78,9 @@ their banners record the new owner (orchestrator) after A0002.
 - **ND-006 / ND-007 RESOLVED** as REJECTED with fallbacks (Director instruction to resolve every blocked
   item); **ND-008 RESOLVED — REVERSED** on new evidence: ActionForge's own notices grant CC0 output rights,
   so it is approved with conditions. No licence was waived by code.
+- **ND-009 OPEN.** Director statement: "pas de rpg mais un mmorpg total comme ashe of creation". No sealed
+  document was changed. The GATE:P0 dossier records the options; a full-MMORPG P0 scope would invalidate
+  the dossier and need a funding decision.
   A prefix scan found 0 token strings in `.git` or the tracked worktree. The agent cannot close these.
 
 Details, options and evidence: `docs/state/NEEDS_DIRECTOR.md` and

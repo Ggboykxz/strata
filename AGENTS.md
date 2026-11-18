@@ -101,6 +101,8 @@ Anything else goes through a handoff. A conflict is resolved by a handoff or the
   the AI stack: 9 approved, 0 blocked, 11 rejected with fallbacks; no model has been used (I4).
 - P0-007 generated a read-only dashboard from repo state; 14 unmeasured fields display NOT COMPUTABLE.
   GATE:P0 evidence assembly is next — 3 kill-session drills and a real GitHub Actions run; the Director signs.
+- GATE:P0 dossier assembled unsigned: 3 drills, 13 green Actions runs, 1 dependency-review exception
+  (graph API 403) and ND-009 full-MMORPG vision awaiting a Director decision. No agent signs a gate.
 - **ND-001 resolved** (T1 EN 25/25, FR 30/35; FINDING-001 closed) and **ND-002 resolved** (A0002 option A,
   D-002 closed, WF-002 is orchestrator's). **ND-003 resolved**: the repo is public (the Director must merge
   PR #1; `main` is still empty). ND-004..ND-008 remain open.

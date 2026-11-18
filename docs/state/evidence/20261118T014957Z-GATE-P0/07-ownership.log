@@ -1,0 +1,22 @@
+
+O1  structure: 32 owners, 165 globs, 7 catch-all
+OK    version, specificity rule, owner count, catch-all count and agent names are valid
+
+O2  glob compilation, ties and self-resolution
+OK    165 globs compile, no tie, every witness resolves to its declaring owner
+
+O3  task outputs inside owner ∪ co (scaffold exemptions printed)
+WARN  O3 P0-002 scaffold exemption: docs/blueprint/GATES.yaml (orchestrator)
+WARN  O3 P0-003 scaffold exemption: packages/ (gameplay-engineer)
+WARN  O3 P0-003 scaffold exemption: apps/ (gameplay-engineer)
+WARN  O3 P0-003 scaffold exemption: docs/STACK.lock.md (producer)
+WARN  O3 TRACER-001 scaffold exemption: packages/core/ (gameplay-engineer)
+WARN  O3 TRACER-001 scaffold exemption: packages/protocol/ (netcode-engineer)
+WARN  O3 TRACER-001 scaffold exemption: apps/server/ (gameplay-engineer)
+WARN  O3 TRACER-001 scaffold exemption: apps/game/ (gameplay-engineer)
+OK    every non-scaffold output resolves inside its task's owner set; 8 scaffold warning(s)
+
+O4  A0002 regression guard and scaffold declarations
+OK    A0002 ownership intact; every scaffold exemption is declared in the blueprint
+
+RESULT: PASS — 165 globs, 63 tasks, 0 error(s), 8 warning(s)

@@ -1,0 +1,11 @@
+phase     accepted   budget   margin
+P0        25         30       5
+P1        0          34       34
+P2NET     0          40       40
+P2SYS     0          32       32
+P3ART     0          60       60
+
+entries=12  accepted_sessions=25
+budget_to_P4=196  (matches docs/SCOPE.md)
+
+PASS  ledger balanced, schema complete, scope text in sync

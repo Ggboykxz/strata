@@ -61,8 +61,10 @@
     "blueprint_validator_warnings": 12,
     "blueprint_refused_ownership": 0,
     "director_blockers_resolved": 6,
-    "director_blockers_open": 2,
+    "director_blockers_open": 3,
     "repository_public": true,
+    "gate_p0_drills": 3,
+    "gate_p0_ci_success": 13,
     "blueprint_negative_tests": 6,
     "blueprint_negative_tests_passing": 6,
     "blueprint_scaffold_exemptions": 3,
@@ -174,7 +176,9 @@
     { "cmd": "node scripts/validate-manifest.mjs --audit (after resolution)", "exit": 0, "log": "docs/state/evidence/20261118T012845Z-P0-006/07-resolution-validate.log" },
     { "cmd": "bash /tmp/opencode/p006-negative.sh (9 cases)", "exit": 0, "log": "docs/state/evidence/20261118T012845Z-P0-006/08-resolution-negative-tests.log" },
     { "cmd": "pnpm --filter @strata/dashboard build", "exit": 0, "log": "docs/state/evidence/20261118T014550Z-P0-007/01-dashboard-build.log" },
-    { "cmd": "bash /tmp/opencode/p007-negative.sh", "exit": 0, "log": "docs/state/evidence/20261118T014550Z-P0-007/02-negative-tests.log" }
+    { "cmd": "bash /tmp/opencode/p007-negative.sh", "exit": 0, "log": "docs/state/evidence/20261118T014550Z-P0-007/02-negative-tests.log" },
+    { "cmd": "node scripts/drill-resume.mjs --dry (clean / expired lock / corrupt heartbeat)", "exit": 0, "log": "docs/state/evidence/20261118T014957Z-GATE-P0/01-drill-clean.log" },
+    { "cmd": "GitHub Actions API — latest run per workflow", "exit": 0, "log": "docs/state/evidence/20261118T014957Z-GATE-P0/09-ci-results.log" }
   ],
   "notes": [
     "every number above was produced by a command in this session; none is an estimate",
@@ -191,7 +195,9 @@
     "The Tesla T4 reports 15360 MiB because ECC reserves memory; the nominal tier is 16 GB, not 12 GB",
     "P0-006 audit resolution: 9 approved / 0 blocked / 11 rejected / 11 fallbacks; ActionForge reversed on publisher CC0 output rights, Tencent + SDXL rejected with fallbacks",
     "P0-007: build.mjs is the only source reader; data.json is the only page input; 14 NOT COMPUTABLE fields and byte-identical rebuild with STRATA_BUILD_UTC",
-    "Known deviation: P0-004's 27 workflow names do not match master §18's explicit list; reconcile before GATE:P0",
+    "GATE:P0 dossier assembled unsigned: 3 kill-session drills, 13 green GitHub Actions runs at head 3c9c48fd, all local gates 0",
+    "ND-009 records the Director's full-MMORPG vision statement; no sealed document changed, and I11 forbids copying the commercial Ashes of Creation IP",
+    "Known deviation: P0-004's 27 workflow names do not match master §18's explicit list; recorded in the GATE:P0 dossier",
     "P0-004 acceptance is static: no GitHub Actions job was executed in the sandbox; 12 workflows calling declared stubs are workflow_dispatch-only so a stub never becomes a permanently red PR gate",
     "WF-002's glob compiler mirrors validate-blueprint B2; consolidation into scripts/lib/ownership.mjs is a recorded tools-engineer handoff (I6: orchestrator cannot edit scripts/lib/**)",
     "TRACER-001: 2 replicas and 5 authoritative ticks reach equal FNV-1a hashes; forcing a desync exits 1, and Math.random in core still fails the AST lint",

@@ -6,7 +6,7 @@
 | branch | `session/20261118-hc-001-high-concept` — **PR #1** (draft) https://github.com/Ggboykxz/strata/pull/1 |
 | mode | RESUME |
 | next task | **GATE:P0 dossier** — assemble evidence; the Director signs, no agent signs a gate |
-| blocker | Real CI result not yet observed; ND-004 / ND-005 token rotation still open. |
+| blocker | **Director decision required** — sign GATE:P0, rule on ND-009, rotate ND-004/005. No code blocker. |
 
 ---
 
@@ -25,7 +25,10 @@ pnpm --filter @strata/dashboard build          # deterministic static view
 node scripts/validate-manifest.mjs --audit    # 9 approved, 0 blocked
 ```
 
-## 2. What the dossier must contain
+## 2. What the dossier must contain — ASSEMBLED
+
+The dossier is at `docs/state/gates/GATE_P0.md`, status **awaiting Director signature**. It contains all
+items below; the only unclosed evidence is the dependency-review exception on which the Director must rule.
 
 1. **Three kill-session drills** (master §14). The read-only `scripts/drill-resume.mjs --dry` already has
    negative cases; run and log three distinct recovery scenarios: (a) clean state, (b) expired active lock,
@@ -51,7 +54,11 @@ The Director decides. An agent assembles evidence only; no self-merge, no gate s
 
 1. **ND-004 / ND-005 — OPEN.** Exposed GitHub PAT and HF token still live; repo is public, so rotation is
    urgent. The agent cannot revoke them behind the Director's login/2FA.
-2. **ND-001 / ND-002 / ND-003 / ND-006 / ND-007 / ND-008 — RESOLVED.** HIGH_CONCEPT v1.2, A0002 option A,
+2. **ND-009 — OPEN (new).** "Full MMORPG like Ashes of Creation, not an RPG-shaped slice." No sealed file
+   was changed. Options in `NEEDS_DIRECTOR.md`: A amend the long-term vision via ADR while keeping the P0
+   slice (recommended), B reopen scope/funding and invalidate this dossier, C inspiration only. I11 forbids
+   copying the commercial IP.
+3. **ND-001 / ND-002 / ND-003 / ND-006 / ND-007 / ND-008 — RESOLVED.** HIGH_CONCEPT v1.2, A0002 option A,
    public repo, audited AI whitelist with all rejections carrying fallbacks.
 3. `main` is still the empty root commit `36bd9af`; the Director must merge PR #1 for the public landing
    page to show the project.

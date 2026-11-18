@@ -1,0 +1,16 @@
+$ GitHub Actions API — latest run per workflow on session/20261118-hc-001-high-concept
+total runs returned: 97
+3c9c48fd completed    success    blueprint - B1..B8 id=44218929783
+3c9c48fd completed    success    ci - pnpm verify id=44218929842
+3c9c48fd completed    success    codeql - static analysis id=44218930292
+3c9c48fd completed    success    concept - T1 and T3 id=44218929743
+f206b767 completed    failure    dependency - license review id=44218555810
+3c9c48fd completed    success    lint - deterministic core ban id=44218929839
+3c9c48fd completed    success    locks - writer registry id=44218930417
+3c9c48fd completed    success    ownership - single writer map id=44218929870
+3c9c48fd completed    success    prompt - sealed master drift id=44218929991
+3c9c48fd completed    success    scope - zero sum ledger id=44218929767
+3c9c48fd completed    success    tracer - state hash equality id=44218929762
+3c9c48fd completed    success    typecheck - project references id=44218930383
+3c9c48fd completed    success    unit - vitest id=44218929746
+3c9c48fd completed    success    workflows - self validation id=44218929751
