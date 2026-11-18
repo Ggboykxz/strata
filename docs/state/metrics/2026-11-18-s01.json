@@ -19,7 +19,8 @@
     { "id": "TRACER-001", "status": "done" },
     { "id": "P0-004", "status": "done" },
     { "id": "P0-005", "status": "done" },
-    { "id": "P0-006", "status": "done" }
+    { "id": "P0-006", "status": "done" },
+    { "id": "P0-007", "status": "done" }
   ],
   "measured": {
     "hc_t1_en_words": 25,
@@ -89,6 +90,9 @@
     "ai_rejected": 11,
     "ai_fallback_mappings": 11,
     "p006_negative_tests": 9,
+    "dashboard_views": 8,
+    "dashboard_not_computable": 14,
+    "p007_checks": 7,
     "yaml_parser_documents_equal_to_pyyaml": 3,
     "workspace_projects": 7,
     "workspace_packages": 2,
@@ -168,7 +172,9 @@
     { "cmd": "bash /tmp/opencode/p006-negative.sh", "exit": 0, "log": "docs/state/evidence/20261118T012845Z-P0-006/03-negative-tests.log" },
     { "cmd": "pnpm verify (12 enabled steps)", "exit": 0, "log": "docs/state/evidence/20261118T012845Z-P0-006/05-verify.log" },
     { "cmd": "node scripts/validate-manifest.mjs --audit (after resolution)", "exit": 0, "log": "docs/state/evidence/20261118T012845Z-P0-006/07-resolution-validate.log" },
-    { "cmd": "bash /tmp/opencode/p006-negative.sh (9 cases)", "exit": 0, "log": "docs/state/evidence/20261118T012845Z-P0-006/08-resolution-negative-tests.log" }
+    { "cmd": "bash /tmp/opencode/p006-negative.sh (9 cases)", "exit": 0, "log": "docs/state/evidence/20261118T012845Z-P0-006/08-resolution-negative-tests.log" },
+    { "cmd": "pnpm --filter @strata/dashboard build", "exit": 0, "log": "docs/state/evidence/20261118T014550Z-P0-007/01-dashboard-build.log" },
+    { "cmd": "bash /tmp/opencode/p007-negative.sh", "exit": 0, "log": "docs/state/evidence/20261118T014550Z-P0-007/02-negative-tests.log" }
   ],
   "notes": [
     "every number above was produced by a command in this session; none is an estimate",
@@ -184,6 +190,7 @@
     "21 validator stubs were created by P0-002; WF-002, validate-workflows, drill-resume and validate-manifest were implemented, leaving 17, all still exiting 1 by design",
     "The Tesla T4 reports 15360 MiB because ECC reserves memory; the nominal tier is 16 GB, not 12 GB",
     "P0-006 audit resolution: 9 approved / 0 blocked / 11 rejected / 11 fallbacks; ActionForge reversed on publisher CC0 output rights, Tencent + SDXL rejected with fallbacks",
+    "P0-007: build.mjs is the only source reader; data.json is the only page input; 14 NOT COMPUTABLE fields and byte-identical rebuild with STRATA_BUILD_UTC",
     "Known deviation: P0-004's 27 workflow names do not match master §18's explicit list; reconcile before GATE:P0",
     "P0-004 acceptance is static: no GitHub Actions job was executed in the sandbox; 12 workflows calling declared stubs are workflow_dispatch-only so a stub never becomes a permanently red PR gate",
     "WF-002's glob compiler mirrors validate-blueprint B2; consolidation into scripts/lib/ownership.mjs is a recorded tools-engineer handoff (I6: orchestrator cannot edit scripts/lib/**)",

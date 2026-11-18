@@ -7,8 +7,8 @@
 | branch | `session/20261118-hc-001-high-concept` |
 | phase / tier | P0 / current `S0`, authorized `S0` |
 | director | present for bootstrap; async from now |
-| last task | P0-006 (AI license audit and whitelist) |
-| next task | **P0-007** — dashboard: workflow, locks, threads, concept, GDD, scope, netcode, economy |
+| last task | P0-007 (read-only dashboard) |
+| next task | **GATE:P0 dossier** — 3 kill-session drills + real CI run; Director signs the gate |
 
 ## Done this session
 
@@ -28,6 +28,7 @@
 | P0-004 | 27 workflows, real `scripts/validate-workflows.mjs`, ownership map entry | validator exit 0; 8/8 negatives; `verify` 10/10 |
 | P0-005 | `tools/colab/`, `scripts/drill-resume.mjs` | drill exit 0; 7/7 negatives; `verify` 11/11 |
 | P0-006 | audit, whitelist, tier probe, `validate-manifest --audit` | validator exit 0; 8/8 negatives; `verify` 12/12 |
+| P0-007 | `apps/dashboard/build.mjs`, generated views | build exit 0; 7/7 checks; byte-identical rebuild |
 
 **P0-001 and P0-002 were split** although only P0-001 triggered B8: the halves fail for different reasons and
 deserve separate rollback points. Commits: `094f31f`, `bd6f550` (P0-001); `1ceaf20`, `7e9d382` (P0-002).

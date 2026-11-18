@@ -99,6 +99,8 @@ Anything else goes through a handoff. A conflict is resolved by a handoff or the
   Actions job has run yet. 12 stub-calling workflows are manual-only.
 - P0-005 added an idempotent bootstrap, a fail-closed watchdog and a read-only resume drill. P0-006 audited
   the AI stack: 9 approved, 0 blocked, 11 rejected with fallbacks; no model has been used (I4).
+- P0-007 generated a read-only dashboard from repo state; 14 unmeasured fields display NOT COMPUTABLE.
+  GATE:P0 evidence assembly is next — 3 kill-session drills and a real GitHub Actions run; the Director signs.
 - **ND-001 resolved** (T1 EN 25/25, FR 30/35; FINDING-001 closed) and **ND-002 resolved** (A0002 option A,
   D-002 closed, WF-002 is orchestrator's). **ND-003 resolved**: the repo is public (the Director must merge
   PR #1; `main` is still empty). ND-004..ND-008 remain open.
