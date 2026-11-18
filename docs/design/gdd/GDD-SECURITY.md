@@ -3,7 +3,7 @@
 | field | value |
 |---|---|
 | id | GDD-SECURITY |
-| version | 0.2 |
+| version | 0.3 |
 | owner | security-auditor |
 | status | DRAFT |
 
@@ -11,7 +11,7 @@
 
 ## 1. Identity, version, owner, status
 
-ID GDD-SECURITY, version 0.2, owner security-auditor, status **DRAFT**. Derived from P1-001 VISION and the locked HIGH_CONCEPT.
+ID GDD-SECURITY, version 0.3, owner security-auditor, status **DRAFT**. Derived from P1-001 VISION and the locked HIGH_CONCEPT.
 
 ## 2. Player-facing outcome
 
@@ -32,7 +32,9 @@ D3 traceability: every visible consequence resolves to a fact id and an actor id
 - max 30 intents/s per client | TUNABLE 10..60 | plan: PR-N3 flood test
 - snapshot encode <= 2 ms per client per tick | SOURCE: master §6 budgets
 - audit log retention >= 90 days | TUNABLE 30..365 days | plan: OPS-001 runbook
-- 0 unvalidated message paths | SOURCE: threat model review at P2NET
+- 0 unvalidated message paths | **NOT CLAIMED**: the gate exists but `attachRooms` still routes frames straight to `Room.handleBytes`; wiring is an open item
+- rate limit = 30 intents per 30-tick window | SOURCE: apps/server/src/validation/rate-limit.ts
+- burst proof = 200 messages → 30 admitted, 170 refused with RATE_LIMIT | SOURCE: tests/security/message-gate.test.ts
 
 ## 6. State machine
 
@@ -41,6 +43,7 @@ RECEIVED → VALIDATED → RATE_CHECKED → PLAUSIBLE → APPLIED → REJECTED �
 ## 7. Data contract
 
 validation v1 rejects unknown kinds, wrong versions, out-of-range fields and non-monotonic seq. Rejection emits reason code and increments a per-client counter. Wire schema and version live in GDD-NETCODE field 7.
+Reason codes: `malformed | unknown-kind | wrong-version | client-snapshot | rate-limited | non-monotonic-seq`. Client-sent snapshots are always refused (I1); a hit claim has no valid frame kind and is ignored by PR-N4. A GM action without a non-empty reason is refused before any state change; an accepted action writes an immutable audit entry `{id, actor, tick, action, reason, hash}` (FNV-1a). Audit retention is OPS-001, not a promise of this task.
 
 ## 8. Edge cases
 
@@ -82,6 +85,10 @@ rejected_messages_by_code, rate_limit_events, gm_actions_without_reason (must be
 - GIVEN 200 messages in 1 s WHEN rate limiting runs THEN at most 30 reach the tick.
 - GIVEN a GM action without reason WHEN submitted THEN it is refused and no audit entry is created.
 
+- GIVEN 200 intents in one tick-window WHEN the gate runs THEN exactly 30 are admitted and 170 are refused with `RATE_LIMIT`.
+- GIVEN a client-sent snapshot or a wrong hello version WHEN validated THEN it is refused with a reason and the counter increments.
+- GIVEN a GM action without a reason WHEN audited THEN it is refused and no entry is written.
+
 ## 16. Perf budget impact
 
 Validation <= 0.2 ms per message; rate-limit check is O(1) per client; audit write is off the tick path.
@@ -94,8 +101,8 @@ No client-side trust, no anti-cheat telemetry uploaded from the render process, 
 
 | question | owner | deadline |
 |---|---|---|
-| P | e | r |
-| W | h | i |
+| When does `attachRooms` route every frame through the gate, and who verifies no bypass remains? | security-auditor + backend-engineer | SEC-002 |
+| Which durable store keeps audit entries for the 90-day retention target? | sre-engineer | OPS-001 |
 
 ## 19. Changelog
 
@@ -103,3 +110,4 @@ No client-side trust, no anti-cheat telemetry uploaded from the render process, 
 |---|---|---|---|
 | 0.1 | 2026-11-18 | STUB created by GDD-001 | game-designer |
 | 0.2 | 2026-11-18 | DRAFT: all 19 fields, sources and ranges | GDD-002 |
+| 0.3 | 2026-11-18 | SEC-001: ingress gate, rate limit, reason counters, GM audit, honest residual risks | security-auditor |

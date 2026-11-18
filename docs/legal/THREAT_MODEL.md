@@ -1,0 +1,58 @@
+# STRATA threat model — P2NET (SEC-001)
+
+| field | value |
+|---|---|
+| date | 2026-11-18 |
+| status | **partial**: the ingress gate exists and is tested, but it is not yet wired into the room adapter |
+| owner | security-auditor |
+
+## Assets
+
+1. Authoritative world state and tick: positions, hashes, entity ids (I1).
+2. Player progression and money: bigint minor-unit ledger (PR-N3, D150).
+3. Session resume handles: opaque handles, **not credentials** (A0004).
+4. GM audit trail: actor, tick, reason, immutable entry (SEC-001).
+5. Evidence chain: committed logs and metrics; a false claim is a P1 defect (I13).
+
+## Adversaries
+
+- **Flood client**: sends 200 intents in one 30-tick window to stall the tick.
+- **Replay client**: reuses an old sequence number or a stale resume handle after logout.
+- **Forger**: sends a snapshot, a hit result or a bone transform to take authority (I1/I3).
+- **Version-confused peer**: speaks an old wire version and expects silent coercion.
+- **Unreasoned GM action**: grants without a recorded justification.
+
+## Surfaces and current mitigations
+
+| surface | mitigation | evidence |
+|---|---|---|
+| untrusted bytes | `decodeFrame` rejects malformed lengths/types; reason `malformed` counted | `tests/security/message-gate.test.ts` |
+| unknown kinds | client-sent snapshot refused (`client-snapshot`); unknown kinds refused | same |
+| version | v3 only; v2/v4 refused, never coerced (GDD-NETCODE §7) | `packages/protocol/test/binary.test.ts` |
+| flood | 30 intents per 30-tick window; 200-message burst → 30 admitted, 170 `RATE_LIMIT` | `tests/security/message-gate.test.ts` |
+| replay | monotonic seq per client; `forget()` on logout clears seq and rate state | same |
+| hit claims | no wire kind for a hit result; PR-N4 ignores `claimed` | PR-N4 evidence |
+| GM action | non-empty reason required; immutable hashed entry or refusal | `tests/security/message-gate.test.ts` |
+
+## Residual risks — NOT mitigated here
+
+1. **No authentication.** The resume handle is an FNV-1a tamper detector, not a credential; anyone who holds one
+   can attempt a resume. Authentication is a later task; A0004 and GDD-NETCODE §7 say so explicitly.
+2. **No TLS in the harnesses.** All local tests use in-process sockets or fake sockets. No transport encryption
+   is claimed.
+3. **The gate is not on the live path yet.** `apps/server/src/rooms/ws-adapter.ts` still calls `Room.handleBytes`
+   directly. GDD-SECURITY therefore does **not** claim "0 unvalidated message paths"; wiring the gate and proving
+   no bypass remains is SEC-002.
+4. **In-memory counters only.** Rate and reject counters reset on process restart; no distributed limiter, no
+   persistence, no cross-shard enforcement.
+5. **No real socket flood test.** The 200-message burst is in-process. No measured packets/s, RTT or loss matrix.
+6. **Audit retention is unimplemented.** The 90-day target is an OPS-001 runbook item; this task only guarantees
+   entry immutability and a deterministic hash.
+7. **No anti-cheat beyond plausibility.** Speed/hit validation exists in PR-N4; no behavioural profiling or
+   statistical detection is claimed.
+
+## Decision
+
+SEC-001 closes the **validation and reason-code** part of P2NET. It does not certify the network as secure. The
+NET-GATE dossier (NG-001) must carry these residual risks verbatim to the Director rather than summarising them
+away.

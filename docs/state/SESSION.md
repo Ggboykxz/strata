@@ -7,8 +7,8 @@
 | branch | `session/20261118-hc-001-high-concept` |
 | phase / tier | P1 complete → P2NET next / current `S0`, authorized **`S1`** (GATE:P1 signed 2026-11-18) |
 | director | present for bootstrap; async from now |
-| last task | PR-N4 — lag compensation rewind + shot validation |
-| next task | **SEC-001** — threat model + validation + rate limits + anti-cheat |
+| last task | SEC-001 — ingress validation, rate limits, threat model |
+| next task | **NG-001** — NET-GATE dossier for the Director |
 
 ## Done this session
 
@@ -50,6 +50,7 @@
 | PR-N1 | local load harness, PRN1 report, acc repaired | harness 3/3 · full 125/125 · local p95 0.2109 ms · 46 530 B/s |
 | PR-N3 | bigint zero-sum ledger, idempotency, checksum restore, GDD 0.3/0.3 | fuzz 7/7 · full 132/132 · drift 0 · 10k tx |
 | PR-N4 | rewind ring, integer LOS/range/cooldown, GDD-NETCODE 0.7 | lagcomp 10/10 · full 142/142 · 30 shots |
+| SEC-001 | message gate, rate limit, GM audit, threat model, GDD-SECURITY 0.3 | security 10/10 · full 142/142 · 30/200 admitted |
 
 **P0-001 and P0-002 were split** although only P0-001 triggered B8: the halves fail for different reasons and
 deserve separate rollback points. Commits: `094f31f`, `bd6f550` (P0-001); `1ceaf20`, `7e9d382` (P0-002).
@@ -286,3 +287,15 @@ blueprint task currently owns the pin: recorded as a gap for the Director/next r
 - `pnpm sim prn4 --assert` could never run (no `sim` script); acc repaired (tenth broken form). GDD-NETCODE 0.7.
   7 `pnpm test --filter` accs remain.
 - Not a loss matrix, not RTT, not a soak; range and cooldown stay tunables until PR-S1.
+
+## Session 2 — SEC-001 closes P2NET (2026-11-18T10:18Z)
+
+- Ingress gate rejects malformed bytes, client snapshots, wrong versions, unknown kinds and non-monotonic seq
+  with **counted reason codes**. 200-message burst → exactly 30 admitted, 170 `RATE_LIMIT`. GM actions require a
+  reason; accepted entries are frozen and FNV-1a hashed.
+- `docs/legal/THREAT_MODEL.md` names seven residual risks verbatim: no auth, no TLS, **gate not wired into
+  `attachRooms`**, in-memory counters only, no socket flood test, retention is OPS-001, no statistical anti-cheat.
+  GDD-SECURITY therefore does **not** claim "0 unvalidated message paths".
+- `pnpm test --filter @strata/security` could never run (`CACError`); acc repaired to a dedicated vitest config
+  under `tests/security/`. Eleventh broken form; 7 `pnpm test --filter` accs remain.
+- Security 10/10, main suite 142/142, verify 17/17. GATE:P2NET is now satisfied; NG-001 is selectable.

@@ -159,6 +159,9 @@ Anything else goes through a handoff. A conflict is resolved by a handoff or the
 - **PR-N4 landed**: 31-frame rewind, bigint squared range, integer Bresenham LOS and per-shooter cooldown;
   the client's `claimed` flag is ignored. Local fuzz 30 shots (4 hits / 16 cooldown / 5 blocked / 4 range / 1 stale),
   full 142/142, verify 17/17. Next: SEC-001 (threat model, validation, rate limits).
+- **SEC-001 closed P2NET**: ingress gate with counted reason codes, 30-per-window rate limit and GM audit;
+  200-message burst → 30 admitted. Threat model lists seven residual risks — no auth/TLS, gate not wired into
+  `attachRooms` (SEC-002), in-memory counters, retention is OPS-001. Security 10/10, verify 17/17. Next: NG-001.
 - Known intentional red: `scope-math --report` exit 2 (throughput unmeasured) and `concept --score` exit 2
   until HC-003. `concept --check` is green: T3 was signed at GATE:P0.
 
