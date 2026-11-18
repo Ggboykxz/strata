@@ -58,6 +58,14 @@ undocumented second fix.
 Not fixable by an agent remains listed in ND-013: no GPU/TPU (ND-012), 8 unmeasured NET-GATE criteria, PAT/HF
 rotation and PR merges (Director-only), TPU scope (ND-011).
 
+## 4b. Babylon 9 feature research (Director input)
+
+`docs/state/threads/ENGINE-BABYLON9/0001-RESEARCH.md` records the impact analysis. Babylon 9.37.0 is already
+pinned and audited; the 9.0 node graphs are VFX/rendering tools, not gameplay truth (I1/A0001). Evaluate
+animation retargeting at AN-002, splat/large-world features at WG-001, lighting at P3-003 — each with an I4 audit
+and a measured budget, never from a blog claim. Constitution §10.4 still says "Babylon.js 8" while STACK pins
+9.37.0: a Director-signed ADR is needed to amend that sentence.
+
 ## 5. Non-gated tooling candidates
 
 1. Wire `apps/dashboard/check.mjs` into `pnpm verify` — changes the 17-step baseline; own task.
