@@ -5,7 +5,7 @@
 | gate | `GATE:P0` — human, 3 drills |
 | status | **ASSEMBLED — awaiting Director signature** |
 | branch | `session/20261118-hc-001-high-concept` |
-| head at assembly | `3c9c48fd` |
+| head at assembly | `cfe1fdf` |
 | agent | orchestrator (evidence only; no agent signs a gate) |
 | evidence | `docs/state/evidence/20261118T014957Z-GATE-P0/` |
 
@@ -42,11 +42,12 @@ A fourth CI-specific case exists in code: Actions checks out a detached HEAD, so
 
 ## 3. CI proof
 
-`09-ci-results.log` in the evidence directory records the run at head `3c9c48fd`. After the name
-reconciliation, the new head must be checked again on GitHub before signature; static validation alone is
-not proof. The runs at `3c9c48fd` were: 13 workflows success, including `ci - pnpm verify`, `tracer`,
-`blueprint`, `ownership`, `locks`, `prompt drift`, `scope`, `concept`, `typecheck`, `lint`, `unit`,
-`workflow self-validation` and `codeql` (`44218930292`).
+At the final head `cfe1fdf`, `14-ci-after-reconciliation.log` records **8/8 triggered workflows success**
+(`ci`, `high-concept`, `model-audit`, `netcode`, `opencode`, `scope`, `security`, `workflow`). The other 19
+master-named workflows are `workflow_dispatch`-only placeholders or stub callers; GitHub created no run
+for them and, after two YAML defects were fixed, **no failure runs** either. The earlier head `3c9c48fd`
+had 13 successful runs before the name reconciliation (`09-ci-results.log`). The dependency-graph service
+exception remains the only non-green entry recorded anywhere.
 
 The only non-green entry is `dependency - license review` at head `f206b767` (`44218555810`): the
 dependency-graph API returned **403** for this repository. It is now `workflow_dispatch`-only with the
