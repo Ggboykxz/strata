@@ -1,31 +1,33 @@
 /**
- * delta.ts — deterministic AoI + delta snapshot codec for the NET-GATE wire measurement.
+ * delta.ts — deterministic AoI-chained bit-packed snapshot codec for the NET-GATE wire measurement.
  *
  * PROTOTYPE ONLY. This module is not wired into the server, does not change `binary.ts`, and adds no
  * frame kind to the production `FrameType` table (it uses its own 0x20 measurement frame). NET-101
  * owns the production AoI grid + delta + bitpacking work.
  *
- * Design:
+ * Design (version 2, chained deltas):
  *   - AoI is a 32 m radius (D90) in integer millimetres, squared distance compared with bigint, then
  *     capped at 64 entities by (distance, id) so the cap is deterministic;
  *   - a keyframe carries every entity in the client's AoI at that tick;
- *   - a delta is computed against the last acknowledged keyframe, so it carries every entity that
- *     differs from that keyframe plus the ids that left the AoI. A lost delta is recovered by the next
- *     delta; a lost keyframe is recovered by retransmission;
+ *   - a delta is a CHAINED frame: baseTick is the tick of the previous frame the client has applied
+ *     (a keyframe or the previous delta), not a shared anchor. Every field is the per-frame step this
+ *     tick (±50 mm for a walking entity), so the packed entry fits i8 end-to-end. A lost frame breaks
+ *     the chain; the frame that does not match the client's baseline is refused with `needs-keyframe`
+ *     and the next frame is a keyframe, which re-anchors the client. A lost keyframe is retransmitted;
  *   - integers only. No clock, no randomness, no float arithmetic, no dependency.
  *
  * Exact frame layout (little-endian):
  *
- *   header, 19 B: type u8 (0x20), version u8, flags u8, tick u32, baseTick u32, hash u32,
- *                 changedCount u16, removedCount u16
+ *   header, 21 B: type u8 (0x20), version u8 (2), flags u8, tick u32, baseTick u32, hash u32,
+ *                 packedCount u16, absoluteCount u16, removedCount u16
  *   keyframe entity, 24 B: id u32, x i32, z i32, vx i32, vz i32, seq u32
- *   relative delta entry, 10 B: id u16, tag u8 (0), dx i16, dz i16, vx i8, vz i8, seqDelta u8
- *   absolute delta entry, 23 B: id u16, tag u8 (1), x i32, z i32, vx i32, vz i32, seq u32
+ *   packed delta entry, 6 B: id u16, dx i8, dz i8, vx i8, vz i8, seqDelta u8
+ *   absolute delta entry, 22 B: id u16, x i32, z i32, vx i32, vz i32, seq u32
  *   removed id, 2 B: id u16
  *
- * A relative entry is used when (current - keyframe) fits i16 on each axis, the velocity fits i8 and
- * the per-entity seq advance fits u8; otherwise the entity is sent as an absolute entry. This is not
- * bitpacking: positions stay millimetres, velocities stay millimetres per tick.
+ * Packed entries come first (ascending id), absolute entries after them (ascending id), removed ids last.
+ * No per-entry tag byte: the section counts say where each section ends. An entity is packed whenever
+ * every field fits i8 — which is always the case for a per-tick step inside the AoI cap.
  */
 import { hashWorld, toWireMm, type EntityState, type WorldState } from '@strata/core';
 import { MAX_ENTITIES } from './binary';
@@ -35,16 +37,13 @@ export const AOI_RADIUS_MM = 32_000;
 
 /** Measurement frame type. Deliberately outside binary.ts's production FrameType table. */
 export const DELTA_FRAME_TYPE = 0x20;
-export const DELTA_WIRE_VERSION = 1;
+export const DELTA_WIRE_VERSION = 2;
 
-export const DELTA_HEADER_BYTES = 19;
+export const DELTA_HEADER_BYTES = 21;
 export const KEYFRAME_ENTITY_BYTES = 24;
-export const RELATIVE_ENTRY_BYTES = 10;
-export const ABSOLUTE_ENTRY_BYTES = 23;
+export const RELATIVE_ENTRY_BYTES = 6;
+export const ABSOLUTE_ENTRY_BYTES = 22;
 export const REMOVED_ID_BYTES = 2;
-
-export const ENTRY_RELATIVE = 0;
-export const ENTRY_ABSOLUTE = 1;
 
 const KEYFRAME_FLAG = 0x01;
 const MAX_U16 = 0xffff;
@@ -74,7 +73,7 @@ export class DeltaProtocolError extends Error {
   }
 }
 
-/** One entity change relative to the keyframe. */
+/** One entity change relative to the previous applied frame. */
 export interface RelativeDeltaEntry {
   readonly kind: 'relative';
   readonly id: number;
@@ -85,7 +84,7 @@ export interface RelativeDeltaEntry {
   readonly seqDelta: number;
 }
 
-/** One entity new to the AoI since the keyframe, or too large for a relative entry. */
+/** One entity new to the AoI since the baseline frame, or with a field too large for i8. */
 export interface AbsoluteDeltaEntry {
   readonly kind: 'absolute';
   readonly id: number;
@@ -123,7 +122,7 @@ export interface AoiSnapshot {
   readonly hash: string;
 }
 
-/** The state a client must hold to apply deltas: exactly one acknowledged keyframe. */
+/** The exact state a client holds after applying one frame: the full AoI view at that tick. */
 export interface DeltaBaseline {
   readonly tick: number;
   readonly hash: string;
@@ -160,13 +159,6 @@ function checkI32(value: number, field: string): number {
   }
 }
 
-function checkI16(value: number, field: string): number {
-  if (!Number.isInteger(value) || value < -32_768 || value > 32_767) {
-    throw new DeltaProtocolError('out-of-range', `${field} ${String(value)} is not an i16`);
-  }
-  return value;
-}
-
 function checkI8(value: number, field: string): number {
   if (!Number.isInteger(value) || value < -128 || value > 127) {
     throw new DeltaProtocolError('out-of-range', `${field} ${String(value)} is not an i8`);
@@ -192,6 +184,42 @@ function hashToU32(hash: string): number {
 
 function u32ToHash(value: number): string {
   return (value >>> 0).toString(16).padStart(8, '0');
+}
+
+function checkSlot(frame: DeltaUpdateFrame): void {
+  const seen = new Set<number>();
+  let previousPacked = 0;
+  for (const entry of frame.changed) {
+    if (entry.kind === 'relative') {
+      if (entry.id <= previousPacked) {
+        throw new DeltaProtocolError('duplicate-id', 'packed delta entries are not sorted by unique ascending id');
+      }
+      previousPacked = entry.id;
+    }
+    if (seen.has(entry.id)) {
+      throw new DeltaProtocolError('duplicate-id', `entity ${entry.id} appears twice in the changed set`);
+    }
+    seen.add(entry.id);
+  }
+  let previousAbsolute = 0;
+  for (const entry of frame.changed) {
+    if (entry.kind !== 'absolute') continue;
+    if (entry.id <= previousAbsolute) {
+      throw new DeltaProtocolError('duplicate-id', 'absolute delta entries are not sorted by unique ascending id');
+    }
+    previousAbsolute = entry.id;
+  }
+  let previousRemoved = 0;
+  for (const id of frame.removed) {
+    checkU16(id, 'removed.id');
+    if (id <= previousRemoved) {
+      throw new DeltaProtocolError('duplicate-id', 'removed ids are not sorted by unique ascending id');
+    }
+    previousRemoved = id;
+    if (seen.has(id)) {
+      throw new DeltaProtocolError('overlap', `entity ${id} is both changed and removed`);
+    }
+  }
 }
 
 function checkEntity(entity: EntityState, field: string): void {
@@ -220,8 +248,8 @@ function checkEntities(entities: readonly EntityState[], field: string): void {
 function checkEntry(entry: DeltaEntry): void {
   checkU16(entry.id, 'entry.id');
   if (entry.kind === 'relative') {
-    checkI16(entry.dx, 'entry.dx');
-    checkI16(entry.dz, 'entry.dz');
+    checkI8(entry.dx, 'entry.dx');
+    checkI8(entry.dz, 'entry.dz');
     checkI8(entry.vx, 'entry.vx');
     checkI8(entry.vz, 'entry.vz');
     checkU8(entry.seqDelta, 'entry.seqDelta');
@@ -253,27 +281,8 @@ function assertFrameShape(frame: DeltaFrame): void {
   if (frame.removed.length > MAX_ENTITIES) {
     throw new DeltaProtocolError('too-many-entities', `${frame.removed.length} removed > ${MAX_ENTITIES}`);
   }
-  const changedIds = new Set<number>();
-  let previousChanged = 0;
-  for (const entry of frame.changed) {
-    checkEntry(entry);
-    if (entry.id <= previousChanged) {
-      throw new DeltaProtocolError('duplicate-id', 'changed entries are not sorted by unique ascending id');
-    }
-    previousChanged = entry.id;
-    changedIds.add(entry.id);
-  }
-  let previousRemoved = 0;
-  for (const id of frame.removed) {
-    checkU16(id, 'removed.id');
-    if (id <= previousRemoved) {
-      throw new DeltaProtocolError('duplicate-id', 'removed ids are not sorted by unique ascending id');
-    }
-    previousRemoved = id;
-    if (changedIds.has(id)) {
-      throw new DeltaProtocolError('overlap', `entity ${id} is both changed and removed`);
-    }
-  }
+  for (const entry of frame.changed) checkEntry(entry);
+  checkSlot(frame);
 }
 
 function sameEntity(a: EntityState, b: EntityState): boolean {
@@ -347,7 +356,7 @@ export function buildKeyframe(snapshot: AoiSnapshot): DeltaKeyframeFrame {
   return { kind: 'delta-keyframe', tick: snapshot.tick, hash: snapshot.hash, entities: [...snapshot.entities] };
 }
 
-/** Take the keyframe a client holds as the baseline for subsequent deltas. */
+/** Take the frame a client last holds as the chain baseline (keyframe right after one is applied). */
 export function baselineFromSnapshot(snapshot: AoiSnapshot): DeltaBaseline {
   checkU32(snapshot.tick, 'tick');
   checkHash(snapshot.hash);
@@ -358,8 +367,9 @@ export function baselineFromSnapshot(snapshot: AoiSnapshot): DeltaBaseline {
 }
 
 /**
- * Build the delta from an acknowledged keyframe to the current AoI view. Changed entities are sorted
- * by id; removed ids are those in the baseline but no longer in the AoI, sorted by id.
+ * Build the chained delta from the client's last frame to the current AoI view. Packed entries come
+ * first (ascending id) and absolute entries after them (ascending id); removed ids are those in the
+ * baseline but no longer in the AoI, sorted by id.
  */
 export function buildDelta(baseline: DeltaBaseline, snapshot: AoiSnapshot): DeltaUpdateFrame {
   checkU32(baseline.tick, 'baseline.tick');
@@ -371,15 +381,16 @@ export function buildDelta(baseline: DeltaBaseline, snapshot: AoiSnapshot): Delt
     throw new DeltaProtocolError('hash-mismatch', `snapshot hash ${snapshot.hash} != ${expected}`);
   }
   const current = new Set<number>();
-  const changed: DeltaEntry[] = [];
+  const packed: RelativeDeltaEntry[] = [];
+  const absolute: AbsoluteDeltaEntry[] = [];
   for (const entity of snapshot.entities) {
     current.add(entity.id);
+    if (entity.id > MAX_U16) {
+      throw new DeltaProtocolError('needs-keyframe', `entity ${entity.id} does not fit the u16 delta id`);
+    }
     const previous = baseline.entities.get(entity.id);
     if (!previous) {
-      if (entity.id > MAX_U16) {
-        throw new DeltaProtocolError('needs-keyframe', `entity ${entity.id} does not fit the u16 delta id`);
-      }
-      changed.push({
+      absolute.push({
         kind: 'absolute', id: entity.id, x: entity.x, z: entity.z, vx: entity.vx, vz: entity.vz, seq: entity.seq,
       });
       continue;
@@ -388,21 +399,15 @@ export function buildDelta(baseline: DeltaBaseline, snapshot: AoiSnapshot): Delt
     const dx = entity.x - previous.x;
     const dz = entity.z - previous.z;
     const seqDelta = entity.seq - previous.seq;
-    const relative = entity.id <= MAX_U16
-      && dx >= -32_768 && dx <= 32_767
-      && dz >= -32_768 && dz <= 32_767
+    const packable = dx >= -128 && dx <= 127
+      && dz >= -128 && dz <= 127
       && entity.vx >= -128 && entity.vx <= 127
       && entity.vz >= -128 && entity.vz <= 127
       && seqDelta >= 0 && seqDelta <= 255;
-    if (relative) {
-      changed.push({
-        kind: 'relative', id: entity.id, dx, dz, vx: entity.vx, vz: entity.vz, seqDelta,
-      });
+    if (packable) {
+      packed.push({ kind: 'relative', id: entity.id, dx, dz, vx: entity.vx, vz: entity.vz, seqDelta });
     } else {
-      if (entity.id > MAX_U16) {
-        throw new DeltaProtocolError('needs-keyframe', `entity ${entity.id} does not fit the u16 delta id`);
-      }
-      changed.push({
+      absolute.push({
         kind: 'absolute', id: entity.id, x: entity.x, z: entity.z, vx: entity.vx, vz: entity.vz, seq: entity.seq,
       });
     }
@@ -420,7 +425,7 @@ export function buildDelta(baseline: DeltaBaseline, snapshot: AoiSnapshot): Delt
     tick: snapshot.tick,
     baseTick: baseline.tick,
     hash: snapshot.hash,
-    changed,
+    changed: [...packed, ...absolute],
     removed,
   };
 }
@@ -448,7 +453,7 @@ export interface ClientFrameResult {
   readonly keyframe: boolean;
 }
 
-/** One-client convenience: keyframe when due or forced, otherwise a delta against the baseline. */
+/** One-client convenience: keyframe when due or forced, otherwise a chained delta against the last frame. */
 export function buildClientFrame(
   world: WorldState,
   viewerId: number,
@@ -497,8 +502,11 @@ export function encodeDeltaFrame(frame: DeltaFrame): Uint8Array {
   view.setUint32(3, frame.tick, true);
   view.setUint32(7, frame.kind === 'delta-keyframe' ? 0 : frame.baseTick, true);
   view.setUint32(11, hashToU32(frame.hash), true);
-  view.setUint16(15, frame.kind === 'delta-keyframe' ? frame.entities.length : frame.changed.length, true);
-  view.setUint16(17, frame.kind === 'delta-keyframe' ? 0 : frame.removed.length, true);
+  const packedCount = frame.kind === 'delta-keyframe' ? frame.entities.length : frame.changed.filter((entry) => entry.kind === 'relative').length;
+  const absoluteCount = frame.kind === 'delta-keyframe' ? 0 : frame.changed.length - packedCount;
+  view.setUint16(15, packedCount, true);
+  view.setUint16(17, absoluteCount, true);
+  view.setUint16(19, frame.kind === 'delta-keyframe' ? 0 : frame.removed.length, true);
   let offset = DELTA_HEADER_BYTES;
   if (frame.kind === 'delta-keyframe') {
     for (const entity of frame.entities) {
@@ -513,24 +521,24 @@ export function encodeDeltaFrame(frame: DeltaFrame): Uint8Array {
     return out;
   }
   for (const entry of frame.changed) {
+    if (entry.kind !== 'relative') continue;
     view.setUint16(offset, entry.id, true);
-    if (entry.kind === 'relative') {
-      view.setUint8(offset + 2, ENTRY_RELATIVE);
-      view.setInt16(offset + 3, entry.dx, true);
-      view.setInt16(offset + 5, entry.dz, true);
-      view.setInt8(offset + 7, entry.vx);
-      view.setInt8(offset + 8, entry.vz);
-      view.setUint8(offset + 9, entry.seqDelta);
-      offset += RELATIVE_ENTRY_BYTES;
-    } else {
-      view.setUint8(offset + 2, ENTRY_ABSOLUTE);
-      view.setInt32(offset + 3, entry.x, true);
-      view.setInt32(offset + 7, entry.z, true);
-      view.setInt32(offset + 11, entry.vx, true);
-      view.setInt32(offset + 15, entry.vz, true);
-      view.setUint32(offset + 19, entry.seq, true);
-      offset += ABSOLUTE_ENTRY_BYTES;
-    }
+    view.setInt8(offset + 2, entry.dx);
+    view.setInt8(offset + 3, entry.dz);
+    view.setInt8(offset + 4, entry.vx);
+    view.setInt8(offset + 5, entry.vz);
+    view.setUint8(offset + 6, entry.seqDelta);
+    offset += RELATIVE_ENTRY_BYTES;
+  }
+  for (const entry of frame.changed) {
+    if (entry.kind !== 'absolute') continue;
+    view.setUint16(offset, entry.id, true);
+    view.setInt32(offset + 2, entry.x, true);
+    view.setInt32(offset + 6, entry.z, true);
+    view.setInt32(offset + 10, entry.vx, true);
+    view.setInt32(offset + 14, entry.vz, true);
+    view.setUint32(offset + 18, entry.seq, true);
+    offset += ABSOLUTE_ENTRY_BYTES;
   }
   for (const id of frame.removed) {
     view.setUint16(offset, id, true);
@@ -561,20 +569,23 @@ export function decodeDeltaFrame(bytes: Uint8Array): DeltaFrame {
   const tick = view.getUint32(3, true);
   const baseTick = view.getUint32(7, true);
   const hash = u32ToHash(view.getUint32(11, true));
-  const changedCount = view.getUint16(15, true);
-  const removedCount = view.getUint16(17, true);
+  const packedCount = view.getUint16(15, true);
+  const absoluteCount = view.getUint16(17, true);
+  const removedCount = view.getUint16(19, true);
 
   if (keyframe) {
     if (baseTick !== 0) throw new DeltaProtocolError('out-of-range', 'keyframe baseTick must be 0');
-    if (removedCount !== 0) throw new DeltaProtocolError('bad-flags', 'keyframe cannot carry removed ids');
-    if (changedCount > MAX_ENTITIES) {
-      throw new DeltaProtocolError('too-many-entities', `${changedCount} entities > ${MAX_ENTITIES}`);
+    if (absoluteCount !== 0 || removedCount !== 0) {
+      throw new DeltaProtocolError('bad-flags', 'keyframe cannot carry absolute entries or removed ids');
     }
-    const expected = DELTA_HEADER_BYTES + changedCount * KEYFRAME_ENTITY_BYTES;
+    if (packedCount > MAX_ENTITIES) {
+      throw new DeltaProtocolError('too-many-entities', `${packedCount} entities > ${MAX_ENTITIES}`);
+    }
+    const expected = DELTA_HEADER_BYTES + packedCount * KEYFRAME_ENTITY_BYTES;
     if (bytes.length !== expected) throw lengthError(bytes.length, expected);
     const entities: EntityState[] = [];
     let offset = DELTA_HEADER_BYTES;
-    for (let index = 0; index < changedCount; index += 1) {
+    for (let index = 0; index < packedCount; index += 1) {
       entities.push({
         id: view.getUint32(offset, true),
         x: view.getInt32(offset + 4, true),
@@ -592,59 +603,49 @@ export function decodeDeltaFrame(bytes: Uint8Array): DeltaFrame {
   if (baseTick >= tick) {
     throw new DeltaProtocolError('out-of-range', `delta baseTick ${baseTick} must be before tick ${tick}`);
   }
-  if (changedCount > MAX_ENTITIES) {
-    throw new DeltaProtocolError('too-many-entities', `${changedCount} changed > ${MAX_ENTITIES}`);
+  if (packedCount + absoluteCount > MAX_ENTITIES) {
+    throw new DeltaProtocolError('too-many-entities', `${packedCount + absoluteCount} changed > ${MAX_ENTITIES}`);
   }
   if (removedCount > MAX_ENTITIES) {
     throw new DeltaProtocolError('too-many-entities', `${removedCount} removed > ${MAX_ENTITIES}`);
   }
+  const packedEnd = DELTA_HEADER_BYTES + packedCount * RELATIVE_ENTRY_BYTES;
+  const absoluteEnd = packedEnd + absoluteCount * ABSOLUTE_ENTRY_BYTES;
+  if (absoluteEnd > bytes.length) throw new DeltaProtocolError('truncated', 'delta entries truncated');
+  if (absoluteEnd + removedCount * REMOVED_ID_BYTES !== bytes.length) {
+    throw lengthError(bytes.length, absoluteEnd + removedCount * REMOVED_ID_BYTES);
+  }
   const changed: DeltaEntry[] = [];
   let offset = DELTA_HEADER_BYTES;
-  for (let index = 0; index < changedCount; index += 1) {
-    if (offset + 3 > bytes.length) throw new DeltaProtocolError('truncated', 'delta entry header truncated');
-    const id = view.getUint16(offset, true);
-    const tag = view.getUint8(offset + 2);
-    if (tag === ENTRY_RELATIVE) {
-      if (offset + RELATIVE_ENTRY_BYTES > bytes.length) {
-        throw new DeltaProtocolError('truncated', 'relative delta entry truncated');
-      }
-      changed.push({
-        kind: 'relative',
-        id,
-        dx: view.getInt16(offset + 3, true),
-        dz: view.getInt16(offset + 5, true),
-        vx: view.getInt8(offset + 7),
-        vz: view.getInt8(offset + 8),
-        seqDelta: view.getUint8(offset + 9),
-      });
-      offset += RELATIVE_ENTRY_BYTES;
-    } else if (tag === ENTRY_ABSOLUTE) {
-      if (offset + ABSOLUTE_ENTRY_BYTES > bytes.length) {
-        throw new DeltaProtocolError('truncated', 'absolute delta entry truncated');
-      }
-      changed.push({
-        kind: 'absolute',
-        id,
-        x: view.getInt32(offset + 3, true),
-        z: view.getInt32(offset + 7, true),
-        vx: view.getInt32(offset + 11, true),
-        vz: view.getInt32(offset + 15, true),
-        seq: view.getUint32(offset + 19, true),
-      });
-      offset += ABSOLUTE_ENTRY_BYTES;
-    } else {
-      throw new DeltaProtocolError('out-of-range', `unknown delta entry tag ${tag}`);
-    }
+  for (let index = 0; index < packedCount; index += 1) {
+    changed.push({
+      kind: 'relative',
+      id: view.getUint16(offset, true),
+      dx: view.getInt8(offset + 2),
+      dz: view.getInt8(offset + 3),
+      vx: view.getInt8(offset + 4),
+      vz: view.getInt8(offset + 5),
+      seqDelta: view.getUint8(offset + 6),
+    });
+    offset += RELATIVE_ENTRY_BYTES;
   }
-  if (offset + removedCount * REMOVED_ID_BYTES > bytes.length) {
-    throw new DeltaProtocolError('truncated', 'removed id list truncated');
+  for (let index = 0; index < absoluteCount; index += 1) {
+    changed.push({
+      kind: 'absolute',
+      id: view.getUint16(offset, true),
+      x: view.getInt32(offset + 2, true),
+      z: view.getInt32(offset + 6, true),
+      vx: view.getInt32(offset + 10, true),
+      vz: view.getInt32(offset + 14, true),
+      seq: view.getUint32(offset + 18, true),
+    });
+    offset += ABSOLUTE_ENTRY_BYTES;
   }
   const removed: number[] = [];
   for (let index = 0; index < removedCount; index += 1) {
     removed.push(view.getUint16(offset, true));
     offset += REMOVED_ID_BYTES;
   }
-  if (offset !== bytes.length) throw lengthError(bytes.length, offset);
   const frame: DeltaUpdateFrame = { kind: 'delta', tick, baseTick, hash, changed, removed };
   assertFrameShape(frame);
   return frame;
@@ -657,8 +658,9 @@ export interface AppliedDelta {
 }
 
 /**
- * Apply one frame. A keyframe replaces the client view; a delta must name the baseline tick the client
- * actually holds. The resulting view is hashed and must equal the frame hash, or the frame is refused.
+ * Apply one frame. A keyframe replaces the client view; a delta must name the exact baseline tick the
+ * client holds (the last frame it applied). The result view is hashed and must equal the frame hash,
+ * or the frame is refused.
  */
 export function applyDeltaFrame(baseline: DeltaBaseline | null, frame: DeltaFrame): AppliedDelta {
   assertFrameShape(frame);
@@ -668,16 +670,16 @@ export function applyDeltaFrame(baseline: DeltaBaseline | null, frame: DeltaFram
     if (hash !== frame.hash) throw new DeltaProtocolError('hash-mismatch', `keyframe hash ${frame.hash} != ${hash}`);
     return { tick: frame.tick, entities, hash };
   }
-  if (!baseline) throw new DeltaProtocolError('base-mismatch', 'a delta cannot be applied without a keyframe baseline');
+  if (!baseline) throw new DeltaProtocolError('needs-keyframe', 'a delta cannot be applied without a keyframe or previous delta baseline');
   if (baseline.tick !== frame.baseTick) {
-    throw new DeltaProtocolError('base-mismatch', `delta base ${frame.baseTick} != client baseline ${baseline.tick}`);
+    throw new DeltaProtocolError('needs-keyframe', `delta base ${frame.baseTick} != client baseline ${baseline.tick}: a frame was lost in the chain`);
   }
   const entities = new Map<number, EntityState>(baseline.entities);
   for (const entry of frame.changed) {
     if (entry.kind === 'relative') {
       const previous = entities.get(entry.id);
       if (!previous) {
-        throw new DeltaProtocolError('base-mismatch', `relative entry ${entry.id} has no baseline entity`);
+        throw new DeltaProtocolError('base-mismatch', `packed entry ${entry.id} has no baseline entity`);
       }
       const seq = previous.seq + entry.seqDelta;
       checkU32(seq, 'entity.seq');

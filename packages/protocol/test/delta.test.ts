@@ -91,7 +91,7 @@ describe('AoI selection', () => {
 });
 
 describe('keyframe round-trip and exact lengths', () => {
-  it('is header 19 + 24 per entity, and round-trips', () => {
+  it('is header 21 + 24 per entity, and round-trips', () => {
     const view = snapshot(10, [entity(1, -50, 50, 0, 0, 2), entity(2, 100, -100, 50, -50, 3), entity(3)]);
     const frame = buildKeyframe(view);
     const size = deltaFrameSize(frame);
@@ -100,10 +100,10 @@ describe('keyframe round-trip and exact lengths', () => {
       entities: 3 * KEYFRAME_ENTITY_BYTES,
       changed: 0,
       removed: 0,
-      total: 19 + 72,
+      total: DELTA_HEADER_BYTES + 3 * KEYFRAME_ENTITY_BYTES,
     });
     const bytes = encodeDeltaFrame(frame);
-    expect(bytes.byteLength).toBe(91);
+    expect(bytes.byteLength).toBe(DELTA_HEADER_BYTES + 72);
     expect(bytes[0]).toBe(DELTA_FRAME_TYPE);
     const decoded = decodeDeltaFrame(bytes);
     expect(decoded).toEqual(frame);
@@ -111,13 +111,14 @@ describe('keyframe round-trip and exact lengths', () => {
     expect(applied).toEqual({ tick: 10, entities: view.entities, hash: view.hash });
   });
 
-  it('round-trips a full 64-entity keyframe at 1 555 bytes', () => {
+  it('round-trips a full 64-entity keyframe at 1 557 bytes (v2 header 21 B)', () => {
     const world = createWorld(1337, 64);
     const view = aoiSnapshotFor(world, 1, Number.MAX_SAFE_INTEGER);
     expect(view.entities.length).toBe(64);
     const bytes = encodeDeltaFrame(buildKeyframe(view));
     expect(bytes.byteLength).toBe(DELTA_HEADER_BYTES + 64 * KEYFRAME_ENTITY_BYTES);
-    expect(bytes.byteLength).toBe(1_555);
+    expect(bytes.byteLength).toBe(DELTA_HEADER_BYTES + 64 * KEYFRAME_ENTITY_BYTES);
+    expect(bytes.byteLength).toBe(1_557);
     expect(decodeDeltaFrame(bytes)).toEqual(buildKeyframe(view));
   });
 });
@@ -151,10 +152,10 @@ describe('delta round-trip, removals and exact lengths', () => {
       entities: 0,
       changed: RELATIVE_ENTRY_BYTES + ABSOLUTE_ENTRY_BYTES,
       removed: REMOVED_ID_BYTES,
-      total: 19 + 10 + 23 + 2,
+      total: DELTA_HEADER_BYTES + RELATIVE_ENTRY_BYTES + ABSOLUTE_ENTRY_BYTES + REMOVED_ID_BYTES,
     });
     const bytes = encodeDeltaFrame(delta);
-    expect(bytes.byteLength).toBe(54);
+    expect(bytes.byteLength).toBe(DELTA_HEADER_BYTES + RELATIVE_ENTRY_BYTES + ABSOLUTE_ENTRY_BYTES + REMOVED_ID_BYTES);
     const decoded = decodeDeltaFrame(bytes);
     expect(decoded).toEqual(delta);
     const applied = applyDeltaFrame(baseline, decoded);
@@ -170,7 +171,7 @@ describe('delta round-trip, removals and exact lengths', () => {
     expect(twice.entities.map((e) => e.id)).toEqual([1, 2, 4]);
   });
 
-  it('encodes an unchanged view as an empty delta of 19 header bytes', () => {
+  it('encodes an unchanged view as an empty delta of 21 header bytes', () => {
     const baseline = baselineFromSnapshot(baseView);
     const delta = buildDelta(baseline, snapshot(2, baseView.entities));
     expect(delta.changed).toEqual([]);
@@ -227,7 +228,7 @@ describe('malformed frames are refused', () => {
     expect(codeOf(() => decodeDeltaFrame(new Uint8Array(0)))).toBe('truncated');
     expect(codeOf(() => decodeDeltaFrame(new Uint8Array(DELTA_HEADER_BYTES - 1)))).toBe('truncated');
     expect(codeOf(() => decodeDeltaFrame(mutate(keyframe, (v) => v.setUint8(0, 0x21))))).toBe('unknown-type');
-    expect(codeOf(() => decodeDeltaFrame(mutate(keyframe, (v) => v.setUint8(1, 2))))).toBe('version');
+    expect(codeOf(() => decodeDeltaFrame(mutate(keyframe, (v) => v.setUint8(1, 1))))).toBe('version');
   });
 
   it('refuses reserved flags and keyframe fields that must be zero', () => {
@@ -244,8 +245,8 @@ describe('malformed frames are refused', () => {
     expect(codeOf(() => decodeDeltaFrame(trailing))).toBe('trailing-bytes');
   });
 
-  it('refuses an unknown delta entry tag and a non-monotonic base tick', () => {
-    expect(codeOf(() => decodeDeltaFrame(mutate(delta, (v) => v.setUint8(DELTA_HEADER_BYTES + 2, 2))))).toBe('out-of-range');
+  it('refuses an absolute-count mismatch and a non-monotonic base tick', () => {
+    expect(codeOf(() => decodeDeltaFrame(mutate(delta, (v) => v.setUint16(17, 2, true))))).toBe('truncated');
     expect(codeOf(() => decodeDeltaFrame(mutate(delta, (v) => v.setUint32(7, 4, true))))).toBe('out-of-range');
   });
 
@@ -266,8 +267,8 @@ describe('malformed frames are refused', () => {
   it('refuses a delta applied to the wrong baseline or with a bad hash', () => {
     const baseline = baselineFromSnapshot(baseView);
     const frame = decodeDeltaFrame(delta);
-    expect(codeOf(() => applyDeltaFrame(null, frame))).toBe('base-mismatch');
-    expect(codeOf(() => applyDeltaFrame({ ...baseline, tick: 3 }, frame))).toBe('base-mismatch');
+    expect(codeOf(() => applyDeltaFrame(null, frame))).toBe('needs-keyframe');
+    expect(codeOf(() => applyDeltaFrame({ ...baseline, tick: 3 }, frame))).toBe('needs-keyframe');
     const badHash: DeltaFrame = { ...frame, hash: '00000000' };
     expect(codeOf(() => applyDeltaFrame(baseline, badHash))).toBe('hash-mismatch');
   });

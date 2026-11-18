@@ -79,13 +79,13 @@ describe('keyframe recovery after loss', () => {
     expect(lossy.finalViewHash).toBe(lossy.finalServerHash);
   });
 
-  it('recovers from a lost delta because the next delta is still keyed to the keyframe', () => {
+  it('recovers from a lost delta by forcing a keyframe re-anchor', () => {
     const worlds = buildWorlds('dense', 120);
     const lossy = runClientStream(worlds, 4, {
       drop: (tick, clientId, kind) => clientId === 4 && tick === 10 && kind === 'delta',
     });
     expect(lossy.framesDropped).toBe(1);
-    expect(lossy.keyframeRetries).toBe(0);
+    expect(lossy.keyframeRetries).toBe(0); // reanchored by a fresh keyframe, not by a retransmission
     expect(lossy.desyncs).toBe(0);
     expect(lossy.finalViewHash).toBe(lossy.finalServerHash);
   });

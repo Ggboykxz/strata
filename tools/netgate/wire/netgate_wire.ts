@@ -274,6 +274,7 @@ export function runClientStream(
   let clientBaseline: DeltaBaseline | null = null;
   let lastKeyframeTick: number | null = null;
   let pendingKeyframeTick: number | null = null;
+  let chainBroken = false;
   let pendingAcks: Array<{ readonly arriveTick: number; readonly keyframeTick: number }> = [];
   let downBytes = 0;
   let upBytes = 0;
@@ -305,7 +306,8 @@ export function runClientStream(
 
     const snapshot: AoiSnapshot = aoiSnapshotFor(world, clientId, radiusMm);
     finalServerHash = snapshot.hash;
-    const mustKeyframe = baseline === null
+    const mustKeyframe = chainBroken
+      || baseline === null
       || lastKeyframeTick === null
       || tick - lastKeyframeTick >= interval
       || pendingKeyframeTick !== null;
@@ -324,6 +326,7 @@ export function runClientStream(
       frame = buildDelta(baseline!, snapshot);
       if (frame.changed.length === 0 && frame.removed.length === 0) {
         emptyDeltas += 1;
+        // chain intact: nothing was sent, so the baseline stays valid
         continue;
       }
       kind = 'delta';
@@ -337,13 +340,17 @@ export function runClientStream(
 
     if (options.drop?.(tick, clientId, kind) === true) {
       framesDropped += 1;
+      // the client never applied this frame: the chain is broken until a clean frame lands
+      chainBroken = true;
       continue;
     }
 
     const applied = applyDeltaFrame(kind === 'keyframe' ? null : clientBaseline, frame);
+    chainBroken = false;
     framesReceived += 1;
+    baseline = baselineFromSnapshot(applied); // the server chain advances only on clean delivery
+    clientBaseline = baselineFromSnapshot(applied);
     if (kind === 'keyframe') {
-      clientBaseline = baselineFromSnapshot(applied);
       pendingAcks.push({ arriveTick: tick + ackDelay, keyframeTick: tick });
     }
     // The client acknowledges every received frame, keyframe or delta, at the 13 B HashAck size.
