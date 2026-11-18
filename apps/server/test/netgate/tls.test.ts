@@ -9,7 +9,7 @@
 import { createServer as createHttpsServer } from 'node:https';
 import { describe, expect, it } from 'vitest';
 import { WebSocket, WebSocketServer } from 'ws';
-import { encodeFrame } from '@strata/protocol';
+import { PROTOCOL_VERSION, encodeFrame } from '@strata/protocol';
 import { RoomHub } from '../../src/rooms';
 import { attachAuthenticatedRooms } from './auth-rooms';
 import { closeClient, listen, trackFrames, waitFor, waitOpen } from './harness';
@@ -96,9 +96,9 @@ describe('TLS transport (real sockets)', () => {
       expect(protocol).toMatch(/^TLSv1/);
       expect(cipher).toBeTruthy();
 
-      client.send(encodeFrame({ kind: 'hello', version: 3, capabilities: 0 }));
+      client.send(encodeFrame({ kind: 'hello', version: PROTOCOL_VERSION, capabilities: 0 }));
       await waitFor(() => captured.frames.some((frame) => frame.kind === 'welcome'), 'welcome over TLS');
-      expect(captured.frames[0]).toMatchObject({ kind: 'welcome', version: 3 });
+      expect(captured.frames[0]).toMatchObject({ kind: 'welcome', version: PROTOCOL_VERSION });
       expect(hub.get('tls')?.members).toHaveLength(1);
 
       console.log(`NETGATE_TLS ${JSON.stringify({

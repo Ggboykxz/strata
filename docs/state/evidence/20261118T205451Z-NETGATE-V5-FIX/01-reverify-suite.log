@@ -1,0 +1,72 @@
+pnpm vitest run apps/server/test/netgate/ (post-v5-merge security harness fix)
+
+ RUN  v5.1.0 /content/strata
+
+stdout | apps/server/test/netgate/crash-restore.test.ts > NET-GATE crash restore and RPO > restores the last atomically written checkpoint in under 3 s and publishes a 5 s RPO
+NETGATE_CRASH {"child":"apps/server/test/netgate/crash-child.ts","crash":"SIGKILL","checkpointIntervalMs":5000,"publishedRpoMs":5000,"rpoWithinGateMs":true,"measuredCheckpointAgeAtKillMs":189,"killedAfterRunnerStartMs":6389,"lastProgressTickBeforeKill":158,"lostTicksAfterCheckpoint":7,"checkpoint":{"generation":2,"writtenAt":"2026-11-18T20:54:33.014Z","tick":151,"hash":"2a346a54","appliedSeq":[{"clientId":1,"entityId":1,"seq":151},{"clientId":2,"entityId":2,"seq":151},{"clientId":3,"entityId":3,"seq":151},{"clientId":4,"entityId":4,"seq":151}],"intents":604,"ledgerTransactions":10151},"dataset":{"fileBytes":1664010,"worldBytes":588,"intentBytes":37625,"ledgerBytes":1625523,"ticks":151,"intents":604,"ledgerTransactions":10151},"restore":{"ok":true,"restoreMs":198.153,"processWallMs":635.855,"childElapsedMs":616.18,"readMs":3.161,"parseMs":21.142,"worldReplayMs":17.171,"ledgerRestoreMs":149.428,"within3s":true,"within3sProcessWall":true,"restoredTick":151,"restoredHash":"2a346a54","restoredAppliedSeq":[{"clientId":1,"entityId":1,"seq":151},{"clientId":2,"entityId":2,"seq":151},{"clientId":3,"entityId":3,"seq":151},{"clientId":4,"entityId":4,"seq":151}],"drift":"0"},"runnerStderr":""}
+
+ ✓ apps/server/test/netgate/crash-restore.test.ts > NET-GATE crash restore and RPO > restores the last atomically written checkpoint in under 3 s and publishes a 5 s RPO 7052ms
+stdout | apps/server/test/netgate/reconnect.test.ts > NET-GATE reconnect-restore on real sockets > restores the same entity, hash and applied seq inside the reconnect window
+NETGATE_RECONNECT {"transport":"ws://127.0.0.1:34487","roomId":"reconnect","capacity":4,"reconnectTicks":90,"ticks":121,"entityId":2,"clientId":2,"disconnectedAtTick":58,"resumedAtTick":64,"resumeLatencyMs":34.564,"upgradeMs":2.782,"hashAtCommonTick":{"tick":64,"hash":"374b6a91","matchesPeer":true,"matchesServer":true},"preDisconnectCommonTick":{"tick":50,"hash":"aa08f265"},"appliedSeqAtDisconnect":44,"appliedSeqOnResume":44,"appliedSeqAtFinalTick":97,"intentsSent":449,"rejectedIntents":0,"desyncEvents":0}
+
+ ✓ apps/server/test/netgate/reconnect.test.ts > NET-GATE reconnect-restore on real sockets > restores the same entity, hash and applied seq inside the reconnect window 4046ms
+stdout | apps/server/test/netgate/reconnect.test.ts > NET-GATE reconnect-restore on real sockets > refuses a late resume after the reconnect window
+NETGATE_LATE_RESUME {"roomId":"late-resume","reconnectTicks":90,"disconnectedAtTick":22,"attemptedAtTick":113,"ticksLate":91,"refused":true,"reason":"unauthorized","entityId":2,"remainingMembers":3,"roomPhaseAfterEviction":"draining","phaseNote":"room.ts does not recompute OPEN after evicting one handle while others stay attached"}
+
+ ✓ apps/server/test/netgate/reconnect.test.ts > NET-GATE reconnect-restore on real sockets > refuses a late resume after the reconnect window 3769ms
+ ✓ apps/server/test/netgate/matrix-emulator.test.ts > delay math > one-way delay is exactly half the RTT 3ms
+ ✓ apps/server/test/netgate/matrix-emulator.test.ts > delay math > rejects a negative or non-finite RTT 1ms
+ ✓ apps/server/test/netgate/matrix-emulator.test.ts > delay math > jitter is uniform in [0, jitterMs] and zero when jitter is disabled 59ms
+ ✓ apps/server/test/netgate/matrix-emulator.test.ts > delay math > packet delay is one-way plus jitter and equals one-way when jitter is zero 1ms
+ ✓ apps/server/test/netgate/matrix-emulator.test.ts > delay math > loss probability boundaries are enforced 3ms
+ ✓ apps/server/test/netgate/matrix-emulator.test.ts > seeded determinism > the same seed reproduces the same LCG sequence 26ms
+ ✓ apps/server/test/netgate/matrix-emulator.test.ts > seeded determinism > different seeds produce different sequences 6ms
+ ✓ apps/server/test/netgate/matrix-emulator.test.ts > seeded determinism > loss draws are reproducible: two channels with the same seed drop the same frames 12ms
+ ✓ apps/server/test/netgate/matrix-emulator.test.ts > seeded determinism > a channel with zero loss delivers every frame 26ms
+ ✓ apps/server/test/netgate/matrix-emulator.test.ts > seeded determinism > dispose clears pending deliveries 61ms
+ ✓ apps/server/test/netgate/matrix-emulator.test.ts > seeded determinism > sub-seeds are stable and distinct per stream 1ms
+ ✓ apps/server/test/netgate/matrix-emulator.test.ts > seeded determinism > world seed constant matches the harness contract 0ms
+ ✓ apps/server/test/netgate/matrix-emulator.test.ts > byte accounting > counts encoded frame bytes and computes a per-second rate 1ms
+ ✓ apps/server/test/netgate/matrix-emulator.test.ts > byte accounting > rejects a negative byte count 0ms
+ ✓ apps/server/test/netgate/matrix-emulator.test.ts > byte accounting > toBytes measures Uint8Array payloads exactly 0ms
+ ✓ apps/server/test/netgate/matrix-emulator.test.ts > percentile and duration summary > percentile interpolates between closest ranks 0ms
+ ✓ apps/server/test/netgate/matrix-emulator.test.ts > percentile and duration summary > summarizeDurations reports p50/p95/p99/max and mean 0ms
+ ✓ apps/server/test/netgate/matrix-emulator.test.ts > percentile and duration summary > summarizeDurations of an empty set is all zeros with count 0 0ms
+ ✓ apps/server/test/netgate/hmac-auth.test.ts > HMAC-SHA256 session token > round-trips claims and binds clientId, roomId and expiry 7ms
+ ✓ apps/server/test/netgate/hmac-auth.test.ts > HMAC-SHA256 session token > refuses a tampered payload, a forged signature, a wrong room, expiry and missing input 2ms
+ ✓ apps/server/test/netgate/hmac-auth.test.ts > HMAC-SHA256 session token > generates a different 256-bit secret for each run 1ms
+stdout | apps/server/test/netgate/hmac-auth.test.ts > auth wrapper before attachRooms (real sockets) > refuses missing, tampered, wrong-room and expired tokens before any room is created
+NETGATE_AUTH {"refused":4,"reasons":["unauthorized","unauthorized","unauthorized","unauthorized"],"roomsCreated":0}
+
+stdout | apps/server/test/netgate/hmac-auth.test.ts > auth wrapper before attachRooms (real sockets) > admits a valid token and still reaches the SEC-002 room path
+NETGATE_AUTH_OK {"rooms":1,"members":1}
+
+ ✓ apps/server/test/netgate/hmac-auth.test.ts > auth wrapper before attachRooms (real sockets) > refuses missing, tampered, wrong-room and expired tokens before any room is created 93ms
+ ✓ apps/server/test/netgate/hmac-auth.test.ts > auth wrapper before attachRooms (real sockets) > admits a valid token and still reaches the SEC-002 room path 14ms
+stdout | apps/server/test/netgate/tls.test.ts > TLS transport (real sockets) > serves the gated room path over TLS and refuses a plaintext connection
+NETGATE_TLS {"status":"MEASURED","openssl":"OpenSSL 3.0.13 30 Jan 2024 (Library: OpenSSL 3.0.13 30 Jan 2024)","protocol":"TLSv1.3","cipher":"TLS_AES_256_GCM_SHA384","encryptedHandshake":"welcome","plaintextError":"socket hang up","plaintextFailed":true,"certCommitted":false,"rejectUnauthorized":false}
+
+ ✓ apps/server/test/netgate/tls.test.ts > TLS transport (real sockets) > serves the gated room path over TLS and refuses a plaintext connection 655ms
+stdout | apps/server/test/netgate/flood.test.ts > real-socket flood > admits exactly 30 of 200, rate-limits 170 and leaves the room hash at the 30-intent state
+NETGATE_FLOOD {"messages":200,"admitted":30,"rateLimited":170,"wireRejects":170,"wireRejectReason":"malformed","durationMs":43.797,"bytesUp":2200,"bytesDown":680,"hashBefore":"3824b21e","hashAfter":"fa607989","reference30":"fa607989","reference200":"9033ebd1"}
+
+ ✓ apps/server/test/netgate/flood.test.ts > real-socket flood > admits exactly 30 of 200, rate-limits 170 and leaves the room hash at the 30-intent state 115ms
+stdout | apps/server/test/netgate/persistence.test.ts > file-backed counters > persists the rate window, rejection counts and audit entries across a restart
+NETGATE_PERSIST {"firstAdmitted":30,"firstRateLimited":2,"persistedWindow":{"window":3,"count":30},"restartedCounts":{"rate-limited":3},"afterRestartRateLimited":3,"auditEntriesAfterRestart":2,"stateBytes":469}
+
+ ✓ apps/server/test/netgate/persistence.test.ts > file-backed counters > persists the rate window, rejection counts and audit entries across a restart 313ms
+ ✓ apps/server/test/netgate/persistence.test.ts > file-backed counters > fails closed on a corrupt counter file instead of resetting the budget 3ms
+stdout | apps/server/test/netgate/matrix-cell.test.ts > matrix cell rtt=0ms loss=0% jitter=0ms duration=2s
+MATRIX_METRICS {"schema":"netgate-matrix/1","run_id":"20261118T205446Z-rtt0-loss0-jitter0-d2s","task":"GATE:NET","config":{"room":"matrix","capacity":4,"reconnectTicks":90,"worldSeed":1337,"rttMs":0,"lossPct":0,"jitterMs":0,"emulationSeed":20261118,"targetDurationS":2,"actualDurationS":2.037360179,"intentHz":30,"targetingDTicks":2,"resendsUnackedIntents":true,"sendsResyncFrames":false},"commit":null,"started_utc":"2026-11-18T20:54:46.472Z","ended_utc":"2026-11-18T20:54:48.510Z","ticks":60,"tick_ms":{"count":60,"min":0.10176099999989674,"mean":0.17063078333333975,"p50":0.12867400000016005,"p95":0.23975219999996375,"p99":0.7816571000000186,"max":1.3736690000000067},"clients":[{"index":0,"entityId":1,"connected":true,"welcomeReceived":true,"ownIdCheck":"match","intentsSent":59,"upBytes":889,"upBytesPerSecond":436.3489623304353,"downBytes":6903,"downBytesPerSecond":3388.207971841389,"snapshotsReceived":60,"okReconciles":60,"unknownReconciles":0,"desyncs":0,"resyncRequests":0,"rejectsReceived":0,"resendsSent":0,"scheduleRefusals":0,"correctionMm":{"count":60,"min":0,"mean":90.01666666666667,"p50":100,"p95":158,"p99":167.01999999999992,"max":180},"rubberBandMaxMm":180,"upFramesLost":0},{"index":1,"entityId":2,"connected":true,"welcomeReceived":true,"ownIdCheck":"match","intentsSent":59,"upBytes":889,"upBytesPerSecond":436.3489623304353,"downBytes":6903,"downBytesPerSecond":3388.207971841389,"snapshotsReceived":60,"okReconciles":60,"unknownReconciles":0,"desyncs":0,"resyncRequests":0,"rejectsReceived":0,"resendsSent":0,"scheduleRefusals":0,"correctionMm":{"count":60,"min":0,"mean":85.83333333333333,"p50":71,"p95":180,"p99":212,"max":212},"rubberBandMaxMm":212,"upFramesLost":0},{"index":2,"entityId":3,"connected":true,"welcomeReceived":true,"ownIdCheck":"match","intentsSent":59,"upBytes":889,"upBytesPerSecond":436.3489623304353,"downBytes":6903,"downBytesPerSecond":3388.207971841389,"snapshotsReceived":60,"okReconciles":60,"unknownReconciles":0,"desyncs":0,"resyncRequests":0,"rejectsReceived":0,"resendsSent":0,"scheduleRefusals":0,"correctionMm":{"count":60,"min":0,"mean":79.2,"p50":71,"p95":158,"p99":158,"max":158},"rubberBandMaxMm":158,"upFramesLost":0},{"index":3,"entityId":4,"connected":true,"welcomeReceived":true,"ownIdCheck":"match","intentsSent":59,"upBytes":889,"upBytesPerSecond":436.3489623304353,"downBytes":6903,"downBytesPerSecond":3388.207971841389,"snapshotsReceived":60,"okReconciles":60,"unknownReconciles":0,"desyncs":0,"resyncRequests":0,"rejectsReceived":0,"resendsSent":0,"scheduleRefusals":0,"correctionMm":{"count":60,"min":0,"mean":76.08333333333333,"p50":71,"p95":150.39999999999998,"p99":167.01999999999992,"max":180},"rubberBandMaxMm":180,"upFramesLost":0}],"totals":{"desyncs":0,"okReconciles":240,"unknownReconciles":0,"intentsSent":236,"snapshotsReceived":240,"resendsSent":0,"scheduleRefusals":0,"intentsUpFrames":240,"intentsUpFramesDropped":0,"snapshotsDownFrames":244,"snapshotsDownFramesDropped":0,"downBytes":27612,"upBytes":3556,"downBytesPerSecond":13552.831887365555,"upBytesPerSecond":1745.3958493217413,"perClientDownBytesPerSecond":3388.207971841389,"perClientUpBytesPerSecond":436.3489623304353,"correctionP95Mm":158,"rubberBandMaxMm":212},"sanity":{"fourClientsConnected":true,"tickAdvanced":true},"notes":["Application-level emulation (setTimeout), not tc/netem; loss drawn before jitter; seeded LCG (default 20261118).","Own entity assigned by join order (sequential connects); cross-checked against the snapshot viewHash on every reconcile (ownIdCheck).","protocol v5 target-tick contract: horizon = latestSnapshotTick + D, D = max(2, ceil((RTT/2 + jitter)/TICK_MS) + 2). latestSnapshotTick ticks +1 per local tick and is raised to each snapshot.tick (never lowered).","advanceTo is called on every snapshot and after every send, so predicted world.tick == horizon at all times; intents apply exactly at targetTick; off-ticks advance with an empty stepWorld.","Unacked intents older than one RTT are resent with their ORIGINAL (seq, targetTick), at most one resend per RTT per intent, until acked or targetTick passed.","Resent intents carry a non-increasing seq and are refused by the ingress MessageGate (non-monotonic-seq, reason malformed); counted in rejectsReceived, never hidden.","needsResync is counted per desync reconcile; no resync frame is sent (the wire gives the client no room client id to address).","up bytes counted at the client send() call; down bytes counted at the server-side socket send() call; ws framing overhead excluded.","correction distance = hypot(|serverOwn.x - predictedOwn.x|, |serverOwn.z - predictedOwn.z|) rounded to integer mm, predicted position sampled before reconcile adoption.","tick_ms samples only setInterval callback bodies (room.tick()), measured with performance.now()."]}
+
+ ✓ apps/server/test/netgate/matrix-cell.test.ts > matrix cell rtt=0ms loss=0% jitter=0ms duration=2s 2044ms
+
+ Test Files  8 passed (8)
+      Tests  31 passed (31)
+   Start at  20:54:26
+   Duration  22.08s (tests 90%, import 6%, transform 3%)
+
+    Isolate  8 workers spawned · ~209ms startup each (spawn + environment, per file)
+             at least ~1.46s faster with isolate: false — reuses workers across files instead of one per file
+
+EXIT=0

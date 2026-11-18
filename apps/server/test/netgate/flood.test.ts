@@ -19,7 +19,7 @@ function referenceHash(seed: number, messages: number): string {
   const client = room.join({ send() { /* reference room records no wire */ } });
   if (!client) throw new Error('reference room did not accept a client');
   for (let seq = 1; seq <= messages; seq++) {
-    room.handleBytes(client.clientId, encodeFrame({ kind: 'intent', entity: 1, seq, dx: 1, dz: 0 }));
+    room.handleBytes(client.clientId, encodeFrame({ kind: 'intent', entity: 1, seq, dx: 1, dz: 0, targetTick: 1 }));
   }
   return room.tick().hash;
 }
@@ -54,7 +54,7 @@ describe('real-socket flood', () => {
 
       const started = performance.now();
       for (let seq = 1; seq <= 200; seq++) {
-        client.send(encodeFrame({ kind: 'intent', entity: 1, seq, dx: 1, dz: 0 }));
+        client.send(encodeFrame({ kind: 'intent', entity: 1, seq, dx: 1, dz: 0, targetTick: 1 }));
       }
       await waitFor(
         () => captured.frames.filter((frame) => frame.kind === 'reject').length >= 170,

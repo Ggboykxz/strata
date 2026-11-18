@@ -13,7 +13,7 @@ import { encodeFrame } from '@strata/protocol';
 import { PersistentSecurity } from './persistent-security';
 
 function intent(seq: number): Uint8Array {
-  return encodeFrame({ kind: 'intent', entity: 1, seq, dx: 1, dz: 0 });
+  return encodeFrame({ kind: 'intent', entity: 1, seq, dx: 1, dz: 0, targetTick: 1000 });
 }
 
 describe('file-backed counters', () => {

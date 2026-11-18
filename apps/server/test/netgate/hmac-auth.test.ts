@@ -6,7 +6,7 @@
  */
 import { describe, expect, it } from 'vitest';
 import { WebSocket } from 'ws';
-import { encodeFrame } from '@strata/protocol';
+import { PROTOCOL_VERSION, encodeFrame } from '@strata/protocol';
 import { RoomHub } from '../../src/rooms';
 import { generateSecret, issueToken, verifyToken } from './hmac-token';
 import { closeClient, startRoomServer, trackFrames, waitFor, waitOpen, type RoomServer } from './harness';
@@ -24,7 +24,7 @@ async function expectRefused(server: RoomServer, url: string, roomId: string): P
   await waitFor(() => captured.frames.length > 0, `refusal frame for ${roomId}`);
   await waitFor(() => client.readyState === WebSocket.CLOSED, `refusal close for ${roomId}`);
   expect(captured.undecodable).toHaveLength(0);
-  expect(captured.frames[0]).toMatchObject({ kind: 'reject', version: 3, reason: 'unauthorized' });
+  expect(captured.frames[0]).toMatchObject({ kind: 'reject', version: PROTOCOL_VERSION, reason: 'unauthorized' });
   expect(server.hub.get(roomId)).toBeNull();
   await closeClient(client);
   return (captured.frames[0] as { reason: string }).reason;
@@ -111,9 +111,9 @@ describe('auth wrapper before attachRooms (real sockets)', () => {
       const client = new WebSocket(`ws://127.0.0.1:${server.port}/rooms?room=auth&nonce=1&auth=${token}`);
       const captured = trackFrames(client);
       await waitOpen(client);
-      client.send(encodeFrame({ kind: 'hello', version: 3, capabilities: 0 }));
+      client.send(encodeFrame({ kind: 'hello', version: PROTOCOL_VERSION, capabilities: 0 }));
       await waitFor(() => captured.frames.some((frame) => frame.kind === 'welcome'), 'welcome frame');
-      expect(captured.frames[0]).toMatchObject({ kind: 'welcome', version: 3 });
+      expect(captured.frames[0]).toMatchObject({ kind: 'welcome', version: PROTOCOL_VERSION });
       const room = server.hub.get('auth');
       expect(room).not.toBeNull();
       expect(room?.members).toHaveLength(1);
