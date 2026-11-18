@@ -5,8 +5,16 @@
 | version | 1.0 |
 | owner | producer |
 | status | DRAFT (re-signed at every gate) |
-| tier | current `S0` · authorized `S0` |
+| tier | current `S0` · authorized `S1` (GATE:P1 signed 2026-11-18, `docs/state/gates/GATE_P1.md` §6) |
 | validator | `node scripts/validate-scope.mjs` |
+
+> **State of this document (2026-11-18).** Content is complete, not a draft-in-progress: the `DRAFT` status above
+> is the constitution's "re-signed at every gate" marker, not an unfinished text. HC-001 is LOCKED (v1.3, T3
+> signed at GATE:P0), WF-001 is ACTIVE, the Constitution is binding, P0-002's validator set is implemented (the
+> last declared stubs are `scripts/gdd-to-tests.mjs` and the unimplemented `--parity` mode of
+> `validate-scene-budget.mjs`), and P0-003's monorepo passes `pnpm verify` 19/19. The authorized tier was stale
+> and is corrected here from GATE:P1; re-signature of SCOPE at a gate remains a Director act, not an agent one.
+
 
 > A scope document that makes the project look affordable is a lie with a table of contents.
 > This one is written to make the cost visible.
