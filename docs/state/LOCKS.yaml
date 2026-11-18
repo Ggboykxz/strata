@@ -1718,7 +1718,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T19:40:00Z"
     expires_at: "2026-11-18T20:10:00Z"
-    status: active
+    status: released
 
   - path_glob: "docs/state/gates/GATE_NET.md"
     owner_agent: orchestrator
@@ -1726,7 +1726,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T19:40:00Z"
     expires_at: "2026-11-18T20:10:00Z"
-    status: active
+    status: released
 
   - path_glob: "docs/state/NEEDS_DIRECTOR.md"
     owner_agent: orchestrator
@@ -1734,7 +1734,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T19:40:00Z"
     expires_at: "2026-11-18T20:10:00Z"
-    status: active
+    status: released
 
   - path_glob: "docs/state/NEXT_SESSION.md"
     owner_agent: orchestrator
@@ -1742,7 +1742,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T19:40:00Z"
     expires_at: "2026-11-18T20:10:00Z"
-    status: active
+    status: released
 
   - path_glob: "docs/state/metrics/2026-11-18-s02.json"
     owner_agent: orchestrator
@@ -1750,7 +1750,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T19:40:00Z"
     expires_at: "2026-11-18T20:10:00Z"
-    status: active
+    status: released
 
   - path_glob: "AGENTS.md"
     owner_agent: orchestrator
@@ -1758,5 +1758,5 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T19:40:00Z"
     expires_at: "2026-11-18T20:10:00Z"
-    status: active
+    status: released
 
