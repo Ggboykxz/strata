@@ -56,7 +56,7 @@ pnpm verify                     # the one definition, scripts/verify.mjs
 `pnpm verify` at P0-005 runs, fail-fast: **typecheck** (`tsc -b`) → **lint** (core-math AST ban) →
 **unit** (Vitest) → `validate-prompt-drift` → `validate-scope` → `scope-math --check` →
 `validate-blueprint` → `validate-ownership` → `validate-locks` → `validate-workflows` → resume drill
-(`--dry`) → `validate-manifest --audit`. It prints `DEFERRED` for determinism replay, GDD coverage and every declared
+(`--dry`) → `validate-manifest --audit` → `validate-docs`. It prints `DEFERRED` for determinism replay, GDD coverage and every declared
 stub. Deferred steps are never counted as green; the full pipeline from §6 is the target, not a claim.
 
 ## AI models and tools — gated by a separate audit
