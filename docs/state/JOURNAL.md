@@ -3,7 +3,7 @@
 | field | value |
 |---|---|
 | source | `docs/state/journal/` (append-only entries) |
-| entries | 49 |
+| entries | 50 |
 | regenerate | `node scripts/build-journal.mjs` |
 | check | `node scripts/build-journal.mjs --check` |
 
@@ -1574,3 +1574,15 @@ No terrain, renderer, art, AI model, 30 Hz replay or browser tick measure. Bound
 
 ## next
 PR-S8 — anim state machine server transitions + illegal-state fuzz.
+
+---
+
+# 2026-11-18T16:35:00Z · PR-S8 · anim state fuzz
+
+- scope: server anim state machine validation + illegal-state fuzz
+- file: `tools/sim/anim/prs8_animstate.ts`, PRS8 report, GDD-ANIM-ARCHITECTURE 0.5
+- measured: 10 000 requests, 2 500 accepted, 7 500 illegal refused, **0 mutations on refusal**, 833 server hit
+  frames, deterministic; test 2/2, full 175/175, verify 19/19.
+- defect: hit counter compared event objects to numbers (reported 0); fixed by comparing tick and kind.
+- limit: no GLB, motion, renderer, retarget or foot-slide measure; no art or GPU/TPU. AN-002 dependency satisfied.
+- next: PR-S3 (quest resolutions + delayed effects).

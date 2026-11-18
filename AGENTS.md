@@ -193,6 +193,8 @@ Anything else goes through a handoff. A conflict is resolved by a handoff or the
   3 rooms, 2 exact resumes, 3 teardowns; `GATE:P2NET` satisfied. Full 169/169, verify 19/19. Next: PR-S7.
 - **PR-S7 landed**: bounded Rouille cascade (12 ticks, fan-out 2), 12 facts / 12 erases, no double erase,
   deterministic; GDD-WORLD-SIM STUB -> DRAFT. Full 173/173, verify 19/19. Next: PR-S8.
+- **PR-S8 landed**: 10k anim fuzz, 0 mutations on refusal, 833 server hit frames, deterministic;
+  GDD-ANIM-ARCHITECTURE 0.5; AN-002 unblocked. Full 175/175, verify 19/19. Next: PR-S3.
 - Known intentional red: `scope-math --report` exit 2 (throughput unmeasured) and `concept --score` exit 2
   until HC-003. `concept --check` is green: T3 was signed at GATE:P0.
 

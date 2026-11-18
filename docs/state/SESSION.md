@@ -404,3 +404,10 @@ blueprint task currently owns the pin: recorded as a gap for the Director/next r
   tick 10, 9 duplicate-erase refusals, deterministic. No node erased twice.
 - GDD-WORLD-SIM promoted STUB -> DRAFT (19 fields, sourced numbers). Test 4/4, full 173/173, verify 19/19.
 - No terrain, renderer, art or browser tick measure. Next: PR-S8.
+
+## Session 2 — PR-S8 anim fuzz (2026-11-18T16:35Z)
+
+- 10 000 deterministic requests: 2 500 legal accepted, 7 500 illegal refused with 0 state mutations; 833 server
+  hit frames; deterministic. GDD-ANIM-ARCHITECTURE 0.5; AN-002 dependency satisfied.
+- Harness defect fixed: event objects were compared to tick numbers, hiding hits. No implementation weakened.
+- Full 175/175, verify 19/19. No GLB/motion/art/retarget measure. Next: PR-S3.
