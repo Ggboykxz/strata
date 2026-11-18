@@ -1,0 +1,12 @@
+OK     exit=0  baseline template
+OK     exit=1  missing module
+OK     exit=1  wrong maturity
+OK     exit=1  vague adjective
+OK     exit=1  unresolved critical ref
+OK     exit=1  DRAFT field 5 without source
+OK     exit=1  SIGNED without signature
+OK     exit=1  DRAFT missing field 5
+OK     exit=0  coverage baseline
+OK     exit=1  coverage below threshold
+
+RESULT: PASS — all 7 GDD-001 negative tests behaved as required.

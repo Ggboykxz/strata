@@ -108,6 +108,8 @@ Anything else goes through a handoff. A conflict is resolved by a handoff or the
   validate-docs gate. P1 work runs under the Director's recorded "go next"; GATE:P0 remains unsigned.
 - GATE:P0 is signed by recorded Director decision. GDD-001 created 32 STUB modules and 14 computed
   critical modules; verify is 15/15. ND-004/005 rotation steps are in docs/state/SECURITY_HANDOFF.md.
+- GDD-002 advanced six critical modules to DRAFT (19 fields, sourced numbers). All repro scripts live in
+  tools/qa/; main and the session branch are protected on GitHub. Next: GDD-003.
 - **ND-001 resolved** (T1 EN 25/25, FR 30/35; FINDING-001 closed) and **ND-002 resolved** (A0002 option A,
   D-002 closed, WF-002 is orchestrator's). **ND-003 resolved**: the repo is public (the Director must merge
   PR #1; `main` is still empty). ND-004..ND-008 remain open.
