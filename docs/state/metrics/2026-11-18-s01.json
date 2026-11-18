@@ -4,25 +4,79 @@
   "utc_end": "2026-11-18T00:43:00Z",
   "mode": "RESUME",
   "branch": "session/20261118-hc-001-high-concept",
-  "tier": { "current": "S0", "authorized": "S0" },
-  "netgate": { "status": "unpassed", "art_allowed": false },
+  "tier": {
+    "current": "S0",
+    "authorized": "S0"
+  },
+  "netgate": {
+    "status": "unpassed",
+    "art_allowed": false
+  },
   "tasks": [
-    { "id": "HC-001", "status": "done" },
-    { "id": "SC-001", "status": "done" },
-    { "id": "WF-001", "status": "done" },
-    { "id": "P0-001.a", "status": "done" },
-    { "id": "P0-001.b", "status": "done" },
-    { "id": "P0-002.a", "status": "done" },
-    { "id": "P0-002.b", "status": "done" },
-    { "id": "P0-003", "status": "done" },
-    { "id": "WF-002", "status": "done" },
-    { "id": "TRACER-001", "status": "done" },
-    { "id": "P0-004", "status": "done" },
-    { "id": "P0-005", "status": "done" },
-    { "id": "P0-006", "status": "done" },
-    { "id": "P0-007", "status": "done" },
-    { "id": "P1-001", "status": "done" },
-    { "id": "GDD-001", "status": "done" }
+    {
+      "id": "HC-001",
+      "status": "done"
+    },
+    {
+      "id": "SC-001",
+      "status": "done"
+    },
+    {
+      "id": "WF-001",
+      "status": "done"
+    },
+    {
+      "id": "P0-001.a",
+      "status": "done"
+    },
+    {
+      "id": "P0-001.b",
+      "status": "done"
+    },
+    {
+      "id": "P0-002.a",
+      "status": "done"
+    },
+    {
+      "id": "P0-002.b",
+      "status": "done"
+    },
+    {
+      "id": "P0-003",
+      "status": "done"
+    },
+    {
+      "id": "WF-002",
+      "status": "done"
+    },
+    {
+      "id": "TRACER-001",
+      "status": "done"
+    },
+    {
+      "id": "P0-004",
+      "status": "done"
+    },
+    {
+      "id": "P0-005",
+      "status": "done"
+    },
+    {
+      "id": "P0-006",
+      "status": "done"
+    },
+    {
+      "id": "P0-007",
+      "status": "done"
+    },
+    {
+      "id": "P1-001",
+      "status": "done"
+    },
+    {
+      "id": "GDD-001",
+      "status": "done"
+    }
   ],
   "measured": {
     "hc_t1_en_words": 25,
@@ -117,86 +171,400 @@
     "p003_negative_tests": 4,
     "opencode_mcp_servers": 4
   },
-  "cis": { "value": null, "reason": "no measured source until HC-003 (P2)" },
-  "gdd_coverage": { "value": null, "reason": "no GDD modules until GDD-001 (P1)" },
-  "scope": { "ledger_entries": 12, "balanced": true, "phase_margin_P0": 5 },
+  "cis": {
+    "value": null,
+    "reason": "no measured source until HC-003 (P2)"
+  },
+  "gdd_coverage": {
+    "value": null,
+    "reason": "no GDD modules until GDD-001 (P1)"
+  },
+  "scope": {
+    "ledger_entries": 12,
+    "balanced": true,
+    "phase_margin_P0": 5
+  },
   "acceptance": [
-    { "cmd": "node scripts/concept-integrity.mjs --init", "exit": 0, "log": "docs/state/evidence/20261118T001004Z-HC-001/01-concept-integrity-init.log" },
-    { "cmd": "node scripts/concept-integrity.mjs --check", "exit": 1, "log": "docs/state/evidence/20261118T001004Z-HC-001/02-concept-integrity-check.log" },
-    { "cmd": "node scripts/concept-integrity.mjs --score", "exit": 2, "log": "docs/state/evidence/20261118T001004Z-HC-001/03-concept-integrity-score.log" },
-    { "cmd": "node scripts/scope-math.mjs --check", "exit": 0, "log": "docs/state/evidence/20261118T001004Z-SC-001/01-scope-math-check.log" },
-    { "cmd": "node scripts/scope-math.mjs --report", "exit": 2, "log": "docs/state/evidence/20261118T001004Z-SC-001/02-scope-math-report.log" },
-    { "cmd": "node scripts/scope-math.mjs --tier S3 --report", "exit": 0, "log": "docs/state/evidence/20261118T001004Z-SC-001/03-scope-math-tier-s3.log" },
-    { "cmd": "node scripts/validate-scope.mjs", "exit": 0, "log": "docs/state/evidence/20261118T001004Z-SC-001/04-validate-scope.log" },
-    { "cmd": "test -f docs/state/OWNERSHIP.yaml", "exit": 0, "log": "docs/state/evidence/20261118T001004Z-WF-001/01-ownership-file.log" },
-    { "cmd": "node /tmp/opencode/own-check.mjs", "exit": 0, "log": "docs/state/evidence/20261118T001004Z-WF-001/02-ownership-map.log" },
-    { "cmd": "test -f docs/CONSTITUTION.md", "exit": 0, "log": "docs/state/evidence/20261118T001004Z-P0-001/01-constitution-present.log" },
-    { "cmd": "bash /tmp/opencode/drift-negative.sh", "exit": 0, "log": "docs/state/evidence/20261118T001004Z-P0-001/02-drift-negative-tests.log" },
-    { "cmd": "python3 -c 'yaml.safe_load(BLUEPRINT.yaml)'", "exit": 0, "log": "docs/state/evidence/20261118T001004Z-P0-001/03-blueprint-parse.log" },
-    { "cmd": "jsonschema validate opencode.json", "exit": 0, "log": "docs/state/evidence/20261118T001004Z-P0-001/04-opencode-config-schema.log" },
-    { "cmd": "node scripts/validate-prompt-drift.mjs", "exit": 0, "log": "docs/state/evidence/20261118T001004Z-P0-001/05-validate-prompt-drift.log" },
-    { "cmd": "node scripts/validate-blueprint.mjs", "exit": 0, "log": "docs/state/evidence/20261118T001004Z-P0-002/03-validate-blueprint.log" },
-    { "cmd": "bash /tmp/opencode/bp-negative.sh", "exit": 0, "log": "docs/state/evidence/20261118T001004Z-P0-002/04-blueprint-negative-tests.log" },
-    { "cmd": "node /tmp/opencode/gen-stubs.mjs", "exit": 0, "log": "docs/state/evidence/20261118T001004Z-P0-002/01-stub-generation.log" },
-    { "cmd": "for each stub: node <script> (expect 1)", "exit": 0, "log": "docs/state/evidence/20261118T001004Z-P0-002/02-stubs-fail.log" },
-    { "cmd": "node /tmp/opencode/gen-agents.mjs", "exit": 0, "log": "docs/state/evidence/20261118T001004Z-P0-002/05-agents-skills.log" },
-    { "cmd": "node --input-type=module -e '<agent/skill consistency check>'", "exit": 0, "log": "docs/state/evidence/20261118T001004Z-P0-002/06-opencode-tree.log" },
-    { "cmd": "node scripts/validate-blueprint.mjs --emit-gates", "exit": 0, "log": "docs/state/evidence/20261118T001004Z-P0-002/07-emit-gates.log" },
-    { "cmd": "node parse <3 docs> + python3 yaml.safe_load + deep equal", "exit": 0, "log": "docs/state/evidence/20261118T001004Z-P0-002/08-yaml-equality.log" },
-    { "cmd": "pnpm install --frozen-lockfile", "exit": 0, "log": "docs/state/evidence/20261118T004153Z-P0-003/01-install-frozen.log" },
-    { "cmd": "pnpm typecheck", "exit": 0, "log": "docs/state/evidence/20261118T004153Z-P0-003/02-typecheck.log" },
-    { "cmd": "pnpm lint", "exit": 0, "log": "docs/state/evidence/20261118T004153Z-P0-003/03-lint.log" },
-    { "cmd": "pnpm test", "exit": 0, "log": "docs/state/evidence/20261118T004153Z-P0-003/04-unit.log" },
-    { "cmd": "pnpm verify", "exit": 0, "log": "docs/state/evidence/20261118T004153Z-P0-003/05-verify.log" },
-    { "cmd": "pnpm typecheck (deliberate type error)", "exit": 2, "log": "docs/state/evidence/20261118T004153Z-P0-003/06-negative-typecheck.log" },
-    { "cmd": "pnpm lint (Math.random + Date.now in core)", "exit": 1, "log": "docs/state/evidence/20261118T004153Z-P0-003/07-negative-lint.log" },
-    { "cmd": "pnpm test (deliberately failing assertion)", "exit": 1, "log": "docs/state/evidence/20261118T004153Z-P0-003/08-negative-unit.log" },
-    { "cmd": "pnpm verify (deliberate type error, fail-fast)", "exit": 1, "log": "docs/state/evidence/20261118T004153Z-P0-003/09-negative-verify.log" },
-    { "cmd": "secret-prefix scan of .git + tracked worktree", "exit": 0, "log": "docs/state/evidence/20261118T004835Z-DIRECTOR-RESOLUTIONS/01-secret-scan.log" },
-    { "cmd": "node scripts/concept-integrity.mjs --check", "exit": 1, "log": "docs/state/evidence/20261118T004835Z-DIRECTOR-RESOLUTIONS/02-concept-check.log" },
-    { "cmd": "node scripts/concept-integrity.mjs --init", "exit": 0, "log": "docs/state/evidence/20261118T004835Z-DIRECTOR-RESOLUTIONS/03-concept-init.log" },
-    { "cmd": "node scripts/validate-blueprint.mjs", "exit": 0, "log": "docs/state/evidence/20261118T004835Z-DIRECTOR-RESOLUTIONS/04-validate-blueprint.log" },
-    { "cmd": "bash /tmp/opencode/bp-negative.sh", "exit": 0, "log": "docs/state/evidence/20261118T004835Z-DIRECTOR-RESOLUTIONS/07-blueprint-negative-tests.log" },
-    { "cmd": "pnpm verify", "exit": 0, "log": "docs/state/evidence/20261118T004835Z-DIRECTOR-RESOLUTIONS/08-verify.log" },
-    { "cmd": "node scripts/concept-integrity.mjs --check", "exit": 0, "log": "docs/state/evidence/20261118T004835Z-DIRECTOR-RESOLUTIONS/09-concept-signed-check.log" },
-    { "cmd": "node scripts/validate-ownership.mjs", "exit": 0, "log": "docs/state/evidence/20261118T005800Z-WF-002/01-validate-ownership.log" },
-    { "cmd": "node scripts/validate-locks.mjs", "exit": 0, "log": "docs/state/evidence/20261118T005800Z-WF-002/02-validate-locks.log" },
-    { "cmd": "bash /tmp/opencode/wf2-negative.sh", "exit": 0, "log": "docs/state/evidence/20261118T005800Z-WF-002/03-negative-tests.log" },
-    { "cmd": "pnpm verify (9 enabled steps)", "exit": 0, "log": "docs/state/evidence/20261118T005800Z-WF-002/05-verify-integrated.log" },
-    { "cmd": "pnpm tracer --assert", "exit": 0, "log": "docs/state/evidence/20261118T010750Z-TRACER-001/01-tracer-assert.log" },
-    { "cmd": "TRACER_FORCE_DESYNC=1 pnpm tracer --assert", "exit": 1, "log": "docs/state/evidence/20261118T010750Z-TRACER-001/02-tracer-desync-negative.log" },
-    { "cmd": "pnpm lint (Math.random in core)", "exit": 1, "log": "docs/state/evidence/20261118T010750Z-TRACER-001/03-lint-negative.log" },
-    { "cmd": "npm view <exact packages> license", "exit": 0, "log": "docs/state/evidence/20261118T010750Z-TRACER-001/04-license-check.log" },
-    { "cmd": "pnpm install --frozen-lockfile", "exit": 0, "log": "docs/state/evidence/20261118T010750Z-TRACER-001/05-frozen-install.log" },
-    { "cmd": "pnpm verify (9 enabled steps)", "exit": 0, "log": "docs/state/evidence/20261118T010750Z-TRACER-001/06-verify.log" },
-    { "cmd": "node scripts/validate-workflows.mjs", "exit": 0, "log": "docs/state/evidence/20261118T011433Z-P0-004/01-validate-workflows.log" },
-    { "cmd": "bash /tmp/opencode/p004-negative.sh", "exit": 0, "log": "docs/state/evidence/20261118T011433Z-P0-004/02-negative-tests.log" },
-    { "cmd": "node scripts/validate-ownership.mjs (165 globs)", "exit": 0, "log": "docs/state/evidence/20261118T011433Z-P0-004/03-ownership-after-map-change.log" },
-    { "cmd": "pnpm verify (10 enabled steps)", "exit": 0, "log": "docs/state/evidence/20261118T011433Z-P0-004/06-verify.log" },
-    { "cmd": "node scripts/drill-resume.mjs --dry", "exit": 0, "log": "docs/state/evidence/20261118T012151Z-P0-005/01-drill-dry.log" },
-    { "cmd": "bash -n tools/colab/setup.sh", "exit": 0, "log": "docs/state/evidence/20261118T012151Z-P0-005/02-setup-syntax.log" },
-    { "cmd": "bash /tmp/opencode/p005-negative.sh", "exit": 0, "log": "docs/state/evidence/20261118T012151Z-P0-005/07-negative-tests.log" },
-    { "cmd": "GitHub + HF licence metadata queries", "exit": 0, "log": "docs/state/evidence/20261118T012845Z-P0-006/01-license-metadata.log" },
-    { "cmd": "node scripts/validate-manifest.mjs --audit", "exit": 0, "log": "docs/state/evidence/20261118T012845Z-P0-006/02-validate-manifest.log" },
-    { "cmd": "bash /tmp/opencode/p006-negative.sh", "exit": 0, "log": "docs/state/evidence/20261118T012845Z-P0-006/03-negative-tests.log" },
-    { "cmd": "pnpm verify (12 enabled steps)", "exit": 0, "log": "docs/state/evidence/20261118T012845Z-P0-006/05-verify.log" },
-    { "cmd": "node scripts/validate-manifest.mjs --audit (after resolution)", "exit": 0, "log": "docs/state/evidence/20261118T012845Z-P0-006/07-resolution-validate.log" },
-    { "cmd": "bash /tmp/opencode/p006-negative.sh (9 cases)", "exit": 0, "log": "docs/state/evidence/20261118T012845Z-P0-006/08-resolution-negative-tests.log" },
-    { "cmd": "pnpm --filter @strata/dashboard build", "exit": 0, "log": "docs/state/evidence/20261118T014550Z-P0-007/01-dashboard-build.log" },
-    { "cmd": "bash /tmp/opencode/p007-negative.sh", "exit": 0, "log": "docs/state/evidence/20261118T014550Z-P0-007/02-negative-tests.log" },
-    { "cmd": "node scripts/drill-resume.mjs --dry (clean / expired lock / corrupt heartbeat)", "exit": 0, "log": "docs/state/evidence/20261118T014957Z-GATE-P0/01-drill-clean.log" },
-    { "cmd": "GitHub Actions API — latest run per workflow", "exit": 0, "log": "docs/state/evidence/20261118T014957Z-GATE-P0/09-ci-results.log" },
-    { "cmd": "GitHub Actions API — head cfe1fdf (master §18 names)", "exit": 0, "log": "docs/state/evidence/20261118T014957Z-GATE-P0/14-ci-after-reconciliation.log" },
-    { "cmd": "node scripts/validate-workflows.mjs (master §18 names)", "exit": 0, "log": "docs/state/evidence/20261118T020134Z-P0-004-RECONCILE/02-validate-workflows.log" },
-    { "cmd": "bash /tmp/opencode/p004-negative.sh (after reconciliation)", "exit": 0, "log": "docs/state/evidence/20261118T020134Z-P0-004-RECONCILE/03-negative-tests.log" },
-    { "cmd": "node scripts/validate-docs.mjs", "exit": 0, "log": "docs/state/evidence/20261118T021621Z-P1-001/01-validate-docs.log" },
-    { "cmd": "bash /tmp/opencode/p1001-negative.sh", "exit": 0, "log": "docs/state/evidence/20261118T021621Z-P1-001/02-negative-tests.log" },
-    { "cmd": "pnpm verify (13 enabled steps)", "exit": 0, "log": "docs/state/evidence/20261118T021621Z-P1-001/04-verify.log" },
-    { "cmd": "node scripts/validate-gdd.mjs --template", "exit": 0, "log": "docs/state/evidence/20261118T022611Z-GDD-001/01-template.log" },
-    { "cmd": "node scripts/validate-gdd.mjs --critical", "exit": 0, "log": "docs/state/evidence/20261118T022611Z-GDD-001/02-critical.log" },
-    { "cmd": "node scripts/gdd-coverage.mjs --min 0.80", "exit": 0, "log": "docs/state/evidence/20261118T022611Z-GDD-001/03-coverage.log" },
-    { "cmd": "bash /tmp/opencode/gdd001-negative.sh", "exit": 0, "log": "docs/state/evidence/20261118T022611Z-GDD-001/04-negative-tests.log" },
-    { "cmd": "pnpm verify (15 enabled steps)", "exit": 0, "log": "docs/state/evidence/20261118T022611Z-GDD-001/05-verify.log" }
+    {
+      "cmd": "node scripts/concept-integrity.mjs --init",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T001004Z-HC-001/01-concept-integrity-init.log"
+    },
+    {
+      "cmd": "node scripts/concept-integrity.mjs --check",
+      "exit": 1,
+      "log": "docs/state/evidence/20261118T001004Z-HC-001/02-concept-integrity-check.log"
+    },
+    {
+      "cmd": "node scripts/concept-integrity.mjs --score",
+      "exit": 2,
+      "log": "docs/state/evidence/20261118T001004Z-HC-001/03-concept-integrity-score.log"
+    },
+    {
+      "cmd": "node scripts/scope-math.mjs --check",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T001004Z-SC-001/01-scope-math-check.log"
+    },
+    {
+      "cmd": "node scripts/scope-math.mjs --report",
+      "exit": 2,
+      "log": "docs/state/evidence/20261118T001004Z-SC-001/02-scope-math-report.log"
+    },
+    {
+      "cmd": "node scripts/scope-math.mjs --tier S3 --report",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T001004Z-SC-001/03-scope-math-tier-s3.log"
+    },
+    {
+      "cmd": "node scripts/validate-scope.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T001004Z-SC-001/04-validate-scope.log"
+    },
+    {
+      "cmd": "test -f docs/state/OWNERSHIP.yaml",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T001004Z-WF-001/01-ownership-file.log"
+    },
+    {
+      "cmd": "node tools/qa/check-ownership-map.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T001004Z-WF-001/02-ownership-map.log"
+    },
+    {
+      "cmd": "test -f docs/CONSTITUTION.md",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T001004Z-P0-001/01-constitution-present.log"
+    },
+    {
+      "cmd": "bash tools/qa/negative-prompt-drift.sh",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T001004Z-P0-001/02-drift-negative-tests.log"
+    },
+    {
+      "cmd": "python3 -c 'yaml.safe_load(BLUEPRINT.yaml)'",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T001004Z-P0-001/03-blueprint-parse.log"
+    },
+    {
+      "cmd": "jsonschema validate opencode.json",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T001004Z-P0-001/04-opencode-config-schema.log"
+    },
+    {
+      "cmd": "node scripts/validate-prompt-drift.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T001004Z-P0-001/05-validate-prompt-drift.log"
+    },
+    {
+      "cmd": "node scripts/validate-blueprint.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T001004Z-P0-002/03-validate-blueprint.log"
+    },
+    {
+      "cmd": "bash tools/qa/negative-blueprint.sh",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T001004Z-P0-002/04-blueprint-negative-tests.log"
+    },
+    {
+      "cmd": "node tools/qa/gen-stubs.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T001004Z-P0-002/01-stub-generation.log"
+    },
+    {
+      "cmd": "for each stub: node <script> (expect 1)",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T001004Z-P0-002/02-stubs-fail.log"
+    },
+    {
+      "cmd": "node tools/qa/gen-agents.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T001004Z-P0-002/05-agents-skills.log"
+    },
+    {
+      "cmd": "node --input-type=module -e '<agent/skill consistency check>'",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T001004Z-P0-002/06-opencode-tree.log"
+    },
+    {
+      "cmd": "node scripts/validate-blueprint.mjs --emit-gates",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T001004Z-P0-002/07-emit-gates.log"
+    },
+    {
+      "cmd": "node parse <3 docs> + python3 yaml.safe_load + deep equal",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T001004Z-P0-002/08-yaml-equality.log"
+    },
+    {
+      "cmd": "pnpm install --frozen-lockfile",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T004153Z-P0-003/01-install-frozen.log"
+    },
+    {
+      "cmd": "pnpm typecheck",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T004153Z-P0-003/02-typecheck.log"
+    },
+    {
+      "cmd": "pnpm lint",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T004153Z-P0-003/03-lint.log"
+    },
+    {
+      "cmd": "pnpm test",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T004153Z-P0-003/04-unit.log"
+    },
+    {
+      "cmd": "pnpm verify",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T004153Z-P0-003/05-verify.log"
+    },
+    {
+      "cmd": "pnpm typecheck (deliberate type error)",
+      "exit": 2,
+      "log": "docs/state/evidence/20261118T004153Z-P0-003/06-negative-typecheck.log"
+    },
+    {
+      "cmd": "pnpm lint (Math.random + Date.now in core)",
+      "exit": 1,
+      "log": "docs/state/evidence/20261118T004153Z-P0-003/07-negative-lint.log"
+    },
+    {
+      "cmd": "pnpm test (deliberately failing assertion)",
+      "exit": 1,
+      "log": "docs/state/evidence/20261118T004153Z-P0-003/08-negative-unit.log"
+    },
+    {
+      "cmd": "pnpm verify (deliberate type error, fail-fast)",
+      "exit": 1,
+      "log": "docs/state/evidence/20261118T004153Z-P0-003/09-negative-verify.log"
+    },
+    {
+      "cmd": "secret-prefix scan of .git + tracked worktree",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T004835Z-DIRECTOR-RESOLUTIONS/01-secret-scan.log"
+    },
+    {
+      "cmd": "node scripts/concept-integrity.mjs --check",
+      "exit": 1,
+      "log": "docs/state/evidence/20261118T004835Z-DIRECTOR-RESOLUTIONS/02-concept-check.log"
+    },
+    {
+      "cmd": "node scripts/concept-integrity.mjs --init",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T004835Z-DIRECTOR-RESOLUTIONS/03-concept-init.log"
+    },
+    {
+      "cmd": "node scripts/validate-blueprint.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T004835Z-DIRECTOR-RESOLUTIONS/04-validate-blueprint.log"
+    },
+    {
+      "cmd": "bash tools/qa/negative-blueprint.sh",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T004835Z-DIRECTOR-RESOLUTIONS/07-blueprint-negative-tests.log"
+    },
+    {
+      "cmd": "pnpm verify",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T004835Z-DIRECTOR-RESOLUTIONS/08-verify.log"
+    },
+    {
+      "cmd": "node scripts/concept-integrity.mjs --check",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T004835Z-DIRECTOR-RESOLUTIONS/09-concept-signed-check.log"
+    },
+    {
+      "cmd": "node scripts/validate-ownership.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T005800Z-WF-002/01-validate-ownership.log"
+    },
+    {
+      "cmd": "node scripts/validate-locks.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T005800Z-WF-002/02-validate-locks.log"
+    },
+    {
+      "cmd": "bash tools/qa/negative-workflow-map.sh",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T005800Z-WF-002/03-negative-tests.log"
+    },
+    {
+      "cmd": "pnpm verify (9 enabled steps)",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T005800Z-WF-002/05-verify-integrated.log"
+    },
+    {
+      "cmd": "pnpm tracer --assert",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T010750Z-TRACER-001/01-tracer-assert.log"
+    },
+    {
+      "cmd": "TRACER_FORCE_DESYNC=1 pnpm tracer --assert",
+      "exit": 1,
+      "log": "docs/state/evidence/20261118T010750Z-TRACER-001/02-tracer-desync-negative.log"
+    },
+    {
+      "cmd": "pnpm lint (Math.random in core)",
+      "exit": 1,
+      "log": "docs/state/evidence/20261118T010750Z-TRACER-001/03-lint-negative.log"
+    },
+    {
+      "cmd": "npm view <exact packages> license",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T010750Z-TRACER-001/04-license-check.log"
+    },
+    {
+      "cmd": "pnpm install --frozen-lockfile",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T010750Z-TRACER-001/05-frozen-install.log"
+    },
+    {
+      "cmd": "pnpm verify (9 enabled steps)",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T010750Z-TRACER-001/06-verify.log"
+    },
+    {
+      "cmd": "node scripts/validate-workflows.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T011433Z-P0-004/01-validate-workflows.log"
+    },
+    {
+      "cmd": "bash tools/qa/negative-ci-workflows.sh",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T011433Z-P0-004/02-negative-tests.log"
+    },
+    {
+      "cmd": "node scripts/validate-ownership.mjs (165 globs)",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T011433Z-P0-004/03-ownership-after-map-change.log"
+    },
+    {
+      "cmd": "pnpm verify (10 enabled steps)",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T011433Z-P0-004/06-verify.log"
+    },
+    {
+      "cmd": "node scripts/drill-resume.mjs --dry",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T012151Z-P0-005/01-drill-dry.log"
+    },
+    {
+      "cmd": "bash -n tools/colab/setup.sh",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T012151Z-P0-005/02-setup-syntax.log"
+    },
+    {
+      "cmd": "bash tools/qa/negative-resume.sh",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T012151Z-P0-005/07-negative-tests.log"
+    },
+    {
+      "cmd": "GitHub + HF licence metadata queries",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T012845Z-P0-006/01-license-metadata.log"
+    },
+    {
+      "cmd": "node scripts/validate-manifest.mjs --audit",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T012845Z-P0-006/02-validate-manifest.log"
+    },
+    {
+      "cmd": "bash tools/qa/negative-manifest.sh",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T012845Z-P0-006/03-negative-tests.log"
+    },
+    {
+      "cmd": "pnpm verify (12 enabled steps)",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T012845Z-P0-006/05-verify.log"
+    },
+    {
+      "cmd": "node scripts/validate-manifest.mjs --audit (after resolution)",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T012845Z-P0-006/07-resolution-validate.log"
+    },
+    {
+      "cmd": "bash tools/qa/negative-manifest.sh (9 cases)",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T012845Z-P0-006/08-resolution-negative-tests.log"
+    },
+    {
+      "cmd": "pnpm --filter @strata/dashboard build",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T014550Z-P0-007/01-dashboard-build.log"
+    },
+    {
+      "cmd": "bash tools/qa/negative-dashboard.sh",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T014550Z-P0-007/02-negative-tests.log"
+    },
+    {
+      "cmd": "node scripts/drill-resume.mjs --dry (clean / expired lock / corrupt heartbeat)",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T014957Z-GATE-P0/01-drill-clean.log"
+    },
+    {
+      "cmd": "GitHub Actions API — latest run per workflow",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T014957Z-GATE-P0/09-ci-results.log"
+    },
+    {
+      "cmd": "GitHub Actions API — head cfe1fdf (master §18 names)",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T014957Z-GATE-P0/14-ci-after-reconciliation.log"
+    },
+    {
+      "cmd": "node scripts/validate-workflows.mjs (master §18 names)",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T020134Z-P0-004-RECONCILE/02-validate-workflows.log"
+    },
+    {
+      "cmd": "bash tools/qa/negative-ci-workflows.sh (after reconciliation)",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T020134Z-P0-004-RECONCILE/03-negative-tests.log"
+    },
+    {
+      "cmd": "node scripts/validate-docs.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T021621Z-P1-001/01-validate-docs.log"
+    },
+    {
+      "cmd": "bash tools/qa/negative-docs.sh",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T021621Z-P1-001/02-negative-tests.log"
+    },
+    {
+      "cmd": "pnpm verify (13 enabled steps)",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T021621Z-P1-001/04-verify.log"
+    },
+    {
+      "cmd": "node scripts/validate-gdd.mjs --template",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T022611Z-GDD-001/01-template.log"
+    },
+    {
+      "cmd": "node scripts/validate-gdd.mjs --critical",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T022611Z-GDD-001/02-critical.log"
+    },
+    {
+      "cmd": "node scripts/gdd-coverage.mjs --min 0.80",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T022611Z-GDD-001/03-coverage.log"
+    },
+    {
+      "cmd": "bash tools/qa/negative-gdd.sh",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T022611Z-GDD-001/04-negative-tests.log"
+    },
+    {
+      "cmd": "pnpm verify (15 enabled steps)",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T022611Z-GDD-001/05-verify.log"
+    }
   ],
   "notes": [
     "every number above was produced by a command in this session; none is an estimate",
@@ -226,6 +594,7 @@
     "the generator scripts live in /tmp and are not committed; their output (agents, skills, stubs) is",
     "the four negative P0-003 entries exit nonzero on purpose: they prove typecheck, the core-math ban, vitest and verify can fail before being trusted",
     "TypeScript is pinned to 6.0.3, not 7.0.2: the 7.x package ships the native compiler and no JS AST API, which scripts/lint-core-math.mjs needs; documented in docs/STACK.lock.md",
-    "P0-003's 7 output paths trigger B8 and the task is declared split in the blueprint, but it landed as one commit: a workspace without its packages cannot typecheck and a skeleton without verify cannot pass. The split is a size label, not a bisectable boundary here"
+    "P0-003's 7 output paths trigger B8 and the task is declared split in the blueprint, but it landed as one commit: a workspace without its packages cannot typecheck and a skeleton without verify cannot pass. The split is a size label, not a bisectable boundary here",
+    "Reproduction scripts are committed under tools/qa/; older /tmp/opencode command names in evidence logs map to those files via tools/qa/README.md."
   ]
 }

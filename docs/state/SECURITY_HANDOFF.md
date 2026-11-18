@@ -45,7 +45,20 @@ git rev-list --objects --all | awk '{print $1}' | git cat-file --batch | grep -c
 Both scans returned 0 before the public flip; the evidence is in
 `docs/state/evidence/20261118T004835Z-DIRECTOR-RESOLUTIONS/01-secret-scan.log`.
 
-## 4. Decision carried by the agent
+## 4. Branch protection — DONE 2026-11-18
+
+The Director's observation that the branch was unprotected was applied immediately via the GitHub API:
+
+| branch | protection |
+|---|---|
+| `main` | required PR, 1 approving review, conversation resolution, strict required checks (`ci`, `netcode`, `high-concept`, `workflow`, `scope`, `model-audit`, `opencode`, `security`), force push disabled, deletion disabled |
+| `session/20261118-hc-001-high-concept` | force push and deletion disabled; no PR requirement so the orchestrator can keep pushing checkpoints |
+
+Evidence: `docs/state/evidence/20261118T022611Z-GDD-001/06-branch-protection.log`. This closes the "self-merge
+and unprotected default branch" risk: PR #1 cannot be merged without a different reviewer, and required
+checks must be green at the merged head.
+
+## 5. Decision carried by the agent
 
 Do not revoke before a replacement exists. Once the Director confirms both rotations, the orchestrator
 updates ND-004/ND-005 to RESOLVED and re-runs the scan. Until then, the gate result is unaffected — but the
