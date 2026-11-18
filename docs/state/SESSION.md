@@ -411,3 +411,10 @@ blueprint task currently owns the pin: recorded as a gap for the Director/next r
   hit frames; deterministic. GDD-ANIM-ARCHITECTURE 0.5; AN-002 dependency satisfied.
 - Harness defect fixed: event objects were compared to tick numbers, hiding hits. No implementation weakened.
 - Full 175/175, verify 19/19. No GLB/motion/art/retarget measure. Next: PR-S3.
+
+## Session 2 — PR-S3 quest prototype (2026-11-18T17:25Z)
+
+- Fact-derived quests: 2 players keep 2 distinct fact ids; 2 delayed effects at fact_tick+9 in another stratum;
+  1 text-only refusal; 243 reachable states; 6 FR/EN keys, 0 untranslated; deterministic. GDD-QUEST 0.3.
+- Full 180/180, verify 19/19. No renderer, player, browser or art.
+- Next: PR-S6, the last P2-SYS task before GATE:P2SYS.

@@ -198,6 +198,8 @@ Anything else goes through a handoff. A conflict is resolved by a handoff or the
 - **Long-term quality doctrine (A0008)**: Director named an Ashes-of-Creation-class quality bar **as a benchmark
   only** — I11 forbids copying that commercial IP. Quality over time: server truth before visuals, evidence over
   adjectives, audited stack, vertical slice before scale, no silent gate bypass. Failing numbers stay recorded.
+- **PR-S3 landed**: fact-derived quests, 2 distinct player fact ids, delayed effects at fact_tick+9, 243 states,
+  6 FR/EN keys with 0 untranslated; GDD-QUEST 0.3. Full 180/180, verify 19/19. Next: PR-S6.
 - Known intentional red: `scope-math --report` exit 2 (throughput unmeasured) and `concept --score` exit 2
   until HC-003. `concept --check` is green: T3 was signed at GATE:P0.
 

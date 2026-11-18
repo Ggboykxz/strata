@@ -3,7 +3,7 @@
 | field | value |
 |---|---|
 | source | `docs/state/journal/` (append-only entries) |
-| entries | 50 |
+| entries | 51 |
 | regenerate | `node scripts/build-journal.mjs` |
 | check | `node scripts/build-journal.mjs --check` |
 
@@ -1586,3 +1586,14 @@ PR-S8 — anim state machine server transitions + illegal-state fuzz.
 - defect: hit counter compared event objects to numbers (reported 0); fixed by comparing tick and kind.
 - limit: no GLB, motion, renderer, retarget or foot-slide measure; no art or GPU/TPU. AN-002 dependency satisfied.
 - next: PR-S3 (quest resolutions + delayed effects).
+
+---
+
+# 2026-11-18T17:25:00Z · PR-S3 · quest resolutions and delayed effects
+
+- scope: fact-derived quests, 3 options, cross-stratum delayed effects, FR/EN pairs
+- file: tools/sim/systems/prs3_quests.ts, q_abbey greybox blueprint, PRS3 report, GDD-QUEST 0.3
+- measured: 2 distinct player fact ids, 2 delayed effects at fact_tick+9, 1 text-only refusal, 243 states,
+  6 FR/EN keys with 0 untranslated, deterministic; test 5/5, full 180/180, verify 19/19.
+- boundary: no renderer, player, browser or art; no GPU/TPU.
+- next: PR-S6 (faction/reputation dynamics). P2-SYS now has PR-S6 left before GATE:P2SYS.
