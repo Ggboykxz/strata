@@ -499,4 +499,5 @@ blueprint task currently owns the pin: recorded as a gap for the Director/next r
   Next 16.4.6 was rejected under I4 (optional sharp/libvips installed an LGPL binary) and downgraded, not waived.
   I4 licence + transitive audit in docs/legal/DEPENDENCY_AUDIT_NEXTJS.md before use.
 - `vercel.json` prepared (framework nextjs, build command, output dir) but no Vercel CLI/token/deployment.
-  ND-004/005 rotation still precedes any Vercel integration. No art, no model, no self-merge.
+  ND-004/005 rotation still precedes any Vercel integration. **PR #5** https://github.com/Ggboykxz/strata/pull/5
+  opened (stacked on PR #4), never merged. No art, no model, no self-merge.

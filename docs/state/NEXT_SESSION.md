@@ -3,7 +3,7 @@
 | field | value |
 |---|---|
 | written | 2026-11-18T16:02Z |
-| branch | `session/20261118-dashboard-next` — DASH-NEXT PR prepared, **never self-merged**; PR-N1 remains **PR #4** https://github.com/Ggboykxz/strata/pull/4 |
+| branch | `session/20261118-dashboard-next` — **PR #5** https://github.com/Ggboykxz/strata/pull/5 (stacked on PR #4), **never self-merged**; PR-N1 is **PR #4** https://github.com/Ggboykxz/strata/pull/4 |
 | mode | RESUME |
 | tier | current `S0`, authorized **`S1`** (GATE:P1 signed) |
 | last task | **DASH-NEXT** — Next.js view prepared for Vercel, no deployment |
