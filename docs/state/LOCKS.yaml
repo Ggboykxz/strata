@@ -1918,7 +1918,7 @@ locks:
     status: active
 
   - path_glob: "apps/dashboard-next/**"
-    owner_agent: tools-engineer
+    owner_agent: gameplay-engineer
     task_id: P0-007
     branch: session/20261118-dashboard-next
     acquired_at: "2026-11-18T16:44:00Z"
@@ -1926,7 +1926,7 @@ locks:
     status: active
 
   - path_glob: "docs/legal/DEPENDENCY_AUDIT_NEXTJS.md"
-    owner_agent: security-auditor
+    owner_agent: producer
     task_id: P0-007
     branch: session/20261118-dashboard-next
     acquired_at: "2026-11-18T16:44:00Z"
@@ -1950,7 +1950,7 @@ locks:
     status: active
 
   - path_glob: "package.json"
-    owner_agent: orchestrator
+    owner_agent: tools-engineer
     task_id: P0-007
     branch: session/20261118-dashboard-next
     acquired_at: "2026-11-18T16:44:00Z"
@@ -1958,7 +1958,7 @@ locks:
     status: active
 
   - path_glob: "pnpm-lock.yaml"
-    owner_agent: orchestrator
+    owner_agent: tools-engineer
     task_id: P0-007
     branch: session/20261118-dashboard-next
     acquired_at: "2026-11-18T16:44:00Z"
