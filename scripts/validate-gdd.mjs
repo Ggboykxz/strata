@@ -55,20 +55,38 @@ const STUB_SECTIONS = [
   '## 1. Identity', '## 2. Player-facing outcome', '## 3. High Concept link',
   '## 17. Explicit out of scope', '## 18. Open questions',
 ];
+const ALL_SECTIONS = [
+  '## 1. Identity', '## 2. Player-facing outcome', '## 3. High Concept link',
+  '## 4. Deterministic rules', '## 5. Numbers with source', '## 6. State machine',
+  '## 7. Data contract', '## 8. Edge cases', '## 9. Failure states',
+  '## 10. Interaction matrix', '## 11. Feedback', '## 12. Accessibility',
+  '## 13. Localization', '## 14. Telemetry', '## 15. Acceptance tests',
+  '## 16. Perf budget impact', '## 17. Explicit out of scope',
+  '## 18. Open questions', '## 19. Changelog',
+];
 for (const id of EXPECTED) {
   const p = `${MODULES}/${id}.md`;
   if (!existsSync(p)) continue;
   const text = readFileSync(p, 'utf8');
-  if (!/\| status \| STUB \|/.test(text)) fail(`G2 ${id} is not status STUB`);
-  if (!text.startsWith(`# ${id} — STUB`)) fail(`G2 ${id} title does not match its id`);
-  if (!/\| owner \| game-designer \|/.test(text)) fail(`G2 ${id} has no game-designer owner`);
-  for (const s of STUB_SECTIONS) if (!text.includes(s)) fail(`G2 ${id} missing ${s}`);
+  const maturity = /\| status \| (STUB|DRAFT|SIGNED) \|/.exec(text)?.[1] ?? '';
+  if (!maturity) fail(`G2 ${id} has no readable status`);
+  if (!text.startsWith(`# ${id} — ${maturity}`)) fail(`G2 ${id} title does not match its status`);
+  if (!/\| owner \| [a-z-]+ \|/.test(text)) fail(`G2 ${id} has no owner`);
+  const sections = maturity === 'STUB' ? STUB_SECTIONS : ALL_SECTIONS;
+  for (const s of sections) if (!text.includes(s)) fail(`G2 ${id} (${maturity}) missing ${s}`);
+  if (maturity !== 'STUB') {
+    const field5 = text.split('## 5. Numbers with source')[1]?.split('## 6.')[0] ?? '';
+    if (!/SOURCE|TUNABLE/.test(field5)) fail(`G2 ${id} field 5 has no SOURCE or TUNABLE range`);
+    if (maturity === 'SIGNED' && !/\*\*Signature|\| signed \|/.test(text)) {
+      fail(`G2 ${id} is SIGNED without a recorded signature`);
+    }
+  }
   const lower = text.toLowerCase();
   for (const word of VAGUE) {
     if (new RegExp(`\\b${word}\\b`).test(lower)) fail(`G2 ${id} uses forbidden vague word "${word}" (§3.5)`);
   }
 }
-if (!errors.length) ok(`${EXPECTED.length} STUB modules: required fields present, no forbidden adjectives`);
+if (!errors.length) ok(`${EXPECTED.length} modules: STUB fields or all 19 for DRAFT/SIGNED, no forbidden adjectives`);
 
 console.log('\nG3  index and 19-field template');
 const index = readFileSync(INDEX, 'utf8');
