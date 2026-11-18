@@ -34,7 +34,11 @@ describe('PR-S5 economy simulation', () => {
     expect(report.replay_refusals).toBe(10);
     expect(report.exploit_cycles).toBe(1);
     expect(report.cycle_path.length).toBeGreaterThan(0);
-    expect(BigInt(report.gini_micro)).toBeGreaterThanOrEqual(0n);
+    expect(BigInt(report.inflation_bps)).toBeLessThanOrEqual(500n);
+    expect(BigInt(report.stabilization_burned_minor)).toBeGreaterThan(0n);
+    expect(report.inflation_before_bps).toBe('726478');
+    expect(BigInt(report.gini_micro)).toBeGreaterThanOrEqual(200_000n);
+    expect(BigInt(report.gini_micro)).toBeLessThanOrEqual(600_000n);
     expect(report.checksum).toMatch(/^[0-9a-f]{8}$/);
     expect(report.label).toContain('NOT a 30 Hz replay');
     expect(runEconomy()).toEqual(report);

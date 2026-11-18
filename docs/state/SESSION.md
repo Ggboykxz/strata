@@ -380,3 +380,11 @@ blueprint task currently owns the pin: recorded as a gap for the Director/next r
 - GDD-SECURITY 0.4, THREAT_MODEL risk 3 rewritten. Rooms 18/18, security 10/10, full 167/167, verify 19/19.
 - Still open because an agent cannot fix them: no GPU/TPU, 8 unmeasured NET-GATE criteria, Director-only rotations
   and merges, ND-011. Economy retune is next.
+
+## Session 2 — ECON-RETUNE (2026-11-18T14:00Z)
+
+- Director "fix all problems n limits" → measured economy retune. Named proportional stabilization sink burns
+  93 073 815 minor units: inflation **7 264,78 % → 5,00 %**, Gini 0,080768 → 0,293701 (in band). Before/after,
+  checksums and a rejected sequential-levy attempt (Gini 0,90) are all recorded.
+- GDD-ECONOMY 0.4, ECONOMY_REPORT updated. Test 5/5, full 167/167, verify 19/19.
+- Remaining true limits: no GPU/TPU, 8 unmeasured NET-GATE criteria, Director-only rotations/merges, ND-011.

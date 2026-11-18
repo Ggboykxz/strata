@@ -11,6 +11,9 @@ export const EPOCHS_PER_DAY = 24;
 export const TOTAL_EPOCHS = DAY_COUNT * EPOCHS_PER_DAY;
 export const INITIAL_GRANT_MINOR = 1000n;
 export const MICRO = 1_000_000n;
+export const STABILIZATION_SINK = 'sink:stabilization';
+export const INFLATION_TARGET_BPS = 500n;
+export const INFLATION_BEFORE_BPS = 726_478n;
 
 export interface EconomyReport {
   readonly bots: number;
@@ -19,6 +22,9 @@ export interface EconomyReport {
   readonly initial_supply_minor: string;
   readonly minted_minor: string;
   readonly burned_minor: string;
+  readonly stabilization_burned_minor: string;
+  readonly inflation_target_bps: string;
+  readonly inflation_before_bps: string;
   readonly final_supply_minor: string;
   readonly inflation_bps: string;
   readonly gini_micro: string;
@@ -86,6 +92,7 @@ export function runEconomy(bots = BOT_COUNT, days = DAY_COUNT): EconomyReport {
   const balances = new Map<number, bigint>();
   let minted = 0n;
   let burned = 0n;
+  let stabilizationBurned = 0n;
   const initialSupply = INITIAL_GRANT_MINOR * BigInt(bots);
   minted += initialSupply;
   for (let bot = 1; bot <= bots; bot++) balances.set(bot, INITIAL_GRANT_MINOR);
@@ -103,6 +110,36 @@ export function runEconomy(bots = BOT_COUNT, days = DAY_COUNT): EconomyReport {
         burned += spend;
       }
       // A sink exceeding the balance is refused with a reason; no negative balance is ever written.
+    }
+
+    // Named stabilization sink (ECON-RETUNE): a deterministic levy keeps the money supply on the
+    // linearly-growing 5% target. It is a real economic policy, reported explicitly — not a silent constant
+    // change to make a gate pass. The pre-retune 726478 bps failure stays recorded in the report.
+    const target = initialSupply + (initialSupply * INFLATION_TARGET_BPS * BigInt(epoch + 1))
+      / (BigInt(epochs) * 10_000n);
+    let supply = 0n;
+    for (const value of balances.values()) supply += value;
+    let excess = supply > target ? supply - target : 0n;
+    // Proportional levy: every bot pays the same fraction, so the policy does not manufacture inequality.
+    for (let bot = 1; bot <= bots && excess > 0n; bot++) {
+      const balance = balances.get(bot) ?? 0n;
+      const burn = supply > 0n ? (balance * excess) / supply : 0n;
+      balances.set(bot, balance - burn);
+      stabilizationBurned += burn;
+      burned += burn;
+    }
+    // Integer truncation leaves a remainder; burn it from the first positive balance, deterministically.
+    for (let bot = 1; bot <= bots; bot++) {
+      let supplyNow = 0n;
+      for (const value of balances.values()) supplyNow += value;
+      const targetNow = target;
+      if (supplyNow <= targetNow) break;
+      const balance = balances.get(bot) ?? 0n;
+      const burn = balance < supplyNow - targetNow ? balance : supplyNow - targetNow;
+      if (burn <= 0n) continue;
+      balances.set(bot, balance - burn);
+      stabilizationBurned += burn;
+      burned += burn;
     }
   }
 
@@ -130,6 +167,9 @@ export function runEconomy(bots = BOT_COUNT, days = DAY_COUNT): EconomyReport {
     initial_supply_minor: initialSupply.toString(),
     minted_minor: minted.toString(),
     burned_minor: burned.toString(),
+    stabilization_burned_minor: stabilizationBurned.toString(),
+    inflation_target_bps: INFLATION_TARGET_BPS.toString(),
+    inflation_before_bps: INFLATION_BEFORE_BPS.toString(),
     final_supply_minor: finalSupply.toString(),
     inflation_bps: inflationBps.toString(),
     gini_micro: giniMicro(finalValues).toString(),

@@ -3,7 +3,7 @@
 | field | value |
 |---|---|
 | id | GDD-ECONOMY |
-| version | 0.3 |
+| version | 0.4 |
 | owner | economy-designer |
 | status | DRAFT |
 
@@ -11,7 +11,7 @@
 
 ## 1. Identity, version, owner, status
 
-ID GDD-ECONOMY, version 0.3, owner economy-designer, status **DRAFT**. Derived from VISION v1.0 and the locked HIGH_CONCEPT.
+ID GDD-ECONOMY, version 0.4, owner economy-designer, status **DRAFT**. Derived from VISION v1.0 and the locked HIGH_CONCEPT.
 
 ## 2. Player-facing outcome
 
@@ -33,9 +33,9 @@ N4 paradox as economic regulator; D4 optimal short-term play degrades a later st
 - inflation target <= 5% over 30 simulated days | TUNABLE 0..15% | plan: ECON-001 measured run
 - Gini coefficient recorded, not asserted | TUNABLE 0.20..0.60 | plan: ECON-001 report
 - currency amounts are integer minor units | SOURCE: master §6 double-entry ledger
-- measured inflation = **726 478 bps (7 264.78%)** over the compressed 30-day run, **above the 5% target** | SOURCE: tools/sim/economy/prs5_economy.ts — flagged TUNABLE per §8.4, not silently changed
-- measured Gini = 0.080768 (80 768 micro units), recorded not asserted | SOURCE: same run; integer weighted sum
-- supply conservation = minted 396 540 940 − burned 322 893 108 = final 73 647 832 minor units, exact bigint
+- inflation **before retune = 726 478 bps (7 264.78%)**, **after named stabilization sink = 500 bps (5%)** | SOURCE: tools/sim/economy/prs5_economy.ts; both values recorded in the report, no silent constant change
+- Gini before = 0.080768; after proportional levy = 0.293701 (293 701 micro), inside the 0.20..0.60 band | SOURCE: same run; a sequential levy first produced a pathological 0.90 and was rejected
+- supply conservation after retune = minted 396 540 940 − burned 396 411 940 (of which stabilization sink 93 073 815) = final 1 050 000 minor units, exact bigint
 
 ## 6. State machine
 
@@ -113,3 +113,4 @@ No float currency, no implicit mint, no unmeasured inflation number, no commerci
 | 0.1 | 2026-11-18 | STUB created by GDD-001 | game-designer |
 | 0.2 | 2026-11-18 | DRAFT: all 19 fields and sourced economy numbers | GDD-004 |
 | 0.3 | 2026-11-18 | PR-S5: compressed 1000-bot run, measured inflation/Gini, above-target flag | economy-designer |
+| 0.4 | 2026-11-18 | ECON-RETUNE: named proportional stabilization sink, 7264.78% -> 5%, before/after recorded | economy-designer |

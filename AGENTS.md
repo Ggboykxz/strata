@@ -186,6 +186,9 @@ Anything else goes through a handoff. A conflict is resolved by a handoff or the
   measured checkpoints (SEC-002, economy retune), not an assertion change.
 - **SEC-002 fixed**: every room socket frame goes through `MessageGate` before the room; malformed refused,
   valid admitted. Rooms 18/18, verify 19/19. Next: measured economy retune; hardware/Director limits remain.
+- **ECON-RETUNE fixed**: named proportional stabilization sink took inflation from 7 264,78 % to 5,00 % with
+  Gini 0,293701 in band; before/after and the rejected Gini-0,90 levy are recorded. Verify 19/19. Remaining
+  limits need hardware, Director actions or NET-GATE measurements.
 - Known intentional red: `scope-math --report` exit 2 (throughput unmeasured) and `concept --score` exit 2
   until HC-003. `concept --check` is green: T3 was signed at GATE:P0.
 

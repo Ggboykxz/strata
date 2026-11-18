@@ -1,7 +1,7 @@
 {
   "session": "2026-11-18-s02",
   "utc_start": "2026-11-18T07:23:00Z",
-  "utc_end": "2026-11-18T13:38:00Z",
+  "utc_end": "2026-11-18T13:58:00Z",
   "mode": "RESUME",
   "branch": "session/20261118-hc-001-high-concept",
   "tier": {
@@ -116,6 +116,12 @@
       "id": "SEC-002",
       "status": "done",
       "blueprint_task": "SEC-002"
+    },
+    {
+      "id": "ECON-RETUNE",
+      "status": "done",
+      "blueprint_task": "PR-S5",
+      "note": "measured retune: 726478 bps -> 500 bps, both recorded"
     }
   ],
   "measured": {
@@ -268,7 +274,12 @@
     "mcp_playwright_pin": "@playwright/mcp@0.0.85",
     "false_pass_acc_legacy": 12,
     "gate_ids_in_lock_validator": true,
-    "gate_on_live_path": true
+    "gate_on_live_path": true,
+    "economy_inflation_bps_before": 726478,
+    "economy_inflation_bps_after": 500,
+    "economy_gini_micro_after": 293701,
+    "economy_stabilization_burned_minor": "93073815",
+    "economy_checksum_after": "0e9d284d"
   },
   "cis": {
     "value": null,
@@ -1294,6 +1305,34 @@
       "cmd": "node scripts/validate-docs.mjs",
       "exit": 0,
       "log": "docs/state/evidence/20261118T105502Z-SEC-002/06-docs.log"
+    },
+    {
+      "cmd": "pnpm vitest run tools/sim/economy/test/prs5.test.ts --reporter=verbose",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T105757Z-ECON-RETUNE/01-acc-prs5.log",
+      "result": "5/5, after numbers"
+    },
+    {
+      "cmd": "pnpm typecheck",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T105757Z-ECON-RETUNE/02-typecheck.log"
+    },
+    {
+      "cmd": "pnpm test",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T105757Z-ECON-RETUNE/03-full.log",
+      "result": "167/167"
+    },
+    {
+      "cmd": "pnpm verify",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T105757Z-ECON-RETUNE/04-verify.log",
+      "result": "19/19"
+    },
+    {
+      "cmd": "node scripts/validate-gdd.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T105757Z-ECON-RETUNE/05-gdd.log"
     }
   ],
   "notes": [
@@ -1365,7 +1404,9 @@
     "PR-S5 CI at 50f5f704a1c8f14f585f4472860a7728d8cfd1ab: 8/8 triggered workflows success; run ids in docs/state/evidence/20261118T103750Z-PR-S5/10-ci-proof.log.",
     "TOOL-FIXALL: Director said \"fix all problems n limits\". Fixed false-pass detection, verify 17->19, journal view, MCP pin, lock gate ids, stale STACK row, dashboard check port.",
     "Not fixable by an agent remains recorded: no GPU/TPU, 8 unmeasured NET-GATE criteria, Director-only rotations/merges, ND-011, economy retune, SEC-002.",
-    "SEC-002: every room socket frame now passes MessageGate before the room; malformed refused with reject, valid admitted. Residual risk 3 mitigated."
+    "SEC-002: every room socket frame now passes MessageGate before the room; malformed refused with reject, valid admitted. Residual risk 3 mitigated.",
+    "ECON-RETUNE: inflation 7264.78% -> 5.00% via named proportional stabilization sink; a sequential levy produced Gini 0.90 and was rejected.",
+    "No silent constant change: before/after numbers, checksums and the rejected levy are all in the report and evidence."
   ],
   "result": {
     "phase": "P2NET",
@@ -1522,6 +1563,11 @@
           "dir": "docs/state/evidence/20261118T105502Z-SEC-002/",
           "logs": 8,
           "branch": "session"
+        },
+        {
+          "dir": "docs/state/evidence/20261118T105757Z-ECON-RETUNE/",
+          "logs": 6,
+          "branch": "session"
         }
       ]
     },
@@ -1530,7 +1576,7 @@
       "AUDIT-2026-11-18-P0-006"
     ],
     "enables": "Nothing player-facing: it protects the evidence chain — a resume prompt that cannot be silently truncated, a tier grant recorded verbatim, a deterministic tick and wire, and a dashboard that reports sources instead of memories.",
-    "next": "Measured economy retune (PR-S5 inflation 7264.78% -> <=5%)",
+    "next": "PR-S7 — world tick + bounded Rouille cascade",
     "blockers": [
       "ND-004 PAT rotation",
       "ND-005 HF token rotation",
@@ -1541,7 +1587,7 @@
     ],
     "next_session_file": "docs/state/NEXT_SESSION.md",
     "full": {
-      "handoffs": "Twenty-three handoff+proposal pairs under docs/state/threads/; all ACKed in-process. No external reviewer installed.",
+      "handoffs": "Twenty-four handoff+proposal pairs under docs/state/threads/; all ACKed in-process. No external reviewer installed.",
       "concept_roles": "Roles executed by one process; T3 signed at GATE:P0 and re-signature deferred to the next gate. Signature ratio not recomputable from metrics.json.",
       "gdd_version_bumps": [
         "GDD-NETCODE 0.2 -> 0.3 -> 0.4 -> 0.5 -> 0.6 -> 0.7",
@@ -1555,7 +1601,8 @@
         "GDD-CONSEQUENCE 0.3 -> 0.4",
         "GDD-CRAFT 0.2 -> 0.3",
         "GDD-ECONOMY 0.2 -> 0.3",
-        "GDD-SECURITY 0.3 -> 0.4"
+        "GDD-SECURITY 0.3 -> 0.4",
+        "GDD-ECONOMY 0.3 -> 0.4"
       ],
       "scope_ledger_delta": "0 entries (12 -> 12, balanced)",
       "content_math": "Local CPU p95 0.2109 ms (180-tick harness, 64 entities); network throughput still NOT COMPUTABLE.",
@@ -1569,7 +1616,7 @@
         "docs/qa/prototypes/PRS4.md",
         "docs/qa/prototypes/ECONOMY_REPORT.md"
       ],
-      "economy_metrics": "PR-S5: 1000 bots x 720 epochs, minted 396540940 - burned 322893108 = 73647832 exact; inflation 726478 bps = 7264.78% FAILS the 5% target and is flagged TUNABLE; Gini 0.080768 recorded; 1 named profit cycle.",
+      "economy_metrics": "Before retune: inflation 726478 bps (FAIL), Gini 0.080768. After named proportional stabilization sink: inflation 500 bps (5% target), Gini 0.293701 in band, sink burned 93073815 minor units. Both recorded.",
       "anim_checks": "A0001 separation intact; retarget coverage and foot slide NOT COMPUTABLE (AN-002)",
       "world_checks": "No world content this session",
       "files_by_owner": "orchestrator: docs/state/**, docs/blueprint/**, scripts/session-result.mjs, A0004/A0005/A0006; gameplay-engineer: packages/core/src/{tick,index,hash}.ts, apps/server/src/sim/, core/test; netcode-engineer: packages/protocol/**, apps/game/src/net/**, apps/server/src/combat/**, tools/sim/net/, GDD-NETCODE; animation-director: packages/core/src/anim-state/**, packages/content/animations/**, GDD-ANIM-ARCHITECTURE; tools-engineer: apps/dashboard/**; backend-engineer: apps/server/src/rooms/**, packages/core/src/ledger/**, tools/sim/persist/**, GDD-PERSISTENCE; economy-designer: GDD-TRADE; qa-engineer: tools/sim/load/**, tests/security/**; security-auditor: apps/server/src/validation/**, docs/legal/THREAT_MODEL.md, GDD-SECURITY; producer: docs/qa/prototypes/NET_GATE.md, docs/state/gates/GATE_NET.md. gameplay-engineer: tools/sim/world/prs1_combat.ts (PR-S1); game-designer: GDD-COMBAT 0.3. gameplay-engineer: packages/world-state/** + tools/sim/world/prs2_propagation.ts (PR-S2); game-designer: GDD-CONSEQUENCE 0.3. level-designer: apps/game/levels/greybox/oakhollow/manifest.json, scripts/validate-scene-budget.mjs (GB-001). economy-designer: tools/sim/economy/prs4_craft.ts (PR-S4); GDD-CRAFT 0.3. economy-designer: tools/sim/economy/prs5_economy.ts (PR-S5); GDD-ECONOMY 0.3. tools-engineer + producer + orchestrator: verify B9, journal view, MCP pin, STACK row, dashboard check port (TOOL-FIXALL, A0007)."

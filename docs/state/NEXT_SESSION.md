@@ -2,12 +2,12 @@
 
 | field | value |
 |---|---|
-| written | 2026-11-18T13:42Z |
+| written | 2026-11-18T14:02Z |
 | branch | `session/20261118-hc-001-high-concept` — **PR #1** (draft) https://github.com/Ggboykxz/strata/pull/1 |
 | also open | **PR #2** dashboard truth repair — `session/20261118-dashboard-truth`, base = session branch |
 | mode | RESUME |
 | tier | current `S0`, authorized **`S1`** |
-| last task | **SEC-002** — MessageGate on the live room path; GDD-SECURITY 0.4 |
+| last task | **ECON-RETUNE** — inflation 7264.78% -> 5%, both recorded; GDD-ECONOMY 0.4 |
 | next task | **PR-S1** — combat TTK/windows/hit-stop prototype (P2-SYS) |
 | blocker | PR #1 and #2 merges (Director must do it), ND-004/ND-005 rotation. ND-011 needs one answer (TPU scope). |
 
@@ -45,12 +45,15 @@ acceptance and with the seven residual risks from `docs/legal/THREAT_MODEL.md` a
 PR #1 and PR #2 were **not merged** — an agent must not self-merge. The Director must merge them from their own
 account. ND-004/ND-005 token rotation also remains a Director action.
 
-## 4. ECONOMY RETUNE — next (measured)
+## 4. PR-S7 — next (S0, P2SYS)
 
-**Economy retune** is the next fixable limit. PR-S5 measured 7 264,78 % inflation against ≤ 5 % with exact
-books. Retune the named faucet/sink under a producer/economy-designer lock, re-run the 1000-bot × 720-epoch
-harness, and record before/after numbers plus the named sink. Do not change a constant merely to pass a gate, and
-do not use PR-S7's Rouille sink as an undocumented fix. Then resume blueprint sig selection (PR-S7).
+`{id: PR-S7, ph: P2SYS, tier: S0, t: "World tick + Rouille cascade bounded", agent: gameplay-engineer,
+role: sig, gdd: [GDD-WORLD-SIM], deps: [PR-S2], out: [tools/sim/world/prs7_worldtick.ts, docs/qa/prototypes/PRS7.md]}`
+
+Deps satisfied. Its acc still uses a broken `pnpm sim …` form — repair to a real vitest path in the same PR and
+declare `co: [qa-engineer]` for the append-only report up front. Deliver a deterministic world tick with a
+**bounded** Rouille cascade and integer ticks. The economy retune is now done: do not use the Rouille sink as an
+undocumented second fix.
 
 Not fixable by an agent remains listed in ND-013: no GPU/TPU (ND-012), 8 unmeasured NET-GATE criteria, PAT/HF
 rotation and PR merges (Director-only), TPU scope (ND-011).
