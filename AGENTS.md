@@ -177,6 +177,9 @@ Anything else goes through a handoff. A conflict is resolved by a handoff or the
 - **PR-S4 landed**: bigint minor-unit crafting graph with named infinite-profit cycle detection (script ->
   bundle:replicate -> script). Full 161/161, verify 17/17. Not ECON-001. Next: PR-S5 (1000 bots x 30 days),
   still CPU-only and with no art.
+- **PR-S5 landed**: 1000 bots × 720 epochs, exact minor-unit accounting, Gini 0.080768 recorded. **Inflation
+  7 264,78 % FAILS the 5 % target** and is flagged TUNABLE, not retuned to pass. Full 166/166, verify 17/17.
+  Next: PR-S7 (world tick + bounded Rouille cascade).
 - Known intentional red: `scope-math --report` exit 2 (throughput unmeasured) and `concept --score` exit 2
   until HC-003. `concept --check` is green: T3 was signed at GATE:P0.
 

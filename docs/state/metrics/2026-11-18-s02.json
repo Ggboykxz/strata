@@ -1,7 +1,7 @@
 {
   "session": "2026-11-18-s02",
   "utc_start": "2026-11-18T07:23:00Z",
-  "utc_end": "2026-11-18T12:32:00Z",
+  "utc_end": "2026-11-18T12:54:00Z",
   "mode": "RESUME",
   "branch": "session/20261118-hc-001-high-concept",
   "tier": {
@@ -105,6 +105,12 @@
       "id": "PR-S4",
       "status": "done",
       "blueprint_task": "PR-S4"
+    },
+    {
+      "id": "PR-S5",
+      "status": "done",
+      "blueprint_task": "PR-S5",
+      "note": "inflation target FAILS at 726478 bps; flagged TUNABLE"
     }
   ],
   "measured": {
@@ -136,14 +142,14 @@
     "core_test_files": 2,
     "core_tests": 41,
     "server_tests": 25,
-    "full_tests": 161,
+    "full_tests": 166,
     "determinism_ticks": 300,
     "hash_ring_capacity": 128,
     "containers_used": 0,
     "broken_acceptance_commands_repaired": 5,
     "broken_acceptance_commands_remaining": 7,
     "protocol_tests": 28,
-    "test_files": 18,
+    "test_files": 19,
     "wire_version": 3,
     "wire_max_frame_bytes": 1551,
     "snapshot_bytes_per_second": 46530,
@@ -239,7 +245,20 @@
     "crafts_completed": 6,
     "profit_cycles": 1,
     "craft_inventory_value_minor": 17172,
-    "prs4_tests": 7
+    "prs4_tests": 7,
+    "economy_bots": 1000,
+    "economy_days": 30,
+    "economy_epochs": 720,
+    "economy_initial_supply_minor": "1000000",
+    "economy_minted_minor": "396540940",
+    "economy_burned_minor": "322893108",
+    "economy_final_supply_minor": "73647832",
+    "economy_inflation_bps": 726478,
+    "economy_gini_micro": 80768,
+    "economy_conserved": true,
+    "economy_exploit_cycles": 1,
+    "economy_checksum": "080bf7af",
+    "prs5_tests": 5
   },
   "cis": {
     "value": null,
@@ -1143,6 +1162,55 @@
       "cmd": "node scripts/validate-blueprint.mjs",
       "exit": 0,
       "log": "docs/state/evidence/20261118T102858Z-PR-S4/08-blueprint.log"
+    },
+    {
+      "cmd": "pnpm sim prs5 --assert (as written in the blueprint)",
+      "exit": 1,
+      "log": "docs/state/evidence/20261118T103750Z-PR-S5/00-acc-old-form.log",
+      "result": "no sim script"
+    },
+    {
+      "cmd": "pnpm vitest run tools/sim/economy/test/prs5.test.ts --reporter=verbose",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T103750Z-PR-S5/01-acc-prs5.log",
+      "result": "5/5, report printed"
+    },
+    {
+      "cmd": "pnpm typecheck",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T103750Z-PR-S5/02-typecheck.log"
+    },
+    {
+      "cmd": "pnpm test",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T103750Z-PR-S5/03-full-tests.log",
+      "result": "166/166, 19 files"
+    },
+    {
+      "cmd": "node scripts/lint-core-math.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T103750Z-PR-S5/04-core-math.log"
+    },
+    {
+      "cmd": "pnpm verify",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T103750Z-PR-S5/05-verify.log",
+      "result": "17/17"
+    },
+    {
+      "cmd": "pnpm tracer --assert",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T103750Z-PR-S5/06-tracer.log"
+    },
+    {
+      "cmd": "node scripts/validate-gdd.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T103750Z-PR-S5/07-gdd.log"
+    },
+    {
+      "cmd": "node scripts/validate-blueprint.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T103750Z-PR-S5/08-blueprint.log"
     }
   ],
   "notes": [
@@ -1208,7 +1276,9 @@
     "GB-001 CI at the attested head: 8/8 triggered workflows success; run ids in docs/state/evidence/20261118T102136Z-GB-001/09-ci-proof.log.",
     "PR-S4: bigint minor-unit crafting graph, Bellman-Ford positive-cycle detection; cycle script -> bundle:replicate -> script named and refused.",
     "Not ECON-001: no 1000 bots, no 30 days, no inflation/Gini. No art, no GPU/TPU (ND-012).",
-    "PR-S4: first CI 6/8 (O3/B2 co-owner), fixed in d935036; 8/8 at d935036cee2ed5c5df35f3d9eaf53a1885c0351a. Both results recorded, none hidden."
+    "PR-S4: first CI 6/8 (O3/B2 co-owner), fixed in d935036; 8/8 at d935036cee2ed5c5df35f3d9eaf53a1885c0351a. Both results recorded, none hidden.",
+    "PR-S5: accounting exact and no negative balances, but inflation 7264.78% FAILS the 5% target — flagged TUNABLE, not silently retuned (GDD §8.4).",
+    "Compressed 720 hourly epochs, not a 30 Hz replay. No real market, players or network. Gini recorded only."
   ],
   "result": {
     "phase": "P2NET",
@@ -1350,6 +1420,11 @@
           "dir": "docs/state/evidence/20261118T102858Z-PR-S4/",
           "logs": 10,
           "branch": "session"
+        },
+        {
+          "dir": "docs/state/evidence/20261118T103750Z-PR-S5/",
+          "logs": 10,
+          "branch": "session"
         }
       ]
     },
@@ -1358,7 +1433,7 @@
       "AUDIT-2026-11-18-P0-006"
     ],
     "enables": "Nothing player-facing: it protects the evidence chain — a resume prompt that cannot be silently truncated, a tier grant recorded verbatim, a deterministic tick and wire, and a dashboard that reports sources instead of memories.",
-    "next": "PR-S5 — ECONOMY 1000 bots x 30 days + exploit scan + report",
+    "next": "PR-S7 — world tick + bounded Rouille cascade",
     "blockers": [
       "ND-004 PAT rotation",
       "ND-005 HF token rotation",
@@ -1369,7 +1444,7 @@
     ],
     "next_session_file": "docs/state/NEXT_SESSION.md",
     "full": {
-      "handoffs": "Twenty handoff+proposal pairs under docs/state/threads/; all ACKed in-process. No external reviewer installed.",
+      "handoffs": "Twenty-one handoff+proposal pairs under docs/state/threads/; all ACKed in-process. No external reviewer installed.",
       "concept_roles": "Roles executed by one process; T3 signed at GATE:P0 and re-signature deferred to the next gate. Signature ratio not recomputable from metrics.json.",
       "gdd_version_bumps": [
         "GDD-NETCODE 0.2 -> 0.3 -> 0.4 -> 0.5 -> 0.6 -> 0.7",
@@ -1381,7 +1456,8 @@
         "GDD-COMBAT 0.2 -> 0.3",
         "GDD-CONSEQUENCE 0.2 -> 0.3",
         "GDD-CONSEQUENCE 0.3 -> 0.4",
-        "GDD-CRAFT 0.2 -> 0.3"
+        "GDD-CRAFT 0.2 -> 0.3",
+        "GDD-ECONOMY 0.2 -> 0.3"
       ],
       "scope_ledger_delta": "0 entries (12 -> 12, balanced)",
       "content_math": "Local CPU p95 0.2109 ms (180-tick harness, 64 entities); network throughput still NOT COMPUTABLE.",
@@ -1392,12 +1468,13 @@
         "docs/qa/prototypes/NET_GATE.md",
         "docs/qa/prototypes/PRS1.md",
         "docs/qa/prototypes/PRS2.md",
-        "docs/qa/prototypes/PRS4.md"
+        "docs/qa/prototypes/PRS4.md",
+        "docs/qa/prototypes/ECONOMY_REPORT.md"
       ],
-      "economy_metrics": "Crafting prototype: 3 recipes, 6 crafts, 1 positive-value cycle named, 17172 minor units exact; inflation/Gini still NOT COMPUTABLE (ECON-001).",
+      "economy_metrics": "PR-S5: 1000 bots x 720 epochs, minted 396540940 - burned 322893108 = 73647832 exact; inflation 726478 bps = 7264.78% FAILS the 5% target and is flagged TUNABLE; Gini 0.080768 recorded; 1 named profit cycle.",
       "anim_checks": "A0001 separation intact; retarget coverage and foot slide NOT COMPUTABLE (AN-002)",
       "world_checks": "No world content this session",
-      "files_by_owner": "orchestrator: docs/state/**, docs/blueprint/**, scripts/session-result.mjs, A0004/A0005/A0006; gameplay-engineer: packages/core/src/{tick,index,hash}.ts, apps/server/src/sim/, core/test; netcode-engineer: packages/protocol/**, apps/game/src/net/**, apps/server/src/combat/**, tools/sim/net/, GDD-NETCODE; animation-director: packages/core/src/anim-state/**, packages/content/animations/**, GDD-ANIM-ARCHITECTURE; tools-engineer: apps/dashboard/**; backend-engineer: apps/server/src/rooms/**, packages/core/src/ledger/**, tools/sim/persist/**, GDD-PERSISTENCE; economy-designer: GDD-TRADE; qa-engineer: tools/sim/load/**, tests/security/**; security-auditor: apps/server/src/validation/**, docs/legal/THREAT_MODEL.md, GDD-SECURITY; producer: docs/qa/prototypes/NET_GATE.md, docs/state/gates/GATE_NET.md. gameplay-engineer: tools/sim/world/prs1_combat.ts (PR-S1); game-designer: GDD-COMBAT 0.3. gameplay-engineer: packages/world-state/** + tools/sim/world/prs2_propagation.ts (PR-S2); game-designer: GDD-CONSEQUENCE 0.3. level-designer: apps/game/levels/greybox/oakhollow/manifest.json, scripts/validate-scene-budget.mjs (GB-001). economy-designer: tools/sim/economy/prs4_craft.ts (PR-S4); GDD-CRAFT 0.3."
+      "files_by_owner": "orchestrator: docs/state/**, docs/blueprint/**, scripts/session-result.mjs, A0004/A0005/A0006; gameplay-engineer: packages/core/src/{tick,index,hash}.ts, apps/server/src/sim/, core/test; netcode-engineer: packages/protocol/**, apps/game/src/net/**, apps/server/src/combat/**, tools/sim/net/, GDD-NETCODE; animation-director: packages/core/src/anim-state/**, packages/content/animations/**, GDD-ANIM-ARCHITECTURE; tools-engineer: apps/dashboard/**; backend-engineer: apps/server/src/rooms/**, packages/core/src/ledger/**, tools/sim/persist/**, GDD-PERSISTENCE; economy-designer: GDD-TRADE; qa-engineer: tools/sim/load/**, tests/security/**; security-auditor: apps/server/src/validation/**, docs/legal/THREAT_MODEL.md, GDD-SECURITY; producer: docs/qa/prototypes/NET_GATE.md, docs/state/gates/GATE_NET.md. gameplay-engineer: tools/sim/world/prs1_combat.ts (PR-S1); game-designer: GDD-COMBAT 0.3. gameplay-engineer: packages/world-state/** + tools/sim/world/prs2_propagation.ts (PR-S2); game-designer: GDD-CONSEQUENCE 0.3. level-designer: apps/game/levels/greybox/oakhollow/manifest.json, scripts/validate-scene-budget.mjs (GB-001). economy-designer: tools/sim/economy/prs4_craft.ts (PR-S4); GDD-CRAFT 0.3. economy-designer: tools/sim/economy/prs5_economy.ts (PR-S5); GDD-ECONOMY 0.3."
     }
   }
 }

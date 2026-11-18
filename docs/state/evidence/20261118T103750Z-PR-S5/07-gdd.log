@@ -1,0 +1,17 @@
+$ node scripts/validate-gdd.mjs
+
+G1  module inventory: 32 files, expected 32
+OK    exactly the 32 modules named in master §3.2
+
+G2  STUB maturity and required fields (1, 2, 3, 17, 18)
+OK    32 modules: STUB fields or all 19 for DRAFT/SIGNED, no forbidden adjectives
+
+G3  index and 19-field template
+OK    index lists 19 fields, maturity rule and all 32 modules
+
+G4  critical modules for P2NET / P2SYS / P2 (computed, not typed)
+      23 tasks, 14 distinct modules: GDD-ANIM-ARCHITECTURE, GDD-COMBAT, GDD-CONSEQUENCE, GDD-CORE, GDD-CRAFT, GDD-ECONOMY, GDD-FACTION, GDD-NETCODE, GDD-PERSISTENCE, GDD-QUEST, GDD-SECURITY, GDD-SHARDING, GDD-TRADE, GDD-WORLD-SIM
+OK    every P2 gdd[] ref resolves to a real module
+
+RESULT: PASS — 32 modules, 0 error(s).
+EXIT=0

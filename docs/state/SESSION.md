@@ -353,3 +353,12 @@ blueprint task currently owns the pin: recorded as a gap for the Director/next r
   inventory 17 172 minor units.
 - GDD-CRAFT 0.3; acc repaired (fourteenth broken form). Full 161/161, verify 17/17.
 - Not ECON-001: no bots, no 30 days, no inflation/Gini, no art, no GPU/TPU (ND-012). Next: PR-S5.
+
+## Session 2 — PR-S5 economy run (2026-11-18T12:54Z)
+
+- 1000 bots × 30 days as 720 hourly epochs, exact bigint accounting: minted 396 540 940 − burned 322 893 108 =
+  73 647 832, zero negative balances. Deterministic checksum `080bf7af`.
+- **Inflation 7 264,78 % FAILS the 5 % target** — flagged TUNABLE per GDD §8.4, not silently retuned. Gini
+  0,080768 recorded only. A value-printing cycle was detected and named.
+- GDD-ECONOMY 0.3; acc repaired (fifteenth broken form); qa-engineer co-owner declared up front. Full 166/166,
+  verify 17/17. No real market/players/network; no art or GPU/TPU (ND-012). Next: PR-S7.
