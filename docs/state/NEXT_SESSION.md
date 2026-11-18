@@ -70,7 +70,7 @@ and a measured budget, never from a blog claim. Constitution §10.4 still says "
 ## 5. Non-gated tooling candidates
 
 1. Wire `apps/dashboard/check.mjs` into `pnpm verify` — changes the 17-step baseline; own task.
-2. Wire `apps/server/src/main.ts` to `attachRooms` **and** `MessageGate` (SEC-002).
+2. ~~Wire `apps/server/src/main.ts` to `attachRooms` **and** `MessageGate` (SEC-002)~~ **DONE** — rooms on 8788, real loopback test, full 302/302.
 3. Generated `docs/state/JOURNAL.md` (master §7) — view missing; `AGENTS.md` §1 points at it.
 4. `validate-locks.mjs` cannot represent a gate (`task_id` must exist in `BLUEPRINT.yaml`).
 5. Pin the Playwright MCP in `opencode.json` (unpinned, §10.6).

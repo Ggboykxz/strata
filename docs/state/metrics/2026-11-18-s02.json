@@ -1,7 +1,7 @@
 {
   "session": "2026-11-18-s02",
   "utc_start": "2026-11-18T07:23:00Z",
-  "utc_end": "2026-11-18T18:48:00Z",
+  "utc_end": "2026-11-18T19:22:00Z",
   "mode": "RESUME",
   "branch": "session/20261118-hc-001-high-concept",
   "tier": {
@@ -157,6 +157,12 @@
       "id": "GDD-005",
       "status": "done",
       "blueprint_task": "GDD-005"
+    },
+    {
+      "id": "ROOM-WIRING",
+      "status": "done",
+      "blueprint_task": "NET-003",
+      "note": "main.ts serves rooms on 8788 through attachRooms; real loopback test"
     }
   ],
   "measured": {
@@ -188,7 +194,7 @@
     "core_test_files": 2,
     "core_tests": 41,
     "server_tests": 25,
-    "full_tests": 188,
+    "full_tests": 302,
     "determinism_ticks": 300,
     "hash_ring_capacity": 128,
     "containers_used": 0,
@@ -359,7 +365,10 @@
     "gdd_generated_specs": 17,
     "gdd_stub_modules_skipped": 15,
     "gdd_coverage": 1,
-    "gdd_drift_negative_exit": 1
+    "gdd_drift_negative_exit": 1,
+    "room_endpoint_port": 8788,
+    "tracer_port": 8787,
+    "rooms_real_socket_test": true
   },
   "cis": {
     "value": 85,
@@ -1727,6 +1736,29 @@
       "exit": 0,
       "log": "docs/state/evidence/20261118T135153Z-GDD-005/06-verify.log",
       "result": "19/19"
+    },
+    {
+      "cmd": "pnpm vitest run apps/server/test/rooms.test.ts",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T135944Z-ROOM-WIRING/01-rooms.log",
+      "result": "19/19, real loopback"
+    },
+    {
+      "cmd": "pnpm typecheck",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T135944Z-ROOM-WIRING/02-typecheck.log"
+    },
+    {
+      "cmd": "pnpm test",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T135944Z-ROOM-WIRING/03-full.log",
+      "result": "302/302"
+    },
+    {
+      "cmd": "pnpm verify",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T135944Z-ROOM-WIRING/04-verify.log",
+      "result": "19/19"
     }
   ],
   "notes": [
@@ -1815,7 +1847,9 @@
     "HC-003 CI at 7164792856cdc54200832fcda4fb7a89a49d0a37: 8/8 triggered workflows success; run ids in docs/state/evidence/20261118T133709Z-HC-003/08-ci-proof.log.",
     "GDD-005: transpiler generated 17 structural drift specs from DRAFT/SIGNED GDD §15; injected GDD drift fails --check and names the module. Coverage 100%.",
     "GATE:P2 work-side complete (GATE:P2SYS, HC-003 CIS 85, GDD-005 100%); only the Director human signature remains, plus GATE:NET.",
-    "GDD-005 CI at ad1d4d074a40dc96ad04b672e38fa03e72ad6aea: 8/8 triggered workflows success; run ids in docs/state/evidence/20261118T134000Z-GDD-005/08-ci-proof.log."
+    "GDD-005 CI at ad1d4d074a40dc96ad04b672e38fa03e72ad6aea: 8/8 triggered workflows success; run ids in docs/state/evidence/20261118T134000Z-GDD-005/08-ci-proof.log.",
+    "ROOM-WIRING: main.ts now serves rooms on 8788 through attachRooms (MessageGate inside); real loopback socket test proves valid hello -> welcome and malformed -> reject with unchanged hash.",
+    "No blueprint task remains selectable: GATE:P2 and GATE:NET need human Director signatures; art waits on NET-GATE and GATE:P2."
   ],
   "result": {
     "phase": "P2NET",
@@ -2012,6 +2046,11 @@
           "dir": "docs/state/evidence/20261118T135153Z-GDD-005/",
           "logs": 9,
           "branch": "session"
+        },
+        {
+          "dir": "docs/state/evidence/20261118T135944Z-ROOM-WIRING/",
+          "logs": 5,
+          "branch": "session"
         }
       ]
     },
@@ -2031,7 +2070,7 @@
     ],
     "next_session_file": "docs/state/NEXT_SESSION.md",
     "full": {
-      "handoffs": "Thirty-one handoff+proposal pairs under docs/state/threads/; all ACKed in-process. No external reviewer installed.",
+      "handoffs": "Thirty-two handoff+proposal pairs under docs/state/threads/; all ACKed in-process. No external reviewer installed.",
       "concept_roles": "Roles executed by one process; T3 signed at GATE:P0 and re-signature deferred to the next gate. Signature ratio not recomputable from metrics.json.",
       "gdd_version_bumps": [
         "GDD-NETCODE 0.2 -> 0.3 -> 0.4 -> 0.5 -> 0.6 -> 0.7",
@@ -2074,7 +2113,7 @@
       "economy_metrics": "Before retune: inflation 726478 bps (FAIL), Gini 0.080768. After named proportional stabilization sink: inflation 500 bps (5% target), Gini 0.293701 in band, sink burned 93073815 minor units. Both recorded.",
       "anim_checks": "A0001 separation intact; PR-S8 10k anim fuzz: 2500 accepted, 7500 illegal refused, 0 mutations on refusal, 833 server hit frames, deterministic. Retarget coverage and foot slide still NOT COMPUTABLE (AN-002).",
       "world_checks": "PR-S7: 12-node greybox graph, Rouille cascade bounded at 12 ticks, 12 facts / 12 erases, last active tick 10, 9 duplicate-erase refusals, deterministic. No terrain or renderer.",
-      "files_by_owner": "orchestrator: docs/state/**, docs/blueprint/**, scripts/session-result.mjs, A0004/A0005/A0006; gameplay-engineer: packages/core/src/{tick,index,hash}.ts, apps/server/src/sim/, core/test; netcode-engineer: packages/protocol/**, apps/game/src/net/**, apps/server/src/combat/**, tools/sim/net/, GDD-NETCODE; animation-director: packages/core/src/anim-state/**, packages/content/animations/**, GDD-ANIM-ARCHITECTURE; tools-engineer: apps/dashboard/**; backend-engineer: apps/server/src/rooms/**, packages/core/src/ledger/**, tools/sim/persist/**, GDD-PERSISTENCE; economy-designer: GDD-TRADE; qa-engineer: tools/sim/load/**, tests/security/**; security-auditor: apps/server/src/validation/**, docs/legal/THREAT_MODEL.md, GDD-SECURITY; producer: docs/qa/prototypes/NET_GATE.md, docs/state/gates/GATE_NET.md. gameplay-engineer: tools/sim/world/prs1_combat.ts (PR-S1); game-designer: GDD-COMBAT 0.3. gameplay-engineer: packages/world-state/** + tools/sim/world/prs2_propagation.ts (PR-S2); game-designer: GDD-CONSEQUENCE 0.3. level-designer: apps/game/levels/greybox/oakhollow/manifest.json, scripts/validate-scene-budget.mjs (GB-001). economy-designer: tools/sim/economy/prs4_craft.ts (PR-S4); GDD-CRAFT 0.3. economy-designer: tools/sim/economy/prs5_economy.ts (PR-S5); GDD-ECONOMY 0.3. tools-engineer + producer + orchestrator: verify B9, journal view, MCP pin, STACK row, dashboard check port (TOOL-FIXALL, A0007). backend-engineer: tools/sim/persist/prn2_rooms.ts (PR-N2). gameplay-engineer: tools/sim/world/prs7_worldtick.ts (PR-S7); game-designer: GDD-WORLD-SIM 0.2. animation-director: tools/sim/anim/prs8_animstate.ts (PR-S8). prototype-engineer + narrative: tools/sim/systems/prs3_quests.ts, packages/content/blueprints/quests/proto/q_abbey.json (PR-S3). prototype-engineer + balance-analyst: tools/sim/systems/prs6_faction.ts (PR-S6); game-designer: GDD-FACTION 0.2. high-concept-guardian: scripts/concept-demo.mjs, tests/replay/hc_demo_30s.spec.ts (HC-003); tools-engineer: dashboard metrics source fix. qa-engineer: scripts/gdd-to-tests.mjs + tests/replay/gdd/*.spec.ts (GDD-005)."
+      "files_by_owner": "orchestrator: docs/state/**, docs/blueprint/**, scripts/session-result.mjs, A0004/A0005/A0006; gameplay-engineer: packages/core/src/{tick,index,hash}.ts, apps/server/src/sim/, core/test; netcode-engineer: packages/protocol/**, apps/game/src/net/**, apps/server/src/combat/**, tools/sim/net/, GDD-NETCODE; animation-director: packages/core/src/anim-state/**, packages/content/animations/**, GDD-ANIM-ARCHITECTURE; tools-engineer: apps/dashboard/**; backend-engineer: apps/server/src/rooms/**, packages/core/src/ledger/**, tools/sim/persist/**, GDD-PERSISTENCE; economy-designer: GDD-TRADE; qa-engineer: tools/sim/load/**, tests/security/**; security-auditor: apps/server/src/validation/**, docs/legal/THREAT_MODEL.md, GDD-SECURITY; producer: docs/qa/prototypes/NET_GATE.md, docs/state/gates/GATE_NET.md. gameplay-engineer: tools/sim/world/prs1_combat.ts (PR-S1); game-designer: GDD-COMBAT 0.3. gameplay-engineer: packages/world-state/** + tools/sim/world/prs2_propagation.ts (PR-S2); game-designer: GDD-CONSEQUENCE 0.3. level-designer: apps/game/levels/greybox/oakhollow/manifest.json, scripts/validate-scene-budget.mjs (GB-001). economy-designer: tools/sim/economy/prs4_craft.ts (PR-S4); GDD-CRAFT 0.3. economy-designer: tools/sim/economy/prs5_economy.ts (PR-S5); GDD-ECONOMY 0.3. tools-engineer + producer + orchestrator: verify B9, journal view, MCP pin, STACK row, dashboard check port (TOOL-FIXALL, A0007). backend-engineer: tools/sim/persist/prn2_rooms.ts (PR-N2). gameplay-engineer: tools/sim/world/prs7_worldtick.ts (PR-S7); game-designer: GDD-WORLD-SIM 0.2. animation-director: tools/sim/anim/prs8_animstate.ts (PR-S8). prototype-engineer + narrative: tools/sim/systems/prs3_quests.ts, packages/content/blueprints/quests/proto/q_abbey.json (PR-S3). prototype-engineer + balance-analyst: tools/sim/systems/prs6_faction.ts (PR-S6); game-designer: GDD-FACTION 0.2. high-concept-guardian: scripts/concept-demo.mjs, tests/replay/hc_demo_30s.spec.ts (HC-003); tools-engineer: dashboard metrics source fix. qa-engineer: scripts/gdd-to-tests.mjs + tests/replay/gdd/*.spec.ts (GDD-005). backend-engineer: apps/server/src/main.ts room endpoint, RoomHub.ids, real-socket test (ROOM-WIRING)."
     }
   }
 }

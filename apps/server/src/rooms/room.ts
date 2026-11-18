@@ -222,6 +222,7 @@ export class RoomHub {
   constructor(private readonly options: RoomOptions = {}) {}
 
   get size(): number { return this.rooms.size; }
+  get ids(): readonly string[] { return [...this.rooms.keys()]; }
   get(id: string): Room | null { return this.rooms.get(id) ?? null; }
 
   create(id: string): Room {

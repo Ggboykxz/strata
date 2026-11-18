@@ -207,6 +207,9 @@ Anything else goes through a handoff. A conflict is resolved by a handoff or the
 - **GDD-005 landed**: real GDD→test transpiler, 17 structural drift specs, coverage 100%; injected drift fails
   closed. GATE:P2 work-side complete — Director signatures for GATE:P2/GATE:NET remain. NET-GATE still
   signed-with-risk with 8 unmet criteria; no art.
+- **Live room endpoint wired**: main.ts serves rooms on 8788 through `attachRooms`/MessageGate, 30 Hz tick,
+  real loopback test proving welcome/reject. Full 302/302, verify 19/19. No agent-selectable task remains:
+  GATE:P2 and GATE:NET need Director signatures; NET-GATE still signed-with-risk.
 - Known intentional red: `scope-math --report` exit 2 (throughput unmeasured) and `concept --score` exit 2
   until HC-003. `concept --check` is green: T3 was signed at GATE:P0.
 

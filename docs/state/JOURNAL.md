@@ -3,7 +3,7 @@
 | field | value |
 |---|---|
 | source | `docs/state/journal/` (append-only entries) |
-| entries | 54 |
+| entries | 55 |
 | regenerate | `node scripts/build-journal.mjs` |
 | check | `node scripts/build-journal.mjs --check` |
 
@@ -1635,3 +1635,15 @@ PR-S8 — anim state machine server transitions + illegal-state fuzz.
 - correction: earlier NEXT_SESSION wording called GDD-005 a signature task — fixed from the blueprint line 82.
 - gate: GATE:P2 work-side complete; only Director human signatures for GATE:P2 and GATE:NET remain.
 - NET-GATE stays signed-with-risk with 8 unmet criteria; no art.
+
+---
+
+# 2026-11-18T19:24:00Z · live room endpoint wired
+
+- scope: last non-gated backlog item — main.ts serves rooms through attachRooms/MessageGate
+- file: apps/server/src/main.ts, RoomHub.ids, apps/server/test/rooms.test.ts
+- measured: rooms 19/19 with a real loopback socket, full 302/302, verify 19/19, typecheck 0.
+- proof: valid v3 hello -> welcome; malformed frame -> reject; room hash unchanged. Tracer stays on 8787, rooms on 8788.
+- boundary: wiring only — no matchmaking, persistence, 4-client measurement, art or GPU/TPU.
+- state: no blueprint task remains selectable. GATE:P2 and GATE:NET need Director human signatures; NET-GATE stays
+  signed-with-risk with 8 unmet criteria. PR #3 open, PR #2 to close.

@@ -441,3 +441,11 @@ blueprint task currently owns the pin: recorded as a gap for the Director/next r
 - Corrected an earlier handoff mislabel: GDD-005 is a transpiler/coverage task, not a GDD signature.
 - GATE:P2 work-side complete (P2SYS + HC-003 CIS 85 + GDD-005 100%). Director signatures remain for GATE:P2 and
   GATE:NET; NET-GATE stays signed-with-risk with 8 unmet criteria. No art.
+
+## Session 2 — live room endpoint (2026-11-18T19:24Z)
+
+- Last non-gated backlog item closed: `main.ts` serves rooms on 8788 through `attachRooms` (MessageGate inside),
+  ticks them at 30 Hz and leaves the tracer on 8787. Real loopback socket test: valid hello → welcome, malformed
+  frame → reject with unchanged hash. Rooms 19/19, full 302/302, verify 19/19.
+- No blueprint task is selectable now: GATE:P2 and GATE:NET need human Director signatures; NET-GATE stays
+  signed-with-risk with 8 unmet criteria. No art.

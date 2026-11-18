@@ -1,6 +1,7 @@
 import { EventEmitter } from 'node:events';
 import type { IncomingMessage } from 'node:http';
-import type { WebSocket, WebSocketServer } from 'ws';
+import { WebSocket, WebSocketServer } from 'ws';
+import type { AddressInfo } from 'node:net';
 import { describe, expect, it } from 'vitest';
 import { decodeFrame, encodeFrame } from '@strata/protocol';
 import { Room, RoomHub, TokenIssuer, attachRooms, parseConnectionQuery, type RoomSocket } from '../src/rooms';
@@ -219,5 +220,40 @@ describe('ws adapter boundary', () => {
     wss.emit('connection', socket as unknown as WebSocket, { url: '/rooms' } as IncomingMessage);
     expect(socket.closed).toBe(true);
     expect(decodeFrame(socket.sent[0]!)).toMatchObject({ kind: 'reject', reason: 'unauthorized' });
+  });
+});
+
+describe('live room endpoint (real loopback sockets)', () => {
+  it('serves rooms through MessageGate on the same path main.ts wires', async () => {
+    const wss = new WebSocketServer({ port: 0, host: '127.0.0.1' });
+    const hub = new RoomHub({ seed: 3 });
+    attachRooms(wss, hub);
+    await new Promise<void>((resolve, reject) => {
+      wss.once('listening', resolve);
+      wss.once('error', reject);
+    });
+    const address = wss.address() as AddressInfo;
+    const client = new WebSocket(`ws://127.0.0.1:${address.port}/rooms?room=live&nonce=1`);
+    await new Promise<void>((resolve, reject) => {
+      client.once('open', () => resolve());
+      client.once('error', reject);
+    });
+    const received: unknown[] = [];
+    client.on('message', (raw) => received.push(decodeFrame(new Uint8Array(raw as ArrayBuffer))));
+    const waitFor = async (count: number) => {
+      for (let attempt = 0; attempt < 50 && received.length < count; attempt++) {
+        await new Promise((resolve) => setTimeout(resolve, 10));
+      }
+    };
+    const before = hub.get('live')?.hash;
+    client.send(encodeFrame({ kind: 'hello', version: 3, capabilities: 0 }));
+    await waitFor(1);
+    expect(received[0]).toMatchObject({ kind: 'welcome', version: 3 });
+    client.send(new Uint8Array([0xff]));
+    await waitFor(2);
+    expect(received[1]).toMatchObject({ kind: 'reject', reason: 'malformed' });
+    expect(hub.get('live')?.hash).toBe(before);
+    client.close();
+    await new Promise<void>((resolve) => wss.close(() => resolve()));
   });
 });
