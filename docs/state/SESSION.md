@@ -320,3 +320,11 @@ blueprint task currently owns the pin: recorded as a gap for the Director/next r
 - AI-001..AN-002 remain blocked by `GATE:P2` (P2-SYS + HC-003 + GDD-005), not just by hardware. A risk-accepted
   NET-GATE signature does not satisfy blueprint deps or create measurements.
 - Next task stays PR-S1 (P2-SYS greybox). CPU-safe policy applies.
+
+## Session 2 — PR-S1 greybox combat (2026-11-18T11:14Z)
+
+- PR-S1 delivered integer combat math: 100 HP / 25 damage → 4 hits, 11-tick cycle, **36 ticks = 1 200 ms** TTK,
+  8-tick hit-stop. Illegal windows refused, never clamped. Report explicitly says not a playtest or FUN proof.
+- GDD-COMBAT 0.3; acc repaired to a real vitest command (twelfth broken form). Full 146/146, verify 17/17.
+- The art handoff stands: no asset generated, T4 16 GB requested (ND-012), AI-001..AN-002 still blocked by
+  `GATE:P2`. Next: PR-S2 (consequence propagation).

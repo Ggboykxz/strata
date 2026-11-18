@@ -1,0 +1,29 @@
+$ pnpm vitest run tools/sim/world/test/prs1.test.ts --reporter=verbose
+
+ RUN  v5.1.0 /content/strata
+
+stdout | tools/sim/world/test/prs1.test.ts > PR-S1 greybox report > computes integer TTK and prints a labelled local report
+{
+  "hp": 100,
+  "damage": 25,
+  "hits_to_kill": 4,
+  "cycle_ticks": 11,
+  "ttk_ticks": 36,
+  "ttk_ms": 1200,
+  "hit_stop_ticks": 8,
+  "hit_stop_ms": 267,
+  "legal": true,
+  "label": "local greybox combat math — not a playtest, not FUN validation"
+}
+
+ ✓ tools/sim/world/test/prs1.test.ts > combat windows > accepts a legal window and refuses an illegal one instead of clamping 5ms
+ ✓ tools/sim/world/test/prs1.test.ts > combat windows > includes hit-stop in the cycle 1ms
+ ✓ tools/sim/world/test/prs1.test.ts > PR-S1 greybox report > computes integer TTK and prints a labelled local report 3ms
+ ✓ tools/sim/world/test/prs1.test.ts > PR-S1 greybox report > is deterministic and scales linearly with hits to kill 2ms
+
+ Test Files  1 passed (1)
+      Tests  4 passed (4)
+   Start at  10:07:57
+   Duration  378ms (import 48%, transform 28%, tests 15%, worker 8%)
+
+EXIT=0

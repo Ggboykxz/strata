@@ -165,6 +165,9 @@ Anything else goes through a handoff. A conflict is resolved by a handoff or the
 - **NG-001 / A0006**: NET-GATE dossier is honest (2 of 10 criteria met). Director said "je signe tout" — recorded
   verbatim as **`signed-with-risk`, NOT passed**; `--assert-ready` still exits 1 (8 unmet). No agent merged PR #1/#2
   and no art was produced. Next: PR-S1 (P2-SYS greybox). Re-measurement of the 8 criteria remains owed.
+- **PR-S1 landed**: greybox combat math (4 hits, 11-tick cycle, 36-tick / 1200 ms TTK, 8-tick hit-stop), integer
+  ticks, illegal windows refused. Full 146/146, verify 17/17. Not a playtest or FUN proof. Next: PR-S2. Art still
+  blocked by GATE:P2 and no GPU/TPU (ND-012).
 - Known intentional red: `scope-math --report` exit 2 (throughput unmeasured) and `concept --score` exit 2
   until HC-003. `concept --check` is green: T3 was signed at GATE:P0.
 

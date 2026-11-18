@@ -2,12 +2,12 @@
 
 | field | value |
 |---|---|
-| written | 2026-11-18T10:58Z |
+| written | 2026-11-18T11:16Z |
 | branch | `session/20261118-hc-001-high-concept` — **PR #1** (draft) https://github.com/Ggboykxz/strata/pull/1 |
 | also open | **PR #2** dashboard truth repair — `session/20261118-dashboard-truth`, base = session branch |
 | mode | RESUME |
 | tier | current `S0`, authorized **`S1`** |
-| last task | **NG-001** — NET-GATE dossier; Director signed with risk (A0006) |
+| last task | **PR-S1** — greybox combat math; GDD-COMBAT 0.3 |
 | next task | **PR-S1** — combat TTK/windows/hit-stop prototype (P2-SYS) |
 | blocker | PR #1 and #2 merges (Director must do it), ND-004/ND-005 rotation. ND-011 needs one answer (TPU scope). |
 
@@ -45,19 +45,18 @@ acceptance and with the seven residual risks from `docs/legal/THREAT_MODEL.md` a
 PR #1 and PR #2 were **not merged** — an agent must not self-merge. The Director must merge them from their own
 account. ND-004/ND-005 token rotation also remains a Director action.
 
-## 4. PR-S1 — next (S0, P2SYS)
+## 4. PR-S2 — next (S0, P2SYS)
 
-`{id: PR-S1, agent: gameplay-engineer, role: sup, gdd: [GDD-COMBAT#numbers], deps: [GATE:NET],
-out: [tools/sim/world/prs1_combat.ts, docs/qa/prototypes/PRS1.md], acc: ["pnpm sim prs1 --assert"]}`
+`{id: PR-S2, agent: gameplay-engineer, role: sig, gdd: [GDD-CONSEQUENCE#rules], deps: [GATE:NET],
+out: [packages/world-state/, tools/sim/world/prs2_propagation.ts, docs/qa/prototypes/PRS2.md], split: true}`
 
-Deps are satisfied by the recorded signature. Its acc `pnpm sim prs1 --assert` is broken (no `sim` script) —
-repair it to a command that exists (a vitest test path) in the same PR. This is the eleventh known broken acc form;
-7 `pnpm test --filter` accs remain. Use the PR-N1/N3/N4 harness pattern: logic in `tools/sim/world/`, a test that
-prints a labelled report, and an append-only `docs/qa/prototypes/PRS1.md` with the correct `co:` owner declared.
+Deps are satisfied. Its acc `pnpm sim prs2 --assert` is broken (no `sim` script) — repair it to a command that
+exists (a vitest test path) in the same PR. Twelfth known broken acc form; 7 `pnpm test --filter` accs remain.
+Reuse the PR-S1 harness pattern: logic in `tools/sim/world/`, a test that prints a labelled local report, an
+append-only `docs/qa/prototypes/PRS2.md` with the correct `co:` owner declared.
 
-Greybox only: TTK/windows/hit-stop numbers from GDD-COMBAT, no hero asset, no texture, no motion generation (I2).
-Use the server-authoritative hit frames (NET-006), PR-N4 validity verdicts and the minor-unit ledger (PR-N3)
-where the combat prototype touches them. No new dependency, no GPU/TPU. Label every number as local simulation.
+Consequence propagation depth: deterministic fan-out, a bounded depth cap and traceable attribution, with no
+client-authoritative writes (I1). Greybox only, no art, no GPU/TPU. PR-S3 and GB-001 depend on this task.
 
 ## 5. Non-gated tooling candidates
 

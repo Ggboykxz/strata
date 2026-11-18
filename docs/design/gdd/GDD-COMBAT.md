@@ -3,7 +3,7 @@
 | field | value |
 |---|---|
 | id | GDD-COMBAT |
-| version | 0.2 |
+| version | 0.3 |
 | owner | game-designer |
 | status | DRAFT |
 
@@ -11,7 +11,7 @@
 
 ## 1. Identity, version, owner, status
 
-ID GDD-COMBAT, version 0.2, owner game-designer, status **DRAFT**. Derived from VISION v1.0 and the locked HIGH_CONCEPT.
+ID GDD-COMBAT, version 0.3, owner game-designer, status **DRAFT**. Derived from VISION v1.0 and the locked HIGH_CONCEPT.
 
 ## 2. Player-facing outcome
 
@@ -33,6 +33,9 @@ D4 players antagonize their own future; a strategy with no cross-stratum cost fa
 - cross-stratum cost delay >= 1 epoch | TUNABLE 1..3 epochs | plan: ECON-001 simulation
 - combat math within the 4 ms core tick budget | SOURCE: master §6 sim tick <= 4 ms
 - animation STATE payload <= 64 bytes per entity | SOURCE: master §6 and GDD-ANIM-ARCHITECTURE
+- greybox TTK = 36 ticks = 1 200 ms for 100 HP / 25 damage / 9-tick interval / 2-tick hit-stop | SOURCE: tools/sim/world/prs1_combat.ts (PR-S1), 30 Hz tick
+- hit-stop cap = 30 ticks = 1 s | SOURCE: tools/sim/world/prs1_combat.ts MAX_HIT_STOP_TICKS; TUNABLE until PR-S1 playtest
+- combat math stays integer ticks; the 4 ms core tick budget is a constraint, not a measured number from PR-S1
 
 ## 6. State machine
 
@@ -41,6 +44,8 @@ IDLE → WINDUP → ACTIVE → RECOVERY → FACT_WRITTEN → COST_SCHEDULED → 
 ## 7. Data contract
 
 combat_event v1 {actor_id, target_id, tick, intent_seq, hit_frame, fact_id}; hit_frame is server-generated. Migration: a new hit rule increments the event version and requires a replay proof.
+
+Combat prototype v1 `CombatParams{hp, damage, windupTicks, activeTicks, recoveryTicks, intervalTicks, hitStopTicks}` is evaluated by `tools/sim/world/prs1_combat.ts`. An illegal window (windup or active below 1, negative recovery, interval shorter than the window sum, non-integer value) is **refused**, never clamped. TTK and hit-stop are integer tick counts; milliseconds are presentation derived from the 30 Hz tick.
 
 ## 8. Edge cases
 
@@ -82,6 +87,9 @@ unvalidated_hits, cost_delay_epochs, facts_per_act, tick_overruns. Success metri
 - GIVEN an optimal short-term strategy WHEN simulated THEN a later stratum is degraded.
 - GIVEN a destructive act WHEN resolved THEN one attributed fact id is written.
 
+- GIVEN a legal greybox window WHEN simulated THEN TTK and hit-stop are integer ticks and the labelled report is deterministic.
+- GIVEN an illegal window WHEN simulated THEN it is refused with a RangeError and no value is clamped.
+
 ## 16. Perf budget impact
 
 Combat step within 4 ms tick; no new allocation per hit; animation state only on the wire.
@@ -94,8 +102,8 @@ No client-authoritative hit, no unattributed destruction, no cosmetic-only conse
 
 | question | owner | deadline |
 |---|---|---|
-| W | h | a |
-| W | h | i |
+| Does the 1 200 ms greybox TTK feel right in a real 4-client session? | gameplay-engineer + qa-engineer | PR-S2 playtest |
+| Is a 2-tick hit-stop perceptible at 30 Hz, and should the cap stay at 30 ticks? | gameplay-engineer | PR-S1 tuning |
 
 ## 19. Changelog
 
@@ -103,3 +111,4 @@ No client-authoritative hit, no unattributed destruction, no cosmetic-only conse
 |---|---|---|---|
 | 0.1 | 2026-11-18 | STUB created by GDD-001 | game-designer |
 | 0.2 | 2026-11-18 | DRAFT: all 19 fields, T2/T4 numbers and sources | GDD-003 |
+| 0.3 | 2026-11-18 | PR-S1: greybox TTK/windows/hit-stop, integer tick contract | gameplay-engineer |
