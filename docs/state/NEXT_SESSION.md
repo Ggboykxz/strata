@@ -2,12 +2,12 @@
 
 | field | value |
 |---|---|
-| written | 2026-11-18T12:04Z |
+| written | 2026-11-18T12:34Z |
 | branch | `session/20261118-hc-001-high-concept` — **PR #1** (draft) https://github.com/Ggboykxz/strata/pull/1 |
 | also open | **PR #2** dashboard truth repair — `session/20261118-dashboard-truth`, base = session branch |
 | mode | RESUME |
 | tier | current `S0`, authorized **`S1`** |
-| last task | **GB-001** — greybox Oakhollow ×3 strata; GDD-CONSEQUENCE 0.4 |
+| last task | **PR-S4** — crafting profit-cycle detection; GDD-CRAFT 0.3 |
 | next task | **PR-S1** — combat TTK/windows/hit-stop prototype (P2-SYS) |
 | blocker | PR #1 and #2 merges (Director must do it), ND-004/ND-005 rotation. ND-011 needs one answer (TPU scope). |
 
@@ -45,19 +45,19 @@ acceptance and with the seven residual risks from `docs/legal/THREAT_MODEL.md` a
 PR #1 and PR #2 were **not merged** — an agent must not self-merge. The Director must merge them from their own
 account. ND-004/ND-005 token rotation also remains a Director action.
 
-## 4. PR-S4 — next (S0, P2SYS)
+## 4. PR-S5 — next (S0, P2SYS)
 
-`{id: PR-S4, ph: P2SYS, tier: S0, t: "Crafting chain + infinite-profit cycle detection", agent: economy-designer,
-role: sig, gdd: [GDD-CRAFT], deps: [PR-N3], out: [tools/sim/economy/prs4_craft.ts, docs/qa/prototypes/PRS4.md]}`
+`{id: PR-S5, ph: P2SYS, tier: S0, t: "ECONOMY 1000 bots x 30 days + exploit scan + report", agent: economy-designer,
+role: sig, gdd: [GDD-ECONOMY#thresholds], deps: [PR-S4], out: [tools/sim/economy/prs5_economy.ts, docs/qa/ECONOMY_REPORT.md]}`
 
-Deps are satisfied by PR-N3's zero-sum minor-unit ledger. Its acc (check the blueprint line) uses the broken
-`pnpm sim …` or `pnpm test --filter …` form — repair it to a real command that exists (a vitest test path). This
-is the fourteenth known broken acc form; 7 `pnpm test --filter` accs remain.
+Deps are satisfied. Its acc likely uses a broken `pnpm sim …` / `pnpm test --filter …` form — check the blueprint
+line and repair it to a command that exists (a vitest test path) in the same PR. Fifteenth known broken form if
+left; 7 `pnpm test --filter` accs remain.
 
-Deliver a deterministic crafting-chain prototype with **infinite-profit cycle detection**: all money as bigint
-minor units (D150), every recipe conserves value unless a documented sink/fee applies, and a cycle that creates
-value is detected and refused, not averaged away. Reuse the PR-N1/N3 harness pattern and the append-only
-`docs/qa/prototypes/` zone with the correct `co:` owner declared. No art, no GPU/TPU (ND-012).
+Extend PR-S4's minor-unit graph to a deterministic 1000-bot × 30-day simulation with fixed ticks (no wall clock)
+and an exploit scan including the positive-cycle detector. Report inflation, sink/faucet totals and Gini only if
+actually computed from the simulation; otherwise `NOT COMPUTABLE` with a reason (I13). This is CPU-only; no
+GPU/TPU (ND-012), no art, no model download (I4).
 
 ## 5. Non-gated tooling candidates
 

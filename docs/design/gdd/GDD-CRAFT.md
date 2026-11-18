@@ -3,7 +3,7 @@
 | field | value |
 |---|---|
 | id | GDD-CRAFT |
-| version | 0.2 |
+| version | 0.3 |
 | owner | economy-designer |
 | status | DRAFT |
 
@@ -11,7 +11,7 @@
 
 ## 1. Identity, version, owner, status
 
-ID GDD-CRAFT, version 0.2, owner economy-designer, status **DRAFT**. Derived from VISION v1.0 and the locked HIGH_CONCEPT.
+ID GDD-CRAFT, version 0.3, owner economy-designer, status **DRAFT**. Derived from VISION v1.0 and the locked HIGH_CONCEPT.
 
 ## 2. Player-facing outcome
 
@@ -33,6 +33,8 @@ D3 traceability; D4 a crafted advantage carries a cross-stratum cost.
 - craft duration <= 3 ticks at 30 Hz | TUNABLE 1..10 ticks | plan: PR-S2 prototype
 - output tier <= 4 | SOURCE: master §2.3 capacity tiers S0..S4
 - provenance fact ids per output >= 1 | SOURCE: GDD-CONSEQUENCE field 7
+- unit value = FNV-1a(item kind) mod 1000 + 1 minor units | SOURCE: tools/sim/economy/prs4_craft.ts — deterministic, never a remembered price
+- infinite-profit detection = Bellman-Ford max-relaxation over recipe edges | SOURCE: tools/sim/economy/prs4_craft.ts; a positive cycle is named and refused
 
 ## 6. State machine
 
@@ -41,6 +43,8 @@ RECIPE_SELECTED → INPUTS_RESERVED → CRAFTING → OUTPUT_WRITTEN → FACT_WRI
 ## 7. Data contract
 
 crafted_item v1 {item_id, recipe_id, input_fact_ids[], output_fact_id, tier}. Migration: a recipe change creates a new recipe id; old items keep their provenance.
+
+PR-S4 reference contract: a recipe is an edge from a bundle node (all its input kinds) to its output kind, weighted `outputValue - inputValue` in bigint minor units. A still-improvable node after `|nodes|` relaxation rounds proves a **positive cycle**; the command returns the cycle path and the gain, never a boolean alone. A recipe with a positive delta is flagged before it can enter a chain. No market prices are remembered.
 
 ## 8. Edge cases
 
@@ -82,6 +86,9 @@ crafts_per_day, inputs_per_output, tier_distribution, cost_scheduled_count. Succ
 - GIVEN an erased input material WHEN craft is attempted THEN it is refused with the fact id.
 - GIVEN the tier ledger WHEN an output is written THEN it is at or below the authorized tier.
 
+- GIVEN a recipe graph with a value-printing cycle WHEN detected THEN the path and positive gain are named and the cycle is refused.
+- GIVEN insufficient inputs or an out-of-range tier WHEN crafting THEN the craft is refused with no negative balance and no silent downgrade.
+
 ## 16. Perf budget impact
 
 Craft resolution O(inputs); no work above 1 ms of the 4 ms tick budget.
@@ -94,8 +101,8 @@ No NPC vendor for high-tier goods, no untracked material, no item without a dela
 
 | question | owner | deadline |
 |---|---|---|
-| W | h | i |
-| H | o | w |
+| Does the deterministic FNV unit value approximate the real economy enough for ECON-001? | economy-designer | PR-S5 |
+| Which delayed cost satisfies "a recipe with no other-era cost is concept debt"? | economy-designer + narrative | ECON-001 |
 
 ## 19. Changelog
 
@@ -103,3 +110,4 @@ No NPC vendor for high-tier goods, no untracked material, no item without a dela
 |---|---|---|---|
 | 0.1 | 2026-11-18 | STUB created by GDD-001 | game-designer |
 | 0.2 | 2026-11-18 | DRAFT: all 19 fields and sourced economy numbers | GDD-004 |
+| 0.3 | 2026-11-18 | PR-S4: minor-unit value graph, cycle detection, provenance contract | economy-designer |

@@ -1,0 +1,32 @@
+$ pnpm vitest run tools/sim/economy/test/prs4.test.ts --reporter=verbose
+
+ RUN  v5.1.0 /content/strata
+
+stdout | tools/sim/economy/test/prs4.test.ts > PR-S4 harness > prints a deterministic labelled local report
+{
+  "recipes": 3,
+  "crafted": 6,
+  "cycles": 1,
+  "cycle_path": [
+    "script",
+    "bundle:replicate"
+  ],
+  "inventory_value": "17172",
+  "deterministic": true,
+  "label": "local greybox economy — not ECON-001, no inflation or Gini claim"
+}
+
+ ✓ tools/sim/economy/test/prs4.test.ts > minor-unit value > derives a deterministic value from the item kind 4ms
+ ✓ tools/sim/economy/test/prs4.test.ts > minor-unit value > flags a recipe that prints value 1ms
+ ✓ tools/sim/economy/test/prs4.test.ts > recipe validation and craft > refuses an illegal recipe instead of downgrading it 2ms
+ ✓ tools/sim/economy/test/prs4.test.ts > recipe validation and craft > consumes inputs through a named sink and writes provenance fact ids 2ms
+ ✓ tools/sim/economy/test/prs4.test.ts > infinite-profit cycle detection > names a positive cycle and refuses to call a benign chain a cycle 25ms
+ ✓ tools/sim/economy/test/prs4.test.ts > infinite-profit cycle detection > is deterministic for the same recipe script 1ms
+ ✓ tools/sim/economy/test/prs4.test.ts > PR-S4 harness > prints a deterministic labelled local report 4ms
+
+ Test Files  1 passed (1)
+      Tests  7 passed (7)
+   Start at  10:28:59
+   Duration  468ms (import 37%, tests 30%, transform 27%, worker 6%)
+
+EXIT=0

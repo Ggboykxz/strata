@@ -174,6 +174,9 @@ Anything else goes through a handoff. A conflict is resolved by a handoff or the
 - **GB-001 landed**: Oakhollow greybox ×3 strata, capsules/boxes only, 3 PR-S2 variant swaps, checksum
   `06d8d93c`. `validate-scene-budget.mjs` is real and fail-closed (`--parity` still exits 1, WG-001). Verify
   17/17. No art, no GPU/TPU. Next: PR-S4 (crafting cycle detection).
+- **PR-S4 landed**: bigint minor-unit crafting graph with named infinite-profit cycle detection (script ->
+  bundle:replicate -> script). Full 161/161, verify 17/17. Not ECON-001. Next: PR-S5 (1000 bots x 30 days),
+  still CPU-only and with no art.
 - Known intentional red: `scope-math --report` exit 2 (throughput unmeasured) and `concept --score` exit 2
   until HC-003. `concept --check` is green: T3 was signed at GATE:P0.
 

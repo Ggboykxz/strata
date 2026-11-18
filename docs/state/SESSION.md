@@ -345,3 +345,11 @@ blueprint task currently owns the pin: recorded as a gap for the Director/next r
   checksum `06d8d93c`; `--parity` (WG-001), no flag and an injected `mesh` field each exit 1.
 - GDD-CONSEQUENCE 0.4. Verify 17/17, tracer green. No Babylon scene, blind-reviewer capture or art.
 - Art tasks remain blocked by GATE:P2 and no GPU/TPU (ND-012). Next: PR-S4 (crafting cycle detection).
+
+## Session 2 — PR-S4 economy prototype (2026-11-18T12:32Z)
+
+- Minor-unit crafting graph with deterministic FNV kind values. Bellman-Ford detection names the positive cycle
+  `script -> bundle:replicate -> script` and its gain instead of hiding it. 3 recipes, 6 crafts, exact bigint
+  inventory 17 172 minor units.
+- GDD-CRAFT 0.3; acc repaired (fourteenth broken form). Full 161/161, verify 17/17.
+- Not ECON-001: no bots, no 30 days, no inflation/Gini, no art, no GPU/TPU (ND-012). Next: PR-S5.
