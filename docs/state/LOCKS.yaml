@@ -583,4 +583,99 @@ locks:
     acquired_at: "2026-11-18T09:54:00Z"
     expires_at: "2026-11-18T10:24:00Z"
     status: released
+  - path_glob: "docs/blueprint/BLUEPRINT.yaml"
+    owner_agent: orchestrator
+    task_id: PR-N3
+    branch: session/20261118-hc-001-high-concept
+    acquired_at: "2026-11-18T10:12:00Z"
+    expires_at: "2026-11-18T10:42:00Z"
+    status: active
+
+  - path_glob: "docs/blueprint/GATES.yaml"
+    owner_agent: orchestrator
+    task_id: PR-N3
+    branch: session/20261118-hc-001-high-concept
+    acquired_at: "2026-11-18T10:12:00Z"
+    expires_at: "2026-11-18T10:42:00Z"
+    status: active
+
+  - path_glob: "docs/design/gdd/GDD-PERSISTENCE.md"
+    owner_agent: backend-engineer
+    task_id: PR-N3
+    branch: session/20261118-hc-001-high-concept
+    acquired_at: "2026-11-18T10:12:00Z"
+    expires_at: "2026-11-18T10:42:00Z"
+    status: active
+
+  - path_glob: "docs/design/gdd/GDD-TRADE.md"
+    owner_agent: economy-designer
+    task_id: PR-N3
+    branch: session/20261118-hc-001-high-concept
+    acquired_at: "2026-11-18T10:12:00Z"
+    expires_at: "2026-11-18T10:42:00Z"
+    status: active
+
+  - path_glob: "docs/state/metrics/2026-11-18-s02.json"
+    owner_agent: orchestrator
+    task_id: PR-N3
+    branch: session/20261118-hc-001-high-concept
+    acquired_at: "2026-11-18T10:12:00Z"
+    expires_at: "2026-11-18T10:42:00Z"
+    status: active
+
+  - path_glob: "packages/core/src/index.ts"
+    owner_agent: gameplay-engineer
+    task_id: PR-N3
+    branch: session/20261118-hc-001-high-concept
+    acquired_at: "2026-11-18T10:12:00Z"
+    expires_at: "2026-11-18T10:42:00Z"
+    status: active
+
+  - path_glob: "packages/core/src/ledger/checkpoint.ts"
+    owner_agent: backend-engineer
+    task_id: PR-N3
+    branch: session/20261118-hc-001-high-concept
+    acquired_at: "2026-11-18T10:12:00Z"
+    expires_at: "2026-11-18T10:42:00Z"
+    status: active
+
+  - path_glob: "packages/core/src/ledger/entry.ts"
+    owner_agent: backend-engineer
+    task_id: PR-N3
+    branch: session/20261118-hc-001-high-concept
+    acquired_at: "2026-11-18T10:12:00Z"
+    expires_at: "2026-11-18T10:42:00Z"
+    status: active
+
+  - path_glob: "packages/core/src/ledger/index.ts"
+    owner_agent: backend-engineer
+    task_id: PR-N3
+    branch: session/20261118-hc-001-high-concept
+    acquired_at: "2026-11-18T10:12:00Z"
+    expires_at: "2026-11-18T10:42:00Z"
+    status: active
+
+  - path_glob: "packages/core/src/ledger/ledger.ts"
+    owner_agent: backend-engineer
+    task_id: PR-N3
+    branch: session/20261118-hc-001-high-concept
+    acquired_at: "2026-11-18T10:12:00Z"
+    expires_at: "2026-11-18T10:42:00Z"
+    status: active
+
+  - path_glob: "tools/sim/persist/prn3_ledger.ts"
+    owner_agent: backend-engineer
+    task_id: PR-N3
+    branch: session/20261118-hc-001-high-concept
+    acquired_at: "2026-11-18T10:12:00Z"
+    expires_at: "2026-11-18T10:42:00Z"
+    status: active
+
+  - path_glob: "tools/sim/persist/test/prn3.test.ts"
+    owner_agent: backend-engineer
+    task_id: PR-N3
+    branch: session/20261118-hc-001-high-concept
+    acquired_at: "2026-11-18T10:12:00Z"
+    expires_at: "2026-11-18T10:42:00Z"
+    status: active
 
