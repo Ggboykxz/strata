@@ -1,7 +1,7 @@
 $ pnpm verify
 $ node scripts/verify.mjs
 STRATA verify — P0-003 skeleton
-enabled: 17 step(s), fail-fast
+enabled: 19 step(s), fail-fast
 
 == typecheck
 $ tsc -b
@@ -16,12 +16,12 @@ $ vitest run
 
 
  Test Files  19 passed (19)
-      Tests  166 passed (166)
-   Start at  10:41:06
-   Duration  7.31s (tests 56%, import 32%, worker 6%, transform 6%)
+      Tests  167 passed (167)
+   Start at  11:00:33
+   Duration  7.06s (tests 61%, import 26%, transform 6%, worker 6%)
 
-    Isolate  19 workers spawned · ~229ms startup each (spawn + environment, per file)
-             at least ~4.13s faster with isolate: false — reuses workers across files instead of one per file
+    Isolate  19 workers spawned · ~217ms startup each (spawn + environment, per file)
+             at least ~3.90s faster with isolate: false — reuses workers across files instead of one per file
 
 == validate-prompt-drift
 PASS  docs/state/PROMPT.lock parsed (version 1)
@@ -111,6 +111,20 @@ OK    no task grants a tier; every gate grant is exactly one step
 B7  acceptance commands exist; stubs fail
 OK    every acc script exists; 14 are declared stubs (they exit 1 until implemented)
 
+B9  acceptance commands must not be false-pass forms
+WARN  B9 PR-N2 legacy false-pass acc "pnpm sim prn2 --assert" — repair when the task is implemented
+WARN  B9 PR-S3 legacy false-pass acc "pnpm sim prs3 --assert" — repair when the task is implemented
+WARN  B9 PR-S6 legacy false-pass acc "pnpm sim prs6 --assert" — repair when the task is implemented
+WARN  B9 PR-S7 legacy false-pass acc "pnpm sim prs7 --assert" — repair when the task is implemented
+WARN  B9 PR-S8 legacy false-pass acc "pnpm sim prs8 --assert" — repair when the task is implemented
+WARN  B9 AN-002 legacy false-pass acc "pnpm test --filter @strata/anim" — repair when the task is implemented
+WARN  B9 P3-005 legacy false-pass acc "pnpm test --filter @strata/a11y" — repair when the task is implemented
+WARN  B9 P3-006 legacy false-pass acc "pnpm test --filter @strata/perf" — repair when the task is implemented
+WARN  B9 NET-102 legacy false-pass acc "pnpm test --filter @strata/persistence" — repair when the task is implemented
+WARN  B9 NET-103 legacy false-pass acc "pnpm test --filter @strata/server -t commitqueue" — repair when the task is implemented
+WARN  B9 MOD-001 legacy false-pass acc "pnpm test --filter @strata/moderation" — repair when the task is implemented
+OK    11 declared legacy false-pass accs; no new ones accepted
+
 B8  split heuristic (acc > 3 or out > 4)
 WARN  B8 P0-001 split required and declared (2 acc, 8 out)
 WARN  B8 P0-003 split required and declared (2 acc, 7 out)
@@ -121,7 +135,7 @@ WARN  B8 P1-004 split required and declared (1 acc, 5 out)
 WARN  B8 P3-001 split required and declared (2 acc, 5 out)
 OK    no oversized, undeclared task
 
-RESULT: PASS — 63 tasks, 11 gates, 0 error(s), 12 warning(s)
+RESULT: PASS — 63 tasks, 11 gates, 0 error(s), 23 warning(s)
 == validate-ownership (WF-002)
 
 O1  structure: 32 owners, 168 globs, 7 catch-all
@@ -173,7 +187,7 @@ RESUME DRILL (--dry, read-only)
 PASS  repository root
       /content/strata
 PASS  pwd
-      5 change(s)
+      7 change(s)
 PASS  git status --short
       session/20261118-hc-001-high-concept
 PASS  git branch --show-current
@@ -227,7 +241,7 @@ D1  vision document (--check)
 OK    VISION.md: metadata, 8 sections, locked sentence, amendment and non-goals present
 
 D2  ADR structure
-OK    6 ADR(s) have title, status and a Context/Decision section
+OK    7 ADR(s) have title, status and a Context/Decision section
 
 D3  TDD structure
 OK    3 TDD file(s) have title, status, Context and GIVEN/WHEN/THEN
@@ -235,7 +249,7 @@ OK    3 TDD file(s) have title, status, Context and GIVEN/WHEN/THEN
 D4  slice, UX and localization specs
 OK    slice T2 numbers, 7 a11y controls and FR/EN parity rules present
 
-RESULT: PASS — 6 ADR(s), 3 TDD(s), 0 error(s). Structural check only; no claim validated.
+RESULT: PASS — 7 ADR(s), 3 TDD(s), 0 error(s). Structural check only; no claim validated.
 == validate-gdd --template (GDD-001)
 
 G1  module inventory: 32 files, expected 32
@@ -283,6 +297,10 @@ A3  no art before NET-GATE
 OK    0 art:true tasks in authorized phases; greybox rule stated
 
 RESULT: PASS — art structure gate, 0 error(s). Visual quality is not judged here.
+== dashboard truth check (TOOL-FIXALL)
+dashboard truth check — PASS — deterministic, sourced, no hardcoded values
+== journal view is current (TOOL-FIXALL)
+build-journal — PASS — view matches the journal entries
 
 DEFERRED — required by master §6, not buildable at P0-003:
   - determinism replay (Node + Chromium hash equality): no sim before TRACER-001/NET-001
@@ -297,5 +315,5 @@ DEFERRED — required by master §6, not buildable at P0-003:
       scripts/validate-texture-set.mjs
       other: scripts/gdd-to-tests.mjs
 
-RESULT: PASS — 17/17 enabled steps green, 3 deferred groups listed above.
+RESULT: PASS — 19/19 enabled steps green, 3 deferred groups listed above.
 EXIT=0

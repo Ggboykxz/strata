@@ -168,7 +168,7 @@
     "wire_budget_over_factor": 3.9,
     "actions_runs": 8,
     "actions_runs_success": 8,
-    "ci_head": "50f5f704a1c8f14f585f4472860a7728d8cfd1ab",
+    "ci_head": "8f8f8c987fc045646f62a73f88174b0766f6f370",
     "anim_tests": 22,
     "anim_states": 5,
     "blend_ticks": 2,
@@ -1406,7 +1406,8 @@
     "Not fixable by an agent remains recorded: no GPU/TPU, 8 unmeasured NET-GATE criteria, Director-only rotations/merges, ND-011, economy retune, SEC-002.",
     "SEC-002: every room socket frame now passes MessageGate before the room; malformed refused with reject, valid admitted. Residual risk 3 mitigated.",
     "ECON-RETUNE: inflation 7264.78% -> 5.00% via named proportional stabilization sink; a sequential levy produced Gini 0.90 and was rejected.",
-    "No silent constant change: before/after numbers, checksums and the rejected levy are all in the report and evidence."
+    "No silent constant change: before/after numbers, checksums and the rejected levy are all in the report and evidence.",
+    "ECON-RETUNE CI at 8f8f8c987fc045646f62a73f88174b0766f6f370: 8/8 triggered workflows success; run ids in docs/state/evidence/20261118T105757Z-ECON-RETUNE/06-ci-proof.log."
   ],
   "result": {
     "phase": "P2NET",
