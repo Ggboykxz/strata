@@ -7,7 +7,7 @@ enabled: 17 step(s), fail-fast
 $ tsc -b
 == lint — core-math ban
 $ node scripts/lint-core-math.mjs
-core-math ban — 7 file(s) under packages/core/src
+core-math ban — 11 file(s) under packages/core/src
 RESULT: PASS — 0 wall-clock reads, 0 unseeded randomness, 0 transcendentals, 0 foreign imports.
 == unit — vitest
 $ vitest run
@@ -15,13 +15,13 @@ $ vitest run
  RUN  v5.1.0 /content/strata
 
 
- Test Files  13 passed (13)
-      Tests  125 passed (125)
-   Start at  09:24:30
-   Duration  2.94s (import 43%, tests 35%, transform 11%, worker 10%)
+ Test Files  14 passed (14)
+      Tests  132 passed (132)
+   Start at  09:32:25
+   Duration  3.66s (tests 52%, import 31%, transform 9%, worker 7%)
 
-    Isolate  13 workers spawned · ~157ms startup each (spawn + environment, per file)
-             at least ~1.89s faster with isolate: false — reuses workers across files instead of one per file
+    Isolate  14 workers spawned · ~160ms startup each (spawn + environment, per file)
+             at least ~2.08s faster with isolate: false — reuses workers across files instead of one per file
 
 == validate-prompt-drift
 PASS  docs/state/PROMPT.lock parsed (version 1)
@@ -193,7 +193,7 @@ PASS  LOCKS.yaml schema and expiry
 resume plan
   session   2026-11-18-s02
   branch    session/20261118-hc-001-high-concept
-  next      PR-N3
+  next      PR-N4
   open Director items:
     ND-004
     ND-005
