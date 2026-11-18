@@ -1516,7 +1516,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T17:34:00Z"
     expires_at: "2026-11-18T18:04:00Z"
-    status: active
+    status: released
 
   - path_glob: "docs/blueprint/GATES.yaml"
     owner_agent: orchestrator
@@ -1524,7 +1524,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T17:34:00Z"
     expires_at: "2026-11-18T18:04:00Z"
-    status: active
+    status: released
 
   - path_glob: "docs/design/gdd/GDD-FACTION.md"
     owner_agent: game-designer
@@ -1532,7 +1532,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T17:34:00Z"
     expires_at: "2026-11-18T18:04:00Z"
-    status: active
+    status: released
 
   - path_glob: "docs/state/metrics/2026-11-18-s02.json"
     owner_agent: orchestrator
@@ -1540,7 +1540,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T17:34:00Z"
     expires_at: "2026-11-18T18:04:00Z"
-    status: active
+    status: released
 
   - path_glob: "tools/sim/systems/prs6_faction.ts"
     owner_agent: prototype-engineer
@@ -1548,7 +1548,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T17:34:00Z"
     expires_at: "2026-11-18T18:04:00Z"
-    status: active
+    status: released
 
   - path_glob: "tools/sim/systems/test/prs6.test.ts"
     owner_agent: prototype-engineer
@@ -1556,5 +1556,5 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T17:34:00Z"
     expires_at: "2026-11-18T18:04:00Z"
-    status: active
+    status: released
 
