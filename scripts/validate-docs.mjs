@@ -68,9 +68,25 @@ const tddDir = 'docs/tdd';
 const tdds = existsSync(tddDir) ? readdirSync(tddDir).filter(f => f.endsWith('.md')) : [];
 for (const f of tdds) {
   const text = readFileSync(`${tddDir}/${f}`, 'utf8');
-  if (!/^# /.test(text)) fail(`D3 ${f} has no title`);
+  if (!/^# TDD-/.test(text)) fail(`D3 ${f} has no "# TDD-" title`);
+  if (!/\| status \|/.test(text)) fail(`D3 ${f} has no status`);
+  if (!/## Context/.test(text)) fail(`D3 ${f} has no Context section`);
+  if (!/GIVEN.*WHEN.*THEN/s.test(text)) fail(`D3 ${f} has no GIVEN/WHEN/THEN acceptance`);
 }
-if (!errors.length) ok(`${tdds.length} TDD file(s) checked (0 is valid before P1-004)`);
+if (!errors.length) ok(`${tdds.length} TDD file(s) have title, status, Context and GIVEN/WHEN/THEN`);
+
+console.log('\nD4  slice, UX and localization specs');
+const specs = [
+  ['docs/design/VERTICAL_SLICE_SPEC.md', ['900 ticks', '3 facts', '2 strata', 'before/after captures', 'Two clients']],
+  ['docs/design/UX_SPEC.md', ['HTML/CSS overlay', 'A11Y-1', 'A11Y-2', 'A11Y-3', 'A11Y-4', 'A11Y-5', 'A11Y-6', 'A11Y-7']],
+  ['docs/design/LOCALIZATION.md', ['FR and EN', 'No concatenation', '0']],
+];
+for (const [p, needles] of specs) {
+  if (!existsSync(p)) continue;
+  const text = readFileSync(p, 'utf8');
+  for (const needle of needles) if (!text.includes(needle)) fail(`D4 ${p} omits "${needle}"`);
+}
+if (!errors.length) ok('slice T2 numbers, 7 a11y controls and FR/EN parity rules present');
 
 console.log(`\n${errors.length ? 'RESULT: FAIL' : 'RESULT: PASS'} — ${adrs.length} ADR(s), ${tdds.length} TDD(s), `
   + `${errors.length} error(s). Structural check only; no claim validated.`);
