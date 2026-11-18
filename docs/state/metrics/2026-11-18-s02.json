@@ -119,7 +119,7 @@
     "wire_budget_over_factor": 3.9,
     "actions_runs": 8,
     "actions_runs_success": 8,
-    "ci_head": "b1d67a5c4de7254ceb162aca5bab2aacc1c9354a",
+    "ci_head": "fb595cdcd71ba4e97134f6eb103dd4dcc6a5e57a",
     "anim_tests": 22,
     "anim_states": 5,
     "blend_ticks": 2,
@@ -909,7 +909,8 @@
     "Lag-comp fuzz is local structural: 30 shots, 4 hits, 16 cooldown, 5 blocked, 4 out-of-range, 1 stale. Not RTT, not a loss matrix.",
     "PR-N4 CI at b1d67a5: 8/8 triggered workflows success; run ids in docs/state/evidence/20261118T093621Z-PR-N4/10-ci-proof.log.",
     "SEC-001: ingress gate, 30-per-window rate limit, counted reason codes, GM audit. 200-message burst -> 30 admitted.",
-    "No 0-unvalidated-paths claim: attachRooms still bypasses the gate (SEC-002). No auth/TLS, in-memory counters, retention is OPS-001."
+    "No 0-unvalidated-paths claim: attachRooms still bypasses the gate (SEC-002). No auth/TLS, in-memory counters, retention is OPS-001.",
+    "SEC-001 CI at fb595cd: 8/8 triggered workflows success; run ids in docs/state/evidence/20261118T094911Z-SEC-001/10-ci-proof.log."
   ],
   "result": {
     "phase": "P2NET",
@@ -1021,7 +1022,7 @@
         },
         {
           "dir": "docs/state/evidence/20261118T094911Z-SEC-001/",
-          "logs": 11,
+          "logs": 12,
           "branch": "session"
         }
       ]
