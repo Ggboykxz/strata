@@ -1,0 +1,56 @@
+COMMAND: STRATA_BUILD_UTC=2026-11-18T00:00:00Z pnpm --filter @strata/dashboard build
+UTC: 2026-11-18T16:46:56Z
+$ tsc -p tsconfig.json && node build.mjs
+dashboard build OK — 10 view groups, /content/strata/apps/dashboard/dist
+  NOT COMPUTABLE fields: 19
+EXIT=0
+
+COMMAND: pnpm --filter @strata/dashboard-next build
+UTC: 2026-11-18T16:46:59Z
+$ next build
+▲ Next.js 16.4.6 (Turbopack)
+✓ Running next.config.mjs took 25ms
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 1526ms
+  Running TypeScript ...
+  Finished TypeScript in 3.7s ...
+  Collecting page data using 1 worker ...
+  Generating static pages using 1 worker (0/3) ...
+✓ Generating static pages using 1 worker (3/3) in 215ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ○ /
+└ ○ /_not-found
+
+
+○  (Static)  prerendered as static content
+
+EXIT=0
+
+COMMAND: pnpm --filter @strata/dashboard-next build (determinism re-run, same data.json)
+UTC: 2026-11-18T16:47:06Z
+$ next build
+▲ Next.js 16.4.6 (Turbopack)
+✓ Running next.config.mjs took 26ms
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 1507ms
+  Running TypeScript ...
+  Finished TypeScript in 4.6s ...
+  Collecting page data using 1 worker ...
+  Generating static pages using 1 worker (0/3) ...
+✓ Generating static pages using 1 worker (3/3) in 367ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ○ /
+└ ○ /_not-found
+
+
+○  (Static)  prerendered as static content
+
+EXIT=0
+
+DETERMINISM: prerendered page sha256 before=7dc85cf7bcad67d5870b3e5a816b57d49f0985f6d351ef074ee978fd416e38ae after=7dc85cf7bcad67d5870b3e5a816b57d49f0985f6d351ef074ee978fd416e38ae match=yes

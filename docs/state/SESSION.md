@@ -489,3 +489,15 @@ blueprint task currently owns the pin: recorded as a gap for the Director/next r
   server tick p95 0.1632 ms. Four criteria remain unmet; `--assert-ready` still exits 1.
 - No art, no model, no GPU/TPU. **PR #4** https://github.com/Ggboykxz/strata/pull/4 opened, never merged;
   merge and ND-004/005 rotation are Director acts.
+
+## Session 3 — DASH-NEXT prepared (2026-11-18T16:47Z)
+
+- Director: dashboard with Next.js, **add** (not replace) `apps/dashboard`, and **prepare the PR, do not deploy**.
+- New branch `session/20261118-dashboard-next`. `apps/dashboard-next` reads the generated `data.json` at build
+  time (force-static), no fetch/auth/gameplay state; deterministic next build, byte-identical page on re-run.
+- Pins: next 14.2.35, react/react-dom 18.3.1, exact in package.json, pnpm-lock.yaml and docs/STACK.lock.md.
+  Next 16.4.6 was rejected under I4 (optional sharp/libvips installed an LGPL binary) and downgraded, not waived.
+  I4 licence + transitive audit in docs/legal/DEPENDENCY_AUDIT_NEXTJS.md before use.
+- `vercel.json` prepared (framework nextjs, build command, output dir) but no Vercel CLI/token/deployment.
+  ND-004/005 rotation still precedes any Vercel integration. **PR #5** https://github.com/Ggboykxz/strata/pull/5
+  opened (stacked on PR #4), never merged. No art, no model, no self-merge.

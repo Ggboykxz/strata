@@ -1,0 +1,7 @@
+COMMAND: fresh clone -> pnpm install --frozen-lockfile -> node tools/qa/audit-dashboard-deps.mjs
+UTC: 2026-11-18T16:56:42Z
+fresh dir: /tmp/opencode/dash-next-fresh2 (gitignored artifacts excluded)
+INSTALL EXIT=0
+sharp/libvips packages=0
+AUDIT: SUMMARY: PASS scanned=63 pinned=next@14.2.35,react@18.3.1,react-dom@18.3.1 forbidden=0 missing_license=0
+AUDIT EXIT=0

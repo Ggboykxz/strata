@@ -22,10 +22,17 @@ Measured 2026-11-18 on `Linux 6.6.159+ x86_64` — log:
 | Babylon.js (`@babylonjs/core`) | **9.37.0** | `apps/game` dependencies | npm registry + `pnpm-lock.yaml` |
 | `ws` | **8.23.0** | `apps/server` dependencies; `apps/game` devDependencies (test client) | npm registry + `pnpm-lock.yaml` |
 | `@types/ws` | **8.18.2** | `apps/server` devDependencies | npm registry + `pnpm-lock.yaml` |
+| Next.js (`next`) | **14.2.35** | `apps/dashboard-next` dependencies | npm registry + `pnpm-lock.yaml` |
+| React (`react`) | **18.3.1** | `apps/dashboard-next` dependencies | npm registry + `pnpm-lock.yaml` |
+| React DOM (`react-dom`) | **18.3.1** | `apps/dashboard-next` dependencies | npm registry + `pnpm-lock.yaml` |
 
 **Third-party licenses** (read from registry metadata at pin time, 2026-11-18): Babylon.js **Apache-2.0**,
 `ws` **MIT**. Both are permissive and satisfied by §10.5/§10.6. Babylon's `NullEngine` is allowed in
-tooling/CI only — it is not imported by the server tick (I3).
+tooling/CI only — it is not imported by the server tick (I3). Next.js 14.2.35, React 18.3.1 and React DOM
+18.3.1 are **MIT**; their direct and transitive audit is recorded in `docs/legal/DEPENDENCY_AUDIT_NEXTJS.md`.
+Next 16 was rejected after its optional `sharp`/libvips chain pulled in an LGPL binary; the pin was downgraded
+to a clean closure, not waived. These packages are used only by the read-only dashboard view; no package is
+imported by the server tick or by art generation.
 
 **Why TypeScript 6.0.3 and not 7.0.2.** `typescript@7` ships the native compiler and no longer exposes
 the JavaScript AST API (`import * as ts from 'typescript'` returns only `version`). The core-math ban

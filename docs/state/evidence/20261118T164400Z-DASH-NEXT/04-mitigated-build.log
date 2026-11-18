@@ -1,0 +1,32 @@
+COMMAND: STRATA_BUILD_UTC=2026-11-18T00:00:00Z pnpm --filter @strata/dashboard build && pnpm --filter @strata/dashboard-next build
+UTC: 2026-11-18T16:51:58Z
+$ tsc -p tsconfig.json && node build.mjs
+dashboard build OK — 10 view groups, /content/strata/apps/dashboard/dist
+  NOT COMPUTABLE fields: 19
+$ next build
+  ▲ Next.js 14.2.35
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully
+   Linting and checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/4) ...
+   Generating static pages (1/4) 
+   Generating static pages (2/4) 
+   Generating static pages (3/4) 
+ ✓ Generating static pages (4/4)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                              Size     First Load JS
+┌ ○ /                                    138 B          87.4 kB
+└ ○ /_not-found                          872 B          88.1 kB
++ First Load JS shared by all            87.2 kB
+  ├ chunks/5b8f0dd8-0b7e1dd47e2a464c.js  53.6 kB
+  ├ chunks/749-39e755d29f953c93.js       31.7 kB
+  └ other shared chunks (total)          1.86 kB
+
+
+○  (Static)  prerendered as static content
+
+EXIT=0

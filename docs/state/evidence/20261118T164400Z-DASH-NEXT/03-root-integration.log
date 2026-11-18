@@ -1,0 +1,63 @@
+COMMAND: pwd && git branch --show-current && git status --short
+UTC: 2026-11-18T16:43:29Z
+EXIT: 0
+
+COMMAND: node --version && pnpm --version
+UTC: 2026-11-18T16:43:29Z
+EXIT: 0
+OUTPUT: v22.23.4 / pnpm 12.21.0
+
+COMMAND: pnpm view next version
+UTC: 2026-11-18T16:43:33Z
+EXIT: 0
+OUTPUT: 16.4.6
+
+COMMAND: pnpm view react version
+UTC: 2026-11-18T16:43:34Z
+EXIT: 0
+OUTPUT: 19.3.1
+
+COMMAND: pnpm view react-dom version
+UTC: 2026-11-18T16:43:35Z
+EXIT: 0
+OUTPUT: 19.3.1
+
+COMMAND: edit package.json — add root script dashboard:next:build (existing scripts unchanged)
+UTC: 2026-11-18T16:43:40Z
+EXIT: 0
+OUTPUT: "dashboard:next:build": "pnpm --filter @strata/dashboard build && pnpm --filter @strata/dashboard-next build"
+
+COMMAND: write vercel.json (framework nextjs, buildCommand + outputDirectory; no secrets/env/hooks)
+UTC: 2026-11-18T16:44:10Z
+EXIT: 0
+OUTPUT: {"framework":"nextjs","buildCommand":"pnpm install --frozen-lockfile && pnpm dashboard:next:build","outputDirectory":"apps/dashboard-next/.next"}
+
+COMMAND: pnpm install --lockfile-only
+UTC: 2026-11-18T16:44:55Z
+EXIT: 0
+OUTPUT: Scope: all 9 workspace projects; Done in 455ms using pnpm v12.21.0; importer apps/dashboard-next pinned next 16.4.6 / react 19.3.1 / react-dom 19.3.1 (exact specifiers)
+
+COMMAND: grep -n 'apps/dashboard-next\|next@16.4.6\|react@19.3.1\|react-dom@19.3.1' pnpm-lock.yaml
+UTC: 2026-11-18T16:45:05Z
+EXIT: 0
+OUTPUT: importer apps/dashboard-next present with exact specifiers 16.4.6 / 19.3.1 / 19.3.1
+
+COMMAND: pnpm install --frozen-lockfile
+UTC: 2026-11-18T16:45:10Z
+EXIT: 0
+OUTPUT: Scope: all 9 workspace projects; Lockfile is up to date, resolution step skipped; Already up to date; Done in 399ms using pnpm v12.21.0
+
+COMMAND: ls node_modules/.pnpm | grep -E '^next@|^react@|^react-dom@' && pnpm --filter @strata/dashboard-next exec next --version
+UTC: 2026-11-18T16:45:15Z
+EXIT: 0
+OUTPUT: next@16.4.6_... / react@19.3.1 / react-dom@19.3.1... ; Next.js v16.4.6
+
+COMMAND: pnpm typecheck  (tsc -b)
+UTC: 2026-11-18T16:45:19Z
+EXIT: 0
+OUTPUT: $ tsc -b  (no errors; root project references do not include dashboard-next)
+
+COMMAND: pnpm run ; node -e "JSON.parse(fs.readFileSync('vercel.json'))" ; git status --short ; git diff --stat
+UTC: 2026-11-18T16:45:29Z
+EXIT: 0
+OUTPUT: dashboard:next:build registered; vercel.json valid JSON with keys framework,buildCommand,outputDirectory only; diff limited to package.json (+1) and pnpm-lock.yaml (+578/-2)

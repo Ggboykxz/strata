@@ -229,6 +229,11 @@ Anything else goes through a handoff. A conflict is resolved by a handoff or the
 - NET-GATE after PR-N1: **4/10 criteria unmet** (wire, reconnect crash half, crash/RPO, threat/auth). The
   signature-time 8/10 count is preserved in the dossier and metrics; `--assert-ready` still exits 1. No art (I2),
   no self-merge — the Director merges PR-N1.
+- **DASH-NEXT prepared (PR only, no deployment)**: `apps/dashboard-next` (Next.js 14.2.35, React 18.3.1) renders
+  `apps/dashboard/dist/data.json` at build time; it never recomputes a metric. `apps/dashboard` and the 19/19
+  verify baseline stay unchanged. `vercel.json` is configuration only; Director chose "prepare the PR, do not
+  deploy". Next 16 was rejected under I4 (optional sharp/libvips LGPL) and downgraded to a clean closure; the
+  audit, STACK.lock pins and exact lockfile are in the same PR.
 - Known intentional red: `scope-math --report` exit 2 (throughput unmeasured). `concept --score` now exits 0
   with CIS 85/100 (HC-003); `concept --check` is green: T3 was signed at GATE:P0.
 
