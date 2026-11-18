@@ -30,6 +30,7 @@ const ENABLED = [
   ['validate-gdd --template (GDD-001)', 'node', ['scripts/validate-gdd.mjs', '--template']],
   ['gdd-coverage --min 0.80 (GDD-001)', 'node', ['scripts/gdd-coverage.mjs', '--min', '0.80']],
   ['validate-lore (P1-002)', 'node', ['scripts/validate-lore.mjs']],
+  ['validate-art-bible (P1-003)', 'node', ['scripts/validate-art-bible.mjs']],
 ];
 
 /* A stub is a validator that prints NOT IMPLEMENTED and exits 1 (P0-002 contract). */
