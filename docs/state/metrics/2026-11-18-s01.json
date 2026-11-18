@@ -80,6 +80,10 @@
     {
       "id": "GDD-002",
       "status": "done"
+    },
+    {
+      "id": "GDD-003",
+      "status": "done"
     }
   ],
   "measured": {
@@ -138,7 +142,7 @@
     "validator_stubs_failing": 14,
     "gdd_modules": 32,
     "gdd_critical_modules": 14,
-    "gdd_draft_modules": 6,
+    "gdd_draft_modules": 11,
     "gdd_coverage": 1.0,
     "gate_p0_signed": true,
     "ownership_globs": 165,
@@ -584,6 +588,16 @@
       "cmd": "pnpm verify (15 enabled steps, after GDD-002)",
       "exit": 0,
       "log": "docs/state/evidence/20261118T024155Z-GDD-002/05-verify.log"
+    },
+    {
+      "cmd": "bash tools/qa/negative-gdd.sh (12 cases)",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T024736Z-GDD-003/04-negative-tests.log"
+    },
+    {
+      "cmd": "pnpm verify (15 enabled steps, after GDD-003)",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T024736Z-GDD-003/05-verify.log"
     }
   ],
   "notes": [
@@ -616,6 +630,7 @@
     "the four negative P0-003 entries exit nonzero on purpose: they prove typecheck, the core-math ban, vitest and verify can fail before being trusted",
     "TypeScript is pinned to 6.0.3, not 7.0.2: the 7.x package ships the native compiler and no JS AST API, which scripts/lint-core-math.mjs needs; documented in docs/STACK.lock.md",
     "P0-003's 7 output paths trigger B8 and the task is declared split in the blueprint, but it landed as one commit: a workspace without its packages cannot typecheck and a skeleton without verify cannot pass. The split is a size label, not a bisectable boundary here",
-    "Reproduction scripts are committed under tools/qa/; older /tmp/opencode command names in evidence logs map to those files via tools/qa/README.md."
+    "Reproduction scripts are committed under tools/qa/; older /tmp/opencode command names in evidence logs map to those files via tools/qa/README.md.",
+    "GDD-003: 11 DRAFT modules, T2 900-tick budget and T4 three-resolution minimum enforced as validator failures; generator committed under tools/qa/"
   ]
 }
