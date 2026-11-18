@@ -7,4 +7,4 @@ PASS  code-reviewer is read-only
 
 PASS  ownership map  failures=0
 exit_code=0
-cmd=node /tmp/opencode/own-check.mjs
+cmd=node docs/state/evidence/20261118T001004Z-WF-001/02-ownership-map.check.mjs
