@@ -1,0 +1,10 @@
+PASS  owners parsed: 32
+PASS  glob ties checked (155 distinct globs)
+PASS  catch-all entries: 7
+PASS  append-only zones: 4
+PASS  orchestrator owns docs/state/**
+PASS  code-reviewer is read-only
+
+PASS  ownership map  failures=0
+exit_code=0
+cmd=node /tmp/opencode/own-check.mjs

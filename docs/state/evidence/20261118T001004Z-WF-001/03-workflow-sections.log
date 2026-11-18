@@ -1,0 +1,9 @@
+all 9 sections present
+exit_code=0
+cmd=node -e 
+const s=require('fs').readFileSync('docs/WORKFLOW.md','utf8');
+const need=['## 1. OWNERSHIP','## 2. LOCKS','## 3. CEREMONY LEVELS','## 4. ACP','## 5. ARBITRATION LADDER','## 6. HANDOFF CONTRACT','## 7. CEREMONIES','## 8. MERGE QUEUE','## 9. CONDUCT'];
+const miss=need.filter(h=>!s.includes(h));
+if(miss.length){console.log('MISSING '+miss.join(', '));process.exit(1);}
+console.log('all 9 sections present');
+

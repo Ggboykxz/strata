@@ -1,0 +1,21 @@
+# LOCKS — writer lock registry (§4.3)
+#
+# The mutex is git itself. Acquire = commit an entry here on branch `state/locks` and push
+# WITHOUT force. Rejected non-fast-forward = someone moved first: pull, re-check, retry.
+# This file on `main` is a generated read-only mirror.
+#
+# Until WF-002 ships `scripts/validate-locks.mjs`, entries are recorded but not yet enforced by CI.
+# The trail is still kept: an unenforced record beats no record.
+
+version: 1
+branch: state/locks
+ttl_minutes: 60
+heartbeat_minutes: 10
+
+rules:
+  - "acquire every glob of a task in ONE commit, sorted by path"
+  - "never steal an active lock"
+  - "expired locks are released by the watchdog; a dead session's lock is reclaimed with a JOURNAL entry"
+  - "CI (from WF-002) verifies the PR author held every touched lock"
+
+locks: []
