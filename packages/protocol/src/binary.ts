@@ -1,24 +1,24 @@
 /**
  * binary.ts — the binary wire contract (NET-002).
  *
- * v1 was the TRACER-001 JSON framing (`./tracer.ts`), kept for the walking skeleton. v2 is this binary
+ * v1 was the TRACER-001 JSON framing (`./tracer.ts`), kept for the walking skeleton. v5 is this binary
  * frame: one type byte, a fixed little-endian layout, strict length, no optional fields, no strings on the
  * hot path. A decoder that sees one byte too many refuses the frame instead of guessing.
  *
  * The codec is isomorphic (no Node, no DOM) and carries no dependency beyond the core range contract.
  * It is a *correctness* codec: it packs fields exactly, but it does not delta-compress or bit-pack. The
- * 12 KB/s down budget at 64 AoI entities is NET-101's job; a full v4 snapshot here is 1 555 bytes, which is
+ * 12 KB/s down budget at 64 AoI entities is NET-101's job; a full v5 snapshot here is 1 555 bytes, which is
  * ~46.65 KB/s at 30 Hz — measured, over budget, and deliberately left to the AoI task (see the test).
  */
 import { hashEntity, toWireMm } from '@strata/core';
 import { ANIM_STATES, type AnimStateName, type Axis, type EntityState, type WorldState } from '@strata/core';
 
 /** Bumped whenever the wire layout changes. A peer with another version is refused, never truncated. */
-export const PROTOCOL_VERSION = 4;
+export const PROTOCOL_VERSION = 5;
 
-/** Version bounds the handshake accepts. One version today; a range so NET-004 can widen it. */
-export const SUPPORTED_MIN_VERSION = 4;
-export const SUPPORTED_MAX_VERSION = 4;
+/** Version bounds the handshake accepts. One version today; a range so a future bump can widen it. */
+export const SUPPORTED_MIN_VERSION = 5;
+export const SUPPORTED_MAX_VERSION = 5;
 
 /** AoI cap from D90: never more than 64 entities in a snapshot. */
 export const MAX_ENTITIES = 64;
@@ -36,7 +36,7 @@ export const FrameType = {
 
 export type FrameTypeValue = (typeof FrameType)[keyof typeof FrameType];
 
-export const INTENT_BYTES = 11;
+export const INTENT_BYTES = 15;
 export const SNAPSHOT_HEADER_BYTES = 19;
 export const ENTITY_BYTES = 24;
 export const HASH_ACK_BYTES = 13;
@@ -77,6 +77,8 @@ export interface IntentFrame {
   readonly kind: 'intent';
   readonly entity: number;
   readonly seq: number;
+  /** Tick at which the sender wants this intent applied (v5). The server drops past targets, refuses far-future ones. */
+  readonly targetTick: number;
   readonly dx: Axis;
   readonly dz: Axis;
 }
@@ -186,8 +188,9 @@ export function encodeFrame(msg: WireMessage): Uint8Array {
       dv.setUint8(0, FrameType.Intent);
       dv.setUint32(1, checkU32(msg.entity, 'entity'), true);
       dv.setUint32(5, checkU32(msg.seq, 'seq'), true);
-      dv.setInt8(9, msg.dx);
-      dv.setInt8(10, msg.dz);
+      dv.setUint32(9, checkU32(msg.targetTick, 'targetTick'), true);
+      dv.setInt8(13, msg.dx);
+      dv.setInt8(14, msg.dz);
       return out;
     }
     case 'snapshot': {
@@ -286,13 +289,14 @@ export function decodeFrame(bytes: Uint8Array): WireMessage {
   switch (type) {
     case FrameType.Intent: {
       if (bytes.length !== INTENT_BYTES) throw lengthError(bytes.length, INTENT_BYTES);
-      const dx = dv.getInt8(9);
-      const dz = dv.getInt8(10);
+      const dx = dv.getInt8(13);
+      const dz = dv.getInt8(14);
       if (!isAxis(dx) || !isAxis(dz)) throw new ProtocolError('out-of-range', `axis (${dx},${dz}) is not in {-1,0,1}`);
       return {
         kind: 'intent',
         entity: dv.getUint32(1, true),
         seq: dv.getUint32(5, true),
+        targetTick: dv.getUint32(9, true),
         dx,
         dz,
       };

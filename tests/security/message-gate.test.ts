@@ -42,15 +42,15 @@ describe('message gate', () => {
     const gate = new MessageGate();
     expect(gate.accept(1, 1, encodeFrame({ kind: 'hello', version: 2, capabilities: 0 })))
       .toMatchObject({ reason: 'wrong-version' });
-    expect(gate.accept(1, 1, encodeFrame({ kind: 'hello', version: 4, capabilities: 0 })).allowed).toBe(true);
+    expect(gate.accept(1, 1, encodeFrame({ kind: 'hello', version: 5, capabilities: 0 })).allowed).toBe(true);
   });
 
   it('enforces monotonic sequence and rejects a replayed intent', () => {
     const gate = new MessageGate();
-    expect(gate.accept(1, 1, encodeFrame({ kind: 'intent', entity: 1, seq: 5, dx: 1, dz: 0 })).allowed).toBe(true);
-    expect(gate.accept(1, 2, encodeFrame({ kind: 'intent', entity: 1, seq: 5, dx: 1, dz: 0 })))
+    expect(gate.accept(1, 1, encodeFrame({ kind: 'intent', entity: 1, seq: 5, targetTick: 1, dx: 1, dz: 0 })).allowed).toBe(true);
+    expect(gate.accept(1, 2, encodeFrame({ kind: 'intent', entity: 1, seq: 5, targetTick: 1, dx: 1, dz: 0 })))
       .toMatchObject({ reason: 'non-monotonic-seq' });
-    expect(gate.accept(1, 3, encodeFrame({ kind: 'intent', entity: 1, seq: 4, dx: 1, dz: 0 })))
+    expect(gate.accept(1, 3, encodeFrame({ kind: 'intent', entity: 1, seq: 4, targetTick: 1, dx: 1, dz: 0 })))
       .toMatchObject({ reason: 'non-monotonic-seq' });
   });
 
@@ -59,7 +59,7 @@ describe('message gate', () => {
     let admitted = 0;
     let limited = 0;
     for (let seq = 1; seq <= 200; seq++) {
-      const verdict = gate.accept(9, 1, encodeFrame({ kind: 'intent', entity: 1, seq, dx: 1, dz: 0 }));
+      const verdict = gate.accept(9, 1, encodeFrame({ kind: 'intent', entity: 1, seq, targetTick: 1, dx: 1, dz: 0 }));
       if (verdict.allowed) admitted++;
       else if (verdict.reason === 'rate-limited') limited++;
     }
@@ -70,9 +70,9 @@ describe('message gate', () => {
 
   it('forgets a client on logout so old sequence state cannot be replayed', () => {
     const gate = new MessageGate();
-    gate.accept(3, 1, encodeFrame({ kind: 'intent', entity: 1, seq: 50, dx: 1, dz: 0 }));
+    gate.accept(3, 1, encodeFrame({ kind: 'intent', entity: 1, seq: 50, targetTick: 1, dx: 1, dz: 0 }));
     gate.forget(3);
-    expect(gate.accept(3, 2, encodeFrame({ kind: 'intent', entity: 1, seq: 1, dx: 1, dz: 0 })).allowed).toBe(true);
+    expect(gate.accept(3, 2, encodeFrame({ kind: 'intent', entity: 1, seq: 1, targetTick: 1, dx: 1, dz: 0 })).allowed).toBe(true);
   });
 });
 

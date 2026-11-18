@@ -215,6 +215,7 @@ Anything else goes through a handoff. A conflict is resolved by a handoff or the
   task left: merges, tokens, T4 and hardware decisions are Director acts.
 - **PRs handled by the Director**: PR #2 closed unmerged, PR #3 merged into `main` at `a84733e` (1 032 files).
   Default branch is still the session branch. Remaining: token rotation, T4, TPU scope and 8 NET-GATE measurements.
+- **Protocol v5 / target-tick input contract landed**: intents carry `targetTick` (u32) between `seq` and `dx` — `INTENT_BYTES` 15, v4 peers refused (supported range exactly 5..5). Rooms drop past-arrival intents and count them (`late_intents`), refuse targets more than 64 ticks ahead, and buffer the rest; buffered intents are submitted before the host advances, in (targetTick, entity, seq) order. Client predictor gained `schedule(seq, dx, dz, targetTick)` and `advanceTo(tick)`; `reconcile()` replays unacked intents at their original `targetTick`. NET-GATE matrix measurement remains separate; do not read this as matrix-green. Next: the four-client RTT measurement reruns on this contract.
 - **GPU handoff**: `docs/state/GPU_HANDOFF.md` is the memory bridge for the new runtime (probes, audited models,
   art contract, the 8 NET-GATE criteria, conventions). GPU arrival does not authorize art: readiness must pass.
 - Known intentional red: `scope-math --report` exit 2 (throughput unmeasured) and `concept --score` exit 2

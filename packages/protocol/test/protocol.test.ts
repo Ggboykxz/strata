@@ -2,8 +2,8 @@ import { describe, expect, it } from 'vitest';
 import { PROTOCOL_VERSION, TRACER_PROTOCOL_VERSION } from '../src/index';
 
 describe('protocol versions', () => {
-  it('exposes v4 as the current wire version', () => {
-    expect(PROTOCOL_VERSION).toBe(4);
+  it('exposes v5 as the current wire version', () => {
+    expect(PROTOCOL_VERSION).toBe(5);
   });
 
   it('keeps the v1 tracer codec until the game client moves off JSON', () => {

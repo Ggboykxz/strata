@@ -38,10 +38,10 @@ describe('anim wire v3', () => {
     expect(() => decodeFrame(bad)).toThrow();
   });
 
-  it('refuses a v3 peer instead of silently interoperating', () => {
+  it('refuses a peer that is not on exactly v5 instead of silently interoperating', () => {
     expect(negotiate(2)).toMatchObject({ kind: 'reject', reason: 'version' });
-    expect(negotiate(3)).toMatchObject({ kind: 'reject', reason: 'version' });
-    expect(negotiate(4)).toMatchObject({ kind: 'welcome', version: 4 });
+    expect(negotiate(4)).toMatchObject({ kind: 'reject', reason: 'version' });
+    expect(negotiate(5)).toMatchObject({ kind: 'welcome', version: 5 });
     expect(ANIM_STATES).toHaveLength(5);
   });
 });

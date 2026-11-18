@@ -19,6 +19,11 @@ import {
 
 export type AckVerdict = 'ok' | 'desync' | 'unknown';
 
+/** An intent carrying the tick at which the client wants it applied (v5 target-tick contract). */
+export interface ScheduledMoveCommand extends MoveCommand {
+  readonly targetTick: number;
+}
+
 export interface TickResult {
   readonly tick: number;
   readonly hash: string;
@@ -36,6 +41,7 @@ export class SimHost {
   private lastHash: string;
   private readonly ring: HashRing;
   private readonly queue: MoveCommand[] = [];
+  private bufferedIntents: ScheduledMoveCommand[] = [];
   private rejectedIntents = 0;
 
   constructor(seed = 1, entityCount = 1, ringCapacity = 128) {
@@ -49,6 +55,7 @@ export class SimHost {
   get state(): WorldState { return this.world; }
   get hash(): string { return this.lastHash; }
   get rejected(): number { return this.rejectedIntents; }
+  get buffered(): number { return this.bufferedIntents.length; }
 
   /** Validate an intent at the ingress. Malformed input is counted and dropped, never repaired (I1). */
   submit(raw: unknown): boolean {
@@ -58,8 +65,36 @@ export class SimHost {
     return true;
   }
 
-  /** Advance exactly one tick with the intents received since the last one. */
+  /**
+   * Buffer an intent scheduled for a future tick (v5 target-tick contract). The command is validated
+   * exactly like `submit`; the `targetTick` is routing metadata and never reaches the world. The caller
+   * (the room, at socket ingress) owns the late-drop and the 64-tick lead refusal; this method only
+   * validates and stores. Due intents are submitted, in (targetTick, entity, seq) order, by `step`.
+   */
+  buffer(raw: unknown): boolean {
+    if (!raw || typeof raw !== 'object') { this.rejectedIntents++; return false; }
+    const cmd = asMoveCommand(raw);
+    const targetTick = (raw as { targetTick?: unknown }).targetTick;
+    if (!cmd || typeof targetTick !== 'number' || !Number.isInteger(targetTick) || targetTick < 0) {
+      this.rejectedIntents++;
+      return false;
+    }
+    this.bufferedIntents.push({ ...cmd, targetTick });
+    return true;
+  }
+
+  /** Submit every buffered intent with targetTick <= T, in canonical (targetTick, entity, seq) order. */
+  private flushBuffered(tick: number): void {
+    if (this.bufferedIntents.length === 0) return;
+    const due = this.bufferedIntents.filter((intent) => intent.targetTick <= tick);
+    this.bufferedIntents = this.bufferedIntents.filter((intent) => intent.targetTick > tick);
+    due.sort((a, b) => (a.targetTick - b.targetTick) || (a.entity - b.entity) || (a.seq - b.seq));
+    for (const intent of due) this.submit(intent);
+  }
+
+  /** Advance exactly one tick with the intents due for it, plus the ones received since the last one. */
   step(): TickResult {
+    this.flushBuffered(this.world.tick + 1);
     const batch = this.queue.splice(0, this.queue.length);
     this.world = stepWorld(this.world, batch);
     this.lastHash = hashWorld(this.world);

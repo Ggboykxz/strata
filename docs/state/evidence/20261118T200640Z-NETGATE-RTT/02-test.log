@@ -1,0 +1,14 @@
+$ vitest run
+
+ RUN  v5.1.0 /tmp/strata-rtt
+
+
+ Test Files  43 passed (43)
+      Tests  327 passed (327)
+   Start at  20:08:30
+   Duration  13.30s (tests 53%, import 32%, worker 9%, transform 5%)
+
+    Isolate  43 workers spawned · ~203ms startup each (spawn + environment, per file)
+             at least ~8.54s faster with isolate: false — reuses workers across files instead of one per file
+
+EXIT=0
