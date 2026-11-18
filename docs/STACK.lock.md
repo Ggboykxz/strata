@@ -57,7 +57,7 @@ pnpm verify                     # the one definition, scripts/verify.mjs
 **unit** (Vitest) → `validate-prompt-drift` → `validate-scope` → `scope-math --check` →
 `validate-blueprint` → `validate-ownership` → `validate-locks` → `validate-workflows` → resume drill
 `--dry`) → `validate-manifest --audit` → `validate-docs` → `validate-gdd --template` →
-`gdd-coverage --min 0.80`. It prints `DEFERRED` for determinism replay, GDD coverage and every declared
+`gdd-coverage --min 0.80` → `validate-lore`. It prints `DEFERRED` for determinism replay, GDD coverage and every declared
 stub. Deferred steps are never counted as green; the full pipeline from §6 is the target, not a claim.
 
 ## AI models and tools — gated by a separate audit
