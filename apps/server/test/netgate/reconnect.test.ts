@@ -39,7 +39,7 @@ describe('NET-GATE reconnect-restore on real sockets', () => {
       expect(clients.every((client) => client.welcomed)).toBe(true);
       for (const client of clients) client.startIntents();
 
-      await ticker.waitTicks(60);
+      await ticker.waitTicks(50);
       const target = clients[1];
       const peer = clients[2];
       if (!target || !peer) throw new Error('missing clients');
@@ -55,12 +55,13 @@ describe('NET-GATE reconnect-restore on real sockets', () => {
       const clientId = target.clientId;
       target.paused = true;
       target.stopIntents();
+      // Quiet for longer than the client horizon (latest tick + 4): the server drains its buffered
+      // intents, so the applied seq is stable before any snapshot is compared.
+      await ticker.waitTicks(58);
+      const appliedSeqAtDisconnect = await settleEntitySeq(server.room, entityId, 4, 5000);
       await target.terminate();
       const disconnectedAtTick = await waitForDisconnect(server.room, clientId);
-      // Settle only after terminate: the server may apply intents that were already in flight when the
-      // client vanished, so a pre-disconnect sample can be one intent behind the resumed snapshot.
-      await ticker.waitTicks(disconnectedAtTick + 2);
-      const appliedSeqAtDisconnect = entitySeq(server.room, entityId);
+      expect(entitySeq(server.room, entityId)).toBe(appliedSeqAtDisconnect);
       const member = server.room.members.find((candidate) => candidate.clientId === clientId);
       if (!member) throw new Error('disconnected handle vanished immediately');
       const token = member.token;

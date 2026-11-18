@@ -236,7 +236,7 @@ async function run(directory: string): Promise<void> {
       const dx: -1 | 0 | 1 = nextSeq % 3 === 0 ? 1 : nextSeq % 3 === 1 ? -1 : 0;
       const dz: -1 | 0 | 1 = nextSeq % 5 < 2 ? 1 : nextSeq % 5 < 4 ? -1 : 0;
       const accepted = room.handleBytes(client.clientId, encodeFrame({
-        kind: 'intent', entity: client.entityId, seq: nextSeq, dx, dz,
+        kind: 'intent', entity: client.entityId, seq: nextSeq, dx, dz, targetTick: room.currentTick + 1,
       }));
       if (!accepted) throw new Error(`intent ${client.entityId}/${nextSeq} was refused`);
       intents.push({ tick: room.currentTick, clientId: client.clientId, entityId: client.entityId, seq: nextSeq, dx, dz });
@@ -301,7 +301,7 @@ function restore(directory: string): void {
       const client = byClientId.get(intent.clientId);
       if (!client) throw new Error(`intent names unknown client ${intent.clientId}`);
       const accepted = room.handleBytes(client.clientId, encodeFrame({
-        kind: 'intent', entity: intent.entityId, seq: intent.seq, dx: intent.dx, dz: intent.dz,
+        kind: 'intent', entity: intent.entityId, seq: intent.seq, dx: intent.dx, dz: intent.dz, targetTick: tick + 1,
       }));
       if (!accepted) throw new Error(`replay refused intent ${intent.entityId}/${intent.seq} at tick ${intent.tick}`);
       appliedIntents++;

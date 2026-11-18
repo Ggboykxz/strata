@@ -91,6 +91,7 @@ export class SocketClient {
   readonly messages: WireMessage[] = [];
   readonly snapshots = new Map<number, SnapshotFrame>();
   readonly errors: Error[] = [];
+  private tickHorizon = 4;
   ws: WebSocket | null = null;
   entityId = 0;
   clientId = 0;
@@ -104,6 +105,18 @@ export class SocketClient {
     return this.messages.some((message) => message.kind === 'welcome');
   }
 
+  /** Wait until the server answered hello with a welcome (deterministic; no fixed poll deadline). */
+  async waitForWelcome(timeoutMs = 30000): Promise<void> {
+    const started = now();
+    while (!this.welcomed) {
+      if (now() - started > timeoutMs) {
+        const errors = this.errors.map((error) => error.message);
+        throw new Error(`${this.label}: no welcome within ${timeoutMs} ms; client errors: ${JSON.stringify(errors)}`);
+      }
+      await sleep(10);
+    }
+  }
+
   /** Open a connection and send hello. Message handlers are attached before the open event. */
   async open(url: string, withHello = true): Promise<void> {
     const ws = new WebSocket(url);
@@ -111,7 +124,12 @@ export class SocketClient {
     ws.on('message', (raw) => {
       const message = decodeFrame(toBytes(raw));
       this.messages.push(message);
-      if (message.kind === 'snapshot') this.snapshots.set(message.tick, message);
+      if (message.kind === 'snapshot') {
+        this.snapshots.set(message.tick, message);
+        // v5: intents are applied at their targetTick, so send them a few ticks ahead of the
+        // latest known server tick; the monotonic seq guard stays client-side.
+        if (message.tick + 4 > this.tickHorizon) this.tickHorizon = message.tick + 4;
+      }
     });
     ws.on('error', (error) => { this.errors.push(error); });
     await new Promise<void>((resolve, reject) => {
@@ -155,7 +173,7 @@ export class SocketClient {
       this.seq++;
       const dx: Axis = this.seq % 3 === 0 ? 1 : this.seq % 3 === 1 ? -1 : 0;
       const dz: Axis = this.seq % 5 < 2 ? 1 : this.seq % 5 < 4 ? -1 : 0;
-      ws.send(encodeFrame({ kind: 'intent', entity: this.entityId, seq: this.seq, dx, dz }));
+      ws.send(encodeFrame({ kind: 'intent', entity: this.entityId, seq: this.seq, dx, dz, targetTick: this.tickHorizon }));
     }, TICK_MS);
   }
 
@@ -272,6 +290,7 @@ export async function connectFour(server: LiveServer): Promise<SocketClient[]> {
   for (let index = 1; index <= 4; index++) {
     const client = new SocketClient(`client-${index}`);
     await client.open(server.url(server.room.id, `nonce=${index}`));
+    await client.waitForWelcome(30000); // deterministic join proof; immune to CPU contention
     clients.push(client);
   }
   const joinDeadline = now() + 15000;
