@@ -27,6 +27,8 @@ const ENABLED = [
   ['resume drill --dry (P0-005)', 'node', ['scripts/drill-resume.mjs', '--dry']],
   ['validate-manifest --audit (P0-006)', 'node', ['scripts/validate-manifest.mjs', '--audit']],
   ['validate-docs (P1-001)', 'node', ['scripts/validate-docs.mjs']],
+  ['validate-gdd --template (GDD-001)', 'node', ['scripts/validate-gdd.mjs', '--template']],
+  ['gdd-coverage --min 0.80 (GDD-001)', 'node', ['scripts/gdd-coverage.mjs', '--min', '0.80']],
 ];
 
 /* A stub is a validator that prints NOT IMPLEMENTED and exits 1 (P0-002 contract). */
