@@ -88,8 +88,8 @@ if (rows.length !== EXPECTED.length) fail(`criteria table has ${rows.length} row
 
 // 3. The dossier must not present a failing budget as met.
 const wire = rows.find((row) => row.id === 'wire-budget');
-if (!wire || wire.status !== 'failing' || !wire.note.includes('3.79')) {
-  fail('wire budget must be reported as failing at 3.79x, not averaged away');
+if (!wire || wire.status !== 'failing' || !wire.note.includes('3.80')) {
+  fail('wire budget must be reported as failing at 3.80x, not averaged away');
 }
 
 // 4. All seven residual risks from the threat model must be carried verbatim.

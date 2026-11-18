@@ -14,7 +14,12 @@ import { TracerServer } from './tracer';
 const tracer = new TracerServer();
 const tracerPort = Number(process.env.TRACER_PORT ?? 8787);
 const roomPort = Number(process.env.ROOM_PORT ?? 8788);
-const rooms = new RoomHub();
+// NET-GATE requires four clients in one room; the room default stays conservative, the host is explicit.
+const roomCapacity = Number(process.env.ROOM_CAPACITY ?? 4);
+// NET-101 / A0011-i: the delta downlink is opt-in. Anything other than the exact string `delta`
+// keeps the v5 full-snapshot path, so the production default does not change by accident.
+const wire = process.env.WIRE_DELTA === 'delta' ? 'delta' : 'full';
+const rooms = new RoomHub({ capacity: roomCapacity, wire });
 
 async function listen(wss: WebSocketServer, path: string): Promise<number> {
   await new Promise<void>((resolve, reject) => {

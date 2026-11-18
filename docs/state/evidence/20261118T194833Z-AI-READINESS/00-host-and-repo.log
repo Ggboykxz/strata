@@ -1,0 +1,9 @@
+$ pwd
+/tmp/strata-art
+$ git rev-parse --abbrev-ref HEAD
+session/20261118-netgate-art
+$ git rev-parse HEAD
+79936e1b82f48c2cc2a0d800aac054247710f937
+$ git status --short
+?? docs/state/evidence/20261118T194833Z-AI-READINESS/
+EXIT=0

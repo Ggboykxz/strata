@@ -1,0 +1,26 @@
+$ find /content/ai/models/triposr -type f -printf "%s %p\n" | sort -n
+0 /content/ai/models/triposr/.cache/huggingface/download/config.yaml.lock
+0 /content/ai/models/triposr/.cache/huggingface/download/figures/input800.mp4.lock
+0 /content/ai/models/triposr/.cache/huggingface/download/figures/output_examples.mp4.lock
+0 /content/ai/models/triposr/.cache/huggingface/download/.gitattributes.lock
+0 /content/ai/models/triposr/.cache/huggingface/download/model.ckpt.lock
+0 /content/ai/models/triposr/.cache/huggingface/download/README.md.lock
+1 /content/ai/models/triposr/.cache/huggingface/.gitignore
+100 /content/ai/models/triposr/.cache/huggingface/download/README.md.metadata
+101 /content/ai/models/triposr/.cache/huggingface/download/config.yaml.metadata
+101 /content/ai/models/triposr/.cache/huggingface/download/.gitattributes.metadata
+125 /content/ai/models/triposr/.cache/huggingface/download/figures/input800.mp4.metadata
+125 /content/ai/models/triposr/.cache/huggingface/download/figures/output_examples.mp4.metadata
+125 /content/ai/models/triposr/.cache/huggingface/download/model.ckpt.metadata
+191 /content/ai/models/triposr/.cache/huggingface/CACHEDIR.TAG
+987 /content/ai/models/triposr/config.yaml
+1240 /content/ai/models/triposr/.cache/huggingface/trees/5b521936b01fbe1890f6f9baed0254ab6351c04a.json
+1583 /content/ai/models/triposr/.gitattributes
+2488 /content/ai/models/triposr/README.md
+148042 /content/ai/models/triposr/figures/input800.mp4
+2425685 /content/ai/models/triposr/figures/output_examples.mp4
+1677246742 /content/ai/models/triposr/model.ckpt
+$ sha256sum /content/ai/models/triposr/config.yaml /content/ai/models/triposr/model.ckpt
+74ca708ce086bf68e97709ea6b3d91f14717921c04691e84043f0eb8fcc68e62  /content/ai/models/triposr/config.yaml
+429e2c6b22a0923967459de24d67f05962b235f79cde6b032aa7ed2ffcd970ee  /content/ai/models/triposr/model.ckpt
+EXIT=0

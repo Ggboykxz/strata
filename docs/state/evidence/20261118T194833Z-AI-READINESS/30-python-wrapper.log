@@ -1,0 +1,10 @@
+$ cat /usr/local/bin/python
+#!/bin/bash
+# -*- mode: bash -*-
+#
+# Wrapper for delegating calls for 'python' or 'pip' to 'python3' or 'pip3'
+# respectively.
+
+exec "$(basename $0)3" "$@"$ readlink -f /usr/local/bin/python
+/usr/local/bin/python
+EXIT=0

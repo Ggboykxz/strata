@@ -2,101 +2,70 @@
 
 | field | value |
 |---|---|
-| written | 2026-11-18T14:02Z |
-| branch | `session/20261118-hc-001-high-concept` — **PR #1** (draft) https://github.com/Ggboykxz/strata/pull/1 |
-| also open | **PR #2** dashboard truth repair — `session/20261118-dashboard-truth`, base = session branch |
+| written | 2026-11-18T20:32Z |
+| branch | `session/20261118-hc-001-high-concept` — **PR #1** (draft), **PR #2** dashboard truth repair |
+| open integration PR | **PR #17** — `session/20261118-netgate-core` → session branch (Director approves; fast-forward) |
 | mode | RESUME |
 | tier | current `S0`, authorized **`S1`** |
-| last task | **GDD-005** — GDD→test transpiler + drift detection; coverage 100% |
-| next task | **PR-S7** — world tick + bounded Rouille cascade (P2-SYS) |
-| blocker | **No agent-selectable task.** PRs done (#2 closed, #3 merged at `a84733e`). Left: ND-004/005 rotation, ND-011, ND-012 (T4), 8 NET-GATE measurements. |
+| last task | **NET-GATE re-measurement session** — v4 hash per client (A0010), v5 target-tick contract (NET-GATE work), collaboration protocol, AI-001 under A0012 |
+| next task | **NET-GATE closure + integration of PR #17** (Director merge), then P2-SYS |
+| blocker | **No agent-selectable task:** everything actionable is either measured in-flight or pending Director approval (PRs #4/#5/#17, PR approvals, HF token for FLUX) |
 
 ---
 
 ## 0b. GPU handoff (read first on the new runtime)
 
-`docs/state/GPU_HANDOFF.md` is the single memory bridge: hardware probes, audited models, art contract, the 8
-unmet NET-GATE criteria, working conventions and a copy/paste first-session checklist. GPU arrival does **not**
-authorize generation — `--assert-ready` must reach 0 first (I2/A0008). ND-004/005 rotation still comes before HF use.
+The T4 exists and works. `docs/state/GPU_HANDOFF.md` remains the hardware bridge; **ND-012 is resolved as hardware availability** (T4, 15 360 MiB, CUDA 13.0 verified).
+
+**Art is still not unblocked by hardware.** I2 remains in force except for the single, explicitly granted AI-001 bypass:
+
+- **A0012 (verbatim Director, 2026-11-18)**: "bypass et fais en sorte que l'art passe a tout pris on doit gagnier du temps" + "tu vas fix tout ce qui bloque". AI-001 smoke only; outputs are smoke-quality, with full provenance manifests. No gate passes by this.
+- **FLUX.1-schnell stays NOT COMPUTABLE** (HF license gate, HTTP 401; no HF token supplied with the license accepted). Any hero 2D waits for Director credentials. `ND-004/005` rotation still comes first.
+- InstantMesh was infeasible: its pipeline hard-requires `sudo-ai/zero123plus-v1.2` — unaudited, anonymous access HTTP 404. **TripoSR (MIT) is the executed path**; results land in `docs/qa/AI_THROUGHPUT.md` on branch `session/20261118-netgate-art` (report pending at this writing).
+- A0006 stands: NET-GATE `--assert-ready` is exit 1 until the eight criteria are measured.
 
 ## 0. Long-term quality doctrine (A0008, Director)
 
-Director: Ashes-of-Creation-class quality with Babylon.js over the long term, "la qualité compte peut importe le
-temps qu'il faudra". **Benchmark only — I11 forbids copying that commercial IP.** Operationally: server truth
-before visuals, evidence over adjectives, audited stack, vertical slice before scale, no silent bypass. The
-current P2-SYS → GATE:P2 → P3-ART sequence is unchanged; unmet criteria stay in the record.
+Unchanged. Server truth before visuals; evidence over adjectives; audited stack; vertical slice before scale. Current order still: P2-SYS → GATE:P2 → P3-ART.
 
-## 1. State at hand-off
+## 1. State at hand-off (2026-11-18T20:32Z)
 
-`pnpm verify` **17/17** · NET-GATE integrity **0**, readiness **1** (8/10 unmet) · tracer green · FULL §20 emitted.
+`pnpm verify` **19/19 enabled steps green** · NET-GATE integrity **PASS**, readiness **exit 1** · 2 of 10 criteria met at signature, re-measurement in flight.
+
+Branch map (all pushed):
+
+| branch | contents | status |
+|---|---|---|
+| `session/20261118-netgate-core` | v4 (A0010), v5, docs/ADRs, collaboration contract (required/0002 log), gate doc appendix | merged clean; rides PR #17 |
+| `session/20261118-net-target-tick` | v5 input contract (a1e5961) — merged into netgate-core | merged |
+| `session/20261118-netgate-matrix` | 4-client real-socket harness + v5 adaptation; measurement in progress | pending measurement |
+| `session/20261118-netgate-persist` | reconnect (32.83 ms exact) + crash/RPO (319.08 ms, RPO 5 000 ms) v5 numbers | committed |
+| `session/20261118-netgate-wire` | AoI+delta measurement; **chained bitpacked v2 codec (6 B entries) rewritten, tests pending** | pending verification |
+| `session/20261118-netgate-security` | HMAC/TLS/flood prototype (aa16667) | committed; rebase onto v5 pending |
+| `session/20261118-netgate-art` | AI readiness dossier + A0012; TripoSR in flight | pending report |
+| `session/20261118-net-101-plan` | A0011 + wire plan (Director-pre-authorized NET-101 override; not implemented) | committed |
+
+Criteria (2026-11-18T20:32Z): four-client-matrix = in rerun; soak-30min = in run; desync-correction = in rerun; server-tick-p95 = in rerun; wire-budget = **failing** (46 650 B/s); reconnect-restore = measured-partial; crash-restore-rpo = measured-partial; threat-and-anticheat = measured-partial; authoritative-server + ledger-fuzz = met.
+
+## 2. Art handoff — what changed, what did not
+
+Changed: GPU exists; tier probes green; T4 genuinely available; AI-001 bypass under A0012; A0011 unblocks NET-101 order-of-execution when Director re-decides.
+
+Not changed: no art is scheduled; no art is production; nothing in `assets/` is new; NET-GATE's signature-time verdict is untouched; `validate-netgate --assert-ready` exit 1 remains the only truthful readiness signal; PR approvals belong to the Director.
+
+## 3. What the Director must do
+
+1. **PR approvals**: #17 (integration), #4/#5 (pre-existing). No agent may merge its own PR.
+2. **FLUX.1-schnell**: provide an HF token with the license accepted, or formally accept "hero 2D: NOT COMPUTABLE for this session".
+3. **ND-004/005** token rotation — still standing from before this session.
+4. If the 8 re-measured criteria pass, either re-affirm the risk-accepted signature or revoke it — Director's call, never an agent's.
+
+## 4. Immediate verification commands at next resume
 
 ```bash
 pnpm install --frozen-lockfile && pnpm verify
-node scripts/validate-netgate.mjs
-node scripts/validate-netgate.mjs --assert-ready   # exits 1 until the 8 criteria are measured
-pnpm vitest run tools/sim/net/test/prn4.test.ts --reporter=verbose
-node scripts/session-result.mjs --format full
+node scripts/validate-netgate.mjs                 # integrity (must pass)
+node scripts/validate-netgate.mjs --assert-ready   # readiness (expect 1 until measured green)
+cat docs/state/threads/NG-001/0002-COLLAB-LOG.md   # agent handoffs and stops
+tail docs/state/metrics/20261118-netgate-matrix.json
 ```
-
-Runtime is ephemeral: `git clone` + `corepack prepare pnpm@12.21.0 --activate` recovers everything.
-
-## 2. Art handoff and the hardware request
-
-Director said "gère l'art et go next" (verbatim, `docs/state/ART_HANDOFF.md`). **No art can be generated here**:
-no GPU and no TPU. ND-012 requests a T4 16 GB for AI-001; TPU v5e-1 is not a generation device (ND-011).
-Art tasks AI-001..AN-002 remain blocked by `GATE:P2` (P2-SYS + HC-003 + GDD-005) regardless of the
-risk-accepted NET-GATE signature. No model was downloaded and no asset was produced. Continue PR-S1 greybox.
-
-## 3. The Director signed everything — what that means and does not mean
-
-A0006 records **"je signe tout"** verbatim. NET-GATE is `signed-with-risk`, **not passed**: the dossier still lists
-2 met / 8 unmet criteria (no 4-client matrix, no soak, no tick p95, wire at 3.79× budget, no RPO, gate not wired
-into `attachRooms`). `--assert-ready` still exits 1 and must not be weakened. Art is allowed only by risk
-acceptance and with the seven residual risks from `docs/legal/THREAT_MODEL.md` attached to every art decision.
-**No art is scheduled yet**: the constitution orders P2-SYS before P3-ART.
-
-PR #1 and PR #2 were **not merged** — an agent must not self-merge. The Director must merge them from their own
-account. ND-004/ND-005 token rotation also remains a Director action.
-
-## 4. GATE:P2 — ready on the work side
-
-GATE:P2 requires GATE:NET (human signature), GATE:P2SYS (done), HC-003 (done, CIS 85/100), GDD-005 (done, 100%
-coverage + drift detection) and `cis_min: 50`. The remaining act is the Director's formal GATE:P2 signature.
-GATE:NET also awaits a human signature; NET-GATE stays `signed-with-risk` with 8 unmet criteria. No art before
-both gates are actually passed (A0008). PR #3 is merged into `main` (`a84733e`); PR #2 is closed without merging. The repo default branch is still the session branch — Director may switch it to `main` in Settings → Branches.
-
-## 4b. Babylon 9 feature research (Director input)
-
-`docs/state/threads/ENGINE-BABYLON9/0001-RESEARCH.md` records the impact analysis. Babylon 9.37.0 is already
-pinned and audited; the 9.0 node graphs are VFX/rendering tools, not gameplay truth (I1/A0001). Evaluate
-animation retargeting at AN-002, splat/large-world features at WG-001, lighting at P3-003 — each with an I4 audit
-and a measured budget, never from a blog claim. Constitution §10.4 still says "Babylon.js 8" while STACK pins
-9.37.0: a Director-signed ADR is needed to amend that sentence.
-
-## 5. Non-gated tooling candidates
-
-1. Wire `apps/dashboard/check.mjs` into `pnpm verify` — changes the 17-step baseline; own task.
-2. ~~Wire `apps/server/src/main.ts` to `attachRooms` **and** `MessageGate` (SEC-002)~~ **DONE** — rooms on 8788, real loopback test, full 302/302.
-3. Generated `docs/state/JOURNAL.md` (master §7) — view missing; `AGENTS.md` §1 points at it.
-4. `validate-locks.mjs` cannot represent a gate (`task_id` must exist in `BLUEPRINT.yaml`).
-5. Pin the Playwright MCP in `opencode.json` (unpinned, §10.6).
-6. `docs/STACK.lock.md` line 39 is stale — **left stale by instruction in A0004**.
-
-## 6. Re-measurement owed before NET-GATE can be READY
-
-1. 4-client RTT 0/50/150/300 ms × loss 0/2/5 % × jitter 0/30 ms matrix, 30-minute soak, zero hash mismatch,
-   correction p95 < 0.3 m, no rubber-band > 2 m.
-2. Server tick p95 ≤ 25 ms measured under that load.
-3. AoI + delta (NET-101) to bring 46 530 B/s under 12 288 B/s at 64 entities.
-4. Measured crash dataset with restore ≤ 3 s and published RPO ≤ 60 s.
-5. `attachRooms` routed through `MessageGate` with no bypass (SEC-002), plus auth and TLS.
-
-## 7. Environment / hardware
-
-Node 22.23.4, pnpm 12.21.0 via corepack, TypeScript 6.0.3, Vitest 5.1.0.
-
-**Current runtime: no GPU and no TPU.** Director confirmed "je dois donc passer au t4 pour continuer" (ND-012).
-The T4 16 GB is needed for **art generation only** (AI-001/AI-002); PR-S7/PR-S8 and the NET-GATE measurements
-are CPU-only and can proceed now. On T4 arrival, log both detect_tier.py probes (expect 16GB / 15 360 MiB), then
-start AI-001 under locks — nine models are already audited, no binary enters git. TPU v5e-1 is not a generation
-device (ND-011). Secrets from env only; the repo is public.

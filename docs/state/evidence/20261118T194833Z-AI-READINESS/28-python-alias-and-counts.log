@@ -1,0 +1,8 @@
+$ command -v python
+/usr/local/bin/python
+$ python3 -m pip list --format=freeze | wc -l
+722
+$ df -B1 /content
+Filesystem        1B-blocks       Used    Available Use% Mounted on
+overlay        120942624768 2088312832 118837534720   2% /
+EXIT=0

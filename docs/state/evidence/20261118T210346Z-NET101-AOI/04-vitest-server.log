@@ -1,0 +1,13 @@
+
+ RUN  v5.1.0 /tmp/strata-aoi
+
+
+ Test Files  14 passed (14)
+      Tests  86 passed (86)
+   Start at  21:05:54
+   Duration  52.08s (tests 91%, import 6%, transform 2%)
+
+    Isolate  14 workers spawned · ~362ms startup each (spawn + environment, per file)
+             at least ~4.70s faster with isolate: false — reuses workers across files instead of one per file
+
+EXIT=0

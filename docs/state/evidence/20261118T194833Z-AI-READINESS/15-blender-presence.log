@@ -1,0 +1,5 @@
+$ command -v blender
+EXIT=1
+$ blender --version
+environment: line 2: blender: command not found
+EXIT=127

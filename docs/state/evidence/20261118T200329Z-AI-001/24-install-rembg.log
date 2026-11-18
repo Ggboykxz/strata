@@ -1,0 +1,21 @@
+$ uv pip install --python /content/ai/venv-trisr/bin/python rembg   # import-time only; u2net never downloaded; inference uses --no-remove-bg
+Using Python 3.13.16 environment at: /content/ai/venv-trisr
+Resolved 26 packages in 133ms
+Installed 16 packages in 49ms
+ + attrs==26.1.0
+ + imageio==2.38.2
+ + jsonschema==4.26.0
+ + jsonschema-specifications==2025.9.1
+ + lazy-loader==0.6
+ + llvmlite==0.50.0
+ + numba==0.68.1
+ + platformdirs==4.14.7
+ + pooch==1.9.0
+ + pymatting==1.1.16
+ + referencing==0.37.0
+ + rembg==2.0.87
+ + rpds-py==2026.9.1
+ + scikit-image==0.26.0
+ + scipy==1.18.1
+ + tifffile==2026.11.16
+EXIT=0

@@ -39,7 +39,7 @@ export function parseConnectionQuery(url: string): ConnectionQuery | null {
 }
 
 function reject(socket: WebSocket): void {
-  socket.send(encodeFrame({ kind: 'reject', version: 2, reason: 'unauthorized' }));
+  socket.send(encodeFrame({ kind: 'reject', version: PROTOCOL_VERSION, reason: 'unauthorized' }));
   socket.close();
 }
 

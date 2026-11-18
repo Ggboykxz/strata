@@ -1,0 +1,11 @@
+$ pnpm vitest run --config tests/security/vitest.config.ts
+
+ RUN  v5.1.0 /tmp/strata-security
+
+
+ Test Files  1 passed (1)
+      Tests  10 passed (10)
+   Start at  20:00:37
+   Duration  362ms (import 46%, transform 33%, tests 17%, worker 5%)
+
+EXIT=0

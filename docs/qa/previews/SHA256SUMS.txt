@@ -1,0 +1,4 @@
+d6b8950aa02a3785460a13160de5f418cab747d3a1d6dad6bade0338efbd736d  docs/qa/previews/golem.png
+98b4967b35e08634c5597c2afc633e31018380b7d1b91610c3d14da662adfc29  docs/qa/previews/pine.png
+03c1200ec30c2e47553b4e7e2836437305dabe1dc6e3d8bcf69ee6b5cd2437bc  docs/qa/previews/rock.png
+7dfd97a71263a5b87193e067fc10cf7ac73ae65f63e14bd255f15069498a228a  docs/qa/previews/sword.png

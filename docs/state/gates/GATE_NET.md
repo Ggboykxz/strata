@@ -35,3 +35,22 @@ inferred a signature (D136). The gate dossier keeps all 10 master §5.2 criteria
 This signature is not a permanent certificate. After a real 4-client load harness, AoI/delta (NET-101) and RPO
 evidence exist, the gate must be re-measured and either confirmed or revoked. The residual risks in
 `docs/legal/THREAT_MODEL.md` stay attached to every art decision made under this gate.
+
+---
+
+## Update 2026-11-18 (post-signature session; verdict unchanged)
+
+This appendix records factual deltas since the signature; it is **not** a re-signature and changes nothing about the verdict above.
+
+- **A0010 (protocol v4)** — snapshots carry per-client `viewHash`; cross-client false desyncs eliminated; snapshot header 15→19 B; max frame 1 555 B = 46 650 B/s = **3.80×** (dossier updated; validator asserts « failing at 3.80x »).
+- **Protocol v5** — deterministic target-tick input contract merged into `session/20261118-netgate-core` (`b8d13c7`); 327 tests green at v5 tip; merge rides PR #17 for Director approval. Integration branch: `session/20261118-netgate-core`.
+- **A0011 (planned)** — NET-101 order-of-execution override for gate-scoped AoI+delta implementation; not implemented; the Director may re-decide.
+- **A0012 (I2 bypass, verbatim Director instruction)** — AI-001 smoke only; not gate evidence; no art in repo.
+- **Wire-budget**: still **failing**; AoI+delta bitpacked (6 B entries) verification in progress at time of writing.
+- **Reconnect** measured-partial (v5): exact entity/handle/hash/seq; resume 32.83 ms; late resume refused; loopback only.
+- **Crash/RPO** measured-partial (v5): restore 319.08 ms, RPO 5 000 ms published, drift 0, 1.66 MB measured dataset, SIGKILL; not production Postgres.
+- **Threat-and-anticheat** measured-partial (SEC prototype): live-path MessageGate; HMAC token prototype; TLS 1.3 handshake; persistent counters; in-memory rate state remains.
+- **4-client matrix + soak v5**: in measurement on branch `session/20261118-netgate-matrix`; results land as measured, pass or fail.
+- **Art generation**: none; FLUX.1-schnell remains NOT COMPUTABLE (HF license gate, HTTP 401, no credentials supplied).
+
+`node scripts/validate-netgate.mjs --assert-ready` exits **1** as of this appendix; integrity PASS.

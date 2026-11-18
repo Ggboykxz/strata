@@ -1,0 +1,47 @@
+$ python3 -m json.tool tools/asset-pipeline/manifests/ai-001-hero-mesh-0001.json
+{
+    "asset_manifest": "v1",
+    "asset_id": "ai-001-hero-mesh-0001",
+    "licence_id": "TRIPOSR",
+    "licence": "MIT (TripoSR code and pretrained model; GitHub LICENSE + HF tag license:mit)",
+    "model_source": "https://github.com/VAST-AI-Research/TripoSR",
+    "weights_source": "https://huggingface.co/stabilityai/TripoSR",
+    "model_revision": "107cefdc244c39106fa830359024f6a2f1c78871",
+    "weights_revision": "5b521936b01fbe1890f6f9baed0254ab6351c04a",
+    "weights_sha256": "429e2c6b22a0923967459de24d67f05962b235f79cde6b032aa7ed2ffcd970ee",
+    "weights_bytes": 1677246742,
+    "weights_config_sha256": "74ca708ce086bf68e97709ea6b3d91f14717921c04691e84043f0eb8fcc68e62",
+    "prompt_hash": "26896a0cb9653cf5654c4ea2d27be91d1cd00045714dfa845ffddf4803db4eaf",
+    "tier": "16GB",
+    "gpu": "Tesla T4",
+    "vram_visible_mib": 14912,
+    "throughput": {
+        "measured_seconds": 25.734,
+        "vram_peak_mib": 3163,
+        "vram_peak_bytes": 3316645888,
+        "measurement": "nvidia-smi --query-gpu=timestamp,memory.used,utilization.gpu --format=csv,noheader -lms 250, 102 samples",
+        "evidence": "docs/state/evidence/20261118T202814Z-TRIPOSR-RUN/35-triposr-inference-final.log; 37-vram-peak-fixed.log"
+    },
+    "input_sha256": "effe6dbe4fa21e4e88a1055c47b30ae5cf0a11625346a8780ff5d69dbf289bd0",
+    "input_generator": "tools/asset-pipeline/gen_input_white.py",
+    "output_sha256": {
+        "glb": "9ad2fac19c9f10b4c9fca17f8f2dbb7845283b65e02adc3c04734e707e0ee05d",
+        "obj": null
+    },
+    "output_bytes": 3773188,
+    "mesh_stats": {
+        "vertices": 94306,
+        "faces": 188608,
+        "animation_tracks": 0
+    },
+    "generated_at": "2026-11-18T20:34:09Z",
+    "class": "ai-generated-smoke-bypass-A0012",
+    "authority": "A0012 (Director I2 suspension for AI-001 only); AUDIT-2026-11-18-P0-006",
+    "input_note": "Original synthetic procedural faceted golem on a flat gray background, authored by this task; no borrowed art, no photo, no commercial IP; 256x256 RGB.",
+    "notes": [
+        "FLUX hero image: NOT COMPUTABLE. FLUX.1-schnell weights are license-gated (anonymous HTTP 401); no HF token is present in this environment and none was obtained. The image step stays NOT COMPUTABLE until the Director supplies a token and accepts the license.",
+        "InstantMesh / Zero123++ leg: NOT COMPUTABLE under AUDIT-2026-11-18-P0-006 (unaudited sudo-ai/zero123plus-v1.2); nvdiffrast, xatlas and moderngl were abandoned; TripoSR is the audited fallback actually used.",
+        "One-off smoke-quality generation under a Director bypass. Not production art; not gate evidence; does not satisfy NET-GATE."
+    ]
+}
+EXIT=0

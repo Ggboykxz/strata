@@ -1,0 +1,3 @@
+validate-netgate — FAIL (1)
+  - wire-budget: evidence log missing: docs/state/evidence/20261118T082404Z-NET-002/09-frame-size.log` (v3 numbers); v4 measurement in `docs/state/evidence/20261118T195450Z-NETGATE-CORE/
+EXIT=1

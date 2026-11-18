@@ -1,0 +1,35 @@
+# AI-001 mesh-generation environment (STRATA, T4 16 GB, Python 3.13.16).
+# Authored 2026-11-18 under A0012 (Director I2 bypass, AI-001 only).
+# Minimal set for the audited InstantMesh / TripoSR codepaths on py3.13.
+# Deviations from upstream InstantMesh requirements.txt (recorded in
+# docs/qa/AI_THROUGHPUT.md):
+#   - pytorch-lightning kept (run.py imports seed_everything; model files
+#     import pytorch_lightning), but gradio/train demos excluded
+#   - diffusers/transformers NOT pinned to 0.20.2/4.34.1 (no py3.13 wheels
+#     guarantees); see compiled lock for resolved versions
+#   - rembg kept although inference runs with --no_rembg, because run.py and
+#     src/utils/infer_util.py import it at module import time
+#   - PyMCubes / xformers / torchmcubes EXCLUDED: NeRF variants only
+#     (instant-nerf-*); the audited path uses the FlexiCubes mesh model
+#   - nvdiffrast NOT on PyPI; installed separately from the upstream VCS repo
+#   - opencv-python-headless added: src/utils/mesh_util.py imports cv2
+#   - torchaudio, bitsandbytes, tensorboard, webdataset, accelerate,
+#     huggingface-hub gradio demo deps EXCLUDED: not imported by run.py
+torch
+torchvision
+numpy
+pillow
+trimesh
+pytorch-lightning
+omegaconf
+einops
+transformers
+diffusers
+huggingface-hub
+safetensors
+rembg
+xatlas
+opencv-python-headless
+imageio[ffmpeg]
+tqdm
+requests

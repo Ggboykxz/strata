@@ -1,0 +1,14 @@
+$ vitest run
+
+ RUN  v5.1.0 /content/strata
+
+
+ Test Files  42 passed (42)
+      Tests  303 passed (303)
+   Start at  19:55:50
+   Duration  13.96s (tests 64%, import 22%, transform 9%, worker 5%)
+
+    Isolate  42 workers spawned · ~176ms startup each (spawn + environment, per file)
+             at least ~7.23s faster with isolate: false — reuses workers across files instead of one per file
+
+EXIT=0

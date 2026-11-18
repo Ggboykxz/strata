@@ -13,14 +13,19 @@ const ACCEPTANCE = [
   "GIVEN Math.random injected into packages/core WHEN pnpm lint runs THEN it exits 1.",
   "GIVEN a v1 and a v3 hello WHEN `negotiate` runs THEN both return `reject{reason:'version'}` and neither is coerced.",
   "GIVEN every v2 message class WHEN it is encoded and decoded THEN the value is identical (round-trip).",
-  "GIVEN a 64-entity snapshot WHEN encoded THEN it is exactly 1 551 bytes and over the 12 KB/s budget, recorded as NET-101's problem.",
+  "GIVEN a 64-entity snapshot WHEN encoded THEN it is exactly 1 555 bytes (v4, A0010) and over the 12 KB/s budget, recorded as NET-101's problem.",
   "GIVEN a local intent and a matching server snapshot WHEN reconciled THEN the verdict is `ok` and only intents with seq above the entity's appliedSeq are replayed.",
   "GIVEN a wrong snapshot hash, or a missing own entity WHEN reconciled THEN the verdict is `desync`, pending intents are cleared, resync is requested and the authoritative state is adopted exactly.",
   "GIVEN two snapshots WHEN sampled at render ticks THEN interpolation yields integer millimetres and the buffer never rewinds.",
   "GIVEN a shot at a tick inside the ring WHEN validated THEN range, LOS and cooldown are checked on that rewound world; a tick outside the ring is `stale-shot`.",
   "GIVEN a client `claimed` flag WHEN validation runs THEN the verdict is identical with `claimed` true or false.",
   "GIVEN a v2 hello WHEN negotiated THEN the peer is refused; a v3 anim frame and a resync request round-trip at exact byte lengths.",
-  "GIVEN inter-snapshot gaps WHEN observed THEN the presentation jitter buffer stays inside 3..8 ticks and resets to the floor on resync."
+  "GIVEN inter-snapshot gaps WHEN observed THEN the presentation jitter buffer stays inside 3..8 ticks and resets to the floor on resync.",
+  "GIVEN an intent scheduled at targetTick T WHEN the world advances to T THEN it is applied exactly at T and two replicas produce the same hash.",
+  "GIVEN an intent whose targetTick is in the past at the moment it arrives from a socket WHEN the room handles it THEN it is dropped, never applied, and counted (late_intents).",
+  "GIVEN an intent scheduled more than 64 ticks ahead WHEN it arrives from a socket THEN it is refused at ingress; an intent at exactly 64 ticks ahead is admitted.",
+  "GIVEN a 15-byte v5 intent WHEN it is encoded and decoded THEN the value is identical (round-trip).",
+  "GIVEN a client with unacked scheduled intents WHEN a snapshot reconcile completes THEN the intents replay at their original targetTick, never double-applied, and an intent whose targetTick passed while unacknowledged is still replayed at the earliest available tick."
 ];
 
 describe('GDD-NETCODE GDD acceptance (structural)', () => {

@@ -5,12 +5,21 @@
  *
  * No wall clock here: the caller ticks rooms. No auth here: a handle is a resume hint, not a credential
  * (SEC-001). No persistence: a process restart loses rooms by design.
+ *
+ * Downlink codec is selectable: `wire: 'full'` (default) sends the v5 whole-world snapshot; `wire:
+ * 'delta'` sends per-client AoI-filtered chained DeltaFrames (NET-101 / A0011-i). The full path is
+ * untouched. No packet loss, retransmit or ack fabrication is modelled here: the live measurement uses
+ * lossless in-process loopback delivery and the existing `hashack` flow unchanged.
  */
 import { fnv1a32 } from '@strata/core';
 import {
-  SUPPORTED_MAX_VERSION, SUPPORTED_MIN_VERSION, decodeFrame, encodeFrame, negotiate, snapshotFromWorld,
+  SUPPORTED_MAX_VERSION, SUPPORTED_MIN_VERSION, decodeFrame, encodeDeltaFrame, encodeFrame,
+  negotiate, snapshotFromWorld,
+  baselineFromSnapshot, buildDelta, buildKeyframe, hashAoiSnapshot, keyframeDue,
+  type AoiSnapshot, type DeltaBaseline, type DeltaFrame,
   type SnapshotFrame, type WireMessage,
 } from '@strata/protocol';
+import { AOI_RADIUS_MM, queryAoi } from '../aoi';
 import { SimHost } from '../sim/host';
 import { TokenIssuer } from './tokens';
 
@@ -44,7 +53,15 @@ export interface RoomOptions {
   readonly capacity?: number;
   /** Ticks a handle may stay away before eviction. 30 ticks = 1 s at 30 Hz. */
   readonly reconnectTicks?: number;
+  /**
+   * Downlink payload. `full` (default) is the v5 whole-world snapshot, unchanged. `delta` is the
+   * NET-101 gate-scoped path (A0011-i): per-client AoI-filtered, chained bit-packed DeltaFrames.
+   */
+  readonly wire?: 'delta' | 'full';
 }
+
+/** A delta keyframe is sent first, on forced resync, and at least this often otherwise. */
+export const DELTA_KEYFRAME_INTERVAL_TICKS = 60;
 
 /** Tick at which the room currently is, plus the events that tick produced. */
 export interface RoomTick {
@@ -52,6 +69,9 @@ export interface RoomTick {
   readonly hash: string;
   readonly events: readonly RoomEvent[];
 }
+
+/** Intents may be scheduled at most this many ticks ahead; beyond that they are refused at ingress. */
+export const MAX_TARGET_LEAD_TICKS = 64;
 
 function seedFromId(id: string): number {
   const codes: number[] = [];
@@ -68,7 +88,15 @@ export class Room {
   private nextNonce = 1;
   private phaseValue: RoomPhase = 'open';
   private tickValue = 0;
+  private lateIntentsValue = 0;
   private readonly events: RoomEvent[] = [];
+  private readonly wireMode: 'delta' | 'full';
+  /** Last applied frame per client — the chained-delta baseline, NOT the last keyframe. */
+  private readonly baselines = new Map<number, DeltaBaseline>();
+  private readonly lastKeyframeTicks = new Map<number, number>();
+  private readonly forceKeyframeClients = new Set<number>();
+  private keyframesSentValue = 0;
+  private deltaFramesSentValue = 0;
   readonly capacity: number;
   readonly reconnectTicks: number;
 
@@ -76,8 +104,10 @@ export class Room {
     const seed = options.seed ?? seedFromId(id);
     this.capacity = options.capacity ?? 2;
     this.reconnectTicks = options.reconnectTicks ?? 30;
+    this.wireMode = options.wire ?? 'full';
     if (!Number.isInteger(this.capacity) || this.capacity < 1) throw new RangeError('capacity must be positive');
     if (!Number.isInteger(this.reconnectTicks) || this.reconnectTicks < 0) throw new RangeError('reconnectTicks must be non-negative');
+    if (this.wireMode !== 'delta' && this.wireMode !== 'full') throw new RangeError('wire must be delta or full');
     this.host = new SimHost(seed, this.capacity);
     this.issuer = new TokenIssuer(seed);
   }
@@ -87,6 +117,12 @@ export class Room {
   get members(): readonly RoomClient[] { return [...this.clients.values()]; }
   get hash(): string { return this.host.hash; }
   get sim(): SimHost { return this.host; }
+  /** Intents dropped at ingress because their targetTick was already in the past (v5 target-tick contract). */
+  get lateIntents(): number { return this.lateIntentsValue; }
+  /** Active downlink codec. `full` is the safe default; `delta` is the A0011-i gate-scoped path. */
+  get wire(): 'delta' | 'full' { return this.wireMode; }
+  get keyframesSent(): number { return this.keyframesSentValue; }
+  get deltaFramesSent(): number { return this.deltaFramesSentValue; }
 
   private emit(kind: RoomEventKind, clientId: number): void {
     this.events.push({ kind, roomId: this.id, clientId, tick: this.tickValue });
@@ -134,18 +170,74 @@ export class Room {
     if (!client || client.socket === null) return;
     client.socket = null;
     client.disconnectedAtTick = this.tickValue;
+    // A reconnect may have missed frames: the next delta frame must be a fresh keyframe.
+    if (this.wireMode === 'delta') this.forceKeyframeClients.add(clientId);
     this.phaseValue = 'draining';
   }
 
-  /** Snapshot for one client, with the per-entity applied seq the client will replay after. */
+  /**
+   * Snapshot for one client: the whole world (needed to interpolate other players) plus `viewHash`,
+   * the hash of that client's own entity, and its own applied seq. A client cannot predict remote
+   * intents, so the global hash is audit-only (A0010 / NET-104).
+   */
   snapshotFor(client: RoomClient): SnapshotFrame | null {
     const entity = this.host.state.entities.find((e) => e.id === client.entityId);
     if (!entity) return null;
-    return { kind: 'snapshot', tick: this.tickValue, hash: this.hash, appliedSeq: entity.seq, entities: [entity] };
+    return snapshotFromWorld(this.host.state, this.hash, client.entityId, entity.seq);
+  }
+
+  /**
+   * NET-101 delta path (A0011-i). One client's AoI view at the current tick, encoded as a chained
+   * DeltaFrame. The first frame, any forced resync, and every 60th tick are keyframes; every other
+   * tick is a delta against the *previous frame the client applied* (the chain advances on deltas).
+   * Entities leaving the AoI are reported in `removed`.
+   *
+   * The frame `hash` is `hashAoiSnapshot(tick, view)` — the client-scoped AoI hash. It replaces the
+   * full path's per-client `viewHash` (A0010): both are computed from that recipient's own view, never
+   * from the global audit hash, and the codec re-verifies it on apply. The global hash stays in
+   * `Room.hash`/hashack and is unchanged.
+   */
+  private deltaFor(client: RoomClient): DeltaFrame | null {
+    const state = this.host.state;
+    const view = queryAoi(state, client.entityId, AOI_RADIUS_MM);
+    const snapshot: AoiSnapshot = {
+      tick: state.tick,
+      entities: view,
+      hash: hashAoiSnapshot(state.tick, view),
+    };
+    const baseline = this.baselines.get(client.clientId) ?? null;
+    const forced = this.forceKeyframeClients.delete(client.clientId);
+    const keyframe = forced || baseline === null
+      || keyframeDue(snapshot.tick, this.lastKeyframeTicks.get(client.clientId) ?? null, DELTA_KEYFRAME_INTERVAL_TICKS);
+    const frame: DeltaFrame = keyframe
+      ? buildKeyframe(snapshot)
+      : buildDelta(baseline, snapshot);
+
+    // Chained codec: the next delta is relative to this frame, whether it was a keyframe or a delta.
+    this.baselines.set(client.clientId, baselineFromSnapshot(snapshot));
+    if (keyframe) {
+      this.lastKeyframeTicks.set(client.clientId, snapshot.tick);
+      this.keyframesSentValue++;
+    } else {
+      this.deltaFramesSentValue++;
+    }
+    return frame;
+  }
+
+  /** Ask for a re-anchor on the next tick. Only meaningful on the delta path; a client asks via a resync frame. */
+  forceKeyframe(clientId: number): boolean {
+    const client = this.clients.get(clientId);
+    if (!client || client.socket === null || this.wireMode !== 'delta') return false;
+    this.forceKeyframeClients.add(clientId);
+    return true;
   }
 
   private send(client: RoomClient, message: WireMessage): void {
     if (client.socket) client.socket.send(encodeFrame(message));
+  }
+
+  private sendBytes(client: RoomClient, bytes: Uint8Array): void {
+    if (client.socket) client.socket.send(bytes);
   }
 
   /** Decode one inbound frame. Returns false for malformed bytes, a refused intent or a desync ack. */
@@ -169,9 +261,27 @@ export class Room {
         this.emit('rejected-intent', clientId);
         return false; // replay or stale intent: never enqueue it twice
       }
-      const accepted = this.host.submit({
-        entity: client.entityId, seq: message.seq, dx: message.dx, dz: message.dz,
-      });
+      // v5 target-tick contract: an intent whose targetTick is already in the past at the moment it
+      // arrives is dropped and counted, never applied late. More than 64 ticks ahead is refused at ingress.
+      const arrivalTick = this.host.tick;
+      if (message.targetTick <= arrivalTick) {
+        this.lateIntentsValue++;
+        this.emit('rejected-intent', clientId);
+        return false;
+      }
+      const command = { entity: client.entityId, seq: message.seq, dx: message.dx, dz: message.dz };
+      if (message.targetTick <= arrivalTick + 1) {
+        // Exactly the next tick: today's behaviour, applied as usual.
+        const accepted = this.host.submit(command);
+        if (accepted) this.submittedSeq.set(client.entityId, message.seq);
+        else this.emit('rejected-intent', clientId);
+        return accepted;
+      }
+      if (message.targetTick > arrivalTick + MAX_TARGET_LEAD_TICKS) {
+        this.emit('rejected-intent', clientId);
+        return false; // scheduled too far ahead: refused at ingress, never buffered
+      }
+      const accepted = this.host.buffer({ ...command, targetTick: message.targetTick });
       if (accepted) this.submittedSeq.set(client.entityId, message.seq);
       else this.emit('rejected-intent', clientId);
       return accepted;
@@ -181,15 +291,26 @@ export class Room {
       if (verdict === 'desync') this.emit('desync', clientId);
       return verdict !== 'desync';
     }
+    if (message.kind === 'resync') {
+      // The client asks; the server decides (I1). A resync re-anchors the chained delta path.
+      return this.forceKeyframe(clientId);
+    }
     return false; // a server does not accept snapshots from clients (I1)
   }
 
-  /** Advance the authoritative tick, broadcast one snapshot per connected client, then sweep handles. */
+  /** Advance the authoritative tick, send each client its own snapshot, then sweep handles. Buffered intents due this tick are submitted by the host before the world advances (v5 target-tick contract). */
   tick(): RoomTick {
     const result = this.host.step();
     this.tickValue = result.tick;
-    const snapshot = snapshotFromWorld(this.host.state, result.hash);
-    for (const client of this.members) this.send(client, snapshot);
+    for (const client of this.members) {
+      if (this.wireMode === 'delta') {
+        const frame = this.deltaFor(client);
+        if (frame) this.sendBytes(client, encodeDeltaFrame(frame));
+      } else {
+        const snapshot = this.snapshotFor(client);
+        if (snapshot) this.send(client, snapshot);
+      }
+    }
 
     for (const client of this.members) {
       if (client.socket === null && client.disconnectedAtTick !== null

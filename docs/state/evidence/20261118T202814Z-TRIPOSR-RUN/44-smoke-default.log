@@ -1,0 +1,8 @@
+$ python tools/asset-pipeline/smoke.py
+AI-001 smoke — default (offline) verification
+  generated_at_utc 20261118T203605Z
+tier probe: python tools/asset-pipeline/detect_tier.py
+  tier probe EXIT=2
+  tier stderr: /usr/bin/python3: can't open file '/tmp/strata-art/tools/tools/asset-pipeline/detect_tier.py': [Errno 2] No such file or directory
+FAIL missing manifest /tmp/strata-art/tools/tools/asset-pipeline/manifests/ai-001-hero-mesh-0001.json
+EXIT=1

@@ -1,0 +1,27 @@
+$ PYTHONPATH=/content/ai/shim /content/ai/venv-trisr/bin/python /content/ai/graph/TripoSR/run.py /content/ai/hero_input_white.png --pretrained-model-name-or-path /content/ai/models/triposr --output-dir /content/ai/output --no-remove-bg --model-save-format glb
+# attempt 2: attempt 1 (31-*) exited 1 in 5.257 s at `import xatlas` before any GPU work; refusal shims added in 32-*.
+2026-11-18 20:33:00,065 - INFO - Initializing model ...
+/content/ai/venv-trisr/lib/python3.13/site-packages/transformers/utils/generic.py:441: FutureWarning: `torch.utils._pytree._register_pytree_node` is deprecated. Please use `torch.utils._pytree.register_pytree_node` instead.
+  _torch_pytree._register_pytree_node(
+/content/ai/venv-trisr/lib/python3.13/site-packages/transformers/utils/generic.py:309: FutureWarning: `torch.utils._pytree._register_pytree_node` is deprecated. Please use `torch.utils._pytree.register_pytree_node` instead.
+  _torch_pytree._register_pytree_node(
+2026-11-18 20:33:14,740 - INFO - Initializing model finished in 14674.92ms.
+2026-11-18 20:33:14,741 - INFO - Processing images ...
+2026-11-18 20:33:14,809 - INFO - Processing images finished in 68.33ms.
+2026-11-18 20:33:14,809 - INFO - Running image 1/1 ...
+2026-11-18 20:33:14,809 - INFO - Running model ...
+2026-11-18 20:33:20,463 - INFO - Running model finished in 5653.17ms.
+2026-11-18 20:33:20,463 - INFO - Extracting mesh ...
+2026-11-18 20:33:25,417 - INFO - Extracting mesh finished in 4954.42ms.
+2026-11-18 20:33:25,418 - INFO - Exporting mesh ...
+Traceback (most recent call last):
+  File "/content/ai/graph/TripoSR/run.py", line 190, in <module>
+    meshes[0].export(out_mesh_path)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/content/ai/venv-trisr/lib/python3.13/site-packages/trimesh/base.py", line 3045, in export
+    return export_mesh(mesh=self, file_obj=file_obj, file_type=file_type, **kwargs)
+  File "/content/ai/venv-trisr/lib/python3.13/site-packages/trimesh/exchange/export.py", line 55, in export_mesh
+    file_obj = open(file_path, "wb")
+FileNotFoundError: [Errno 2] No such file or directory: '/content/ai/output/0/mesh.glb'
+wall_seconds 32.418
+EXIT=1

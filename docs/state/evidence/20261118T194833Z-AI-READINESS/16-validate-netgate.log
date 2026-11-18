@@ -1,0 +1,25 @@
+$ node scripts/validate-netgate.mjs
+validate-netgate — PASS — dossier honest, evidence-complete, signature recorded as risk-accepted
+NET-GATE readiness: NOT READY — 8/10 criteria not met
+  - four-client-matrix: not-measured
+  - soak-30min: not-measured
+  - desync-correction: not-measured
+  - server-tick-p95: not-measured
+  - wire-budget: failing
+  - reconnect-restore: partial
+  - crash-restore-rpo: partial
+  - threat-and-anticheat: partial
+EXIT=0
+$ node scripts/validate-netgate.mjs --assert-ready
+validate-netgate — PASS — dossier honest, evidence-complete, signature recorded as risk-accepted
+NET-GATE readiness: NOT READY — 8/10 criteria not met
+  - four-client-matrix: not-measured
+  - soak-30min: not-measured
+  - desync-correction: not-measured
+  - server-tick-p95: not-measured
+  - wire-budget: failing
+  - reconnect-restore: partial
+  - crash-restore-rpo: partial
+  - threat-and-anticheat: partial
+validate-netgate --assert-ready — FAIL — 8 criteria unmet; the recorded signature is a risk acceptance, not evidence of readiness.
+EXIT=1

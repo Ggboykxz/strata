@@ -1,0 +1,3 @@
+$ node scripts/validate-manifest.mjs
+usage: node scripts/validate-manifest.mjs --audit
+EXIT=64

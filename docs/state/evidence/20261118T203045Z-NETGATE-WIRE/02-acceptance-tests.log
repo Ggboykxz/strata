@@ -1,0 +1,138 @@
+
+ RUN  v5.1.0 /tmp/strata-wire
+
+ ❯ tools/netgate/wire/test/wire.test.ts (9 tests | 6 failed) 1262ms
+   ❯ wire budget arithmetic (2)
+     × reproduces the PR-N1 control exactly: 1 551 B x 30 Hz = 46 530 B/s down 576ms
+   ❯ keyframe recovery after loss (3)
+     × retransmits a lost keyframe and still ends on the server hash 83ms
+     × recovers from a lost delta by forcing a keyframe re-anchor 60ms
+     × recovers when a keyframe and several deltas are lost together 86ms
+   ❯ measurement report (2)
+     × measures both activity bounds deterministically and prints the report 332ms
+     × uses a shorter run for the deterministic repeat check 75ms
+ ❯ packages/protocol/test/delta.test.ts (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  packages/protocol/test/delta.test.ts [ packages/protocol/test/delta.test.ts ]
+RangeError: Offset is outside the bounds of the DataView
+ ❯ encodeDeltaFrame packages/protocol/src/delta.ts:530:10
+    528|     view.setInt8(offset + 4, entry.vx);
+    529|     view.setInt8(offset + 5, entry.vz);
+    530|     view.setUint8(offset + 6, entry.seqDelta);
+       |          ^
+    531|     offset += RELATIVE_ENTRY_BYTES;
+    532|   }
+ ❯ packages/protocol/test/delta.test.ts:225:17
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/7]⎯
+
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 6 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tools/netgate/wire/test/wire.test.ts > wire budget arithmetic > reproduces the PR-N1 control exactly: 1 551 B x 30 Hz = 46 530 B/s down
+AssertionError: expected 1555 to be 1551 // Object.is equality
+
+- Expected
++ Received
+
+- 1551
++ 1555
+
+ ❯ tools/netgate/wire/test/wire.test.ts:22:39
+     20|   it('reproduces the PR-N1 control exactly: 1 551 B x 30 Hz = 46 530 B…
+     21|     const control = measureControl(buildWorlds('dense', 600));
+     22|     expect(control.fullSnapshotBytes).toBe(1_551);
+       |                                       ^
+     23|     expect(control.maxFrameBytes).toBe(1_551);
+     24|     expect(control.down.bestBytesPerSecond).toBe(46_530);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/7]⎯
+
+ FAIL  tools/netgate/wire/test/wire.test.ts > keyframe recovery after loss > retransmits a lost keyframe and still ends on the server hash
+RangeError: Offset is outside the bounds of the DataView
+ ❯ encodeDeltaFrame packages/protocol/src/delta.ts:530:10
+    528|     view.setInt8(offset + 4, entry.vx);
+    529|     view.setInt8(offset + 5, entry.vz);
+    530|     view.setUint8(offset + 6, entry.seqDelta);
+       |          ^
+    531|     offset += RELATIVE_ENTRY_BYTES;
+    532|   }
+ ❯ runClientStream tools/netgate/wire/netgate_wire.ts:336:19
+ ❯ tools/netgate/wire/test/wire.test.ts:71:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/7]⎯
+
+ FAIL  tools/netgate/wire/test/wire.test.ts > keyframe recovery after loss > recovers from a lost delta by forcing a keyframe re-anchor
+RangeError: Offset is outside the bounds of the DataView
+ ❯ encodeDeltaFrame packages/protocol/src/delta.ts:530:10
+    528|     view.setInt8(offset + 4, entry.vx);
+    529|     view.setInt8(offset + 5, entry.vz);
+    530|     view.setUint8(offset + 6, entry.seqDelta);
+       |          ^
+    531|     offset += RELATIVE_ENTRY_BYTES;
+    532|   }
+ ❯ runClientStream tools/netgate/wire/netgate_wire.ts:336:19
+ ❯ tools/netgate/wire/test/wire.test.ts:84:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/7]⎯
+
+ FAIL  tools/netgate/wire/test/wire.test.ts > keyframe recovery after loss > recovers when a keyframe and several deltas are lost together
+RangeError: Offset is outside the bounds of the DataView
+ ❯ encodeDeltaFrame packages/protocol/src/delta.ts:530:10
+    528|     view.setInt8(offset + 4, entry.vx);
+    529|     view.setInt8(offset + 5, entry.vz);
+    530|     view.setUint8(offset + 6, entry.seqDelta);
+       |          ^
+    531|     offset += RELATIVE_ENTRY_BYTES;
+    532|   }
+ ❯ runClientStream tools/netgate/wire/netgate_wire.ts:336:19
+ ❯ tools/netgate/wire/test/wire.test.ts:95:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/7]⎯
+
+ FAIL  tools/netgate/wire/test/wire.test.ts > measurement report > measures both activity bounds deterministically and prints the report
+RangeError: Offset is outside the bounds of the DataView
+ ❯ encodeDeltaFrame packages/protocol/src/delta.ts:530:10
+    528|     view.setInt8(offset + 4, entry.vx);
+    529|     view.setInt8(offset + 5, entry.vz);
+    530|     view.setUint8(offset + 6, entry.seqDelta);
+       |          ^
+    531|     offset += RELATIVE_ENTRY_BYTES;
+    532|   }
+ ❯ runClientStream tools/netgate/wire/netgate_wire.ts:336:19
+ ❯ tools/netgate/wire/netgate_wire.ts:400:57
+ ❯ runScenario tools/netgate/wire/netgate_wire.ts:400:39
+ ❯ runWireMeasurement tools/netgate/wire/netgate_wire.ts:448:17
+ ❯ tools/netgate/wire/test/wire.test.ts:110:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/7]⎯
+
+ FAIL  tools/netgate/wire/test/wire.test.ts > measurement report > uses a shorter run for the deterministic repeat check
+RangeError: Offset is outside the bounds of the DataView
+ ❯ encodeDeltaFrame packages/protocol/src/delta.ts:530:10
+    528|     view.setInt8(offset + 4, entry.vx);
+    529|     view.setInt8(offset + 5, entry.vz);
+    530|     view.setUint8(offset + 6, entry.seqDelta);
+       |          ^
+    531|     offset += RELATIVE_ENTRY_BYTES;
+    532|   }
+ ❯ runClientStream tools/netgate/wire/netgate_wire.ts:336:19
+ ❯ tools/netgate/wire/netgate_wire.ts:400:57
+ ❯ runScenario tools/netgate/wire/netgate_wire.ts:400:39
+ ❯ runWireMeasurement tools/netgate/wire/netgate_wire.ts:448:17
+ ❯ tools/netgate/wire/test/wire.test.ts:146:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/7]⎯
+
+
+ Test Files  2 failed (2)
+      Tests  6 failed | 3 passed (9)
+   Start at  20:30:47
+   Duration  3.67s (tests 64%, transform 28%, import 7%, worker 1%)
+
+    Isolate  2 workers spawned · ~570ms startup each (spawn + environment, per file)
+             at least ~570ms faster with isolate: false — reuses workers across files instead of one per file
+
+EXIT=1

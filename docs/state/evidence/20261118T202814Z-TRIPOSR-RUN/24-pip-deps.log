@@ -1,0 +1,15 @@
+$ uv pip install --python /content/ai/venv-trisr/bin/python --no-cache omegaconf==2.3.0 einops==0.7.0 trimesh transformers==4.35.0 huggingface-hub scikit-image pyyaml
+Using Python 3.13.16 environment at: /content/ai/venv-trisr
+Resolved 28 packages in 925ms
+Downloading transformers (7.6MiB)
+   Building tokenizers==0.14.1
+error: Failed to download and build `tokenizers==0.14.1`
+  cause: Failed to parse: /tmp/.tmpmascz1/sdists-v10/pypi/tokenizers/0.14.1/0GumUCrY_bITXx9S/src/pyproject.toml
+  cause: TOML parse error at line 1, column 1
+           |
+         1 | [project]
+           | ^^^^^^^^^
+         `pyproject.toml` is using the `[project]` table, but the required `project.version` field is neither set nor present in the `project.dynamic` list
+
+hint: `tokenizers` (v0.14.1) was included because `transformers` (v4.35.0) depends on `tokenizers`
+EXIT=1

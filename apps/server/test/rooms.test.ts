@@ -3,6 +3,7 @@ import type { IncomingMessage } from 'node:http';
 import { WebSocket, WebSocketServer } from 'ws';
 import type { AddressInfo } from 'node:net';
 import { describe, expect, it } from 'vitest';
+import { hashEntity } from '@strata/core';
 import { decodeFrame, encodeFrame } from '@strata/protocol';
 import { Room, RoomHub, TokenIssuer, attachRooms, parseConnectionQuery, type RoomSocket } from '../src/rooms';
 
@@ -75,12 +76,13 @@ describe('reconnect', () => {
   it('carries the per-entity applied seq so the client knows what to replay', () => {
     const room = new Room('arena', { seed: 3, reconnectTicks: 5 });
     const client = room.join(new FakeSocket())!;
-    room.handleBytes(client.clientId, encodeFrame({ kind: 'intent', entity: 1, seq: 9, dx: 1, dz: 0 }));
+    room.handleBytes(client.clientId, encodeFrame({ kind: 'intent', entity: 1, seq: 9, targetTick: 1, dx: 1, dz: 0 }));
     room.tick();
     const snapshot = room.snapshotFor(client)!;
     expect(snapshot.appliedSeq).toBe(9);
     expect(snapshot.hash).toBe(room.hash);
-    expect(snapshot.entities).toHaveLength(1);
+    expect(snapshot.viewHash).toBe(hashEntity(1, room.sim.state.entities.find((e) => e.id === 1)!));
+    expect(snapshot.entities).toHaveLength(2);
   });
 
   it('refuses a stale handle and evicts it after the window', () => {
@@ -113,18 +115,21 @@ describe('authoritative frames', () => {
     const socketB = new FakeSocket();
     const a = room.join(socketA)!;
     const b = room.join(socketB)!;
-    expect(room.handleBytes(a.clientId, encodeFrame({ kind: 'intent', entity: 1, seq: 1, dx: 1, dz: 0 }))).toBe(true);
+    expect(room.handleBytes(a.clientId, encodeFrame({ kind: 'intent', entity: 1, seq: 1, targetTick: 1, dx: 1, dz: 0 }))).toBe(true);
     const result = room.tick();
     expect(result.tick).toBe(1);
-    expect(frames(socketA)).toEqual(frames(socketB));
     expect(frames(socketA)[0]).toMatchObject({ kind: 'snapshot', tick: 1, hash: room.hash, appliedSeq: 1 });
+    expect(frames(socketB)[0]).toMatchObject({ kind: 'snapshot', tick: 1, hash: room.hash, appliedSeq: 0 });
+    expect((frames(socketA)[0] as { viewHash: string }).viewHash)
+      .not.toBe((frames(socketB)[0] as { viewHash: string }).viewHash);
+    expect((frames(socketA)[0] as { entities: unknown[] }).entities).toHaveLength(2);
     expect(room.sim.state.entities.find((e) => e.id === b.entityId)?.seq).toBe(0);
   });
 
   it('drops a replayed seq and emits a rejection reason', () => {
     const room = new Room('arena', { seed: 3 });
     const client = room.join(new FakeSocket())!;
-    const intent = encodeFrame({ kind: 'intent', entity: 1, seq: 5, dx: 1, dz: 0 });
+    const intent = encodeFrame({ kind: 'intent', entity: 1, seq: 5, targetTick: 1, dx: 1, dz: 0 });
     expect(room.handleBytes(client.clientId, intent)).toBe(true);
     expect(room.handleBytes(client.clientId, intent)).toBe(false);
     expect(room.tick().events.some((e) => e.kind === 'rejected-intent')).toBe(true);
@@ -134,9 +139,9 @@ describe('authoritative frames', () => {
     const room = new Room('arena', { seed: 3 });
     const socket = new FakeSocket();
     const client = room.join(socket)!;
-    expect(room.handleBytes(client.clientId, encodeFrame({ kind: 'hello', version: 3, capabilities: 1 }))).toBe(true);
+    expect(room.handleBytes(client.clientId, encodeFrame({ kind: 'hello', version: 5, capabilities: 1 }))).toBe(true);
     expect(room.handleBytes(client.clientId, encodeFrame({ kind: 'hello', version: 2, capabilities: 0 }))).toBe(false);
-    expect(frames(socket)[0]).toMatchObject({ kind: 'welcome', version: 3 });
+    expect(frames(socket)[0]).toMatchObject({ kind: 'welcome', version: 5 });
     expect(frames(socket)[1]).toMatchObject({ kind: 'reject', reason: 'version' });
   });
 
@@ -177,7 +182,7 @@ describe('hub and determinism', () => {
       const client = hub.join('arena', new FakeSocket())!;
       const hashes: string[] = [];
       for (let seq = 1; seq <= 40; seq++) {
-        hub.get('arena')!.handleBytes(client.clientId, encodeFrame({ kind: 'intent', entity: 1, seq, dx: seq % 2, dz: 0 }));
+        hub.get('arena')!.handleBytes(client.clientId, encodeFrame({ kind: 'intent', entity: 1, seq, targetTick: seq, dx: seq % 2, dz: 0 }));
         hashes.push(hub.get('arena')!.tick().hash);
       }
       return hashes;
@@ -208,8 +213,8 @@ describe('ws adapter boundary', () => {
     expect(frames(socket)[0]).toMatchObject({ kind: 'reject', reason: 'malformed' });
     expect(room.hash).toBe(before);
     socket.sent.length = 0;
-    socket.emit('message', encodeFrame({ kind: 'hello', version: 3, capabilities: 0 }));
-    expect(frames(socket)[0]).toMatchObject({ kind: 'welcome', version: 3 });
+    socket.emit('message', encodeFrame({ kind: 'hello', version: 5, capabilities: 0 }));
+    expect(frames(socket)[0]).toMatchObject({ kind: 'welcome', version: 5 });
   });
 
   it('sends a reject frame and closes a connection without room or handle', () => {
@@ -246,9 +251,9 @@ describe('live room endpoint (real loopback sockets)', () => {
       }
     };
     const before = hub.get('live')?.hash;
-    client.send(encodeFrame({ kind: 'hello', version: 3, capabilities: 0 }));
+    client.send(encodeFrame({ kind: 'hello', version: 5, capabilities: 0 }));
     await waitFor(1);
-    expect(received[0]).toMatchObject({ kind: 'welcome', version: 3 });
+    expect(received[0]).toMatchObject({ kind: 'welcome', version: 5 });
     client.send(new Uint8Array([0xff]));
     await waitFor(2);
     expect(received[1]).toMatchObject({ kind: 'reject', reason: 'malformed' });

@@ -10,9 +10,9 @@ describe('PR-N1 local load harness', () => {
     expect(report.entities).toBe(64);
     expect(report.warmup_ticks).toBe(20);
     expect(report.deterministic).toBe(true);
-    expect(report.snapshot_bytes).toBe(1551);
+    expect(report.snapshot_bytes).toBe(1555);
     expect(report.snapshot_bytes).toBeLessThanOrEqual(MAX_FRAME_BYTES);
-    expect(report.snapshot_bytes_per_second).toBe(1551 * 30);
+    expect(report.snapshot_bytes_per_second).toBe(1555 * 30);
     expect(report.over_budget_factor).toBeGreaterThan(3);
     expect(report.tick_cpu_p95_ms).toBeGreaterThanOrEqual(report.tick_cpu_p50_ms);
     expect(report.tick_cpu_p50_ms).toBeGreaterThanOrEqual(0);

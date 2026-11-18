@@ -1,0 +1,24 @@
+$ git -C /content/ai/graph/TripoSR checkout 107cefdc244c39106fa830359024f6a2f1c78871
+Note: switching to '107cefdc244c39106fa830359024f6a2f1c78871'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at 107cefd Update README.md
+$ git -C /content/ai/graph/TripoSR rev-parse HEAD
+107cefdc244c39106fa830359024f6a2f1c78871
+$ git -C /content/ai/graph/TripoSR log -1 --format=%H %cI
+107cefdc244c39106fa830359024f6a2f1c78871 2026-06-04T15:11:09+08:00
+EXIT=0

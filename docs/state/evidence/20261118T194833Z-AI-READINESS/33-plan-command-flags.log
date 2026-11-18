@@ -1,0 +1,68 @@
+$ uv pip compile --help | grep -A2 "generate-hashes"
+          Install packages into the system Python environment [env: UV_SYSTEM_PYTHON=true]
+      --generate-hashes
+          Include distribution hashes in the output file
+      --no-build
+$ uv venv --help | head -25
+Create a virtual environment
+
+Usage: uv venv [OPTIONS] [PATH]
+
+Arguments:
+  [PATH]  The path to the virtual environment to create
+
+Options:
+      --no-project             Avoid discovering a project or workspace [env: UV_NO_PROJECT=]
+      --seed                   Install seed packages (one or more of: `pip`, `setuptools`, and
+                               `wheel`) into the virtual environment [env: UV_VENV_SEED=]
+  -c, --clear                  Remove any existing files or directories at the target path [env:
+                               UV_VENV_CLEAR=]
+      --force                  Allow `--clear` to remove a non-virtual environment directory
+      --allow-existing         Preserve any existing files or directories at the target path
+      --prompt <PROMPT>        Provide an alternative prompt prefix for the virtual environment.
+      --system-site-packages   Give the virtual environment access to the system site packages
+                               directory
+      --relocatable            Make the virtual environment relocatable [env: UV_VENV_RELOCATABLE=]
+      --link-mode <LINK_MODE>  The method to use when installing packages from the global cache
+                               [env: UV_LINK_MODE=] [possible values: clone, copy, hardlink,
+                               symlink]
+
+Python options:
+  -p, --python <PYTHON>      The Python interpreter to use for the virtual environment. [env:
+$ hf upload --help | sed -n "1,35p"
+Usage: hf upload [OPTIONS] REPO_ID [LOCAL_PATH] [PATH_IN_REPO]
+
+  Upload a file or a folder to the Hub. Recommended for single-commit uploads.
+
+Arguments:
+  REPO_ID         The ID of the repo (e.g. `username/repo-name` or
+                  `spaces/username/repo-name`).  [required]
+  [LOCAL_PATH]    Local path to the file or folder to upload. Wildcard
+                  patterns are supported. Defaults to current directory.
+  [PATH_IN_REPO]  Path of the file or folder in the repo. Defaults to the
+                  relative path of the file or folder.
+
+Options:
+  --type, --repo-type [model|dataset|space|kernel]
+                                  The type of repository (model, dataset,
+                                  space, or kernel).  [default: (model)]
+  --revision TEXT                 Git revision id which can be a branch name,
+                                  a tag, or a commit hash.
+  --private / --no-private        Whether to create a private repo if repo
+                                  doesn't exist on the Hub. Ignored if the
+                                  repo already exists.
+  --include TEXT                  Glob patterns to match files to upload.
+  --exclude TEXT                  Glob patterns to exclude from files to
+                                  upload.
+  --delete TEXT                   Glob patterns for file to be deleted from
+                                  the repo while committing.
+  --commit-message TEXT           The summary / title / first line of the
+                                  generated commit.
+  --commit-description TEXT       The description of the generated commit.
+  --create-pr / --no-create-pr    Whether to upload content as a new Pull
+                                  Request.  [default: no-create-pr]
+  --every FLOAT                   If set, a background job is scheduled to
+                                  create commits every `every` minutes.
+  --token TEXT                    A User Access Token generated from
+                                  https://huggingface.co/settings/tokens.
+EXIT=0

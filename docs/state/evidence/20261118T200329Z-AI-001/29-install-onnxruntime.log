@@ -1,0 +1,11 @@
+$ uv pip install --python /content/ai/venv-trisr/bin/python onnxruntime   # import-time backend for rembg; CPU build; u2net never downloaded; session never created
+Using Python 3.13.16 environment at: /content/ai/venv-trisr
+Resolved 5 packages in 234ms
+Downloading onnxruntime (26.5MiB)
+ Downloaded onnxruntime
+Prepared 3 packages in 450ms
+Installed 3 packages in 12ms
+ + flatbuffers==25.12.19
+ + onnxruntime==1.32.0
+ + protobuf==7.36.2
+EXIT=0

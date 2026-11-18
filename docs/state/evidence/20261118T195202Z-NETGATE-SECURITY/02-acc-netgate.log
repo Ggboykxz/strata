@@ -1,0 +1,38 @@
+$ pnpm vitest run apps/server/test/netgate/ --reporter=verbose
+
+ RUN  v5.1.0 /tmp/strata-security
+
+stdout | apps/server/test/netgate/tls.test.ts > TLS transport (real sockets) > serves the gated room path over TLS and refuses a plaintext connection
+NETGATE_TLS {"status":"MEASURED","openssl":"OpenSSL 3.0.13 30 Jan 2024 (Library: OpenSSL 3.0.13 30 Jan 2024)","protocol":"TLSv1.3","cipher":"TLS_AES_256_GCM_SHA384","encryptedHandshake":"welcome","plaintextError":"socket hang up","plaintextFailed":true,"certCommitted":false,"rejectUnauthorized":false}
+
+ ✓ apps/server/test/netgate/tls.test.ts > TLS transport (real sockets) > serves the gated room path over TLS and refuses a plaintext connection 723ms
+stdout | apps/server/test/netgate/persistence.test.ts > file-backed counters > persists the rate window, rejection counts and audit entries across a restart
+NETGATE_PERSIST {"firstAdmitted":30,"firstRateLimited":2,"persistedWindow":{"window":3,"count":30},"restartedCounts":{"rate-limited":3},"afterRestartRateLimited":3,"auditEntriesAfterRestart":2,"stateBytes":469}
+
+ ✓ apps/server/test/netgate/persistence.test.ts > file-backed counters > persists the rate window, rejection counts and audit entries across a restart 267ms
+ ✓ apps/server/test/netgate/persistence.test.ts > file-backed counters > fails closed on a corrupt counter file instead of resetting the budget 5ms
+stdout | apps/server/test/netgate/hmac-auth.test.ts > auth wrapper before attachRooms (real sockets) > refuses missing, tampered, wrong-room and expired tokens before any room is created
+NETGATE_AUTH {"refused":4,"reasons":["unauthorized","unauthorized","unauthorized","unauthorized"],"roomsCreated":0}
+
+ ✓ apps/server/test/netgate/hmac-auth.test.ts > HMAC-SHA256 session token > round-trips claims and binds clientId, roomId and expiry 6ms
+ ✓ apps/server/test/netgate/hmac-auth.test.ts > HMAC-SHA256 session token > refuses a tampered payload, a forged signature, a wrong room, expiry and missing input 2ms
+ ✓ apps/server/test/netgate/hmac-auth.test.ts > HMAC-SHA256 session token > generates a different 256-bit secret for each run 1ms
+ ✓ apps/server/test/netgate/hmac-auth.test.ts > auth wrapper before attachRooms (real sockets) > refuses missing, tampered, wrong-room and expired tokens before any room is created 69ms
+stdout | apps/server/test/netgate/hmac-auth.test.ts > auth wrapper before attachRooms (real sockets) > admits a valid token and still reaches the SEC-002 room path
+NETGATE_AUTH_OK {"rooms":1,"members":1}
+
+ ✓ apps/server/test/netgate/hmac-auth.test.ts > auth wrapper before attachRooms (real sockets) > admits a valid token and still reaches the SEC-002 room path 55ms
+stdout | apps/server/test/netgate/flood.test.ts > real-socket flood > admits exactly 30 of 200, rate-limits 170 and leaves the room hash at the 30-intent state
+NETGATE_FLOOD {"messages":200,"admitted":30,"rateLimited":170,"wireRejects":170,"wireRejectReason":"malformed","durationMs":26.65,"bytesUp":2200,"bytesDown":680,"hashBefore":"3824b21e","hashAfter":"fa607989","reference30":"fa607989","reference200":"9033ebd1"}
+
+ ✓ apps/server/test/netgate/flood.test.ts > real-socket flood > admits exactly 30 of 200, rate-limits 170 and leaves the room hash at the 30-intent state 101ms
+
+ Test Files  4 passed (4)
+      Tests  9 passed (9)
+   Start at  19:55:18
+   Duration  3.82s (tests 53%, import 38%, transform 7%, worker 2%)
+
+    Isolate  4 workers spawned · ~349ms startup each (spawn + environment, per file)
+             at least ~1.05s faster with isolate: false — reuses workers across files instead of one per file
+
+EXIT=0

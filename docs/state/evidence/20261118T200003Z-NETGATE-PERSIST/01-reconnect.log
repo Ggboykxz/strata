@@ -1,0 +1,19 @@
+$ pnpm vitest run apps/server/test/netgate/reconnect.test.ts --reporter=verbose
+
+ RUN  v5.1.0 /tmp/strata-persist
+
+stdout | apps/server/test/netgate/reconnect.test.ts > NET-GATE reconnect-restore on real sockets > restores the same entity, hash and applied seq inside the reconnect window
+NETGATE_RECONNECT {"transport":"ws://127.0.0.1:40707","roomId":"reconnect","capacity":4,"reconnectTicks":90,"ticks":121,"entityId":2,"clientId":2,"disconnectedAtTick":60,"resumedAtTick":66,"resumeLatencyMs":31.369,"upgradeMs":9.852,"hashAtCommonTick":{"tick":66,"hash":"71e1d571","matchesPeer":true,"matchesServer":true},"preDisconnectCommonTick":{"tick":59,"hash":"aec71d18"},"appliedSeqAtDisconnect":54,"appliedSeqOnResume":54,"appliedSeqAtFinalTick":109,"intentsSent":454,"rejectedIntents":0,"desyncEvents":0}
+
+ ✓ apps/server/test/netgate/reconnect.test.ts > NET-GATE reconnect-restore on real sockets > restores the same entity, hash and applied seq inside the reconnect window 4131ms
+stdout | apps/server/test/netgate/reconnect.test.ts > NET-GATE reconnect-restore on real sockets > refuses a late resume after the reconnect window
+NETGATE_LATE_RESUME {"roomId":"late-resume","reconnectTicks":90,"disconnectedAtTick":20,"attemptedAtTick":111,"ticksLate":91,"refused":true,"reason":"unauthorized","entityId":2,"remainingMembers":3,"roomPhaseAfterEviction":"draining","phaseNote":"room.ts does not recompute OPEN after evicting one handle while others stay attached"}
+
+ ✓ apps/server/test/netgate/reconnect.test.ts > NET-GATE reconnect-restore on real sockets > refuses a late resume after the reconnect window 3699ms
+
+ Test Files  1 passed (1)
+      Tests  2 passed (2)
+   Start at  20:00:15
+   Duration  8.93s (tests 93%, import 5%, transform 2%)
+
+EXIT=0

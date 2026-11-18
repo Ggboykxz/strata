@@ -1,0 +1,9 @@
+$ uv pip install --python /content/ai/venv-trisr/bin/python scikit-build-core pybind11
+Using Python 3.13.16 environment at: /content/ai/venv-trisr
+Resolved 4 packages in 446ms
+Prepared 3 packages in 103ms
+Installed 3 packages in 31ms
+ + pathspec==1.1.1
+ + pybind11==3.1.0
+ + scikit-build-core==1.1.2
+EXIT=0

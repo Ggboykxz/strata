@@ -1,0 +1,5 @@
+$ python3 /dev/stdin  # absolute-path peak VRAM from 250 ms nvidia-smi poll
+samples 102 peak_mib 3163 min_mib 0
+$ nvidia-smi --query-gpu=memory.used,utilization.gpu --format=csv,noheader
+0 MiB, 0 %
+EXIT=0

@@ -1,0 +1,3 @@
+pnpm vitest run apps/server/test/netgate/matrix-cell.test.ts --reporter=verbose
+MATRIX side
+EXIT=0

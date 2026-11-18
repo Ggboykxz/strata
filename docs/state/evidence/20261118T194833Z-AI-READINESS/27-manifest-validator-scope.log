@@ -1,0 +1,9 @@
+$ node scripts/validate-manifest.mjs --help
+usage: node scripts/validate-manifest.mjs --audit
+EXIT=64
+$ grep -c readFileSync scripts/validate-manifest.mjs
+4
+EXIT=0
+$ grep -n process.argv scripts/validate-manifest.mjs
+16:if (process.argv[2] !== '--audit') {
+EXIT=0

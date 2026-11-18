@@ -1,0 +1,5 @@
+wrote /content/ai/hero_input_white.png
+params seed=1337;size=256;palette=strata-golem-v1;bg=flat-gray-216;facets=96;mode=rgb
+input_sha256 effe6dbe4fa21e4e88a1055c47b30ae5cf0a11625346a8780ff5d69dbf289bd0
+prompt_hash 26896a0cb9653cf5654c4ea2d27be91d1cd00045714dfa845ffddf4803db4eaf
+EXIT=0
