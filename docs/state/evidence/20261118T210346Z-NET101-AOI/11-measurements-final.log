@@ -1,0 +1,3 @@
+[NET101-AOI] wire=full clients=4 entities=64 view@viewer1=40 ticks=299 seconds=10.076 per-client B/s=[46144.233, 46144.233, 46144.233, 46144.233] avg B/s=46144.233 keyframes=0 deltas=0 snapshots=1196 undecodable=0
+[NET101-AOI] wire=delta clients=4 entities=64 view@viewer1=40 ticks=299 seconds=10.076 per-client B/s=[4172.849, 3322.499, 5991.058, 5094.657] avg B/s=4645.266 keyframes=20 deltas=1176 snapshots=0 undecodable=0
+[NET101-AOI] delta avg 4645.266 B/s/client vs budget 12288 B/s — HOLDS

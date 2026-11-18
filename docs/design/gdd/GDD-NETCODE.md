@@ -96,6 +96,7 @@ protocol v1 (JSON, TRACER-001) remains exported until the game client moves to v
 ## 10. Interaction matrix
 
 NETCODE × Aoi: only entities inside 64-AoI set are serialized. NETCODE × ANIM-ARCHITECTURE: animation STATE is a snapshot field; no bone transforms.
+- NETCODE × AoI (NET-101 / A0011-i): the reusable uniform-grid AoI lives in `apps/server/src/aoi/` (32 000 mm cells, bigint squared distance, `(distance, id)` cap at 64); `Room`'s opt-in `wire: 'delta'` path serialises that per-client view as a chained `DeltaFrame` (keyframe first/every 60 ticks/on forced resync, `removed` ids on exit, AoI view hash in the frame), while `wire: 'full'` keeps the v5 whole-world snapshot as the default.
 
 ## 11. Feedback per state change
 

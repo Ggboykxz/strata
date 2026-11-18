@@ -1,0 +1,51 @@
+
+ RUN  v5.1.0 /tmp/strata-aoi
+
+stdout | apps/server/test/netgate/v5-delta-room.test.ts > NET-101 live delta downlink (A0011-i, 64-entity dense room) > full snapshots connect, operate and establish the measured control
+[NET101-AOI] wire=full clients=4 entities=64 view@viewer1=40 ticks=282 seconds=10.076 per-client B/s=[43518.587, 43518.587, 43518.587, 43518.587] avg B/s=43518.587 keyframes=0 deltas=0 snapshots=1128 undecodable=0
+
+ ✓ apps/server/test/netgate/v5-delta-room.test.ts > NET-101 live delta downlink (A0011-i, 64-entity dense room) > full snapshots connect, operate and establish the measured control 10415ms
+stdout | apps/server/test/netgate/v5-delta-room.test.ts > NET-101 live delta downlink (A0011-i, 64-entity dense room) > delta frames connect, operate and stay under 12 288 B/s/client in the dense room
+[NET101-AOI] wire=delta clients=4 entities=64 view@viewer1=40 ticks=285 seconds=10.078 per-client B/s=[3911.919, 3131.381, 5602.589, 4774.024] avg B/s=4354.978 keyframes=16 deltas=1124 snapshots=0 undecodable=0
+
+stdout | apps/server/test/netgate/v5-delta-room.test.ts > NET-101 live delta downlink (A0011-i, 64-entity dense room) > delta frames connect, operate and stay under 12 288 B/s/client in the dense room
+[NET101-AOI] delta avg 4354.978 B/s/client vs budget 12288 B/s — HOLDS
+
+ ✓ apps/server/test/netgate/v5-delta-room.test.ts > NET-101 live delta downlink (A0011-i, 64-entity dense room) > delta frames connect, operate and stay under 12 288 B/s/client in the dense room 10400ms
+ ✓ apps/server/test/netgate/v5-delta-room.test.ts > NET-101 delta wiring contract (deterministic, no wall clock) > sends a keyframe first and every 60 ticks, a chained delta otherwise 183ms
+ ✓ apps/server/test/netgate/v5-delta-room.test.ts > NET-101 delta wiring contract (deterministic, no wall clock) > emits removed ids when an entity leaves the AoI 24ms
+ ✓ apps/server/test/aoi.test.ts > uniform-grid AoI (NET-101 / A0011-i) > shares the cell size, radius and cap with the wire prototype 9ms
+ ✓ apps/server/test/aoi.test.ts > uniform-grid AoI (NET-101 / A0011-i) > includes the radius boundary and excludes one millimetre beyond it 6ms
+ ✓ apps/server/test/aoi.test.ts > uniform-grid AoI (NET-101 / A0011-i) > caps by bigint squared distance then id, and returns survivors sorted by id 4ms
+ ✓ apps/server/test/aoi.test.ts > uniform-grid AoI (NET-101 / A0011-i) > uses integer cell coordinates for negative positions 4ms
+ ✓ apps/server/test/aoi.test.ts > uniform-grid AoI (NET-101 / A0011-i) > matches the wire prototype exactly on seeded worlds, viewers and radii 85ms
+ ✓ apps/server/test/aoi.test.ts > uniform-grid AoI (NET-101 / A0011-i) > is deterministic: repeated identical calls return identical arrays 1ms
+ ✓ apps/server/test/aoi.test.ts > uniform-grid AoI (NET-101 / A0011-i) > refuses a non-positive radius, an out-of-range cap and an absent viewer 26ms
+ ✓ packages/protocol/test/delta.test.ts > AoI selection > includes the radius boundary and excludes one millimetre beyond it 15ms
+ ✓ packages/protocol/test/delta.test.ts > AoI selection > caps by nearest distance then id, and returns the survivors sorted by id 1ms
+ ✓ packages/protocol/test/delta.test.ts > AoI selection > rejects a non-positive radius and an out-of-range cap 5ms
+ ✓ packages/protocol/test/delta.test.ts > AoI selection > builds the same view and hash twice for the same world 11ms
+ ✓ packages/protocol/test/delta.test.ts > keyframe round-trip and exact lengths > is header 21 + 24 per entity, and round-trips 6ms
+ ✓ packages/protocol/test/delta.test.ts > keyframe round-trip and exact lengths > round-trips a full 64-entity keyframe at 1 557 bytes (v2 header 21 B) 19ms
+ ✓ packages/protocol/test/delta.test.ts > delta round-trip, removals and exact lengths > encodes only changed entities and removed ids 9ms
+ ✓ packages/protocol/test/delta.test.ts > delta round-trip, removals and exact lengths > falls back to a 22 B absolute entry when a velocity is not a packed step 1ms
+ ✓ packages/protocol/test/delta.test.ts > delta round-trip, removals and exact lengths > is idempotent for removals when the same delta is applied again 6ms
+ ✓ packages/protocol/test/delta.test.ts > delta round-trip, removals and exact lengths > encodes an unchanged view as an empty delta of 21 header bytes 7ms
+ ✓ packages/protocol/test/delta.test.ts > determinism > produces byte-identical frames and decode/encode is stable 11ms
+ ✓ packages/protocol/test/delta.test.ts > determinism > builds a keyframe when due or forced, a delta otherwise 1ms
+ ✓ packages/protocol/test/delta.test.ts > malformed frames are refused > refuses empty, short, wrong-type and wrong-version frames 4ms
+ ✓ packages/protocol/test/delta.test.ts > malformed frames are refused > refuses reserved flags and keyframe fields that must be zero 3ms
+ ✓ packages/protocol/test/delta.test.ts > malformed frames are refused > refuses too many entities, truncation and trailing bytes 5ms
+ ✓ packages/protocol/test/delta.test.ts > malformed frames are refused > refuses an absolute-count mismatch and a non-monotonic base tick 0ms
+ ✓ packages/protocol/test/delta.test.ts > malformed frames are refused > refuses an unknown 4-bit velocity step instead of guessing 0ms
+ ✓ packages/protocol/test/delta.test.ts > malformed frames are refused > refuses duplicate changed ids and a changed id that is also removed 12ms
+ ✓ packages/protocol/test/delta.test.ts > malformed frames are refused > refuses a delta applied to the wrong baseline or with a bad hash 1ms
+ ✓ packages/protocol/test/delta.test.ts > malformed frames are refused > refuses a relative entry whose baseline entity is absent 0ms
+ ✓ packages/protocol/test/delta.test.ts > malformed frames are refused > refuses a keyframe or snapshot hash that does not match its contents 0ms
+
+ Test Files  3 passed (3)
+      Tests  32 passed (32)
+   Start at  21:05:23
+   Duration  23.83s (tests 96%, import 2%, transform 1%)
+
+EXIT=0
