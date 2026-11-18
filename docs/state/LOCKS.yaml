@@ -1803,5 +1803,5 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T20:15:00Z"
     expires_at: "2026-11-18T20:45:00Z"
-    status: active
+    status: released
 
