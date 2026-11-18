@@ -13,9 +13,10 @@ FULL form, deterministically, and it fails closed when a source is missing.
 | `04-negative-missing-field.log` | same file with `result.status` removed | **1** | names `missing or empty result.status in …` |
 | `05-negative-bad-format.log` | `--format bogus` | **1** | names the invalid value |
 | `06-verify.log` | `pnpm verify` | 0 | **17/17**, baseline unchanged |
+| `07-ci-proof.log` | GitHub Actions API at `647ad0b` | 0 | **8/8 triggered workflows success** |
 
 **sourced values, not memories.** 50 acceptance commands (45 exit 0, 5 non-zero named); 7 evidence dirs
-with 63 logs; 30 locks acquired/released; 5 tasks; tier S0/S1; CIS `NOT COMPUTABLE` with its reason; coverage
+with 64 logs; 30 locks acquired/released; 5 tasks; tier S0/S1; CIS `NOT COMPUTABLE` with its reason; coverage
 100%; ledger 12 balanced; NET-GATE `unpassed / art_allowed false` and four unmeasured netcode metrics;
 audit id `AUDIT-2026-11-18-P0-006`. The stale metrics note claiming "this result was composed by hand" was
 removed and replaced by a D146-satisfied note.

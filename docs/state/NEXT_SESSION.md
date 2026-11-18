@@ -91,7 +91,11 @@ all three false-pass forms should land with that repair, not before.
 
 ## 6. Environment / hardware
 
-Node 22.23.4, pnpm 12.21.0 via corepack, TypeScript 6.0.3, Vitest 5.1.0. No GPU in this runtime.
+Node 22.23.4, pnpm 12.21.0 via corepack, TypeScript 6.0.3, Vitest 5.1.0.
+
+**Current runtime: no GPU and no TPU** (Director statement 2026-11-18: "là on a pas de tpu ni gpu quand t'en
+aura besoin fais moi signe"). Signal to the Director before starting any task that needs an accelerator;
+NET work and the dashboard are CPU-only, so nothing is blocked today.
 
 The Director declared upcoming sessions on **TPU v5e-1 + T4 16 GB**. The T4 is already the sourced generation
 tier (`GDD-AI-ASSETS` §5, `tools/*/detect_tier.py`). A TPU-only runtime reports `NO_GPU` and the CPU-safe

@@ -266,6 +266,10 @@ and inventing one would violate I4. A TPU is a training accelerator, not a drop-
 added and art stays T4-only), or does the Director want a TPU generation path (then it needs its own audit
 entry, licence review and a measured throughput number before any task references it)?
 
+**Runtime update (Director, 2026-11-18).** The current runtime has **no TPU and no GPU**. The Director asks to be
+signalled when an accelerator becomes necessary. This does not change ND-011 — the question is about the hardware
+that will be available later, and no art or model task is scheduled now.
+
 **Effect of no answer.** None on the current plan: NET work is CPU-deterministic, art is gated by NET-GATE, and
 no model runs this session (I4). Nothing is blocked; the ambiguity is recorded instead of guessed.
 
