@@ -76,3 +76,26 @@ Shared files (`packages/protocol/src/binary.ts`, `room.ts`, `predictor.ts`, `GDD
 - AI-001: TripoSR only; produce `docs/qa/AI_THROUGHPUT.md` + manifest; no FLUX until Director credentials.
 - parent: integrate, regen metrics (`docs/state/metrics/20261118-s03.json`), `JOURNAL.md`, `SESSION.md`,
   `NET_GATE.md` honestly lit by exits; no READY claim without `--assert-ready` = 0.
+
+## 6. MANDATORY: collaboration and discussion (Director directive, 2026-11-18)
+
+> "il travaillent tous en collaboration" · "chaque equipe fait son boulot en sous agent discutent et avance ensemble" · "collaboration agent et discusion obligatoires"
+
+1. Every agent **must** read `docs/state/threads/NG-001/0001-COLLAB.md` and the newest `0002-COLLAB-LOG.md`
+   **before any work**, and append one dated entry to `0002-COLLAB-LOG.md` **before and after** each phase.
+   An entry names: agent, worktree, what it read, what it did (commands + exits), what blocks it, and one
+   line addressed to the other agents (question, dependency handoff, or a fact they need).
+2. Discussion happens through this file and through merged artifacts — no side channels. The parent relays
+   entries between worktrees at merge time; an agent may edit only its own log entry, never another's.
+3. Web access is allowed for research only, via webfetch/websearch. Every external fact used must be cited
+   as a URL inside the relevant evidence log or handoff entry. No verbatim code or assets copied from the
+   web into the repo; quoted material limited to licence-relevant text, marked as a quote. Unaudited models,
+   mirrors or dependencies are forbidden regardless of convenience (AUDIT-2026-11-18-P0-006 stands).
+4. Improvement is iterative and measured: each cycle ends with re-running the agent's acceptance commands;
+   the next cycle starts from the previous EXIT= lines, never from intention. "Better" means a number moved,
+   not a sentiment.
+5. Agents must not silent-skip another agent's question. A question addressed in 0002 must be answered, or
+   explicitly marked BLOCKED with the missing dependency, in the sender's next entry.
+6. The parent owns merges, pushes, gates, and the final metrics/journal updates. Agents keep gates untouched.
+7. Usage limit (`Free usage limit reached`) stops agents immediately. On relaunch they must first re-read
+   0001/0002 — their last entry tells them exactly where they stopped; the parent also records the stop on GitHub.
