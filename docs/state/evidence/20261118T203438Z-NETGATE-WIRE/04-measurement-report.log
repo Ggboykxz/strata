@@ -1,0 +1,408 @@
+
+ RUN  v5.1.0 /tmp/strata-wire
+
+ ✓ tools/netgate/wire/test/wire.test.ts > wire budget arithmetic > reproduces the v5 integration control exactly: 1 555 B x 30 Hz = 46 650 B/s down 123ms
+ ✓ tools/netgate/wire/test/wire.test.ts > wire budget arithmetic > keeps the master §6 budgets at 12 288 B/s down and 3 072 B/s up 1ms
+ ✓ tools/netgate/wire/test/wire.test.ts > AoI inclusion and exclusion > uses the 32 m radius in millimetres on a real world tick 2ms
+ ✓ tools/netgate/wire/test/wire.test.ts > AoI inclusion and exclusion > selects the nearby entity and excludes the far one for a moving viewer 2ms
+ ✓ tools/netgate/wire/test/wire.test.ts > keyframe recovery after loss > retransmits a lost keyframe and still ends on the server hash 146ms
+ ✓ tools/netgate/wire/test/wire.test.ts > keyframe recovery after loss > recovers from a lost delta by forcing a keyframe re-anchor 79ms
+ ✓ tools/netgate/wire/test/wire.test.ts > keyframe recovery after loss > recovers when a keyframe and several deltas are lost together 50ms
+stdout | tools/netgate/wire/test/wire.test.ts > measurement report > measures both activity bounds deterministically and prints the report
+{
+  "tool": "tools/netgate/wire/netgate_wire.ts",
+  "label": "deterministic framed bytes on an in-process link — NOT network RTT, NOT a 30-minute soak, NOT wired into the server",
+  "generatedFromSeed": 1337,
+  "ticks": 600,
+  "tickHz": 30,
+  "entities": 64,
+  "clients": [
+    1,
+    2,
+    3,
+    4
+  ],
+  "keyframeIntervalTicks": 60,
+  "budgets": {
+    "downBytesPerSecond": 12288,
+    "upBytesPerSecond": 3072
+  },
+  "scenarios": [
+    {
+      "scenario": "dense",
+      "ticks": 600,
+      "seconds": 20,
+      "tickHz": 30,
+      "entities": 64,
+      "clients": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "keyframeIntervalTicks": 60,
+      "aoiRadiusMm": 32000,
+      "control": {
+        "perClient": [
+          {
+            "clientId": 1,
+            "downBytes": 933000,
+            "downBytesPerSecond": 46650,
+            "upBytes": 16800,
+            "upBytesPerSecond": 840,
+            "frames": 600,
+            "intents": 600,
+            "acks": 600
+          },
+          {
+            "clientId": 2,
+            "downBytes": 933000,
+            "downBytesPerSecond": 46650,
+            "upBytes": 16800,
+            "upBytesPerSecond": 840,
+            "frames": 600,
+            "intents": 600,
+            "acks": 600
+          },
+          {
+            "clientId": 3,
+            "downBytes": 933000,
+            "downBytesPerSecond": 46650,
+            "upBytes": 16800,
+            "upBytesPerSecond": 840,
+            "frames": 600,
+            "intents": 600,
+            "acks": 600
+          },
+          {
+            "clientId": 4,
+            "downBytes": 933000,
+            "downBytesPerSecond": 46650,
+            "upBytes": 16800,
+            "upBytesPerSecond": 840,
+            "frames": 600,
+            "intents": 600,
+            "acks": 600
+          }
+        ],
+        "down": {
+          "bestBytesPerSecond": 46650,
+          "averageBytesPerSecond": 46650,
+          "worstBytesPerSecond": 46650
+        },
+        "up": {
+          "bestBytesPerSecond": 840,
+          "averageBytesPerSecond": 840,
+          "worstBytesPerSecond": 840
+        },
+        "fullSnapshotBytes": 1555,
+        "maxFrameBytes": 1555
+      },
+      "treatment": {
+        "perClient": [
+          {
+            "clientId": 1,
+            "downBytes": 163800,
+            "downBytesPerSecond": 8190,
+            "upBytes": 16800,
+            "upBytesPerSecond": 840,
+            "keyframes": 10,
+            "deltaFrames": 590,
+            "emptyDeltas": 0,
+            "keyframeRetries": 0,
+            "framesSent": 600,
+            "framesDropped": 0,
+            "framesReceived": 600,
+            "maxFrameBytes": 981,
+            "intents": 600,
+            "acks": 600,
+            "desyncs": 0,
+            "finalViewHash": "950040fd",
+            "finalServerHash": "950040fd"
+          },
+          {
+            "clientId": 2,
+            "downBytes": 145174,
+            "downBytesPerSecond": 7258.7,
+            "upBytes": 16800,
+            "upBytesPerSecond": 840,
+            "keyframes": 10,
+            "deltaFrames": 590,
+            "emptyDeltas": 0,
+            "keyframeRetries": 0,
+            "framesSent": 600,
+            "framesDropped": 0,
+            "framesReceived": 600,
+            "maxFrameBytes": 861,
+            "intents": 600,
+            "acks": 600,
+            "desyncs": 0,
+            "finalViewHash": "6dea5e31",
+            "finalServerHash": "6dea5e31"
+          },
+          {
+            "clientId": 3,
+            "downBytes": 235112,
+            "downBytesPerSecond": 11755.6,
+            "upBytes": 16800,
+            "upBytesPerSecond": 840,
+            "keyframes": 10,
+            "deltaFrames": 590,
+            "emptyDeltas": 0,
+            "keyframeRetries": 0,
+            "framesSent": 600,
+            "framesDropped": 0,
+            "framesReceived": 600,
+            "maxFrameBytes": 1437,
+            "intents": 600,
+            "acks": 600,
+            "desyncs": 0,
+            "finalViewHash": "eeb301fc",
+            "finalServerHash": "eeb301fc"
+          },
+          {
+            "clientId": 4,
+            "downBytes": 206752,
+            "downBytesPerSecond": 10337.6,
+            "upBytes": 16800,
+            "upBytesPerSecond": 840,
+            "keyframes": 10,
+            "deltaFrames": 590,
+            "emptyDeltas": 0,
+            "keyframeRetries": 0,
+            "framesSent": 600,
+            "framesDropped": 0,
+            "framesReceived": 600,
+            "maxFrameBytes": 1269,
+            "intents": 600,
+            "acks": 600,
+            "desyncs": 0,
+            "finalViewHash": "8c9586fd",
+            "finalServerHash": "8c9586fd"
+          }
+        ],
+        "down": {
+          "bestBytesPerSecond": 7258.7,
+          "averageBytesPerSecond": 9385.475,
+          "worstBytesPerSecond": 11755.6
+        },
+        "up": {
+          "bestBytesPerSecond": 840,
+          "averageBytesPerSecond": 840,
+          "worstBytesPerSecond": 840
+        },
+        "desyncs": 0,
+        "allFinalHashesMatch": true
+      },
+      "improvement": {
+        "downBestPercent": 84.4401,
+        "downAveragePercent": 79.8811,
+        "downWorstPercent": 74.8004,
+        "upAveragePercent": 0
+      },
+      "budget": {
+        "downBytesPerSecond": 12288,
+        "upBytesPerSecond": 3072,
+        "downMetBest": true,
+        "downMetAverage": true,
+        "downMetWorst": true,
+        "upMetBest": true,
+        "upMetAverage": true,
+        "upMetWorst": true
+      }
+    },
+    {
+      "scenario": "four-client",
+      "ticks": 600,
+      "seconds": 20,
+      "tickHz": 30,
+      "entities": 64,
+      "clients": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "keyframeIntervalTicks": 60,
+      "aoiRadiusMm": 32000,
+      "control": {
+        "perClient": [
+          {
+            "clientId": 1,
+            "downBytes": 933000,
+            "downBytesPerSecond": 46650,
+            "upBytes": 16800,
+            "upBytesPerSecond": 840,
+            "frames": 600,
+            "intents": 600,
+            "acks": 600
+          },
+          {
+            "clientId": 2,
+            "downBytes": 933000,
+            "downBytesPerSecond": 46650,
+            "upBytes": 16800,
+            "upBytesPerSecond": 840,
+            "frames": 600,
+            "intents": 600,
+            "acks": 600
+          },
+          {
+            "clientId": 3,
+            "downBytes": 933000,
+            "downBytesPerSecond": 46650,
+            "upBytes": 16800,
+            "upBytesPerSecond": 840,
+            "frames": 600,
+            "intents": 600,
+            "acks": 600
+          },
+          {
+            "clientId": 4,
+            "downBytes": 933000,
+            "downBytesPerSecond": 46650,
+            "upBytes": 16800,
+            "upBytesPerSecond": 840,
+            "frames": 600,
+            "intents": 600,
+            "acks": 600
+          }
+        ],
+        "down": {
+          "bestBytesPerSecond": 46650,
+          "averageBytesPerSecond": 46650,
+          "worstBytesPerSecond": 46650
+        },
+        "up": {
+          "bestBytesPerSecond": 840,
+          "averageBytesPerSecond": 840,
+          "worstBytesPerSecond": 840
+        },
+        "fullSnapshotBytes": 1555,
+        "maxFrameBytes": 1555
+      },
+      "treatment": {
+        "perClient": [
+          {
+            "clientId": 1,
+            "downBytes": 32540,
+            "downBytesPerSecond": 1627,
+            "upBytes": 16800,
+            "upBytesPerSecond": 840,
+            "keyframes": 10,
+            "deltaFrames": 590,
+            "emptyDeltas": 0,
+            "keyframeRetries": 0,
+            "framesSent": 600,
+            "framesDropped": 0,
+            "framesReceived": 600,
+            "maxFrameBytes": 981,
+            "intents": 600,
+            "acks": 600,
+            "desyncs": 0,
+            "finalViewHash": "4a78dba8",
+            "finalServerHash": "4a78dba8"
+          },
+          {
+            "clientId": 2,
+            "downBytes": 33416,
+            "downBytesPerSecond": 1670.8,
+            "upBytes": 16800,
+            "upBytesPerSecond": 840,
+            "keyframes": 10,
+            "deltaFrames": 590,
+            "emptyDeltas": 0,
+            "keyframeRetries": 0,
+            "framesSent": 600,
+            "framesDropped": 0,
+            "framesReceived": 600,
+            "maxFrameBytes": 1125,
+            "intents": 600,
+            "acks": 600,
+            "desyncs": 0,
+            "finalViewHash": "2227d785",
+            "finalServerHash": "2227d785"
+          },
+          {
+            "clientId": 3,
+            "downBytes": 39028,
+            "downBytesPerSecond": 1951.4,
+            "upBytes": 16800,
+            "upBytesPerSecond": 840,
+            "keyframes": 10,
+            "deltaFrames": 590,
+            "emptyDeltas": 0,
+            "keyframeRetries": 0,
+            "framesSent": 600,
+            "framesDropped": 0,
+            "framesReceived": 600,
+            "maxFrameBytes": 1413,
+            "intents": 600,
+            "acks": 600,
+            "desyncs": 0,
+            "finalViewHash": "86c872ef",
+            "finalServerHash": "86c872ef"
+          },
+          {
+            "clientId": 4,
+            "downBytes": 38894,
+            "downBytesPerSecond": 1944.7,
+            "upBytes": 16800,
+            "upBytesPerSecond": 840,
+            "keyframes": 10,
+            "deltaFrames": 590,
+            "emptyDeltas": 0,
+            "keyframeRetries": 0,
+            "framesSent": 600,
+            "framesDropped": 0,
+            "framesReceived": 600,
+            "maxFrameBytes": 1269,
+            "intents": 600,
+            "acks": 600,
+            "desyncs": 0,
+            "finalViewHash": "cc726a27",
+            "finalServerHash": "cc726a27"
+          }
+        ],
+        "down": {
+          "bestBytesPerSecond": 1627,
+          "averageBytesPerSecond": 1798.475,
+          "worstBytesPerSecond": 1951.4
+        },
+        "up": {
+          "bestBytesPerSecond": 840,
+          "averageBytesPerSecond": 840,
+          "worstBytesPerSecond": 840
+        },
+        "desyncs": 0,
+        "allFinalHashesMatch": true
+      },
+      "improvement": {
+        "downBestPercent": 96.5123,
+        "downAveragePercent": 96.1447,
+        "downWorstPercent": 95.8169,
+        "upAveragePercent": 0
+      },
+      "budget": {
+        "downBytesPerSecond": 12288,
+        "upBytesPerSecond": 3072,
+        "downMetBest": true,
+        "downMetAverage": true,
+        "downMetWorst": true,
+        "upMetBest": true,
+        "upMetAverage": true,
+        "upMetWorst": true
+      }
+    }
+  ]
+}
+
+ ✓ tools/netgate/wire/test/wire.test.ts > measurement report > measures both activity bounds deterministically and prints the report 2625ms
+ ✓ tools/netgate/wire/test/wire.test.ts > measurement report > uses a shorter run for the deterministic repeat check 785ms
+
+ Test Files  1 passed (1)
+      Tests  9 passed (9)
+   Start at  20:35:00
+   Duration  4.16s (tests 97%, import 1%, transform 1%)
+
+EXIT=0

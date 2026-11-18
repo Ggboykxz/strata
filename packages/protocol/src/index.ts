@@ -12,4 +12,5 @@
 
 export * from './anim';
 export * from './binary';
+export * from './delta';
 export * from './tracer';

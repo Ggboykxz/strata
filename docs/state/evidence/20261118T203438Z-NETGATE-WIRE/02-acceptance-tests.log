@@ -1,0 +1,10 @@
+
+ RUN  v5.1.0 /tmp/strata-wire
+
+
+ Test Files  2 passed (2)
+      Tests  30 passed (30)
+   Start at  20:34:40
+   Duration  6.34s (tests 96%, import 2%, transform 1%)
+
+EXIT=0
