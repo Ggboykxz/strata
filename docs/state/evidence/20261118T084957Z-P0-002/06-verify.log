@@ -15,13 +15,13 @@ $ vitest run
  RUN  v5.1.0 /content/strata
 
 
- Test Files  7 passed (7)
-      Tests  73 passed (73)
-   Start at  08:51:20
-   Duration  2.30s (import 44%, tests 36%, worker 11%, transform 9%)
+ Test Files  8 passed (8)
+      Tests  90 passed (90)
+   Start at  08:58:30
+   Duration  3.03s (import 42%, tests 33%, transform 15%, worker 10%)
 
-    Isolate  7 workers spawned · ~231ms startup each (spawn + environment, per file)
-             at least ~1.38s faster with isolate: false — reuses workers across files instead of one per file
+    Isolate  8 workers spawned · ~260ms startup each (spawn + environment, per file)
+             at least ~1.82s faster with isolate: false — reuses workers across files instead of one per file
 
 == validate-prompt-drift
 PASS  docs/state/PROMPT.lock parsed (version 1)
@@ -173,7 +173,7 @@ RESUME DRILL (--dry, read-only)
 PASS  repository root
       /content/strata
 PASS  pwd
-      8 change(s)
+      13 change(s)
 PASS  git status --short
       session/20261118-hc-001-high-concept
 PASS  git branch --show-current
@@ -226,7 +226,7 @@ D1  vision document (--check)
 OK    VISION.md: metadata, 8 sections, locked sentence, amendment and non-goals present
 
 D2  ADR structure
-OK    3 ADR(s) have title, status and a Context/Decision section
+OK    4 ADR(s) have title, status and a Context/Decision section
 
 D3  TDD structure
 OK    3 TDD file(s) have title, status, Context and GIVEN/WHEN/THEN
@@ -234,7 +234,7 @@ OK    3 TDD file(s) have title, status, Context and GIVEN/WHEN/THEN
 D4  slice, UX and localization specs
 OK    slice T2 numbers, 7 a11y controls and FR/EN parity rules present
 
-RESULT: PASS — 3 ADR(s), 3 TDD(s), 0 error(s). Structural check only; no claim validated.
+RESULT: PASS — 4 ADR(s), 3 TDD(s), 0 error(s). Structural check only; no claim validated.
 == validate-gdd --template (GDD-001)
 
 G1  module inventory: 32 files, expected 32

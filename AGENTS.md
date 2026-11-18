@@ -140,6 +140,10 @@ Anything else goes through a handoff. A conflict is resolved by a handoff or the
 - **Dashboard**: PR #2 (`session/20261118-dashboard-truth`) replaces P0-007's hardcoded false values with
   sourced ones and adds `apps/dashboard/check.mjs`. The view is truthful but still static; the check is not
   yet a `pnpm verify` step.
+- **NET-003 landed on the pinned `ws` transport** (A0004, Director: "bypass pin colyseus"): no dependency added.
+  Rooms own lifecycle/reconnect/session handles; handles are resume hints, not credentials (SEC-001). Rooms
+  17/17, server 25/25, full 90/90, verify 17/17. **D146 is closed**: `scripts/session-result.mjs` generates the
+  §20 result from metrics, fail-closed and byte-identical. Next: NET-004 (prediction/reconciliation).
 - Known intentional red: `scope-math --report` exit 2 (throughput unmeasured) and `concept --score` exit 2
   until HC-003. `concept --check` is green: T3 was signed at GATE:P0.
 

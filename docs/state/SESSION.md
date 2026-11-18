@@ -7,8 +7,8 @@
 | branch | `session/20261118-hc-001-high-concept` |
 | phase / tier | P1 complete → P2NET next / current `S0`, authorized **`S1`** (GATE:P1 signed 2026-11-18) |
 | director | present for bootstrap; async from now |
-| last task | NET-005 — animation state machine + clip manifest |
-| next task | **NET-003** — rooms/reconnect — still blocked on a producer-owned Colyseus pin |
+| last task | NET-003 — rooms on the pinned `ws` transport (A0004) |
+| next task | **NET-004** — prediction + reconciliation + desync recovery |
 
 ## Done this session
 
@@ -44,6 +44,7 @@
 | NET-002 | binary v2 frames, handshake, `ProtocolError`; GDD-NETCODE 0.4; NET-002 acc repaired | protocol 23/23 · full 51/51 · `verify` 17/17 · 1 551 B max frame |
 | NET-005 | anim state machine in core, clip manifest + JSON schema; GDD-ANIM-ARCHITECTURE 0.3 | anim 22/22 · full 73/73 · `verify` 17/17 · 12 B anim_state |
 | P0-002 (D146) | real `scripts/session-result.mjs`, structured `result` block in metrics | short 0 · full 0 · negative 1 · `verify` 17/17 |
+| NET-003 | rooms, resume handles, `ws` adapter, GDD-SHARDING 0.3, A0004 | rooms 17/17 · server 25/25 · full 90/90 · `verify` 17/17 |
 
 **P0-001 and P0-002 were split** although only P0-001 triggered B8: the halves fail for different reasons and
 deserve separate rollback points. Commits: `094f31f`, `bd6f550` (P0-001); `1ceaf20`, `7e9d382` (P0-002).
@@ -213,3 +214,15 @@ blueprint task currently owns the pin: recorded as a gap for the Director/next r
   that were not numeric sources. Missing required fields exit 1; two runs are byte-identical.
 - The stale metrics note "this result was composed by hand" is replaced by a D146-satisfied note.
 - `pnpm verify` remains **17/17**; the stub simply disappears from the deferred list.
+
+## Session 2 — NET-003 (2026-11-18T09:24Z)
+
+- **A0004 accepted.** The Director said "bypass pin colyseus". NET-003 runs on `ws` 8.23.0, already pinned and
+  audited: **no dependency added, no lockfile change**. The stale `STACK.lock.md` line stays as a record.
+- Rooms are transport-agnostic; `ws-adapter.ts` is the only `ws` boundary. Handles are FNV-1a tamper detectors,
+  **not credentials** (SEC-001 owns auth). Resume sends a snapshot and never replays intents server-side.
+- **Defect fixed:** a replayed seq was silently dropped at tick time by `SimHost`; `Room` now refuses it at
+  ingress with a reason event. GDD-SHARDING 0.2 → 0.3; NET-003 acc repaired to a file path (9 remain broken).
+- Rooms 17/17, server 25/25, full 90/90, verify 17/17, tracer green. No `main.ts` wiring: the adapter is
+  exported for a later task.
+- D146 remains satisfied: the generator was re-run against the new metrics (60 commands, 8 evidence dirs).

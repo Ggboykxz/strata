@@ -3,7 +3,7 @@
 | field | value |
 |---|---|
 | id | GDD-SHARDING |
-| version | 0.2 |
+| version | 0.3 |
 | owner | backend-engineer |
 | status | DRAFT |
 
@@ -11,7 +11,7 @@
 
 ## 1. Identity, version, owner, status
 
-ID GDD-SHARDING, version 0.2, owner backend-engineer, status **DRAFT**. Derived from P1-001 VISION and the locked HIGH_CONCEPT.
+ID GDD-SHARDING, version 0.3, owner backend-engineer, status **DRAFT**. Derived from P1-001 VISION and the locked HIGH_CONCEPT.
 
 ## 2. Player-facing outcome
 
@@ -32,14 +32,27 @@ D6 collective authorship: consequences are shard-wide and named, not private to 
 - commit window <= 1 s at 64 players per shard | TUNABLE 0.2..2 s | plan: PR-S7 shard storm test
 - cross-shard fan-out <= 64 shards per fact | TUNABLE 8..64 | plan: PR-S7
 - duplicate commits = 0 under retry | SOURCE: master §6 double-entry idempotency
+- room capacity = 2 authoritative entities by default | SOURCE: apps/server/src/rooms/room.ts (A0004, ws transport)
+- reconnect window = 30 ticks = 1 s at 30 Hz | TUNABLE 0..120 ticks | plan: PR-N2 loss/jitter matrix; eviction at `tick - disconnectTick > window`
+- resume handle = 4 dot-separated fields (room, client, nonce, 8-hex FNV-1a signature) | SOURCE: apps/server/src/rooms/tokens.ts — a tamper detector, not a credential
 
 ## 6. State machine
 
 QUEUED → IN_FLIGHT → ACKED → APPLIED → FAILED → RETRYING.
 
+Room lifecycle (instances, NET-003): **OPEN → DRAINING → CLOSED**. OPEN while at least one socket is attached;
+DRAINING when every client is away but a handle is still inside the reconnect window; CLOSED when the window
+expires and the hub removes the room. A resumed client reclaims its original entity id, never a new one.
+
 ## 7. Data contract
 
 shard_commit v1 {fact_id, source_shard, target_shard, retry_count, hash}. Ordering is by (tick, fact_id), never by wall clock. Migration: version gate rejects mixed-version shards.
+
+room_session v1 {room, client, nonce, signature} travels in the WebSocket upgrade query (`?room=…&token=…` or
+`?room=…&nonce=…`), because protocol v2 has no field for it (NET-002 scope). The server sends a snapshot on
+resume; the client resets to it and replays only intents with seq greater than the entity's `appliedSeq`
+(GDD-NETCODE §4, client side in NET-004). The server never replays intents on resume: that would double-apply.
+A handle is a **resume hint, not authentication**; SEC-001 owns auth, rate limits and anti-cheat.
 
 ## 8. Edge cases
 
@@ -48,6 +61,10 @@ shard_commit v1 {fact_id, source_shard, target_shard, retry_count, hash}. Orderi
 3. Three retries with different hashes: commit is rejected and escalated to the GM audit log.
 4. Fact arrives before its prerequisite fact: queued, not applied, until prerequisite acks.
 5. Shard split during commit: both halves use the same fact id; no duplicate history.
+6. Intent with a seq already submitted by that entity: refused at ingress with a rejection event; never enqueued twice.
+7. Resume with another client's handle, or a tampered signature: refused; the socket gets `reject{unauthorized}`.
+8. Room full: the ninth join attempt for an 8-entity room is refused; no entity is reassigned while away inside the window.
+9. Resume after the window: the handle is dead, the client must join as a new member with a new entity id.
 
 ## 9. Failure states
 
@@ -80,6 +97,9 @@ queue_depth, commit_latency_ms (p95), duplicate_commits, retry_count. Success me
 - GIVEN 64 shards and one fact WHEN the queue commits THEN each shard reports the same fact id and hash.
 - GIVEN 1000 retries of one commit WHEN the queue processes them THEN exactly one ledger/fact entry exists.
 - GIVEN a target shard offline WHEN the window closes THEN the entry is RETRYING and no fact is lost.
+- GIVEN two clients WHEN they join a room THEN they receive distinct entity ids; a third join over capacity is refused.
+- GIVEN a disconnected client WHEN it resumes inside the window THEN it gets the same entity id and a snapshot with its applied seq; outside the window the handle is dead.
+- GIVEN one room id and one intent script WHEN two hubs run it THEN their hashes are equal at every tick.
 
 ## 16. Perf budget impact
 
@@ -93,8 +113,8 @@ No peer-to-peer history merge, no eventually-consistent currency, no client-visi
 
 | question | owner | deadline |
 |---|---|---|
-| M | a | x |
-| B | a | c |
+| Does the resume handle move into an authenticated wire frame, and who owns the session secret? | security-auditor + backend-engineer | SEC-001 |
+| What reconnect window survives a 2 s loss burst at 64 players? | qa-engineer | PR-N2 |
 
 ## 19. Changelog
 
@@ -102,3 +122,4 @@ No peer-to-peer history merge, no eventually-consistent currency, no client-visi
 |---|---|---|---|
 | 0.1 | 2026-11-18 | STUB created by GDD-001 | game-designer |
 | 0.2 | 2026-11-18 | DRAFT: all 19 fields, sources and ranges | GDD-002 |
+| 0.3 | 2026-11-18 | NET-003: room lifecycle, ws transport (A0004), resume handles, ingress replay check | backend-engineer |

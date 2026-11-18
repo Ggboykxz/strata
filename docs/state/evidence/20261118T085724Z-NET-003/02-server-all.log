@@ -1,0 +1,11 @@
+$ pnpm vitest run apps/server
+
+ RUN  v5.1.0 /content/strata
+
+
+ Test Files  2 passed (2)
+      Tests  25 passed (25)
+   Start at  08:57:27
+   Duration  517ms (tests 34%, import 31%, transform 27%, worker 7%)
+
+EXIT=0
