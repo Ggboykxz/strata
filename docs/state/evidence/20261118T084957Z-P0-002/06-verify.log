@@ -17,11 +17,11 @@ $ vitest run
 
  Test Files  15 passed (15)
       Tests  142 passed (142)
-   Start at  10:00:06
-   Duration  5.09s (tests 54%, import 32%, worker 7%, transform 7%)
+   Start at  10:01:21
+   Duration  3.70s (tests 48%, import 35%, transform 9%, worker 8%)
 
-    Isolate  15 workers spawned · ~207ms startup each (spawn + environment, per file)
-             at least ~2.90s faster with isolate: false — reuses workers across files instead of one per file
+    Isolate  15 workers spawned · ~155ms startup each (spawn + environment, per file)
+             at least ~2.16s faster with isolate: false — reuses workers across files instead of one per file
 
 == validate-prompt-drift
 PASS  docs/state/PROMPT.lock parsed (version 1)
@@ -173,7 +173,7 @@ RESUME DRILL (--dry, read-only)
 PASS  repository root
       /content/strata
 PASS  pwd
-      5 change(s)
+      4 change(s)
 PASS  git status --short
       session/20261118-hc-001-high-concept
 PASS  git branch --show-current

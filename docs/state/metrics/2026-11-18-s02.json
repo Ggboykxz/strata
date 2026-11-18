@@ -966,20 +966,14 @@
     "No agent fabricated a signature and no evidence was changed to obtain it. PR merges remain Director-only.",
     "NG-001: NET-GATE dossier honest (2 met / 8 unmet). Director said \"je signe tout\" — recorded verbatim in A0006 as signed-with-risk, not passed.",
     "Gate signature does not make criteria measured: --assert-ready still exits 1. PR merges remain Director-only; no art produced.",
-    "NG-001 CI at 90fed4d: 8/8 triggered workflows success; run ids in docs/state/evidence/20261118T095646Z-NG-001/08-ci-proof.log."
+    "NG-001 CI at 90fed4d: 8/8 triggered workflows success; run ids in docs/state/evidence/20261118T095646Z-NG-001/08-ci-proof.log.",
+    "FULL result fields reconciled with git and the lock registry: 98 commits, 105 lock entries, 16 thread dirs, 4 prototype reports."
   ],
   "result": {
     "phase": "P2NET",
     "status": "done",
     "commits": [
-      "04a5efd",
-      "d1fb541",
-      "ad30f2f",
-      "77b8cc7",
-      "5007976",
-      "914ed5a",
-      "42dc8a3",
-      "ad12e4b"
+      "04a5efd … 7f11afe (98 commits since root 36bd9af; 2 on dashboard branch)"
     ],
     "prs": [
       {
@@ -995,18 +989,28 @@
     ],
     "reviewer": "none installed — known limit, no self-merge",
     "locks": {
-      "acquired": 30,
-      "released": 30,
+      "acquired": 105,
+      "released": 105,
       "branch": "state/locks",
-      "note": "one sorted commit per acquisition and release"
+      "note": "105 released entries, 0 active; 30 lock commits"
     },
     "threads": [
       "P0-005.a",
       "GATE-P1",
       "NET-001",
       "NET-002",
+      "NET-003",
+      "NET-004",
       "NET-005",
-      "P0-007"
+      "NET-006",
+      "NG-001",
+      "P0-002",
+      "P0-007",
+      "PR-N1",
+      "PR-N3",
+      "PR-N4",
+      "SC-001",
+      "SEC-001"
     ],
     "disputes": 1,
     "evidence": {
@@ -1104,31 +1108,28 @@
     ],
     "next_session_file": "docs/state/NEXT_SESSION.md",
     "full": {
-      "handoffs": "Fourteen handoff+proposal pairs under docs/state/threads/; all ACKed in-process. No external reviewer installed.",
+      "handoffs": "Sixteen handoff+proposal pairs under docs/state/threads/; all ACKed in-process. No external reviewer installed.",
       "concept_roles": "Roles executed by one process; T3 signed at GATE:P0 and re-signature deferred to the next gate. Signature ratio not recomputable from metrics.json.",
       "gdd_version_bumps": [
-        "GDD-NETCODE 0.2 -> 0.3 -> 0.4",
-        "GDD-ANIM-ARCHITECTURE 0.2 -> 0.3",
+        "GDD-NETCODE 0.2 -> 0.3 -> 0.4 -> 0.5 -> 0.6 -> 0.7",
+        "GDD-ANIM-ARCHITECTURE 0.2 -> 0.3 -> 0.4",
         "GDD-SHARDING 0.2 -> 0.3",
-        "GDD-NETCODE 0.4 -> 0.5",
-        "GDD-ANIM-ARCHITECTURE 0.3 -> 0.4",
-        "GDD-NETCODE 0.5 -> 0.6",
         "GDD-PERSISTENCE 0.2 -> 0.3",
         "GDD-TRADE 0.2 -> 0.3",
-        "GDD-NETCODE 0.6 -> 0.7",
-        "GDD-SECURITY 0.2 -> 0.3",
-        "GDD-SECURITY 0.2 -> 0.3",
-        "GDD-NETCODE 0.6 -> 0.7"
+        "GDD-SECURITY 0.2 -> 0.3"
       ],
       "scope_ledger_delta": "0 entries (12 -> 12, balanced)",
       "content_math": "Local CPU p95 0.2109 ms (180-tick harness, 64 entities); network throughput still NOT COMPUTABLE.",
       "prototype_reports": [
-        "docs/qa/prototypes/ — unchanged this session"
+        "docs/qa/prototypes/PRN1.md",
+        "docs/qa/prototypes/PRN3.md",
+        "docs/qa/prototypes/PRN4.md",
+        "docs/qa/prototypes/NET_GATE.md"
       ],
       "economy_metrics": "Ledger 10k fuzz: drift 0 minor units, 1000 duplicates deduped, 1 conflict, restore verified. Inflation/Gini still NOT COMPUTABLE (ECON-001).",
       "anim_checks": "A0001 separation intact; retarget coverage and foot slide NOT COMPUTABLE (AN-002)",
       "world_checks": "No world content this session",
-      "files_by_owner": "orchestrator: docs/state/**, docs/blueprint/**, scripts/session-result.mjs; gameplay-engineer: packages/core/src/{tick,index}.ts, apps/server/src/sim/; netcode-engineer: packages/protocol/**, GDD-NETCODE; animation-director: packages/core/src/anim-state/**, packages/content/animations/**, GDD-ANIM-ARCHITECTURE; tools-engineer: apps/dashboard/** backend-engineer: apps/server/src/rooms/** (NET-003, A0004). netcode-engineer: apps/game/src/net/**, packages/core/src/hash.ts (NET-004). netcode-engineer: protocol/src/anim.ts + wire v3, apps/server/src/combat/**, apps/game/src/net/jitter.ts (NET-006). qa-engineer: tools/sim/load/**, docs/qa/prototypes/PRN1.md (PR-N1, A0005). backend-engineer: packages/core/src/ledger/**, tools/sim/persist/** (PR-N3); economy-designer: GDD-TRADE 0.3. netcode-engineer: tools/sim/net/prn4_lagcomp.ts (PR-N4). security-auditor: apps/server/src/validation/**, tests/security/**, docs/legal/THREAT_MODEL.md (SEC-001). producer + netcode-engineer: docs/qa/prototypes/NET_GATE.md, docs/state/gates/GATE_NET.md, scripts/validate-netgate.mjs (NG-001, A0006)."
+      "files_by_owner": "orchestrator: docs/state/**, docs/blueprint/**, scripts/session-result.mjs, A0004/A0005/A0006; gameplay-engineer: packages/core/src/{tick,index,hash}.ts, apps/server/src/sim/, core/test; netcode-engineer: packages/protocol/**, apps/game/src/net/**, apps/server/src/combat/**, tools/sim/net/, GDD-NETCODE; animation-director: packages/core/src/anim-state/**, packages/content/animations/**, GDD-ANIM-ARCHITECTURE; tools-engineer: apps/dashboard/**; backend-engineer: apps/server/src/rooms/**, packages/core/src/ledger/**, tools/sim/persist/**, GDD-PERSISTENCE; economy-designer: GDD-TRADE; qa-engineer: tools/sim/load/**, tests/security/**; security-auditor: apps/server/src/validation/**, docs/legal/THREAT_MODEL.md, GDD-SECURITY; producer: docs/qa/prototypes/NET_GATE.md, docs/state/gates/GATE_NET.md."
     }
   }
 }
