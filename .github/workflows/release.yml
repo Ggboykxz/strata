@@ -1,6 +1,7 @@
 # Release gate waits for GATE:P0 and a Director merge.
 name: release
-on: { workflow_dispatch: }
+on:
+  workflow_dispatch:
 permissions: { contents: read }
 concurrency:
   group: release-${{ github.ref }}

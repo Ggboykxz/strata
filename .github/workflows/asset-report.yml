@@ -1,6 +1,7 @@
 # DECLARED STUBs — manual until assets exist.
 name: asset-report
-on: { workflow_dispatch: }
+on:
+  workflow_dispatch:
 permissions: { contents: read }
 concurrency:
   group: asset-report-${{ github.ref }}

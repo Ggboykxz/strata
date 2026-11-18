@@ -1,6 +1,7 @@
 # DECLARED STUB validate-retarget.mjs.
 name: retarget
-on: { workflow_dispatch: }
+on:
+  workflow_dispatch:
 permissions: { contents: read }
 concurrency:
   group: retarget-${{ github.ref }}

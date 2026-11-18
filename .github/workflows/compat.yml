@@ -1,5 +1,6 @@
 name: compat
-on: { workflow_dispatch: }
+on:
+  workflow_dispatch:
 permissions: { contents: read }
 concurrency:
   group: compat-${{ github.ref }}

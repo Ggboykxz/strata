@@ -1,6 +1,7 @@
 # Perf budgets have no measured source before HC-003.
 name: perf
-on: { workflow_dispatch: }
+on:
+  workflow_dispatch:
 permissions: { contents: read }
 concurrency:
   group: perf-${{ github.ref }}

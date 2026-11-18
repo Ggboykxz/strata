@@ -1,6 +1,7 @@
 # Soak test arrives with NET-006 / QA harness.
 name: soak
-on: { workflow_dispatch: }
+on:
+  workflow_dispatch:
 permissions: { contents: read }
 concurrency:
   group: soak-${{ github.ref }}

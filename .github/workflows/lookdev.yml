@@ -1,6 +1,7 @@
 # Lookdev arrivals with P3ART; no generator before NET-GATE (I2).
 name: lookdev
-on: { workflow_dispatch: }
+on:
+  workflow_dispatch:
 permissions: { contents: read }
 concurrency:
   group: lookdev-${{ github.ref }}

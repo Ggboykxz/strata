@@ -1,5 +1,6 @@
 name: balance
-on: { workflow_dispatch: }
+on:
+  workflow_dispatch:
 permissions: { contents: read }
 concurrency:
   group: balance-${{ github.ref }}

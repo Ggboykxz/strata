@@ -1,6 +1,7 @@
 # DECLARED STUB validate-gdd.mjs — manual until GDD-001 implements it.
 name: gdd
-on: { workflow_dispatch: }
+on:
+  workflow_dispatch:
 permissions: { contents: read }
 concurrency:
   group: gdd-${{ github.ref }}

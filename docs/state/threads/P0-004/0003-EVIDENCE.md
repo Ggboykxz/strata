@@ -49,3 +49,10 @@ regenerated with the **exact master §18 names** while preserving every real che
 
 Validator exit 0: 27 files, 56 SHA-pinned `uses:`, 47 run steps. 8/8 negative tests; `pnpm verify` 12/12.
 Evidence: `docs/state/evidence/20261118T020134Z-P0-004-RECONCILE/`.
+
+**Defect after the first reconciliation push (head `fcdc003`).** The generator emitted `on:{ … }` (no
+space after the colon) for PR-triggered files and `on: { workflow_dispatch: }` with a null value for
+manual ones. GitHub rejected all 12 manual workflows; the run names became file paths. Static validation
+passed because it only checked that `on` existed. Fixed by emitting `on: { … }` and the block form
+`on:\n  workflow_dispatch:`. The negative suite still passes; a GitHub run, not the local validator, was
+what exposed the defect.

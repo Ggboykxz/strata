@@ -1,6 +1,7 @@
 # DECLARED STUB validate-texture-set.mjs.
 name: texture-audit
-on: { workflow_dispatch: }
+on:
+  workflow_dispatch:
 permissions: { contents: read }
 concurrency:
   group: texture-audit-${{ github.ref }}

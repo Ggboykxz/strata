@@ -1,5 +1,6 @@
 name: a11y
-on: { workflow_dispatch: }
+on:
+  workflow_dispatch:
 permissions: { contents: read }
 concurrency:
   group: a11y-${{ github.ref }}

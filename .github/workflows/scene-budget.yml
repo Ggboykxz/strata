@@ -1,6 +1,7 @@
 # DECLARED STUB validate-scene-budget.mjs.
 name: scene-budget
-on: { workflow_dispatch: }
+on:
+  workflow_dispatch:
 permissions: { contents: read }
 concurrency:
   group: scene-budget-${{ github.ref }}

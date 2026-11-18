@@ -1,6 +1,7 @@
 # Prototype validators arrive with PR-S1..PR-S8.
 name: prototype
-on: { workflow_dispatch: }
+on:
+  workflow_dispatch:
 permissions: { contents: read }
 concurrency:
   group: prototype-${{ github.ref }}

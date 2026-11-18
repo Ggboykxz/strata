@@ -1,6 +1,7 @@
 # DECLARED STUB validate-anim-separation.mjs.
 name: anim-separation
-on: { workflow_dispatch: }
+on:
+  workflow_dispatch:
 permissions: { contents: read }
 concurrency:
   group: anim-separation-${{ github.ref }}
