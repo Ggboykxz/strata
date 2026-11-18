@@ -17,11 +17,11 @@ $ vitest run
 
  Test Files  17 passed (17)
       Tests  154 passed (154)
-   Start at  10:18:50
-   Duration  4.63s (tests 55%, import 30%, transform 8%, worker 7%)
+   Start at  10:24:44
+   Duration  4.66s (tests 55%, import 30%, transform 8%, worker 6%)
 
-    Isolate  17 workers spawned · ~164ms startup each (spawn + environment, per file)
-             at least ~2.62s faster with isolate: false — reuses workers across files instead of one per file
+    Isolate  17 workers spawned · ~165ms startup each (spawn + environment, per file)
+             at least ~2.64s faster with isolate: false — reuses workers across files instead of one per file
 
 == validate-prompt-drift
 PASS  docs/state/PROMPT.lock parsed (version 1)
@@ -287,14 +287,13 @@ RESULT: PASS — art structure gate, 0 error(s). Visual quality is not judged he
 DEFERRED — required by master §6, not buildable at P0-003:
   - determinism replay (Node + Chromium hash equality): no sim before TRACER-001/NET-001
   - gdd-coverage --min: no GDD module before GDD-001 (P1)
-  - 8 validate-*.mjs stub(s) + 1 other declared stub(s); each exits 1 until its owner implements it:
+  - 7 validate-*.mjs stub(s) + 1 other declared stub(s); each exits 1 until its owner implements it:
       scripts/validate-anim-separation.mjs
       scripts/validate-anim.mjs
       scripts/validate-content-blueprints.mjs
       scripts/validate-kit.mjs
       scripts/validate-lightmap.mjs
       scripts/validate-retarget.mjs
-      scripts/validate-scene-budget.mjs
       scripts/validate-texture-set.mjs
       other: scripts/gdd-to-tests.mjs
 

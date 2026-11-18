@@ -146,7 +146,7 @@
     "wire_budget_over_factor": 3.9,
     "actions_runs": 8,
     "actions_runs_success": 8,
-    "ci_head": "7d25eeb69aeff8b74c7223a9c0b58849414ce6a5",
+    "ci_head": "956267ac9df574b7b6f5f3a481a4c93a5d6a6b10",
     "anim_tests": 22,
     "anim_states": 5,
     "blend_ticks": 2,
@@ -1145,7 +1145,8 @@
     "Not a T2 sign-off: no real geometry, blind-reviewer captures or browser replay — GB-001 and PR-S3 own those.",
     "PR-S2 CI at the attested head: 8/8 triggered workflows success; run ids in docs/state/evidence/20261118T101524Z-PR-S2/10-ci-proof.log.",
     "GB-001: 3 strata, 12 capsule/box primitives, 3 PR-S2 variant swaps, checksum 06d8d93c; --parity still fails closed (WG-001).",
-    "No Babylon scene, blind-reviewer captures or art. GATE:P2 still unsatisfied; art tasks remain blocked."
+    "No Babylon scene, blind-reviewer captures or art. GATE:P2 still unsatisfied; art tasks remain blocked.",
+    "GB-001 CI at the attested head: 8/8 triggered workflows success; run ids in docs/state/evidence/20261118T102136Z-GB-001/09-ci-proof.log."
   ],
   "result": {
     "phase": "P2NET",
@@ -1280,7 +1281,7 @@
         },
         {
           "dir": "docs/state/evidence/20261118T102136Z-GB-001/",
-          "logs": 9,
+          "logs": 10,
           "branch": "session"
         }
       ]
