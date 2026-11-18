@@ -1,0 +1,213 @@
+AUDIT LOG — AUDIT-2026-11-18-DASH-NEXT
+I4 licence + transitive-dependency audit for adding Next.js/React/React-DOM to the dashboard.
+Repo: /content/strata  Branch: session/20261118-dashboard-next
+
+COMMAND: pnpm view next version
+UTC: 2026-11-18T16:44:35Z
+EXIT: 0
+----- output -----
+16.4.6
+----- end output -----
+
+COMMAND: pnpm view react version
+UTC: 2026-11-18T16:44:35Z
+EXIT: 0
+----- output -----
+19.3.1
+----- end output -----
+
+COMMAND: pnpm view react-dom version
+UTC: 2026-11-18T16:44:36Z
+EXIT: 0
+----- output -----
+19.3.1
+----- end output -----
+
+COMMAND: pnpm view next@16.4.6 license
+UTC: 2026-11-18T16:44:36Z
+EXIT: 0
+----- output -----
+MIT
+----- end output -----
+
+COMMAND: pnpm view react@19.3.1 license
+UTC: 2026-11-18T16:44:37Z
+EXIT: 0
+----- output -----
+MIT
+----- end output -----
+
+COMMAND: pnpm view react-dom@19.3.1 license
+UTC: 2026-11-18T16:44:37Z
+EXIT: 0
+----- output -----
+MIT
+----- end output -----
+
+COMMAND: node tools/qa/audit-dashboard-deps.mjs (PRE-INSTALL)
+UTC: 2026-11-18T16:44:37Z
+EXIT: 1
+----- output -----
+NOT INSTALLED: pinned dashboard dependencies are missing from node_modules/.pnpm.
+  - next@16.4.6: no installed copy found
+  - react@19.3.1: no installed copy found
+  - react-dom@19.3.1: no installed copy found
+RESULT=FAIL EXIT=1 REASON=NOT_INSTALLED
+----- end output -----
+
+COMMAND: pnpm view next@16.4.6 dependencies --json
+UTC: 2026-11-18T16:44:43Z
+EXIT: 0
+----- output -----
+{
+  "postcss": "8.5.23",
+  "@next/env": "16.4.6",
+  "styled-jsx": "5.1.6",
+  "@swc/helpers": "0.5.23",
+  "caniuse-lite": "^1.0.30001579",
+  "baseline-browser-mapping": "^2.9.19"
+}
+----- end output -----
+
+COMMAND: pnpm view next@16.4.6 optionalDependencies --json
+UTC: 2026-11-18T16:44:44Z
+EXIT: 0
+----- output -----
+{
+  "sharp": "^0.35.5",
+  "@next/swc-darwin-x64": "16.4.6",
+  "@next/swc-darwin-arm64": "16.4.6",
+  "@next/swc-linux-x64-gnu": "16.4.6",
+  "@next/swc-linux-x64-musl": "16.4.6",
+  "@next/swc-win32-x64-msvc": "16.4.6",
+  "@next/swc-linux-arm64-gnu": "16.4.6",
+  "@next/swc-linux-arm64-musl": "16.4.6",
+  "@next/swc-win32-arm64-msvc": "16.4.6"
+}
+----- end output -----
+
+COMMAND: pnpm view next@16.4.6 peerDependencies --json
+UTC: 2026-11-18T16:44:45Z
+EXIT: 0
+----- output -----
+{
+  "sass": "^1.3.0",
+  "react": "^18.2.0 || 19.0.0-rc-de68d2f4-20241204 || ^19.0.0",
+  "react-dom": "^18.2.0 || 19.0.0-rc-de68d2f4-20241204 || ^19.0.0",
+  "@playwright/test": "^1.51.1",
+  "@opentelemetry/api": "^1.1.0",
+  "babel-plugin-react-compiler": "*"
+}
+----- end output -----
+
+COMMAND: node tools/qa/audit-dashboard-deps.mjs (POST-INSTALL)
+UTC: 2026-11-18T16:47:06Z
+EXIT: 1
+----- output -----
+FORBIDDEN LICENCE(S) DETECTED: 1 package record(s).
+  - @img/sharp-libvips-linux-x64@1.3.4 [LGPL-3.0-or-later] -> GPL-FAMILY (/content/strata/node_modules/.pnpm/@img+sharp-libvips-linux-x64@1.3.4/node_modules/@img/sharp-libvips-linux-x64/package.json)
+SUMMARY: scanned=62 pinned=3/3 forbidden=1
+RESULT=FAIL EXIT=1 REASON=FORBIDDEN_LICENCE
+----- end output -----
+
+COMMAND: pnpm view sharp@0.35.5 license
+UTC: 2026-11-18T16:47:42Z
+EXIT: 0
+----- output -----
+Apache-2.0
+----- end output -----
+
+COMMAND: pnpm view @img/sharp-linux-x64@0.35.5 license
+UTC: 2026-11-18T16:47:42Z
+EXIT: 0
+----- output -----
+Apache-2.0
+----- end output -----
+
+COMMAND: pnpm view @img/sharp-libvips-linux-x64@1.3.4 license
+UTC: 2026-11-18T16:47:42Z
+EXIT: 0
+----- output -----
+LGPL-3.0-or-later
+----- end output -----
+
+COMMAND: node -p require(sharp-linux-x64/package.json).optionalDependencies
+UTC: 2026-11-18T16:47:42Z
+EXIT: 0
+----- output -----
+{"@img/sharp-libvips-linux-x64":"1.3.4"}
+----- end output -----
+
+============================================================
+FOLLOW-UP — MITIGATION BY PIN CHANGE (agent re-verification)
+Context: Next 16.4.6 pin REJECTED for LGPL transitive libvips;
+root integration re-pinned to Next 14 / React 18. This section
+records MY independent re-run, not a waiver.
+============================================================
+
+COMMAND: pnpm install --frozen-lockfile
+UTC: 2026-11-18T16:53:26Z
+EXIT: 0
+----- output -----
+Scope: all 9 workspace projects
+✓ Lockfile passes supply-chain policies (verified 3m ago)
+Lockfile is up to date, resolution step is skipped
+Done in 33ms using pnpm v12.21.0
+----- end output -----
+
+COMMAND: node tools/qa/audit-dashboard-deps.mjs (MITIGATED PINS)
+UTC: 2026-11-18T16:53:26Z
+EXIT: 0
+----- output -----
+SUMMARY: PASS scanned=74 pinned=next@14.2.35,react@18.3.1,react-dom@18.3.1 forbidden=0 missing_license=0
+RESULT=PASS EXIT=0
+----- end output -----
+
+COMMAND: pnpm view next@14.2.35 optionalDependencies --json
+UTC: 2026-11-18T16:53:27Z
+EXIT: 0
+----- output -----
+{
+  "@next/swc-darwin-x64": "14.2.33",
+  "@next/swc-darwin-arm64": "14.2.33",
+  "@next/swc-linux-x64-gnu": "14.2.33",
+  "@next/swc-linux-x64-musl": "14.2.33",
+  "@next/swc-win32-x64-msvc": "14.2.33",
+  "@next/swc-linux-arm64-gnu": "14.2.33",
+  "@next/swc-win32-ia32-msvc": "14.2.33",
+  "@next/swc-linux-arm64-musl": "14.2.33",
+  "@next/swc-win32-arm64-msvc": "14.2.33"
+}
+----- end output -----
+
+COMMAND: ls node_modules/.pnpm | grep -iE 'sharp|libvips' (expect none)
+UTC: 2026-11-18T16:53:27Z
+EXIT: 0
+----- output -----
+NONE: no sharp/libvips packages installed
+----- end output -----
+
+COMMAND: pnpm view next@14.2.35 license version
+UTC: 2026-11-18T16:53:33Z
+EXIT: 0
+----- output -----
+license = 'MIT'
+version = '14.2.35'
+----- end output -----
+
+COMMAND: pnpm view react@18.3.1 license version
+UTC: 2026-11-18T16:53:33Z
+EXIT: 0
+----- output -----
+license = 'MIT'
+version = '18.3.1'
+----- end output -----
+
+COMMAND: pnpm view react-dom@18.3.1 license version
+UTC: 2026-11-18T16:53:34Z
+EXIT: 0
+----- output -----
+license = 'MIT'
+version = '18.3.1'
+----- end output -----
+

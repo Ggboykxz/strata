@@ -1,0 +1,23 @@
+{
+  "name": "@strata/dashboard-next",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Read-only Next.js display of the generated STRATA dashboard view",
+  "scripts": {
+    "build": "next build",
+    "dev": "next dev",
+    "start": "next start"
+  },
+  "dependencies": {
+    "next": "14.2.35",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "22.20.5",
+    "@types/react": "18.3.28",
+    "@types/react-dom": "18.3.7",
+    "typescript": "6.0.3"
+  }
+}

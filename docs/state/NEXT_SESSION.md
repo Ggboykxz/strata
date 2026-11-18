@@ -3,11 +3,11 @@
 | field | value |
 |---|---|
 | written | 2026-11-18T16:02Z |
-| branch | `session/20261118-prn1-matrix` — **PR #4** https://github.com/Ggboykxz/strata/pull/4 opened for review, **never self-merged** |
+| branch | `session/20261118-dashboard-next` — DASH-NEXT PR prepared, **never self-merged**; PR-N1 remains **PR #4** https://github.com/Ggboykxz/strata/pull/4 |
 | mode | RESUME |
 | tier | current `S0`, authorized **`S1`** (GATE:P1 signed) |
-| last task | **PR-N1** — 4-client matrix and real 30-minute soak measured (rerun EXIT=0) |
-| next task | Close out PR-N1 evidence/PR, then NET-101 AoI/delta (tier S2, **GATE:P4-blocked**) |
+| last task | **DASH-NEXT** — Next.js view prepared for Vercel, no deployment |
+| next task | Director merge / token rotation; then NET-101 AoI/delta (tier S2, **GATE:P4-blocked**) |
 | blockers | ND-004/005 token rotation, Director PR merge, wire budget 3.79×, crash/RPO, auth/TLS |
 
 ---
@@ -74,9 +74,12 @@ every art decision made under the risk acceptance.
 - **ND-011** — TPU v5e-1: training-only or an audited generation path?
 - **ND-012** — T4 16 GB arrival; log both `detect_tier.py` probes before any generation.
 - **Dashboard on Vercel, with Next.js (Director, 2026-11-18)** — separate task/PR, not part of PR-N1 (one task
-  per PR). Next.js/React are **not** in the lockfile: an I4 licence + transitive-dependency audit must be recorded
-  before use. Keep `build.mjs`/`data.json` as the only truth source; Next.js must render those generated values,
-  never recompute a metric. Rebuild on each push; connect Vercel only after ND-004/005 rotation with a fresh token.
+  per PR). `apps/dashboard-next` now exists and renders `apps/dashboard/dist/data.json` at build time; the static
+  dashboard and verify 19/19 remain unchanged. Pins next 14.2.35 / react 18.3.1 / react-dom 18.3.1 are in
+  `pnpm-lock.yaml` and `docs/STACK.lock.md`; Next 16 was rejected (optional LGPL sharp/libvips chain) and
+  downgraded. I4 audit is in `docs/legal/DEPENDENCY_AUDIT_NEXTJS.md`.
+  `vercel.json` is prepared only. Rebuild on each push; connect Vercel only after ND-004/005 rotation with a
+  fresh token. No deployment was performed by an agent.
 - Repo default branch remains `session/20261118-hc-001-high-concept`; switch to `main` in Settings if intended.
 
 ## 6. Environment

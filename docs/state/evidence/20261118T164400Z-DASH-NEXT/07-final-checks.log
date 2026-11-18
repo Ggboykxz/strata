@@ -1,0 +1,22 @@
+COMMAND: node tools/qa/audit-dashboard-deps.mjs && node scripts/validate-netgate.mjs && node scripts/build-journal.mjs --check && node apps/dashboard/check.mjs
+UTC: 2026-11-18T16:55:23Z
+SUMMARY: PASS scanned=74 pinned=next@14.2.35,react@18.3.1,react-dom@18.3.1 forbidden=0 missing_license=0
+RESULT=PASS EXIT=0
+validate-netgate — PASS — dossier honest, evidence-complete, signature recorded as risk-accepted
+NET-GATE readiness: NOT READY — 4/10 criteria not met
+  - wire-budget: failing
+  - reconnect-restore: partial
+  - crash-restore-rpo: partial
+  - threat-and-anticheat: partial
+build-journal — PASS — view matches the journal entries
+dashboard truth check — PASS — deterministic, sourced, no hardcoded values
+EXIT=0
+COMMAND: node scripts/validate-netgate.mjs --assert-ready (expected exit 1)
+validate-netgate — PASS — dossier honest, evidence-complete, signature recorded as risk-accepted
+NET-GATE readiness: NOT READY — 4/10 criteria not met
+  - wire-budget: failing
+  - reconnect-restore: partial
+  - crash-restore-rpo: partial
+  - threat-and-anticheat: partial
+validate-netgate --assert-ready — FAIL — 4 criteria unmet; the recorded signature is a risk acceptance, not evidence of readiness.
+EXPECTED_READINESS_EXIT=1
