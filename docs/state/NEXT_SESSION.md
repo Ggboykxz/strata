@@ -2,60 +2,65 @@
 
 | field | value |
 |---|---|
-| written | 2026-11-18T03:00Z |
+| written | 2026-11-18T03:04Z |
 | branch | `session/20261118-hc-001-high-concept` — **PR #1** (draft) https://github.com/Ggboykxz/strata/pull/1 |
 | mode | RESUME |
-| next task | **P1-003** — ART_BIBLE + A0001 + separated animation architecture |
+| next task | **P1-004** — UX/a11y/loc + SLICE_SPEC + risks + TDDs/ADRs |
 | blocker | **ND-004 / ND-005 only** — token rotation needs the Director's account. |
 
 ---
 
 ## 1. State at hand-off
 
-GATE:P0 signed; GATE:P1 not. P1-001, P1-002 and GDD-001..004 done. All 14 critical GDD modules are DRAFT.
-`pnpm verify` 16/16, lore negatives 5/5, GDD negatives 13/13. All repro scripts in `tools/qa/`; branches protected.
+GATE:P0 signed; GATE:P1 not. P1-001..003 and GDD-001..004 done. All 14 critical modules DRAFT.
+`pnpm verify` 17/17, 12 stubs, all repro scripts in `tools/qa/`, branches protected.
 
 ```bash
 pnpm verify
-node scripts/validate-lore.mjs
-node scripts/validate-gdd.mjs --critical
+node scripts/validate-docs.mjs
+node scripts/validate-art-bible.mjs
 ```
 
-## 2. P1-003 — definition of done
+## 2. P1-004 — definition of done
 
-Blueprint line 667. Agent **animation-director**, `sig`, deps `[GDD-003]`. Outputs:
-`docs/design/ART_BIBLE.md`, `docs/adr/A0001_animation-scenes-textures.md`, `scripts/validate-art-bible.mjs`
-(already explicitly owned by animation-director in `OWNERSHIP.yaml`). Acceptance: `node scripts/validate-art-bible.mjs`.
+Blueprint line 668. Agent **producer**, co **ux-designer**, **localization-manager**, `split: true`, `amp`,
+deps `[GDD-004, P1-002, P1-003]`. Outputs: `docs/design/VERTICAL_SLICE_SPEC.md`, `docs/design/UX_SPEC.md`,
+`docs/design/LOCALIZATION.md`, `docs/tdd/`, `docs/adr/`. Acceptance: `node scripts/validate-docs.mjs`.
 
-1. **A0001** resolves the art architecture: mesh GLBs and animation GLBs separate (I3), one skeleton pack per
-   archetype, animation STATE only on the wire, server-validated transitions and hit frames. It must state
-   the rejected alternative (merged GLB) and the consequence of the choice.
-2. **ART_BIBLE** fixes the visual grammar of the three strata without generating art: kits on a 2 m grid,
-   64 m cells, thin instances for repeated props, per-instance fact-variant ids, LOD0/1/2 + impostors beyond
-   120 m, one IBL and three locked lighting presets. No hero asset, texture bake, motion generation or scene
-   generation before NET-GATE (I2).
-3. **Numbers with sources or tunable ranges** for draw calls ≤250, tris ≤1.5 M, GPU textures ≤350 MB,
-   ≤20 full-rate skeletons, load ≤25 MB compressed. No adjective-only requirements (§3.5).
-4. **Real `validate-art-bible.mjs`**: checks the bible sections, the A0001 sections, the separation rule,
-   the absence of `art: true` tasks before NET-GATE, and the numeric budgets. Fails closed with file/line.
-5. **Negative tests committed** under `tools/qa/`: merged GLB claim, missing A0001 section, hero asset before
-   NET-GATE, missing budget — each exits 1.
-6. Evidence under `docs/state/evidence/<utc>-P1-003/`.
+1. **VERTICAL_SLICE_SPEC**: one act → 30 s replay → ≥3 facts in ≥2 strata with a physical variant; six
+   before/after captures; two equal-hash clients. Tie it to T2 and the tracer, with measured or explicitly
+   tunable numbers. No content volume promise before throughput is measured.
+2. **UX_SPEC**: HUD, menus, chat, inventory and map as an HTML/CSS overlay above the Babylon canvas;
+   Babylon.GUI only for world-anchored labels, nameplates and healthbars. A11y v1 items: remap, subtitles,
+   scale, contrast, motion reduction, colourblind, no flashing. Each item has a test id.
+3. **LOCALIZATION.md**: FR/EN parity from the WORLD_BIBLE glossary, no concatenated sentences, locale-independent
+   numeric formatting in core, and a 0-untranslated-keys gate.
+4. **TDDs and ADRs**: docs/tdd/ entries for the P2 systems with GIVEN/WHEN/THEN acceptance; docs/adr/ entries
+   for any architecture decision not already covered by A0001/A0002/A0003. Each file has title, status,
+   context and decision so `validate-docs.mjs` passes.
+5. **Risks register** in the slice spec: open concept debt, unmeasured throughput, blocked licences, and the
+   dependency-review exception — each with owner and deadline, no hidden risk.
+6. Extend `validate-docs.mjs` if needed to check the new sections; keep its structural-only scope and log
+   negatives under `docs/state/evidence/<utc>-P1-004/`. Commit the negative script in `tools/qa/`.
+
+Ownership: `docs/tdd/**` and `docs/adr/**` are append-only zones (any agent may create **new** files). The
+ux-designer and localization-manager must write only their own spec paths through a recorded handoff.
 
 ## 3. Open decisions carried forward
 
-1. **ND-004 / ND-005 — OPEN.** Rotate exposed tokens; steps in `docs/state/SECURITY_HANDOFF.md`.
-2. Other recorded decisions RESOLVED; GATE:P1 still needs its Director signature.
+1. **ND-004 / ND-005 — OPEN.** Rotate the exposed tokens; steps in `docs/state/SECURITY_HANDOFF.md`.
+2. Other recorded decisions RESOLVED. GATE:P1 needs its Director signature after this task.
 3. `main` requires a PR, one review and 8 checks; force push disabled.
 
-## 4. After P1-003
+## 4. After P1-004
 
-P1-004 (UX/a11y/loc, VERTICAL_SLICE_SPEC, TDD/ADRs), then GATE:P1 grants S1 and the NET-GATE phase starts.
+**GATE:P1** (human, grants S1) requires `[P1-001, GDD-001..GDD-004, P1-002, P1-003, P1-004]`. After signature,
+the NET-GATE phase starts: NET-001..006, PR-N1..N4, SEC-001, then NG-001 (human).
 
 ## 5. Known red
 
 - `scope-math --report` exit 2, `concept --score` exit 2 — unmeasured stays NOT COMPUTABLE.
-- 13 validators still fail by design; `pnpm verify` prints them as DEFERRED.
+- 12 validators still fail by design; `pnpm verify` prints them as DEFERRED.
 - 17 GDD modules remain STUB — correct before their prototypes.
 
 ## 6. Environment

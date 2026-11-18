@@ -169,6 +169,7 @@ owners:
       - assets/animations/**
       - docs/design/ART_BIBLE.md
       - docs/design/gdd/GDD-ANIM-ARCHITECTURE.md
+      - docs/adr/A0001_animation-scenes-textures.md
       - scripts/validate-anim.mjs
       - scripts/validate-art-bible.mjs
       - tools/sim/anim/**

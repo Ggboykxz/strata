@@ -1,0 +1,8 @@
+OK     exit=0  baseline
+OK     exit=1  merged GLB claim
+OK     exit=1  missing bible section
+OK     exit=1  budget changed
+OK     exit=1  ADR section removed
+OK     exit=0  art flag edit is not a defect
+
+RESULT: PASS — all 6 P1-003 negative tests behaved as required.

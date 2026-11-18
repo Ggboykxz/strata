@@ -92,6 +92,10 @@
     {
       "id": "P1-002",
       "status": "done"
+    },
+    {
+      "id": "P1-003",
+      "status": "done"
     }
   ],
   "measured": {
@@ -146,14 +150,14 @@
     "agent_missing_skill_links": 0,
     "skill_stubs": 51,
     "skill_missing_descriptions": 0,
-    "validator_stubs": 13,
-    "validator_stubs_failing": 13,
+    "validator_stubs": 12,
+    "validator_stubs_failing": 12,
     "gdd_modules": 32,
     "gdd_critical_modules": 14,
     "gdd_draft_modules": 15,
     "gdd_coverage": 1.0,
     "gate_p0_signed": true,
-    "ownership_globs": 165,
+    "ownership_globs": 168,
     "wf002_negative_tests": 8,
     "tracer_replicas": 2,
     "tracer_ticks": 5,
@@ -181,7 +185,7 @@
     "node_version": "22.23.4",
     "pnpm_version": "12.21.0",
     "typescript_version": "6.0.3",
-    "verify_steps_enabled": 16,
+    "verify_steps_enabled": 17,
     "verify_deferred_groups": 3,
     "unit_test_files": 3,
     "unit_tests": 4,
@@ -627,6 +631,16 @@
       "cmd": "bash tools/qa/negative-lore.sh",
       "exit": 0,
       "log": "docs/state/evidence/20261118T025647Z-P1-002/02-negative-tests.log"
+    },
+    {
+      "cmd": "node scripts/validate-art-bible.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T030121Z-P1-003/01-validate-art.log"
+    },
+    {
+      "cmd": "bash tools/qa/negative-art.sh",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T030121Z-P1-003/02-negative-tests.log"
     }
   ],
   "notes": [
@@ -662,6 +676,7 @@
     "Reproduction scripts are committed under tools/qa/; older /tmp/opencode command names in evidence logs map to those files via tools/qa/README.md.",
     "GDD-003: 11 DRAFT modules, T2 900-tick budget and T4 three-resolution minimum enforced as validator failures; generator committed under tools/qa/",
     "GDD-004 closed the 14 critical modules as DRAFT; economy tables committed; no invented inflation, Gini or throughput",
-    "P1-002: 6 original FR/EN glossary entries, 11 franchise names rejected; validate-lore structural only, cannot judge story quality"
+    "P1-002: 6 original FR/EN glossary entries, 11 franchise names rejected; validate-lore structural only, cannot judge story quality",
+    "P1-003: A0001 separated mesh/animation/skeleton architecture; validate-blueprint B2 caught an unowned ADR path before handoff, fixed by explicit map entry"
   ]
 }

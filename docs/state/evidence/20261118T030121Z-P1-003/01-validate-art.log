@@ -1,0 +1,11 @@
+
+A1  A0001 and separation rule
+OK    A0001 accepted with Context/Decision/Consequences; separation rule stated twice
+
+A2  art bible structure
+OK    9 sections and all 8 numeric ceilings present with sources
+
+A3  no art before NET-GATE
+OK    0 art:true tasks in authorized phases; greybox rule stated
+
+RESULT: PASS — art structure gate, 0 error(s). Visual quality is not judged here.
