@@ -40,7 +40,7 @@ const auditId = /AUDIT-\d{4}-\d{2}-\d{2}-P0-006/.exec(auditText)?.[0] ?? '';
 if (!auditId) fail('M1 audit document has no AUDIT-<date>-P0-006 id');
 if (list.audit !== auditId) fail(`M1 whitelist audit ${list.audit} != document ${auditId}`);
 if (list.date !== '2026-11-18') fail(`M1 unexpected audit date ${JSON.stringify(list.date)}`);
-if (!auditText.includes('## Director decisions requested')) fail('M1 audit document has no Director decisions section');
+if (!/^## Director decisions/m.test(auditText)) fail('M1 audit document has no Director decisions section');
 if (!errors.length) ok(`${auditId} — whitelist and document agree`);
 
 console.log('\nM2  approved entries');
@@ -60,7 +60,7 @@ for (const [i, m] of approved.entries()) {
   for (const bad of forbiddenLicenses) {
     if (lic.includes(bad)) fail(`${at} forbidden licence "${m.license}"`);
   }
-  if (!/^[0-9a-f]{40}$/.test(String(m.revision ?? ''))) fail(`${at} revision is not a 40-hex pin`);
+  if (!/^[0-9a-f]{40}$|^[0-9a-f]{64}$/.test(String(m.revision ?? ''))) fail(`${at} revision is not a 40/64-hex pin`);
   if (!/^https:\/\//.test(String(m.source ?? ''))) fail(`${at} source is not an https URL`);
   if (!auditText.includes(m.id)) fail(`${at} id is not traceable to ${AUDIT}`);
 }
@@ -70,28 +70,39 @@ if (!errors.length) ok(`${approved.length} approved entries: fields, pins, sourc
 console.log('\nM3  blocked and rejected entries stay out of the whitelist');
 const blocked = list.blocked_pending_director ?? [];
 const rejected = list.rejected ?? [];
+const fallbacks = list.fallbacks ?? [];
+const fallbackFrom = new Set(fallbacks.map(f => f.from));
 for (const group of [['blocked', blocked], ['rejected', rejected]]) {
   for (const [i, m] of group[1].entries()) {
     const at = `M3 ${group[0]}[${i}] ${m.id ?? '(no id)'}`;
     if (!m.reason) fail(`${at} has no reason`);
+    if (!m.fallback) fail(`${at} has no fallback`);
     if (seen.has(m.id)) fail(`${at} duplicate id ${m.id}`);
     seen.add(m.id);
     if (!auditText.includes(m.id)) fail(`${at} id is not traceable to ${AUDIT}`);
     if (group[0] === 'rejected' && forbiddenClasses.has(m.class) === false
-      && !String(m.reason).match(/noncommercial|non-commercial|not-found|forbidden|transitive|paper/i)) {
+      && !String(m.reason).match(/noncommercial|non-commercial|not-found|forbidden|transitive|paper|director/i)) {
       fail(`${at} rejected without a recorded §8.1 reason`);
     }
   }
 }
-if (!errors.length) ok(`${blocked.length} blocked, ${rejected.length} rejected — all with reasons and audit ids`);
-
-console.log('\nM4  Director decisions are recorded, not silently granted');
-for (const d of list.director_decisions ?? []) {
-  if (!d.id || !d.question || !d.recommendation || !d.status) fail(`M4 incomplete Director decision ${JSON.stringify(d)}`);
-  if (d.status === 'ACCEPTED' && !d.evidence) fail(`M4 ${d.id} accepted without evidence`);
-  if (!['OPEN', 'ACCEPTED', 'REJECTED'].includes(d.status)) fail(`M4 ${d.id} unknown status ${d.status}`);
+for (const f of fallbacks) {
+  if (!f.from || !f.to || !f.kind) fail(`M3 incomplete fallback ${JSON.stringify(f)}`);
 }
-if (!errors.length) ok(`${(list.director_decisions ?? []).length} decision(s) recorded as OPEN`);
+for (const m of rejected) {
+  if (!fallbackFrom.has(m.id)) fail(`M3 rejected ${m.id} has no fallback mapping`);
+}
+if (!errors.length) ok(`${blocked.length} blocked, ${rejected.length} rejected, ${fallbacks.length} fallbacks — all traceable`);
+
+console.log('\nM4  Director decisions are resolved on the record');
+for (const d of list.director_decisions ?? []) {
+  if (!d.id || !d.question || !d.recommendation || !d.decision) fail(`M4 incomplete Director decision ${JSON.stringify(d)}`);
+  if (d.decision === 'OPEN' || d.status === 'OPEN') fail(`M4 ${d.id} is still OPEN — resolve it before shipping`);
+  if (d.decision === 'ACCEPTED' && !d.evidence) fail(`M4 ${d.id} accepted without evidence`);
+  if (!['ACCEPTED', 'REJECTED', 'REVERSED'].includes(d.decision)) fail(`M4 ${d.id} unknown decision ${d.decision}`);
+  if (!d.evidence) fail(`M4 ${d.id} has no evidence reference`);
+}
+if (!errors.length) ok(`${(list.director_decisions ?? []).length} decision(s) resolved with evidence`);
 
 console.log('\nM5  tier probe measures hardware');
 if (!tierText.includes('nvidia-smi')) fail('M5 detect_tier.py does not query nvidia-smi');

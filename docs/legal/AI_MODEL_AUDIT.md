@@ -6,12 +6,34 @@
 | date | 2026-11-18 |
 | owner | asset-pipeline |
 | status | **BINDING** — no model or tool may be used before its row is `APPROVED` |
+| resolution | **2026-11-18** — all formerly blocked candidates resolved; every rejection has a fallback |
 | authority | master §8.1 (8 steps), §10.4–§10.7, I4 |
-| evidence | `docs/state/evidence/20261118T012845Z-P0-006/01-license-metadata.log` |
+| evidence | `docs/state/evidence/20261118T012845Z-P0-006/01-license-metadata.log`, `06-actionforge-third-party-notices.txt` |
 
 This is a **metadata-only audit**. No model weights, tool installers or generated outputs were downloaded,
 executed or created. Nothing here licenses a model implicitly: an absent row means NOT_APPLICABLE, not
 APPROVED. A version bump is a new audit (§8.1 step 8).
+
+## Resolution 2026-11-18 — nothing left blocked
+
+Director instruction: resolve every blocked and rejected entry. Three outcomes:
+
+1. **ACTIONFORGE was unblocked, not by a waiver but by evidence.** The publisher's own
+   `THIRD-PARTY-NOTICES.txt` states the tool is proprietary (all rights reserved) but the animations and rig
+   are **CC0 1.0** — "use them for anything, commercial or otherwise, without permission and without
+   attribution". §8.1 step 6 asks about *output rights* for hosted tools; they are explicit. Verified text
+   sha256 `8b56bdd7ce33780fdb7cf93259b0c7d165759698e8a0aae4f32f5e21631630c1`. The tool's code is **not**
+   copied or redistributed; only CC0 outputs may enter the repo. The earlier recommendation to reject was
+   based on incomplete evidence and is reversed on the record.
+2. **Territory-restricted / community-capped candidates were rejected** (ND-006, ND-007): Hunyuan3D,
+   HY-Motion, HY-World and SDXL. A licence that excludes the EU/UK/South Korea cannot be made safe by code,
+   and no agent can sign a distribution-scope decision. Each now has an approved fallback.
+3. **Rejected candidates keep their status** — non-commercial weights, transitive non-commercial
+   dependencies, `curl | bash` installers and NOT_FOUND versions cannot be "fixed" without changing the
+   upstream licence. Each has an explicit fallback in the whitelist, and `validate-manifest --audit`
+   refuses a rejection without one. Rejection is terminal, not an open question.
+
+The result is **9 approved, 0 blocked, 11 rejected, 11 fallback mappings**. No model was run.
 
 ## Rule applied (§8.1)
 
@@ -38,12 +60,12 @@ APPROVED. A version bump is a new audit (§8.1 step 8).
 | JSFXR | jsfxr | GitHub master | **Unlicense** `6d9eabbb…` (public domain, not MIT as the master's shorthand said) | github.com/chr15m/jsfxr | free and unencumbered outputs | **APPROVED** — SFX |
 | COMFYUI | ComfyUI | GitHub master | GPL-3.0 tool, blob `f288702d…` | github.com/Comfy-Org/ComfyUI | outputs unencumbered; tool licence does not infect outputs | **APPROVED_WITH_CONDITIONS** — versioned workflow JSON, every custom node separately audited and pinned |
 | GLTF-TRANSFORM | glTF-Transform | GitHub main | MIT, blob `066192ec…` | github.com/donmccurdy/glTF-Transform | commercial use allowed | **APPROVED** — Draco/KTX2 export tooling |
+| ACTIONFORGE | ActionForge | publisher notices 2026-11-18 | proprietary tool / **CC0 outputs**, notices sha256 `8b56bdd7…` | actionforge.app/THIRD-PARTY-NOTICES.txt | animations, rig and props CC0 1.0 — commercial, no attribution | **APPROVED_WITH_CONDITIONS** — use CC0 outputs only; never copy or redistribute the tool's code |
 
-## Blocked pending Director approval — do NOT use yet
+## Formerly blocked — RESOLVED 2026-11-18 (all rejected except ACTIONFORGE)
 
-These are not rejected: they are community/territory-restricted or attribution-bound. §8.1 step 4 requires a
-Director decision after checking where STRATA will be distributed and played. STRATA is public and intended
-for FR/EN distribution, so the EU exclusion is material.
+These rows are kept for the decision record. Their ids appear in the whitelist's `rejected` section with a
+fallback; the validator refuses any open item here.
 
 | id | candidate | evidence | issue | fallback |
 |---|---|---|---|---|
@@ -53,7 +75,7 @@ for FR/EN distribution, so the EU exclusion is material.
 | HY-MOTION | HY-Motion 1.0 (HF rev `620dd559…`) | `tencent-hunyuan-community`, GitHub License.txt `163efa92…` | licence expressly does NOT apply in EU/UK/South Korea; check SMPL/AMASS-type research-only body-model dependency | Mesh2Motion CC0 → procedural keyframes |
 | HY-WORLD | HY-World 2.0 (HF rev `d78a16c9…`) | `tencent-hy-world-2.0-community`, GitHub License.txt `32c17df3…` | EU/UK/South Korea excluded; full world-generation inference code listed as "coming soon" | procedural heightmap + kit assembly |
 | SDXL | SDXL base 1.0 (HF rev `46216598…`) | `openrail++` | community-capped / attribution-bound; needs distribution-scope decision | FLUX.1-schnell |
-| ACTIONFORGE | ActionForge browser tool | actionforge.app/help/main-page | tool © CGstuff all rights reserved; animations CC0; **output rights not stated** | Blender IK + socket parenting |
+| ACTIONFORGE | ActionForge browser tool | publisher notices | **REVERSED** — output rights are explicitly CC0; approved above | CC0 outputs only |
 
 ## Rejected — do NOT use
 
@@ -64,6 +86,8 @@ for FR/EN distribution, so the EU exclusion is material.
 | WORLDGEN | WorldGen (github.com/ZiYang-xie/WorldGen) | code Apache-2.0 but README requires accepting gated FLUX.1-dev | transitive NON-COMMERCIAL dependency | procedural terrain + kits |
 | ASSETFURNACE | AssetFurnace / image-to-3dlab (`57bc88a1…`) | Apache-2.0 code, but official install is `curl … install.sh | bash` | violates §10.6 supply-chain rule; licence itself is fine | Blender headless — always available |
 | WORLDGROW | WorldGrow | paper only on 2026-11-18 | **NOT_FOUND** — no verified release or licence text | procedural heightmap + kit assembly |
+| HUNYUAN3D-V25 | requested Hunyuan3D v2.5 / v3.0 | HF API returned 401 on re-check 2026-11-18 | **NOT_FOUND** — no verifiable version; never invent one | InstantMesh |
+| HUNYUAN3D-PAINT | Hunyuan3D-Paint | HF API returned 401 on re-check 2026-11-18 | **NOT_FOUND** — no separate permissive text | multiview projection + Blender bake |
 
 ## Transitive-dependency notes
 
@@ -76,16 +100,17 @@ for FR/EN distribution, so the EU exclusion is material.
 - jsfxr's master-prompt shorthand says MIT; the actual license file is the Unlicense. The more permissive
   text is recorded, not silently "corrected" in the master.
 
-## Director decisions requested
+## Director decisions — RESOLVED 2026-11-18
 
-1. Approve or reject the territory-restricted Tencent candidates (HUNYUAN3D, HY-MOTION, HY-WORLD) for
-   FR/EN distribution. Recommendation: **reject for now**, use the audited fallbacks; revisit if legal
-   counsel confirms the EU exclusion does not cover shipped game assets.
-2. Approve or reject SDXL `openrail++` for public distribution. Recommendation: **reject**, use FLUX.1-schnell.
-3. Approve or reject ActionForge given unstated output rights. Recommendation: **reject**, use Blender IK.
+| id | question | decision | evidence |
+|---|---|---|---|
+| D-AUDIT-1 | territory-restricted Tencent candidates for FR/EN distribution | **REJECTED** (Director instruction "fix all blocked and rejected") | this document §8.1 step 4; fallbacks InstantMesh / Mesh2Motion / procedural heightmap |
+| D-AUDIT-2 | SDXL `openrail++` for public distribution | **REJECTED** | `openrail++` attribution scope; fallback FLUX.1-schnell |
+| D-AUDIT-3 | ActionForge output rights | **REVERSED — approved with conditions** | `actionforge.app/THIRD-PARTY-NOTICES.txt`, sha256 `8b56bdd7…`; CC0 outputs, proprietary code untouched |
 
-Until the Director signs, `tools/asset-pipeline/whitelist.yaml` contains only the APPROVED rows above.
-`node scripts/validate-manifest.mjs --audit` enforces that a forbidden licence can never enter the whitelist.
+`tools/asset-pipeline/whitelist.yaml` now has **0 blocked** entries. Every rejected id has a fallback and the
+validator fails on a rejection without one. `node scripts/validate-manifest.mjs --audit` also refuses any
+decision left `OPEN` and forbids a licence from `NON-COMMERCIAL` or `RESEARCH-ONLY` entering the approved set.
 
 ## Hardware note
 
@@ -98,3 +123,4 @@ Until the Director signs, `tools/asset-pipeline/whitelist.yaml` contains only th
 | date | change | by |
 |---|---|---|
 | 2026-11-18 | P0-006 initial audit, 8 approved / 7 blocked / 5 rejected, metadata from GitHub + HF APIs | asset-pipeline |
+| 2026-11-18 | resolution: ACTIONFORGE approved on CC0 output evidence; 0 blocked, 11 rejected, 11 fallbacks; D-AUDIT-1/2 rejected, D-AUDIT-3 reversed | Director instruction → asset-pipeline |
