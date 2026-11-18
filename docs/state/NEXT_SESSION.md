@@ -2,57 +2,56 @@
 
 | field | value |
 |---|---|
-| written | 2026-11-18T09:25Z |
+| written | 2026-11-18T09:18Z |
 | branch | `session/20261118-hc-001-high-concept` — **PR #1** (draft) https://github.com/Ggboykxz/strata/pull/1 |
 | also open | **PR #2** dashboard truth repair — `session/20261118-dashboard-truth`, base = session branch |
 | mode | RESUME |
 | tier | current `S0`, authorized **`S1`** |
-| last task | **NET-003** — rooms on pinned `ws` (A0004); GDD-SHARDING 0.3 |
-| next task | **NET-004** — prediction + reconciliation + interpolation + desync recovery |
+| last task | **NET-004** — client prediction/reconciliation; GDD-NETCODE 0.5 |
+| next task | **NET-006** — anim STATE replication + server-validated transitions + server hit frames |
 | blocker | ND-004/ND-005 token rotation, PR #1 and #2 merges. ND-011 needs one answer (TPU scope). |
 
 ---
 
 ## 1. State at hand-off
 
-`pnpm verify` **17/17** · rooms **17/17** · server **25/25** · full suite **90/90** (8 files) · tracer green ·
-D146 generator short/full 0, negative 1, byte-identical.
+`pnpm verify` **17/17** · net **15/15** · full suite **105/105** (9 files) · tracer green · D146 generator
+short/full 0, byte-identical, fail-closed negatives 1.
 
 ```bash
 pnpm install --frozen-lockfile && pnpm verify
-pnpm vitest run apps/server/test/rooms.test.ts
+pnpm vitest run apps/game/test/net.test.ts
 pnpm vitest run packages/core/test/anim-state.test.ts
-pnpm vitest run packages/protocol
+pnpm vitest run apps/server/test/rooms.test.ts
 pnpm tracer --assert
 node scripts/session-result.mjs
 ```
 
 Runtime is ephemeral: `git clone` + `corepack prepare pnpm@12.21.0 --activate` recovers everything.
 
-## 2. NET-004 — next (S1, phase P2NET)
+## 2. NET-006 — next (S1, phase P2NET)
 
-`{id: NET-004, agent: netcode-engineer, gdd: [GDD-NETCODE#prediction], deps: [NET-003],
-out: [apps/game/src/net/, packages/core/src/hash.ts], split: true}`
+`{id: NET-006, agent: netcode-engineer, gdd: [GDD-ANIM-ARCHITECTURE#wire], deps: [NET-004, NET-005],
+out: [apps/server/src/combat/, packages/protocol/src/anim.ts], split: true}`
 
-Deps are now satisfied. The blueprint acc `pnpm test --filter @strata/netcode` is still broken; the `@strata/netcode`
-package does not exist. Write the client prediction/reconciliation code first, then set the acc to the **test file
-path** you actually created (never a bare `-t` pattern — proven false pass on NET-005).
+Both deps are now satisfied. Its acc `pnpm test --filter @strata/netcode -t animstate` is broken (and even the
+flag-repaired form exits 0 while skipping everything). Create the real test first, then set the acc to that file
+path — never a bare `-t` pattern.
 
-Available contracts: NET-001 `hashWorld`/`HashRing`/`stepWorld`; NET-002 `decodeFrame`/`encodeFrame`/`snapshotFromWorld`;
-NET-003 `Room.snapshotFor(client)` with the entity's `appliedSeq`; GDD-NETCODE §4 rule 2 (client resets to snapshot,
-replays intents with seq greater than `snapshot.appliedSeq`), rule 3 (hash mismatch → desync, rejected never reconciled).
+Available contracts: NET-005 `AnimRuntime`/`applyRequest`/`advanceAnim`/`eventsAt` in core; NET-002 `FrameType`
+and `encodeFrame`/`decodeFrame` (extend the frame table and bump `PROTOCOL_VERSION` only with evidence);
+NET-004 `Predictor` and its resync request; GDD-ANIM-ARCHITECTURE §4 rule 3 (server validates every transition
+and owns hit frames), §7 (12-byte anim_state), §15. A0001 separation stays intact: no merged GLB, no bone
+transforms on the wire — only state tokens, transition tick and clip id.
 
-A0004 does not affect NET-004: the room transport is an adapter boundary, and no new dependency is authorized.
+## 3. Known defect: 8 broken acceptance commands
 
-## 3. Known defect: 9 broken acceptance commands
-
-`pnpm test --filter <pkg>` is invalid (`CACError`, exit 1). Two further traps: `pnpm --filter <pkg> test` exits 0
-without running anything when there is no `test` script, and `pnpm vitest run <dir> -t <pattern>` exits 0 when the
-pattern matches no test (proven on NET-005: 41 skipped, exit 0). Rule: name the test file.
+`pnpm test --filter <pkg>` is invalid (`CACError`, exit 1). `pnpm --filter <pkg> test` can exit 0 without running
+anything, and `pnpm vitest run <dir> -t <pattern>` exits 0 when the pattern matches no test (proven: 41 skipped).
+Rule: name the test file. The 8 remaining, re-counted from the blueprint:
 
 | task | broken acc |
 |---|---|
-| NET-004 | `pnpm test --filter @strata/netcode` |
 | NET-006 | `pnpm test --filter @strata/netcode -t animstate` |
 | SEC-001 | `pnpm test --filter @strata/security` |
 | AN-002 | `pnpm test --filter @strata/anim` |
@@ -62,9 +61,9 @@ pattern matches no test (proven on NET-005: 41 skipped, exit 0). Rule: name the 
 | NET-103 | `pnpm test --filter @strata/server -t commitqueue` |
 | MOD-001 | `pnpm test --filter @strata/moderation` |
 
-Do not invent a path for packages that do not exist yet (`netcode`, `security`, `anim`, `a11y`, `perf`,
-`persistence`, `moderation`): write the acc when the owning task creates the package. A validator rejecting all
-three false-pass forms should land with that repair.
+Do not invent a path for packages that do not exist yet (`security`, `anim`, `a11y`, `perf`, `persistence`,
+`moderation`): write the acc when the owning task creates the package. A validator rejecting all three false-pass
+forms should land with that repair.
 
 ## 4. Open for the Director
 
@@ -86,7 +85,7 @@ three false-pass forms should land with that repair.
 Node 22.23.4, pnpm 12.21.0 via corepack, TypeScript 6.0.3, Vitest 5.1.0.
 
 **Current runtime: no GPU and no TPU** (Director statement 2026-11-18: "là on a pas de tpu ni gpu quand t'en
-aura besoin fais moi signe"). Signal before starting accelerator work. NET-004 is CPU-only, so nothing is
+aura besoin fais moi signe"). Signal before starting accelerator work. NET-006 is CPU-only, so nothing is
 blocked. The Director also declared future hardware TPU v5e-1 + T4 16 GB: T4 is already the sourced generation
 tier; TPU has no audited model path (ND-011). Art remains gated by NET-GATE. Secrets from env only; the repo is
 public, so reading never needs a token.

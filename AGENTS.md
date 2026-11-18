@@ -144,6 +144,9 @@ Anything else goes through a handoff. A conflict is resolved by a handoff or the
   Rooms own lifecycle/reconnect/session handles; handles are resume hints, not credentials (SEC-001). Rooms
   17/17, server 25/25, full 90/90, verify 17/17. **D146 is closed**: `scripts/session-result.mjs` generates the
   §20 result from metrics, fail-closed and byte-identical. Next: NET-004 (prediction/reconciliation).
+- **NET-004 landed**: client predictor, reconciliation at the acked tick, integer interpolation and a bounded
+  client hash timeline. A mismatch is a **desync** — rejected, never silently reconciled. Net 15/15, full 105/105,
+  verify 17/17. Next: NET-006 (anim state wire + server hit frames), deps now satisfied.
 - Known intentional red: `scope-math --report` exit 2 (throughput unmeasured) and `concept --score` exit 2
   until HC-003. `concept --check` is green: T3 was signed at GATE:P0.
 

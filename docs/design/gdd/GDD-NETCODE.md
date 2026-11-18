@@ -3,7 +3,7 @@
 | field | value |
 |---|---|
 | id | GDD-NETCODE |
-| version | 0.4 |
+| version | 0.5 |
 | owner | netcode-engineer |
 | status | DRAFT |
 
@@ -11,7 +11,7 @@
 
 ## 1. Identity, version, owner, status
 
-ID GDD-NETCODE, version 0.4, owner netcode-engineer, status **DRAFT**. Derived from P1-001 VISION and the locked HIGH_CONCEPT.
+ID GDD-NETCODE, version 0.5, owner netcode-engineer, status **DRAFT**. Derived from P1-001 VISION and the locked HIGH_CONCEPT.
 
 ## 2. Player-facing outcome
 
@@ -25,7 +25,7 @@ T2 requires two clients to observe the same fact_id, variant_id and epoch with e
 
 1. The server owns the tick; the client sends intents only. Intent seq is monotonic and validated before application.
 2. At tick N, the server broadcasts a snapshot containing the quantized state and its FNV-1a hash. The client resets to that state, then replays only intents with seq greater than snapshot.appliedSeq.
-3. A client hash that differs from the snapshot hash at the acked tick produces a desync event and is rejected, never silently reconciled.
+3. A client hash that differs from the snapshot hash at the acked tick produces a desync event and is rejected, never silently reconciled. On a mismatch the client adopts the snapshot exactly, clears pending intents and requests resync; it does not replay. Replay happens only after a matching hash, for intents the server has not applied.
 4. The simulation is integer-only: a coordinate is a millimetre integer, so the wire bound is a range check, never a lossy conversion. Intents are applied in canonical (entity, seq) order, so arrival order cannot change the state; a non-increasing seq is dropped.
 
 ## 5. Numbers with source
@@ -36,17 +36,25 @@ T2 requires two clients to observe the same fact_id, variant_id and epoch with e
 - desync detection <= 1 RTT; recovery <= 3 ticks | TUNABLE 1..5 ticks | plan: loss/jitter matrix PR-N2
 - coordinate quantization: 1 mm integer, int32 wire bound +/-2 147 483.647 m | SOURCE: packages/core/src/tick.ts QUANT_MM / WIRE_MAX_MM (a format bound, not a gameplay budget)
 - server hash history: 128 ticks = 4.27 s at 30 Hz | TUNABLE 64..256 ticks | plan: NET-004 reconciliation window, with the 'unknown ack' rate as the measurement
+- client hash timeline: 128 ticks = 4.27 s at 30 Hz | SOURCE: packages/core/src/hash.ts HashTimeline default capacity — the client mirror of the server ring
+- interpolation alpha: integer numerator in 0..denominator, default denominator 30 | SOURCE: apps/game/src/net/{interpolate,snapshot-buffer}.ts | plan: NET-006 measures whether 30 is enough at 60 fps
 - v2 frame bytes: intent 11, hash ack 13, hello 4, welcome 3, reject 4, snapshot header 15 + 24 per entity, max 1 551 at 64 entities | SOURCE: packages/protocol/src/binary.ts byte constants; `packages/protocol/test/binary.test.ts` asserts 1 551
 - full-snapshot ceiling: 1 551 B x 30 Hz = 46 530 B/s at 64 entities | MEASURED arithmetic, **over** the 12 KB/s budget by 3.9x | plan: NET-101 owns AoI + delta; the codec does not claim to meet the budget
 
 ## 6. State machine
 
 client: CONNECTING → PREDICTING → RECONCILED → DESYNCED → RESYNCING → RECONCILED. Server: TICK_IDLE → TICK_WITH_INPUT → SNAPSHOT_SENT.
+The client machine is implemented by `Predictor`: `input()` applies an intent with the same core `stepWorld` and
+stores the predicted hash at that tick; `reconcile(snapshot)` compares at `snapshot.tick`, adopts the server state
+and replays only intents with `seq > entity.appliedSeq`. A mismatch counts as `desync`, clears the pending set and
+sets a resync request. `SnapshotBuffer` is presentation-only and is cleared on desync so no stale pose is drawn.
 
 ## 7. Data contract
 
 protocol v2 (binary, NET-002): FrameType byte then a fixed little-endian layout — Intent{entity,seq,dx,dz}, Snapshot{tick,appliedSeq,hash,count,entities[]}, HashAck{client,tick,hash}, Hello{version,capabilities}, Welcome{version}, Reject{version,reason}. Lengths are exact: a trailing byte is a rejected frame, never padding. `hash` is the 32-bit FNV-1a value carried as u32, rendered as 8 lowercase hex chars.
 `appliedSeq` in the snapshot header is the **highest** per-entity seq in that snapshot, used as a cheap replay boundary; the authoritative value for "what this client may replay" is each entity's own `seq`. A client replays intents for entity `e` with `seq > snapshot.entities[e].seq`.
+NET-004 client contract: `SnapshotView{tick, hash, appliedSeq, entities[]}` is the subset of SnapshotFrame the predictor consumes; `appliedSeq` is authoritative per entity (`EntityState.seq`), never inferred from the header. A pending intent carries `{entity, seq, dx, dz, tick}` so replay can step empty ticks back to the intent's original tick. Hashes are compared at the tick named by the snapshot, not at 'now'.
+
 protocol v1 (JSON, TRACER-001) remains exported until the game client moves to v2. Migration: a version outside the supported range is answered with `reject{reason:'version'}` and the socket closes; it is never coerced.
 
 ## 8. Edge cases
@@ -58,6 +66,9 @@ protocol v1 (JSON, TRACER-001) remains exported until the game client moves to v
 5. Client and server on different integer widths: protocol rejects the version, no silent truncation.
 6. Frame with one extra byte: rejected as `trailing-bytes`; a frame is exact, never a prefix.
 7. Frame carrying more than 64 entities: rejected at both encode and decode; the AoI cap is 64 (D90).
+8. Snapshot names a tick with no recorded prediction: verdict `unknown`, never `ok` and never a desync.
+9. Own entity absent from the snapshot: desync, authoritative entity list adopted as-is, resync requested.
+10. Duplicate or older snapshot arrives: the presentation buffer ignores it; it never rewinds rendering.
 
 ## 9. Failure states
 
@@ -93,6 +104,9 @@ tick_hash_mismatch (count), rtt_ms (p50/p95), snapshot_bytes (p95), reconnect_co
 - GIVEN a v1 and a v3 hello WHEN `negotiate` runs THEN both return `reject{reason:'version'}` and neither is coerced.
 - GIVEN every v2 message class WHEN it is encoded and decoded THEN the value is identical (round-trip).
 - GIVEN a 64-entity snapshot WHEN encoded THEN it is exactly 1 551 bytes and over the 12 KB/s budget, recorded as NET-101's problem.
+- GIVEN a local intent and a matching server snapshot WHEN reconciled THEN the verdict is `ok` and only intents with seq above the entity's appliedSeq are replayed.
+- GIVEN a wrong snapshot hash, or a missing own entity WHEN reconciled THEN the verdict is `desync`, pending intents are cleared, resync is requested and the authoritative state is adopted exactly.
+- GIVEN two snapshots WHEN sampled at render ticks THEN interpolation yields integer millimetres and the buffer never rewinds.
 
 ## 16. Perf budget impact
 
@@ -106,8 +120,8 @@ No physics engine, no Babylon on the server tick, no client-authoritative gamepl
 
 | question | owner | deadline |
 |---|---|---|
-| W | h | i |
-| B | i | n |
+| What jitter buffer size fits the 100–250 ms range (D149), and which task measures it? | netcode-engineer + qa-engineer | NET-006 |
+| Does a desync request a full snapshot immediately or wait for the next scheduled one? | netcode-engineer | NET-006 |
 
 ## 19. Changelog
 
@@ -117,3 +131,4 @@ No physics engine, no Babylon on the server tick, no client-authoritative gamepl
 | 0.2 | 2026-11-18 | DRAFT: all 19 fields, sources and ranges | GDD-002 |
 | 0.3 | 2026-11-18 | NET-001: integer-only tick rules, quantization bound, hash ring | netcode-engineer |
 | 0.4 | 2026-11-18 | NET-002: binary v2 frames, exact lengths, version handshake, frame budget measured | netcode-engineer |
+| 0.5 | 2026-11-18 | NET-004: client hash timeline, prediction/replay, desync rejection, integer interpolation | netcode-engineer |

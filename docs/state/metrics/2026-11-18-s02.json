@@ -1,7 +1,7 @@
 {
   "session": "2026-11-18-s02",
   "utc_start": "2026-11-18T07:23:00Z",
-  "utc_end": "2026-11-18T09:22:00Z",
+  "utc_end": "2026-11-18T09:17:00Z",
   "mode": "RESUME",
   "branch": "session/20261118-hc-001-high-concept",
   "tier": {
@@ -43,6 +43,11 @@
       "id": "NET-003",
       "status": "done",
       "blueprint_task": "NET-003"
+    },
+    {
+      "id": "NET-004",
+      "status": "done",
+      "blueprint_task": "NET-004"
     }
   ],
   "measured": {
@@ -74,14 +79,14 @@
     "core_test_files": 2,
     "core_tests": 19,
     "server_tests": 25,
-    "full_tests": 90,
+    "full_tests": 105,
     "determinism_ticks": 300,
     "hash_ring_capacity": 128,
     "containers_used": 0,
-    "broken_acceptance_commands_repaired": 4,
-    "broken_acceptance_commands_remaining": 9,
+    "broken_acceptance_commands_repaired": 5,
+    "broken_acceptance_commands_remaining": 8,
     "protocol_tests": 23,
-    "test_files": 8,
+    "test_files": 9,
     "wire_version": 2,
     "wire_max_frame_bytes": 1551,
     "snapshot_bytes_per_second": 46530,
@@ -105,7 +110,10 @@
     "room_capacity_default": 2,
     "reconnect_window_ticks": 30,
     "resume_handle_fields": 4,
-    "new_dependencies_added": 0
+    "new_dependencies_added": 0,
+    "net_tests": 15,
+    "client_hash_timeline_ticks": 128,
+    "interpolation_denominator": 30
   },
   "cis": {
     "value": null,
@@ -471,6 +479,69 @@
       "cmd": "pnpm tracer --assert",
       "exit": 0,
       "log": "docs/state/evidence/20261118T085724Z-NET-003/09-tracer.log"
+    },
+    {
+      "cmd": "pnpm test --filter @strata/netcode (as written in the blueprint)",
+      "exit": 1,
+      "log": "docs/state/evidence/20261118T090603Z-NET-004/00-acc-old-form.log",
+      "result": "CACError: vitest has no --filter"
+    },
+    {
+      "cmd": "pnpm vitest run apps/game/test/net.test.ts",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T090603Z-NET-004/01-acc-net.log",
+      "result": "15/15"
+    },
+    {
+      "cmd": "pnpm typecheck",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T090603Z-NET-004/02-typecheck.log"
+    },
+    {
+      "cmd": "pnpm test",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T090603Z-NET-004/03-full-tests.log",
+      "result": "105/105, 9 files"
+    },
+    {
+      "cmd": "node scripts/lint-core-math.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T090603Z-NET-004/04-core-math.log"
+    },
+    {
+      "cmd": "pnpm verify",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T090603Z-NET-004/05-verify.log",
+      "result": "17/17"
+    },
+    {
+      "cmd": "node scripts/validate-gdd.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T090603Z-NET-004/06-gdd.log",
+      "result": "32 modules"
+    },
+    {
+      "cmd": "node scripts/validate-blueprint.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T090603Z-NET-004/07-blueprint.log",
+      "result": "63 tasks"
+    },
+    {
+      "cmd": "pnpm tracer --assert",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T090603Z-NET-004/08-tracer.log"
+    },
+    {
+      "cmd": "pnpm verify (post-docs)",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T090603Z-NET-004/09-verify-final.log",
+      "result": "17/17"
+    },
+    {
+      "cmd": "GitHub Actions at the NET-004 head",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T090603Z-NET-004/10-ci-proof.log",
+      "result": "8/8 success"
     }
   ],
   "notes": [
@@ -498,7 +569,9 @@
     "A0004 accepted: Director said \"bypass pin colyseus\"; NET-003 uses ws 8.23.0 already pinned. No dependency added, no lockfile change.",
     "NET-003: room lifecycle on ws, resume handles are not credentials (SEC-001); replayed seq refused at ingress; no main.ts wiring.",
     "Director: current runtime has no TPU and no GPU; signal before accelerator work. NET-003 needs neither.",
-    "NET-003 CI at d6d45e0: 8/8 triggered workflows success; run ids in docs/state/evidence/20261118T085724Z-NET-003/12-ci-proof.log."
+    "NET-003 CI at d6d45e0: 8/8 triggered workflows success; run ids in docs/state/evidence/20261118T085724Z-NET-003/12-ci-proof.log.",
+    "NET-004: client hash timeline, prediction/replay, integer interpolation; mismatch is desync and rejected, never reconciled.",
+    "No jitter buffer (D149 100-250 ms), no resync frame, no bandwidth/tick-p95 number: NET-006 owns them."
   ],
   "result": {
     "phase": "P2NET",
@@ -582,6 +655,11 @@
           "dir": "docs/state/evidence/20261118T085724Z-NET-003/",
           "logs": 13,
           "branch": "session"
+        },
+        {
+          "dir": "docs/state/evidence/20261118T090603Z-NET-004/",
+          "logs": 11,
+          "branch": "session"
         }
       ]
     },
@@ -590,7 +668,7 @@
       "AUDIT-2026-11-18-P0-006"
     ],
     "enables": "Nothing player-facing: it protects the evidence chain — a resume prompt that cannot be silently truncated, a tier grant recorded verbatim, a deterministic tick and wire, and a dashboard that reports sources instead of memories.",
-    "next": "NET-004 — prediction, reconciliation, interpolation, desync recovery (deps NET-003 now satisfied)",
+    "next": "NET-006 — anim STATE replication, server-validated transitions, server hit frames",
     "blockers": [
       "ND-004 PAT rotation",
       "ND-005 HF token rotation",
@@ -601,12 +679,13 @@
     ],
     "next_session_file": "docs/state/NEXT_SESSION.md",
     "full": {
-      "handoffs": "Seven handoff+proposal pairs under docs/state/threads/; all ACKed in-process. No external reviewer installed.",
+      "handoffs": "Eight handoff+proposal pairs under docs/state/threads/; all ACKed in-process. No external reviewer installed.",
       "concept_roles": "Roles executed by one process; T3 signed at GATE:P0 and re-signature deferred to the next gate. Signature ratio not recomputable from metrics.json.",
       "gdd_version_bumps": [
         "GDD-NETCODE 0.2 -> 0.3 -> 0.4",
         "GDD-ANIM-ARCHITECTURE 0.2 -> 0.3",
-        "GDD-SHARDING 0.2 -> 0.3"
+        "GDD-SHARDING 0.2 -> 0.3",
+        "GDD-NETCODE 0.4 -> 0.5"
       ],
       "scope_ledger_delta": "0 entries (12 -> 12, balanced)",
       "content_math": "NOT COMPUTABLE — throughput unmeasured until HC-003/AI-001",
@@ -616,7 +695,7 @@
       "economy_metrics": "NOT COMPUTABLE — no economy simulation run (ECON-001)",
       "anim_checks": "A0001 separation intact; retarget coverage and foot slide NOT COMPUTABLE (AN-002)",
       "world_checks": "No world content this session",
-      "files_by_owner": "orchestrator: docs/state/**, docs/blueprint/**, scripts/session-result.mjs; gameplay-engineer: packages/core/src/{tick,index}.ts, apps/server/src/sim/; netcode-engineer: packages/protocol/**, GDD-NETCODE; animation-director: packages/core/src/anim-state/**, packages/content/animations/**, GDD-ANIM-ARCHITECTURE; tools-engineer: apps/dashboard/** backend-engineer: apps/server/src/rooms/** (NET-003, A0004)."
+      "files_by_owner": "orchestrator: docs/state/**, docs/blueprint/**, scripts/session-result.mjs; gameplay-engineer: packages/core/src/{tick,index}.ts, apps/server/src/sim/; netcode-engineer: packages/protocol/**, GDD-NETCODE; animation-director: packages/core/src/anim-state/**, packages/content/animations/**, GDD-ANIM-ARCHITECTURE; tools-engineer: apps/dashboard/** backend-engineer: apps/server/src/rooms/** (NET-003, A0004). netcode-engineer: apps/game/src/net/**, packages/core/src/hash.ts (NET-004)."
     }
   }
 }

@@ -7,8 +7,8 @@
 | branch | `session/20261118-hc-001-high-concept` |
 | phase / tier | P1 complete → P2NET next / current `S0`, authorized **`S1`** (GATE:P1 signed 2026-11-18) |
 | director | present for bootstrap; async from now |
-| last task | NET-003 — rooms on the pinned `ws` transport (A0004) |
-| next task | **NET-004** — prediction + reconciliation + desync recovery |
+| last task | NET-004 — client prediction, reconciliation, interpolation |
+| next task | **NET-006** — anim STATE replication + server hit frames |
 
 ## Done this session
 
@@ -45,6 +45,7 @@
 | NET-005 | anim state machine in core, clip manifest + JSON schema; GDD-ANIM-ARCHITECTURE 0.3 | anim 22/22 · full 73/73 · `verify` 17/17 · 12 B anim_state |
 | P0-002 (D146) | real `scripts/session-result.mjs`, structured `result` block in metrics | short 0 · full 0 · negative 1 · `verify` 17/17 |
 | NET-003 | rooms, resume handles, `ws` adapter, GDD-SHARDING 0.3, A0004 | rooms 17/17 · server 25/25 · full 90/90 · `verify` 17/17 |
+| NET-004 | client hash timeline, predictor, interpolation, GDD-NETCODE 0.5 | net 15/15 · full 105/105 · `verify` 17/17 |
 
 **P0-001 and P0-002 were split** although only P0-001 triggered B8: the halves fail for different reasons and
 deserve separate rollback points. Commits: `094f31f`, `bd6f550` (P0-001); `1ceaf20`, `7e9d382` (P0-002).
@@ -226,3 +227,13 @@ blueprint task currently owns the pin: recorded as a gap for the Director/next r
 - Rooms 17/17, server 25/25, full 90/90, verify 17/17, tracer green. No `main.ts` wiring: the adapter is
   exported for a later task.
 - D146 remains satisfied: the generator was re-run against the new metrics (60 commands, 8 evidence dirs).
+
+## Session 2 — NET-004 (2026-11-18T09:17Z)
+
+- The client predicts with the same `stepWorld`, compares hashes **at the snapshot tick**, adopts the server
+  state exactly and replays only intents with seq above the entity's `appliedSeq`. A mismatch is a `desync`:
+  rejected, pending cleared, resync requested — never silently reconciled (I1/GDD §4.3).
+- `packages/core/src/hash.ts` is the client mirror of the server `HashRing`; interpolation is integer-only and
+  presentation-only. GDD-NETCODE 0.4 → 0.5, including its corrupted open-questions table.
+- NET 15/15, full 105/105, verify 17/17, tracer green. NET-004 acc repaired to a file path; 8 remain broken.
+- Generator re-ran against the new metrics. No GPU/TPU needed; current runtime has neither.
