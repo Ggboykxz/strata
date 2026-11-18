@@ -3,7 +3,7 @@
 | field | value |
 |---|---|
 | source | `docs/state/journal/` (append-only entries) |
-| entries | 53 |
+| entries | 54 |
 | regenerate | `node scripts/build-journal.mjs` |
 | check | `node scripts/build-journal.mjs --check` |
 
@@ -1622,3 +1622,16 @@ PR-S8 — anim state machine server transitions + illegal-state fuzz.
 - defect fixed: concept.json broke the dashboard "latest metrics" assumption; builder now filters session files.
 - gate: GATE:P2 now waits only on GDD-005 and the formal GATE:NET signature. NET-GATE remains signed-with-risk.
 - next: GDD-005 — signature of the full GDD set.
+
+---
+
+# 2026-11-18T18:50:00Z · GDD-005 · transpiler and drift detection
+
+- scope: GDD→test transpiler, 80% coverage, drift detection (NOT a GDD signature task)
+- file: scripts/gdd-to-tests.mjs, tests/replay/gdd/*.spec.ts (17 generated), blueprint acc extended
+- measured: 17 specs from 17 DRAFT/SIGNED modules, 15 STUB skipped, coverage 63/63 = 100%; injected GDD-CORE
+  acceptance drift → exit 1 naming the stale module; typecheck 0, full test 0, verify 19/19.
+- honesty: generated specs are structural drift checks, not behavioral proofs; each header points to evidence.
+- correction: earlier NEXT_SESSION wording called GDD-005 a signature task — fixed from the blueprint line 82.
+- gate: GATE:P2 work-side complete; only Director human signatures for GATE:P2 and GATE:NET remain.
+- NET-GATE stays signed-with-risk with 8 unmet criteria; no art.

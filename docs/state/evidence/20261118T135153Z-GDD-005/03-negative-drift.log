@@ -1,0 +1,3 @@
+gdd-to-tests --check — FAIL (1)
+  - GDD-CORE: stale (GDD §15 changed — run --generate)
+EXIT=1

@@ -1,0 +1,3 @@
+$ node scripts/gdd-to-tests.mjs --check
+gdd-to-tests --check — PASS — 17 specs match their GDD source (15 STUB skipped)
+EXIT=0

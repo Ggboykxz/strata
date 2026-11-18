@@ -204,6 +204,9 @@ Anything else goes through a handoff. A conflict is resolved by a handoff or the
   **GATE:P2SYS satisfied.** Full 185/185, verify 19/19. Next: HC-003, then GDD-005 for GATE:P2.
 - **HC-003 landed**: two-client 900-tick replay with equal hashes, 6 captures, CIS **85/100** measured from
   `concept.json`; wow density 0 (no playtest). Full 188/188, verify 19/19. GATE:P2 now waits on GDD-005 only.
+- **GDD-005 landed**: real GDD→test transpiler, 17 structural drift specs, coverage 100%; injected drift fails
+  closed. GATE:P2 work-side complete — Director signatures for GATE:P2/GATE:NET remain. NET-GATE still
+  signed-with-risk with 8 unmet criteria; no art.
 - Known intentional red: `scope-math --report` exit 2 (throughput unmeasured) and `concept --score` exit 2
   until HC-003. `concept --check` is green: T3 was signed at GATE:P0.
 

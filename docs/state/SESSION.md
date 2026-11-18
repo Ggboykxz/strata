@@ -433,3 +433,11 @@ blueprint task currently owns the pin: recorded as a gap for the Director/next r
   because no playtest exists (I13). Full 188/188, verify 19/19.
 - Fixed a real defect: `concept.json` was selected as the latest session metrics by the dashboard; the builder now
   filters `YYYY-MM-DD-sN.json`. GATE:P2 waits only on GDD-005 and the formal GATE:NET signature.
+
+## Session 2 — GDD-005 transpiler (2026-11-18T18:50Z)
+
+- Declared stub replaced: 17 structural drift specs generated from DRAFT/SIGNED GDD §15; injected acceptance drift
+  fails `--check` and names GDD-CORE. Coverage 100% (63/63), verify 19/19.
+- Corrected an earlier handoff mislabel: GDD-005 is a transpiler/coverage task, not a GDD signature.
+- GATE:P2 work-side complete (P2SYS + HC-003 CIS 85 + GDD-005 100%). Director signatures remain for GATE:P2 and
+  GATE:NET; NET-GATE stays signed-with-risk with 8 unmet criteria. No art.

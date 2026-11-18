@@ -7,7 +7,7 @@
 | also open | **PR #2** dashboard truth repair — `session/20261118-dashboard-truth`, base = session branch |
 | mode | RESUME |
 | tier | current `S0`, authorized **`S1`** |
-| last task | **HC-003** — two-client replay + CIS 85/100 measured |
+| last task | **GDD-005** — GDD→test transpiler + drift detection; coverage 100% |
 | next task | **PR-S7** — world tick + bounded Rouille cascade (P2-SYS) |
 | blocker | PR #1 and #2 merges (Director must do it), ND-004/ND-005 rotation. ND-011 needs one answer (TPU scope). |
 
@@ -52,12 +52,12 @@ acceptance and with the seven residual risks from `docs/legal/THREAT_MODEL.md` a
 PR #1 and PR #2 were **not merged** — an agent must not self-merge. The Director must merge them from their own
 account. ND-004/ND-005 token rotation also remains a Director action.
 
-## 4. GDD-005 — next (last GATE:P2 prerequisite)
+## 4. GATE:P2 — ready on the work side
 
-**GDD-005** is the last missing GATE:P2 prerequisite. It signs the full GDD set (32 modules, DRAFT maturity,
-100% reference resolution) and must keep the recorded CIS 85/100 and the honest wow-density 0. GATE:NET still
-needs a formal Director signature; NET-GATE remains `signed-with-risk` with 8 unmet criteria. No art before both
-gates are actually passed (A0008). PR #3 remains open; PR #2 should be closed without merging.
+GATE:P2 requires GATE:NET (human signature), GATE:P2SYS (done), HC-003 (done, CIS 85/100), GDD-005 (done, 100%
+coverage + drift detection) and `cis_min: 50`. The remaining act is the Director's formal GATE:P2 signature.
+GATE:NET also awaits a human signature; NET-GATE stays `signed-with-risk` with 8 unmet criteria. No art before
+both gates are actually passed (A0008). PR #3 remains open; PR #2 should be closed without merging.
 
 ## 4b. Babylon 9 feature research (Director input)
 
