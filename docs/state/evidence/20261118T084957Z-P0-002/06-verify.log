@@ -17,11 +17,11 @@ $ vitest run
 
  Test Files  15 passed (15)
       Tests  142 passed (142)
-   Start at  09:52:15
-   Duration  3.66s (tests 49%, import 34%, transform 10%, worker 8%)
+   Start at  10:00:06
+   Duration  5.09s (tests 54%, import 32%, worker 7%, transform 7%)
 
-    Isolate  15 workers spawned · ~153ms startup each (spawn + environment, per file)
-             at least ~2.14s faster with isolate: false — reuses workers across files instead of one per file
+    Isolate  15 workers spawned · ~207ms startup each (spawn + environment, per file)
+             at least ~2.90s faster with isolate: false — reuses workers across files instead of one per file
 
 == validate-prompt-drift
 PASS  docs/state/PROMPT.lock parsed (version 1)
@@ -109,7 +109,7 @@ B6  only a gate grants a tier
 OK    no task grants a tier; every gate grant is exactly one step
 
 B7  acceptance commands exist; stubs fail
-OK    every acc script exists; 15 are declared stubs (they exit 1 until implemented)
+OK    every acc script exists; 14 are declared stubs (they exit 1 until implemented)
 
 B8  split heuristic (acc > 3 or out > 4)
 WARN  B8 P0-001 split required and declared (2 acc, 8 out)
@@ -193,7 +193,7 @@ PASS  LOCKS.yaml schema and expiry
 resume plan
   session   2026-11-18-s02
   branch    session/20261118-hc-001-high-concept
-  next      NG-001
+  next      PR-S1
   open Director items:
     ND-004
     ND-005
@@ -226,7 +226,7 @@ D1  vision document (--check)
 OK    VISION.md: metadata, 8 sections, locked sentence, amendment and non-goals present
 
 D2  ADR structure
-OK    5 ADR(s) have title, status and a Context/Decision section
+OK    6 ADR(s) have title, status and a Context/Decision section
 
 D3  TDD structure
 OK    3 TDD file(s) have title, status, Context and GIVEN/WHEN/THEN
@@ -234,7 +234,7 @@ OK    3 TDD file(s) have title, status, Context and GIVEN/WHEN/THEN
 D4  slice, UX and localization specs
 OK    slice T2 numbers, 7 a11y controls and FR/EN parity rules present
 
-RESULT: PASS — 5 ADR(s), 3 TDD(s), 0 error(s). Structural check only; no claim validated.
+RESULT: PASS — 6 ADR(s), 3 TDD(s), 0 error(s). Structural check only; no claim validated.
 == validate-gdd --template (GDD-001)
 
 G1  module inventory: 32 files, expected 32
@@ -286,13 +286,12 @@ RESULT: PASS — art structure gate, 0 error(s). Visual quality is not judged he
 DEFERRED — required by master §6, not buildable at P0-003:
   - determinism replay (Node + Chromium hash equality): no sim before TRACER-001/NET-001
   - gdd-coverage --min: no GDD module before GDD-001 (P1)
-  - 9 validate-*.mjs stub(s) + 1 other declared stub(s); each exits 1 until its owner implements it:
+  - 8 validate-*.mjs stub(s) + 1 other declared stub(s); each exits 1 until its owner implements it:
       scripts/validate-anim-separation.mjs
       scripts/validate-anim.mjs
       scripts/validate-content-blueprints.mjs
       scripts/validate-kit.mjs
       scripts/validate-lightmap.mjs
-      scripts/validate-netgate.mjs
       scripts/validate-retarget.mjs
       scripts/validate-scene-budget.mjs
       scripts/validate-texture-set.mjs

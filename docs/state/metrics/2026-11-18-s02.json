@@ -131,7 +131,7 @@
     "wire_budget_over_factor": 3.9,
     "actions_runs": 8,
     "actions_runs_success": 8,
-    "ci_head": "fb595cdcd71ba4e97134f6eb103dd4dcc6a5e57a",
+    "ci_head": "90fed4d169a95cc65c59072b00591419d522a0b2",
     "anim_tests": 22,
     "anim_states": 5,
     "blend_ticks": 2,
@@ -965,7 +965,8 @@
     "A0006: Director said \"je signe tout\" — verbatim. NET-GATE recorded as signed-with-risk, 8/10 criteria unmet; --assert-ready still fails.",
     "No agent fabricated a signature and no evidence was changed to obtain it. PR merges remain Director-only.",
     "NG-001: NET-GATE dossier honest (2 met / 8 unmet). Director said \"je signe tout\" — recorded verbatim in A0006 as signed-with-risk, not passed.",
-    "Gate signature does not make criteria measured: --assert-ready still exits 1. PR merges remain Director-only; no art produced."
+    "Gate signature does not make criteria measured: --assert-ready still exits 1. PR merges remain Director-only; no art produced.",
+    "NG-001 CI at 90fed4d: 8/8 triggered workflows success; run ids in docs/state/evidence/20261118T095646Z-NG-001/08-ci-proof.log."
   ],
   "result": {
     "phase": "P2NET",
@@ -1082,7 +1083,7 @@
         },
         {
           "dir": "docs/state/evidence/20261118T095646Z-NG-001/",
-          "logs": 8,
+          "logs": 9,
           "branch": "session"
         }
       ]
