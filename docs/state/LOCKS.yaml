@@ -1810,7 +1810,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T20:28:00Z"
     expires_at: "2026-11-18T20:58:00Z"
-    status: active
+    status: released
 
   - path_glob: "docs/state/GPU_HANDOFF.md"
     owner_agent: orchestrator
@@ -1818,7 +1818,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T20:28:00Z"
     expires_at: "2026-11-18T20:58:00Z"
-    status: active
+    status: released
 
   - path_glob: "docs/state/NEEDS_DIRECTOR.md"
     owner_agent: orchestrator
@@ -1826,7 +1826,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T20:28:00Z"
     expires_at: "2026-11-18T20:58:00Z"
-    status: active
+    status: released
 
   - path_glob: "docs/state/NEXT_SESSION.md"
     owner_agent: orchestrator
@@ -1834,7 +1834,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T20:28:00Z"
     expires_at: "2026-11-18T20:58:00Z"
-    status: active
+    status: released
 
   - path_glob: "docs/state/metrics/2026-11-18-s02.json"
     owner_agent: orchestrator
@@ -1842,5 +1842,5 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T20:28:00Z"
     expires_at: "2026-11-18T20:58:00Z"
-    status: active
+    status: released
 
