@@ -104,7 +104,7 @@
     "wire_budget_over_factor": 3.9,
     "actions_runs": 8,
     "actions_runs_success": 8,
-    "ci_head": "daa0c144a096ff958bd9a9d06899e7ad40fbe5a9",
+    "ci_head": "423d1906bc8c3cd79046d07cd218aec84e794fa1",
     "anim_tests": 22,
     "anim_states": 5,
     "blend_ticks": 2,
@@ -707,7 +707,8 @@
     "NET-006 CI at daa0c14: 8/8 triggered workflows success; run ids in docs/state/evidence/20261118T091539Z-NET-006/13-ci-proof.log.",
     "PR-N1 measured local CPU p50/p95 and exact framed byte rates; explicitly NOT network RTT and NOT a 30-minute soak.",
     "CPU timings are noisy: two local runs gave p95 0.761 ms and 0.2109 ms. server_tick_p95_ms stays null; do not confuse them.",
-    "Full-snapshot rate 46530 B/s is 3.79x the 12 KB/s budget; NET-101 owns AoI/delta, not hidden here."
+    "Full-snapshot rate 46530 B/s is 3.79x the 12 KB/s budget; NET-101 owns AoI/delta, not hidden here.",
+    "PR-N1 CI at 423d190: 8/8 triggered workflows success; run ids in docs/state/evidence/20261118T092125Z-PR-N1/07-ci-proof.log."
   ],
   "result": {
     "phase": "P2NET",
@@ -804,7 +805,7 @@
         },
         {
           "dir": "docs/state/evidence/20261118T092125Z-PR-N1/",
-          "logs": 7,
+          "logs": 8,
           "branch": "session"
         }
       ]
