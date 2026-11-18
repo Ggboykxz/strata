@@ -40,7 +40,7 @@ plausibility active. The Director signed with risk acceptance (A0006); no art is
 
 1. No authentication — the resume handle is an FNV-1a tamper detector, not a credential.
 2. No TLS in the harnesses — all local tests use in-process or fake sockets.
-3. The gate is not on the live path yet — `attachRooms` still calls `Room.handleBytes` directly (SEC-002).
+3. **The gate is now on the live path (SEC-002)** — `attachRooms` routes every frame through `MessageGate` before `Room.handleBytes`; malformed frames are refused. This was one of the 8 criteria unmet at signature time; it has since been mitigated. The signature-time count of 8 is retained for honesty, not silently renumbered.
 4. In-memory counters only — no distributed limiter and no persistence.
 5. No real socket flood test — the 200-message burst is in-process.
 6. Audit retention is unimplemented — the 90-day target is OPS-001.

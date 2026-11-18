@@ -27,7 +27,7 @@ honest statuses: 2 met, 8 `not-measured`, `partial` or `failing`.
 5. wire ≤ 12 KB/s — **failing** at 46 530 B/s (3.79×).
 6. reconnect exact-state proof with 4 clients — partial.
 7. crash restore ≤ 3 s and RPO ≤ 60 s — partial, no measured dataset.
-8. every client message validated on the live path — partial (`attachRooms` bypass remains, SEC-002).
+8. every client message validated on the live path — **mitigated after signature by SEC-002**; the 8-unmet signature-time count is retained verbatim.
 
 ## Re-measurement obligation
 
