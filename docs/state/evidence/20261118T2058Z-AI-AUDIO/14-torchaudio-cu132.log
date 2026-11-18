@@ -1,0 +1,25 @@
+# CMD: uv pip install --python venv --index-url https://download.pytorch.org/whl/cu132 torchaudio==2.11.0
+# UTC: 2026-11-18T21:05:08Z
+Using Python 3.13.16 environment at: /content/ai/venv-audio
+error: No solution found when resolving dependencies
+  cause: Because there is no version of torchaudio==2.11.0 and you require torchaudio==2.11.0, we can conclude that your requirements are unsatisfiable.
+EXIT=1
+--- torchaudio cuda after ---
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+    import torch,torchaudio; print('torch',torch.__version__,torch.version.cuda); print('torchaudio',torchaudio.__version__)
+    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/content/ai/venv-audio/lib/python3.13/site-packages/torchaudio/__init__.py", line 7, in <module>
+    from . import _extension  # noqa  # usort: skip
+    ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/content/ai/venv-audio/lib/python3.13/site-packages/torchaudio/_extension/__init__.py", line 36, in <module>
+    _check_cuda_version()
+    ~~~~~~~~~~~~~~~~~~~^^
+  File "/content/ai/venv-audio/lib/python3.13/site-packages/torchaudio/_extension/utils.py", line 124, in _check_cuda_version
+    raise RuntimeError(
+    ...<3 lines>...
+    )
+RuntimeError: Detected that PyTorch and TorchAudio were compiled with different CUDA versions. PyTorch has CUDA version 13.2 whereas TorchAudio has CUDA version 13.0. Please install the TorchAudio version that matches your PyTorch version.
+TORCH_AUDIO_IMPORT_EXIT=1
+# NOTE: no cu132 torchaudio 2.11.0 wheel exists; resolution failed.
+EXIT=1

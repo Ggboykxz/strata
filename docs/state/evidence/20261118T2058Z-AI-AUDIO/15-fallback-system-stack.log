@@ -1,0 +1,20 @@
+# CMD: uv pip uninstall --python venv torch torchaudio transformers tokenizers numpy (fall back to compatible system stack)
+# UTC: 2026-11-18T21:05:24Z
+Using Python 3.13.16 environment at: /content/ai/venv-audio
+Uninstalled 6 packages in 978ms
+ - numpy==2.5.5
+ - safetensors==0.8.0
+ - tokenizers==0.23.3
+ - torch==2.15.0
+ - torchaudio==2.11.0
+ - transformers==5.23.0
+EXIT=0
+--- import check ---
+torch 2.14.1+cu130 13.0
+torchaudio 2.11.0+cu130
+transformers 5.22.1
+kokoro /content/ai/venv-audio/lib/python3.13/site-packages/kokoro/__init__.py
+IMPORTS_OK
+IMPORT_EXIT=0
+# NOTE: uninstall EXIT=0 and import probe IMPORTS_OK (IMPORT_EXIT=0).
+EXIT=0

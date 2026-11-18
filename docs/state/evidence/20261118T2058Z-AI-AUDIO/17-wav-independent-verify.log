@@ -1,0 +1,21 @@
+# CMD: independent verification of all WAV outputs (sha256sum, file, soundfile info)
+# UTC: 2026-11-18T21:07:16Z
+--- sha256sum all ---
+663a4f934a04a48c550035b03718dc36db6889aac207d9442afcb74d51766c83  /content/ai/audio-sfx/impact.wav
+05b45ccdb127da266e264f0452f76d50f559c272f1162434f1e21f681ccbf6d7  /content/ai/audio-sfx/step.wav
+c8dd06d9ba08aa2ee7e6c59b290735f956816cb7118b3347d6d303ff131f229a  /content/ai/audio-sfx/swing.wav
+c8eca72426ae032ffc11587a85249e7641054d6102b8c6bcd45cf042f39a359e  /content/ai/audio-sfx/ui-confirm.wav
+009ac1016dc0b5177bab0eb7c85620ac5172a0a8c3352b67f80cb16a7fb6a865  /content/ai/audio-intro.wav
+--- file(1) ---
+/content/ai/audio-sfx/impact.wav:     RIFF (little-endian) data, WAVE audio, Microsoft PCM, 16 bit, mono 44100 Hz
+/content/ai/audio-sfx/step.wav:       RIFF (little-endian) data, WAVE audio, Microsoft PCM, 16 bit, mono 44100 Hz
+/content/ai/audio-sfx/swing.wav:      RIFF (little-endian) data, WAVE audio, Microsoft PCM, 16 bit, mono 44100 Hz
+/content/ai/audio-sfx/ui-confirm.wav: RIFF (little-endian) data, WAVE audio, Microsoft PCM, 16 bit, mono 44100 Hz
+/content/ai/audio-intro.wav:          RIFF (little-endian) data, WAVE audio, Microsoft PCM, 16 bit, mono 24000 Hz
+--- soundfile info ---
+/content/ai/audio-sfx/impact.wav: subtype=PCM_16 rate=44100 ch=1 frames=2050 dur_ms=46.485
+/content/ai/audio-sfx/step.wav: subtype=PCM_16 rate=44100 ch=1 frames=13781 dur_ms=312.494
+/content/ai/audio-sfx/swing.wav: subtype=PCM_16 rate=44100 ch=1 frames=4188 dur_ms=94.966
+/content/ai/audio-sfx/ui-confirm.wav: subtype=PCM_16 rate=44100 ch=1 frames=14520 dur_ms=329.252
+/content/ai/audio-intro.wav: subtype=PCM_16 rate=24000 ch=1 frames=61800 dur_ms=2575.000
+EXIT=0

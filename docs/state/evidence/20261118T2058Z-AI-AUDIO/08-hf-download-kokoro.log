@@ -1,0 +1,7 @@
+# CMD: hf download hexgrad/Kokoro-82M --local-dir /content/ai/models/kokoro-82m (anonymous, no token)
+# UTC: 2026-11-18T21:00:53Z
+# NOTE: HF_TOKEN/HF_HUB_TOKEN unset; no Authorization header
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+path=/content/ai/models/kokoro-82m
+WALL_SECONDS=8
+EXIT=0

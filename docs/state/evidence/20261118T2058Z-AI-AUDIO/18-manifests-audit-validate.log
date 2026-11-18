@@ -1,0 +1,26 @@
+# CMD: json.tool on all 5 new manifests + node scripts/validate-manifest.mjs --audit
+# UTC: 2026-11-18T21:07:38Z
+JSON_OK tools/asset-pipeline/manifests/ai-001-sfx-swing.json
+JSON_OK tools/asset-pipeline/manifests/ai-001-sfx-impact.json
+JSON_OK tools/asset-pipeline/manifests/ai-001-sfx-step.json
+JSON_OK tools/asset-pipeline/manifests/ai-001-sfx-ui-confirm.json
+JSON_OK tools/asset-pipeline/manifests/ai-001-kokoro-intro.json
+--- audit validator ---
+
+M1  audit document and whitelist identity
+OK    AUDIT-2026-11-18-P0-006 — whitelist and document agree
+
+M2  approved entries
+OK    9 approved entries: fields, pins, sources and licences valid
+
+M3  blocked and rejected entries stay out of the whitelist
+OK    0 blocked, 11 rejected, 11 fallbacks — all traceable
+
+M4  Director decisions are resolved on the record
+OK    3 decision(s) resolved with evidence
+
+M5  tier probe measures hardware
+OK    tier probe reads the device and degrades to NO_GPU without inventing VRAM
+
+RESULT: PASS — 9 approved, 0 blocked, 11 rejected, 0 error(s). No model was downloaded or run.
+EXIT=0

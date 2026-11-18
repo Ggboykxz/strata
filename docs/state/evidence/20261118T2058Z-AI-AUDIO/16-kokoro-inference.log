@@ -1,0 +1,38 @@
+# CMD: /content/ai/venv-audio/bin/python tools/asset-pipeline/kokoro_intro.py
+# UTC: 2026-11-18T21:06:23Z
+/usr/local/lib/python3.13/dist-packages/torch/nn/modules/rnn.py:1011: UserWarning: dropout option adds dropout after all but last recurrent layer, so non-zero dropout expects num_layers greater than 1, but got dropout=0.2 and num_layers=1
+  super().__init__("LSTM", *args, **kwargs)
+/usr/local/lib/python3.13/dist-packages/torch/nn/utils/weight_norm.py:145: FutureWarning: `torch.nn.utils.weight_norm` is deprecated in favor of `torch.nn.utils.parametrizations.weight_norm`.
+  WeightNorm.apply(module, name, dim)
+/usr/local/lib/python3.13/dist-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+{
+  "model": "hexgrad/Kokoro-82M",
+  "hf_snapshot": "f3ff3571791e39611d31c381e3a41a3af07b4987",
+  "weights_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
+  "text": "Strata — une aventure en devenir.",
+  "text_sha256": "5781d2ca04ad7b9e605a27a9b0423434db652c5119f0fd9e546929b0f5369349",
+  "lang_code": "a",
+  "voice": "af_heart",
+  "voice_path": "/content/ai/models/kokoro-82m/voices/af_heart.pt",
+  "voice_sha256": "0ab5709b8ffab19bfd849cd11d98f75b60af7733253ad0d67b12382a102cb4ff",
+  "chunks": [
+    {
+      "index": 0,
+      "graphemes": "Strata — une aventure en devenir.",
+      "phonemes": "stɹˈATə — jˈun ævˈɛnʧəɹ ˈɛn dɪvˈɛnɪɹ."
+    }
+  ],
+  "output": "/content/ai/audio-intro.wav",
+  "output_sha256": "009ac1016dc0b5177bab0eb7c85620ac5172a0a8c3352b67f80cb16a7fb6a865",
+  "output_bytes": 123644,
+  "subtype": "PCM_16",
+  "sample_rate": 24000,
+  "channels": 1,
+  "frames": 61800,
+  "duration_ms": 2575.0,
+  "wall_seconds": 15.013,
+  "device": "cpu",
+  "torch_version": "2.14.1+cu130"
+}
+EXIT=0

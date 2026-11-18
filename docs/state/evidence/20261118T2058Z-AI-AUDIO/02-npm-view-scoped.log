@@ -1,0 +1,11 @@
+# CMD: npm view @chr15m/jsfxr
+# UTC: 2026-11-18T20:58:27Z
+npm error code E404
+npm error 404 Not Found - GET https://registry.npmjs.org/@chr15m%2fjsfxr - Not found
+npm error 404
+npm error 404  '@chr15m/jsfxr@*' is not in this registry.
+npm error 404
+npm error 404 Note that you can also install from a
+npm error 404 tarball, folder, http url, or git url.
+npm error A complete log of this run can be found in: /root/.npm/_logs/2026-11-18T20_58_27_361Z-debug-0.log
+EXIT=1

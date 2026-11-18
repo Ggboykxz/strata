@@ -1,0 +1,16 @@
+# CMD: curl -sS https://huggingface.co/api/models/hexgrad/Kokoro-82M (anonymous, no token)
+# UTC: 2026-11-18T21:00:15Z
+# NOTE: no Authorization header, no HF_TOKEN used
+CURL_EXIT=0
+id='hexgrad/Kokoro-82M'
+sha='f3ff3571791e39611d31c381e3a41a3af07b4987'
+private=False
+gated=False
+disabled=False
+downloads=13092988
+lastModified='2025-04-10T18:12:48.000Z'
+pipeline_tag='text-to-speech'
+tags_license= ['license:apache-2.0']
+siblings_count= 72
+siblings_sample= ['.gitattributes', 'DONATE.md', 'EVAL.md', 'README.md', 'SAMPLES.md', 'VOICES.md', 'config.json', 'eval/ArtificialAnalysis-2025-02-26.jpeg', 'eval/TTS_Arena-2025-02-26.jpeg', 'eval/TTS_Spaces_Arena-2025-02-26.jpeg', 'kokoro-v1_0.pth', 'samples/HEARME.wav', 'samples/af_heart_0.wav', 'samples/af_heart_1.wav', 'samples/af_heart_2.wav', 'samples/af_heart_3.wav', 'samples/af_heart_4.wav', 'samples/af_heart_5.wav', 'voices/af_alloy.pt', 'voices/af_aoede.pt', 'voices/af_bella.pt', 'voices/af_heart.pt', 'voices/af_jessica.pt', 'voices/af_kore.pt', 'voices/af_nicole.pt', 'voices/af_nova.pt', 'voices/af_river.pt', 'voices/af_sarah.pt', 'voices/af_sky.pt', 'voices/am_adam.pt', 'voices/am_echo.pt', 'voices/am_eric.pt', 'voices/am_fenrir.pt', 'voices/am_liam.pt', 'voices/am_michael.pt', 'voices/am_onyx.pt', 'voices/am_puck.pt', 'voices/am_santa.pt', 'voices/bf_alice.pt', 'voices/bf_emma.pt']
+EXIT=0

@@ -1,0 +1,62 @@
+# CMD: sha256sum kokoro-v1_0.pth + HF cache snapshot revision
+# UTC: 2026-11-18T21:01:06Z
+--- weight sha256 (model card: 496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4) ---
+496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4  /content/ai/models/kokoro-82m/kokoro-v1_0.pth
+--- HF cache metadata / revision refs ---
+/content/ai/models/kokoro-82m/.cache/huggingface/download/.gitattributes.lock
+/content/ai/models/kokoro-82m/.cache/huggingface/download/EVAL.md.metadata
+/content/ai/models/kokoro-82m/.cache/huggingface/download/DONATE.md.lock
+/content/ai/models/kokoro-82m/.cache/huggingface/download/README.md.lock
+/content/ai/models/kokoro-82m/.cache/huggingface/download/EVAL.md.lock
+/content/ai/models/kokoro-82m/.cache/huggingface/download/SAMPLES.md.lock
+/content/ai/models/kokoro-82m/.cache/huggingface/download/DONATE.md.metadata
+/content/ai/models/kokoro-82m/.cache/huggingface/download/kokoro-v1_0.pth.lock
+/content/ai/models/kokoro-82m/.cache/huggingface/download/config.json.lock
+/content/ai/models/kokoro-82m/.cache/huggingface/download/samples/af_heart_4.wav.metadata
+/content/ai/models/kokoro-82m/.cache/huggingface/download/samples/HEARME.wav.lock
+/content/ai/models/kokoro-82m/.cache/huggingface/download/samples/af_heart_5.wav.lock
+/content/ai/models/kokoro-82m/.cache/huggingface/download/samples/af_heart_1.wav.metadata
+/content/ai/models/kokoro-82m/.cache/huggingface/download/samples/af_heart_2.wav.lock
+/content/ai/models/kokoro-82m/.cache/huggingface/download/samples/af_heart_4.wav.lock
+/content/ai/models/kokoro-82m/.cache/huggingface/download/samples/af_heart_0.wav.metadata
+/content/ai/models/kokoro-82m/.cache/huggingface/download/samples/af_heart_1.wav.lock
+/content/ai/models/kokoro-82m/.cache/huggingface/download/samples/af_heart_5.wav.metadata
+/content/ai/models/kokoro-82m/.cache/huggingface/download/samples/af_heart_3.wav.metadata
+/content/ai/models/kokoro-82m/.cache/huggingface/download/samples/af_heart_0.wav.lock
+/content/ai/models/kokoro-82m/.cache/huggingface/download/EVAL.md.metadata
+/content/ai/models/kokoro-82m/.cache/huggingface/download/DONATE.md.metadata
+/content/ai/models/kokoro-82m/.cache/huggingface/download/samples/af_heart_4.wav.metadata
+/content/ai/models/kokoro-82m/.cache/huggingface/download/samples/af_heart_1.wav.metadata
+/content/ai/models/kokoro-82m/.cache/huggingface/download/samples/af_heart_0.wav.metadata
+--- config.json head ---
+{
+  "istftnet": {
+    "upsample_kernel_sizes": [20, 12],
+    "upsample_rates": [10, 6],
+    "gen_istft_hop_size": 5,
+    "gen_istft_n_fft": 20,
+    "resblock_dilation_sizes": [
+      [1, 3, 5],
+      [1, 3, 5],
+      [1, 3, 5]
+    ],
+    "resblock_kernel_sizes": [3, 7, 11],
+    "upsample_initial_channel": 512
+  },
+  "dim_in": 64,
+  "dropout": 0.2,
+  "hidden_dim": 512,
+  "max_conv_dim": 512,
+  "max_dur": 50,
+  "multispeaker": true,
+  "n_layer": 3,
+  "n_mels": 80,
+  "n_token": 178,
+  "style_dim": 128,
+  "text_encoder_kernel_size": 5,
+  "plbert": {
+    "hidden_size": 768,
+    "num_attention_heads": 12,
+    "intermediate_size": 2048,
+    "max_position_embeddings": 512,
+EXIT=0

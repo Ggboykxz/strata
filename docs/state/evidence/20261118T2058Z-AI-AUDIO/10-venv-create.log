@@ -1,0 +1,7 @@
+# CMD: uv venv /content/ai/venv-audio --system-site-packages
+# UTC: 2026-11-18T21:01:18Z
+warning: The `--system` flag has no effect, `uv venv` always ignores virtual environments when finding a Python interpreter; did you mean `--no-managed-python`?
+Using CPython 3.13.16 interpreter at: /usr/bin/python3
+Creating virtual environment at: /content/ai/venv-audio
+Activate with: source /content/ai/venv-audio/bin/activate
+EXIT=0

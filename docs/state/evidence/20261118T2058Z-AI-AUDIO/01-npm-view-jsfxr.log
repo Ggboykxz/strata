@@ -1,0 +1,26 @@
+# CMD: npm view jsfxr
+# UTC: 2026-11-18T20:58:26Z
+
+jsfxr@1.4.1 | Proprietary | deps: none | versions: 14
+8-bit sound effects generator based on sfxr
+https://github.com/chr15m/jsfxr
+
+keywords: sfxr, jsfxr, 8-bit, sfx, sound effects, synth, 8bit, retro, chiptune, audio, music, sound, game development
+
+bin: sfxr-to-wav
+
+dist
+.tarball: https://registry.npmjs.org/jsfxr/-/jsfxr-1.4.1.tgz
+.shasum: b379c2d27172cf9579a417319f36c769e325c848
+.integrity: sha512-Xbamo2dpLF5B+ssyv6TUEIoHJ/KRt4SRK2J3JOOmUG+45XBjkGKTjR/KOyQ9sqjrx/uea/UTWI0+p5pOVm1bUw==
+.unpackedSize: 50.2 kB
+
+maintainers:
+- gre <renaudeau.gaetan@gmail.com>
+- chr15m <chris@mccormick.cx>
+
+dist-tags:
+latest: 1.4.1
+
+published 6 months ago by chr15m <chris@mccormick.cx>
+EXIT=0

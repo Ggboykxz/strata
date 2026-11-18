@@ -1,0 +1,53 @@
+{
+  "asset_manifest": "v1",
+  "asset_id": "ai-001-kokoro-intro",
+  "licence_id": "KOKORO",
+  "licence": "apache-2.0 (HF model card license:apache-2.0; anonymous HF API tag license:apache-2.0)",
+  "model_source": "https://huggingface.co/hexgrad/Kokoro-82M",
+  "model_revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
+  "weights_source": "https://huggingface.co/hexgrad/Kokoro-82M/resolve/main/kokoro-v1_0.pth",
+  "weights_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
+  "weights_bytes": 327212226,
+  "output_rights": "commercial-allowed (apache-2.0); check weight card per release before shipping",
+  "hf_api_verification": "anonymous GET https://huggingface.co/api/models/hexgrad/Kokoro-82M -> sha f3ff3571791e39611d31c381e3a41a3af07b4987, private=False, gated=False, license:apache-2.0 (evidence 07)",
+  "inference": {
+    "package": "kokoro==0.9.4",
+    "misaki": "misaki==0.9.4",
+    "espeakng_loader": "espeakng-loader==0.2.4",
+    "venv": "/content/ai/venv-audio (uv venv --system-site-packages)",
+    "torch": "2.14.1+cu130",
+    "transformers": "5.22.1",
+    "soundfile": "0.14.0",
+    "device": "cpu",
+    "text": "Strata — une aventure en devenir.",
+    "text_sha256": "5781d2ca04ad7b9e605a27a9b0423434db652c5119f0fd9e546929b0f5369349",
+    "lang_code": "a",
+    "voice": "af_heart",
+    "voice_path": "/content/ai/models/kokoro-82m/voices/af_heart.pt",
+    "voice_sha256": "0ab5709b8ffab19bfd849cd11d98f75b60af7733253ad0d67b12382a102cb4ff",
+    "chunks": [
+      {
+        "index": 0,
+        "graphemes": "Strata — une aventure en devenir.",
+        "phonemes": "stɹˈATə — jˈun ævˈɛnʧəɹ ˈɛn dɪvˈɛnɪɹ."
+      }
+    ]
+  },
+  "output_file": "/content/ai/audio-intro.wav",
+  "output_sha256": "009ac1016dc0b5177bab0eb7c85620ac5172a0a8c3352b67f80cb16a7fb6a865",
+  "output_bytes": 123644,
+  "subtype": "PCM_16",
+  "sample_rate_hz": 24000,
+  "channels": 1,
+  "frames": 61800,
+  "duration_ms": 2575.0,
+  "wall_seconds": 15.013,
+  "class": "smoke-tts-line-not-production",
+  "authority": "AUDIT-2026-11-18-P0-006 (KOKORO approved, apache-2.0); AI-001 audio smoke",
+  "notes": [
+    "Documented default voice of the model card (af_heart, lang_code=a) used verbatim as instructed.",
+    "The line is French; the default English G2P produced phonemes stɹˈATə — jˈun ævˈɛnʧəɹ ˈɛn dɪvˈɛnɪɹ. Pronunciation is not production quality; this is a smoke artifact.",
+    "Weights and voice tensors were read from the local /content/ai/models/kokoro-82m directory; no token, no credential, no network at inference.",
+    "No gate claim, no production-quality claim, no unaudited model, no binary in git (WAV lives under /content/ai)."
+  ]
+}

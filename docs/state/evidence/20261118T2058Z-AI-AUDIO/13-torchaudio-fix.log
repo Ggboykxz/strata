@@ -1,0 +1,29 @@
+# CMD: uv pip install --python /content/ai/venv-audio/bin/python torchaudio==2.11.0 (match venv torch 2.15.0)
+# UTC: 2026-11-18T21:04:46Z
+Using Python 3.13.16 environment at: /content/ai/venv-audio
+Resolved 1 package in 192ms
+Downloading torchaudio (1.7MiB)
+ Downloaded torchaudio
+Prepared 1 package in 91ms
+Installed 1 package in 3ms
+ + torchaudio==2.11.0
+EXIT=0
+--- import check ---
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+    import torch,torchaudio,kokoro,misaki,soundfile; print('torch',torch.__version__,'cuda',torch.version.cuda); print('torchaudio',torchaudio.__version__); print('kokoro',kokoro.__file__); print('imports OK')
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/content/ai/venv-audio/lib/python3.13/site-packages/torchaudio/__init__.py", line 7, in <module>
+    from . import _extension  # noqa  # usort: skip
+    ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/content/ai/venv-audio/lib/python3.13/site-packages/torchaudio/_extension/__init__.py", line 36, in <module>
+    _check_cuda_version()
+    ~~~~~~~~~~~~~~~~~~~^^
+  File "/content/ai/venv-audio/lib/python3.13/site-packages/torchaudio/_extension/utils.py", line 124, in _check_cuda_version
+    raise RuntimeError(
+    ...<3 lines>...
+    )
+RuntimeError: Detected that PyTorch and TorchAudio were compiled with different CUDA versions. PyTorch has CUDA version 13.2 whereas TorchAudio has CUDA version 13.0. Please install the TorchAudio version that matches your PyTorch version.
+IMPORT_EXIT=1
+# NOTE: torchaudio install EXIT=0; import probe still failed (IMPORT_EXIT=1) due to CUDA build mismatch.
+EXIT=0

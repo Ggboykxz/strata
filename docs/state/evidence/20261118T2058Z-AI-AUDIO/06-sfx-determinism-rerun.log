@@ -1,0 +1,20 @@
+# CMD: external determinism rerun to /content/ai/audio-sfx-rerun + wall time
+# UTC: 2026-11-18T21:00:08Z
+RERUN_EXIT=0
+WALL_SECONDS=0.435
+--- original sha256 ---
+663a4f934a04a48c550035b03718dc36db6889aac207d9442afcb74d51766c83  /content/ai/audio-sfx/impact.wav
+05b45ccdb127da266e264f0452f76d50f559c272f1162434f1e21f681ccbf6d7  /content/ai/audio-sfx/step.wav
+c8dd06d9ba08aa2ee7e6c59b290735f956816cb7118b3347d6d303ff131f229a  /content/ai/audio-sfx/swing.wav
+c8eca72426ae032ffc11587a85249e7641054d6102b8c6bcd45cf042f39a359e  /content/ai/audio-sfx/ui-confirm.wav
+--- rerun sha256 ---
+663a4f934a04a48c550035b03718dc36db6889aac207d9442afcb74d51766c83  /content/ai/audio-sfx-rerun/impact.wav
+05b45ccdb127da266e264f0452f76d50f559c272f1162434f1e21f681ccbf6d7  /content/ai/audio-sfx-rerun/step.wav
+c8dd06d9ba08aa2ee7e6c59b290735f956816cb7118b3347d6d303ff131f229a  /content/ai/audio-sfx-rerun/swing.wav
+c8eca72426ae032ffc11587a85249e7641054d6102b8c6bcd45cf042f39a359e  /content/ai/audio-sfx-rerun/ui-confirm.wav
+--- diff (empty = byte-identical) ---
+swing.wav IDENTICAL
+impact.wav IDENTICAL
+step.wav IDENTICAL
+ui-confirm.wav IDENTICAL
+EXIT=0

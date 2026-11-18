@@ -1,0 +1,249 @@
+# CMD: node tools/asset-pipeline/sfx.mjs
+# UTC: 2026-11-18T20:59:59Z
+
+=== swing.wav ===
+preset:       pickupCoin (coin/sword-like)
+seed:         101 (mulberry32, replaces Math.random during jsfxr render)
+params:       {"oldParams":true,"wave_type":1,"p_env_attack":0,"p_env_sustain":0.0841819531749934,"p_env_punch":0.5948626843281091,"p_env_decay":0.18650225503370166,"p_base_freq":0.6057899786159396,"p_freq_limit":0,"p_freq_ramp":0,"p_freq_dramp":0,"p_vib_strength":0,"p_vib_speed":0,"p_arp_mod":0,"p_arp_speed":0,"p_duty":0,"p_duty_ramp":0,"p_repeat_speed":0,"p_pha_offset":0,"p_pha_ramp":0,"p_lpf_freq":1,"p_lpf_ramp":0,"p_lpf_resonance":0,"p_hpf_freq":0,"p_hpf_ramp":0,"sound_vol":0.5,"sample_rate":44100,"sample_size":16}
+prompt_hash:  f240172988a3b24929ce40850f8192ec70f5a851dadcd1880273b58031191d6a  (sha256 of params JSON string)
+sha256:       c8dd06d9ba08aa2ee7e6c59b290735f956816cb7118b3347d6d303ff131f229a
+determinism:  PASS (two independent seeded renders byte-identical)
+wav:          {"riff":"RIFF","wave":"WAVE","channels":1,"sample_rate":44100,"bits_per_sample":16,"bytes":8420,"data_bytes":8376,"samples":4188,"duration_ms":94.966}
+
+=== impact.wav ===
+preset:       hitHurt (hit)
+seed:         202 (mulberry32, replaces Math.random during jsfxr render)
+params:       {"oldParams":true,"wave_type":1,"p_env_attack":0,"p_env_sustain":0.09828756144270301,"p_env_punch":0,"p_env_decay":0.1040497824549675,"p_base_freq":0.7050917190499604,"p_freq_limit":0,"p_freq_ramp":-0.38650225503370167,"p_freq_dramp":0,"p_vib_strength":0,"p_vib_speed":0,"p_arp_mod":0,"p_arp_speed":0,"p_duty":1,"p_duty_ramp":0,"p_repeat_speed":0,"p_pha_offset":0,"p_pha_ramp":0,"p_lpf_freq":1,"p_lpf_ramp":0,"p_lpf_resonance":0,"p_hpf_freq":0.025276098260655997,"p_hpf_ramp":0,"sound_vol":0.5,"sample_rate":44100,"sample_size":16}
+prompt_hash:  b243f2bc5f2e7e19877bce47fcc310452d117448ad146e20b2772765268c71a8  (sha256 of params JSON string)
+sha256:       663a4f934a04a48c550035b03718dc36db6889aac207d9442afcb74d51766c83
+determinism:  PASS (two independent seeded renders byte-identical)
+wav:          {"riff":"RIFF","wave":"WAVE","channels":1,"sample_rate":44100,"bits_per_sample":16,"bytes":4144,"data_bytes":4100,"samples":2050,"duration_ms":46.485}
+
+=== step.wav ===
+preset:       click (footstep)
+seed:         303 (mulberry32, replaces Math.random during jsfxr render)
+params:       {"oldParams":true,"wave_type":3,"p_env_attack":0,"p_env_sustain":0.125276098260656,"p_env_punch":0.3266078300308436,"p_env_decay":0.3494281363673508,"p_base_freq":0.8712359636556357,"p_freq_limit":0,"p_freq_ramp":0,"p_freq_dramp":0,"p_vib_strength":0,"p_vib_speed":0,"p_arp_mod":-0.15961039848625658,"p_arp_speed":0.7136328473920002,"p_duty":0,"p_duty_ramp":0,"p_repeat_speed":0,"p_pha_offset":0.0382492243777961,"p_pha_ramp":-0.2647416975349188,"p_lpf_freq":1,"p_lpf_ramp":0,"p_lpf_resonance":0,"p_hpf_freq":0.9076948764035478,"p_hpf_ramp":0,"sound_vol":0.5,"sample_rate":44100,"sample_size":16}
+prompt_hash:  75c9dccf0944e6ce59fce0db985dcdae4f3d8e6882e5bfc009194fa0f55bbc62  (sha256 of params JSON string)
+sha256:       05b45ccdb127da266e264f0452f76d50f559c272f1162434f1e21f681ccbf6d7
+determinism:  PASS (two independent seeded renders byte-identical)
+wav:          {"riff":"RIFF","wave":"WAVE","channels":1,"sample_rate":44100,"bits_per_sample":16,"bytes":27606,"data_bytes":27562,"samples":13781,"duration_ms":312.494}
+
+=== ui-confirm.wav ===
+preset:       powerUp (ding)
+seed:         404 (mulberry32, replaces Math.random during jsfxr render)
+params:       {"oldParams":true,"wave_type":0,"p_env_attack":0,"p_env_sustain":0.033701464347541336,"p_env_punch":0,"p_env_decay":0.37954250909388065,"p_base_freq":0.26487669127527624,"p_freq_limit":0,"p_freq_ramp":0.108099564909935,"p_freq_dramp":0,"p_vib_strength":0,"p_vib_speed":0,"p_arp_mod":0,"p_arp_speed":0,"p_duty":0.5050917190499603,"p_duty_ramp":0,"p_repeat_speed":0.7211700253188611,"p_pha_offset":0,"p_pha_ramp":0,"p_lpf_freq":1,"p_lpf_ramp":0,"p_lpf_resonance":0,"p_hpf_freq":0,"p_hpf_ramp":0,"sound_vol":0.5,"sample_rate":44100,"sample_size":16}
+prompt_hash:  53adbce1411514dec31eec2fbb19eedb9abd260a884b3df40df2495af2c73ee6  (sha256 of params JSON string)
+sha256:       c8eca72426ae032ffc11587a85249e7641054d6102b8c6bcd45cf042f39a359e
+determinism:  PASS (two independent seeded renders byte-identical)
+wav:          {"riff":"RIFF","wave":"WAVE","channels":1,"sample_rate":44100,"bits_per_sample":16,"bytes":29084,"data_bytes":29040,"samples":14520,"duration_ms":329.252}
+
+---JSON-SUMMARY-BEGIN---
+{
+  "tool": "jsfxr",
+  "tool_version": "1.4.1",
+  "licence_id": "JSFXR",
+  "licence": "Unlicense (public domain), git blob 6d9eabbb7579f19b207be0e7ed52548ffdb32c90",
+  "source": "https://github.com/chr15m/jsfxr",
+  "sample_rate_hz": 44100,
+  "bit_depth": 16,
+  "channels": 1,
+  "out_dir": "/content/ai/audio-sfx",
+  "generated_at_utc": "2026-11-18T20:59:59.842Z",
+  "deterministic_all": true,
+  "files": [
+    {
+      "file": "swing.wav",
+      "path": "/content/ai/audio-sfx/swing.wav",
+      "preset": "pickupCoin (coin/sword-like)",
+      "seed": 101,
+      "params": {
+        "oldParams": true,
+        "wave_type": 1,
+        "p_env_attack": 0,
+        "p_env_sustain": 0.0841819531749934,
+        "p_env_punch": 0.5948626843281091,
+        "p_env_decay": 0.18650225503370166,
+        "p_base_freq": 0.6057899786159396,
+        "p_freq_limit": 0,
+        "p_freq_ramp": 0,
+        "p_freq_dramp": 0,
+        "p_vib_strength": 0,
+        "p_vib_speed": 0,
+        "p_arp_mod": 0,
+        "p_arp_speed": 0,
+        "p_duty": 0,
+        "p_duty_ramp": 0,
+        "p_repeat_speed": 0,
+        "p_pha_offset": 0,
+        "p_pha_ramp": 0,
+        "p_lpf_freq": 1,
+        "p_lpf_ramp": 0,
+        "p_lpf_resonance": 0,
+        "p_hpf_freq": 0,
+        "p_hpf_ramp": 0,
+        "sound_vol": 0.5,
+        "sample_rate": 44100,
+        "sample_size": 16
+      },
+      "params_string": "{\"oldParams\":true,\"wave_type\":1,\"p_env_attack\":0,\"p_env_sustain\":0.0841819531749934,\"p_env_punch\":0.5948626843281091,\"p_env_decay\":0.18650225503370166,\"p_base_freq\":0.6057899786159396,\"p_freq_limit\":0,\"p_freq_ramp\":0,\"p_freq_dramp\":0,\"p_vib_strength\":0,\"p_vib_speed\":0,\"p_arp_mod\":0,\"p_arp_speed\":0,\"p_duty\":0,\"p_duty_ramp\":0,\"p_repeat_speed\":0,\"p_pha_offset\":0,\"p_pha_ramp\":0,\"p_lpf_freq\":1,\"p_lpf_ramp\":0,\"p_lpf_resonance\":0,\"p_hpf_freq\":0,\"p_hpf_ramp\":0,\"sound_vol\":0.5,\"sample_rate\":44100,\"sample_size\":16}",
+      "prompt_hash": "f240172988a3b24929ce40850f8192ec70f5a851dadcd1880273b58031191d6a",
+      "sha256": "c8dd06d9ba08aa2ee7e6c59b290735f956816cb7118b3347d6d303ff131f229a",
+      "deterministic": true,
+      "riff": "RIFF",
+      "wave": "WAVE",
+      "channels": 1,
+      "sample_rate": 44100,
+      "bits_per_sample": 16,
+      "bytes": 8420,
+      "data_bytes": 8376,
+      "samples": 4188,
+      "duration_ms": 94.966
+    },
+    {
+      "file": "impact.wav",
+      "path": "/content/ai/audio-sfx/impact.wav",
+      "preset": "hitHurt (hit)",
+      "seed": 202,
+      "params": {
+        "oldParams": true,
+        "wave_type": 1,
+        "p_env_attack": 0,
+        "p_env_sustain": 0.09828756144270301,
+        "p_env_punch": 0,
+        "p_env_decay": 0.1040497824549675,
+        "p_base_freq": 0.7050917190499604,
+        "p_freq_limit": 0,
+        "p_freq_ramp": -0.38650225503370167,
+        "p_freq_dramp": 0,
+        "p_vib_strength": 0,
+        "p_vib_speed": 0,
+        "p_arp_mod": 0,
+        "p_arp_speed": 0,
+        "p_duty": 1,
+        "p_duty_ramp": 0,
+        "p_repeat_speed": 0,
+        "p_pha_offset": 0,
+        "p_pha_ramp": 0,
+        "p_lpf_freq": 1,
+        "p_lpf_ramp": 0,
+        "p_lpf_resonance": 0,
+        "p_hpf_freq": 0.025276098260655997,
+        "p_hpf_ramp": 0,
+        "sound_vol": 0.5,
+        "sample_rate": 44100,
+        "sample_size": 16
+      },
+      "params_string": "{\"oldParams\":true,\"wave_type\":1,\"p_env_attack\":0,\"p_env_sustain\":0.09828756144270301,\"p_env_punch\":0,\"p_env_decay\":0.1040497824549675,\"p_base_freq\":0.7050917190499604,\"p_freq_limit\":0,\"p_freq_ramp\":-0.38650225503370167,\"p_freq_dramp\":0,\"p_vib_strength\":0,\"p_vib_speed\":0,\"p_arp_mod\":0,\"p_arp_speed\":0,\"p_duty\":1,\"p_duty_ramp\":0,\"p_repeat_speed\":0,\"p_pha_offset\":0,\"p_pha_ramp\":0,\"p_lpf_freq\":1,\"p_lpf_ramp\":0,\"p_lpf_resonance\":0,\"p_hpf_freq\":0.025276098260655997,\"p_hpf_ramp\":0,\"sound_vol\":0.5,\"sample_rate\":44100,\"sample_size\":16}",
+      "prompt_hash": "b243f2bc5f2e7e19877bce47fcc310452d117448ad146e20b2772765268c71a8",
+      "sha256": "663a4f934a04a48c550035b03718dc36db6889aac207d9442afcb74d51766c83",
+      "deterministic": true,
+      "riff": "RIFF",
+      "wave": "WAVE",
+      "channels": 1,
+      "sample_rate": 44100,
+      "bits_per_sample": 16,
+      "bytes": 4144,
+      "data_bytes": 4100,
+      "samples": 2050,
+      "duration_ms": 46.485
+    },
+    {
+      "file": "step.wav",
+      "path": "/content/ai/audio-sfx/step.wav",
+      "preset": "click (footstep)",
+      "seed": 303,
+      "params": {
+        "oldParams": true,
+        "wave_type": 3,
+        "p_env_attack": 0,
+        "p_env_sustain": 0.125276098260656,
+        "p_env_punch": 0.3266078300308436,
+        "p_env_decay": 0.3494281363673508,
+        "p_base_freq": 0.8712359636556357,
+        "p_freq_limit": 0,
+        "p_freq_ramp": 0,
+        "p_freq_dramp": 0,
+        "p_vib_strength": 0,
+        "p_vib_speed": 0,
+        "p_arp_mod": -0.15961039848625658,
+        "p_arp_speed": 0.7136328473920002,
+        "p_duty": 0,
+        "p_duty_ramp": 0,
+        "p_repeat_speed": 0,
+        "p_pha_offset": 0.0382492243777961,
+        "p_pha_ramp": -0.2647416975349188,
+        "p_lpf_freq": 1,
+        "p_lpf_ramp": 0,
+        "p_lpf_resonance": 0,
+        "p_hpf_freq": 0.9076948764035478,
+        "p_hpf_ramp": 0,
+        "sound_vol": 0.5,
+        "sample_rate": 44100,
+        "sample_size": 16
+      },
+      "params_string": "{\"oldParams\":true,\"wave_type\":3,\"p_env_attack\":0,\"p_env_sustain\":0.125276098260656,\"p_env_punch\":0.3266078300308436,\"p_env_decay\":0.3494281363673508,\"p_base_freq\":0.8712359636556357,\"p_freq_limit\":0,\"p_freq_ramp\":0,\"p_freq_dramp\":0,\"p_vib_strength\":0,\"p_vib_speed\":0,\"p_arp_mod\":-0.15961039848625658,\"p_arp_speed\":0.7136328473920002,\"p_duty\":0,\"p_duty_ramp\":0,\"p_repeat_speed\":0,\"p_pha_offset\":0.0382492243777961,\"p_pha_ramp\":-0.2647416975349188,\"p_lpf_freq\":1,\"p_lpf_ramp\":0,\"p_lpf_resonance\":0,\"p_hpf_freq\":0.9076948764035478,\"p_hpf_ramp\":0,\"sound_vol\":0.5,\"sample_rate\":44100,\"sample_size\":16}",
+      "prompt_hash": "75c9dccf0944e6ce59fce0db985dcdae4f3d8e6882e5bfc009194fa0f55bbc62",
+      "sha256": "05b45ccdb127da266e264f0452f76d50f559c272f1162434f1e21f681ccbf6d7",
+      "deterministic": true,
+      "riff": "RIFF",
+      "wave": "WAVE",
+      "channels": 1,
+      "sample_rate": 44100,
+      "bits_per_sample": 16,
+      "bytes": 27606,
+      "data_bytes": 27562,
+      "samples": 13781,
+      "duration_ms": 312.494
+    },
+    {
+      "file": "ui-confirm.wav",
+      "path": "/content/ai/audio-sfx/ui-confirm.wav",
+      "preset": "powerUp (ding)",
+      "seed": 404,
+      "params": {
+        "oldParams": true,
+        "wave_type": 0,
+        "p_env_attack": 0,
+        "p_env_sustain": 0.033701464347541336,
+        "p_env_punch": 0,
+        "p_env_decay": 0.37954250909388065,
+        "p_base_freq": 0.26487669127527624,
+        "p_freq_limit": 0,
+        "p_freq_ramp": 0.108099564909935,
+        "p_freq_dramp": 0,
+        "p_vib_strength": 0,
+        "p_vib_speed": 0,
+        "p_arp_mod": 0,
+        "p_arp_speed": 0,
+        "p_duty": 0.5050917190499603,
+        "p_duty_ramp": 0,
+        "p_repeat_speed": 0.7211700253188611,
+        "p_pha_offset": 0,
+        "p_pha_ramp": 0,
+        "p_lpf_freq": 1,
+        "p_lpf_ramp": 0,
+        "p_lpf_resonance": 0,
+        "p_hpf_freq": 0,
+        "p_hpf_ramp": 0,
+        "sound_vol": 0.5,
+        "sample_rate": 44100,
+        "sample_size": 16
+      },
+      "params_string": "{\"oldParams\":true,\"wave_type\":0,\"p_env_attack\":0,\"p_env_sustain\":0.033701464347541336,\"p_env_punch\":0,\"p_env_decay\":0.37954250909388065,\"p_base_freq\":0.26487669127527624,\"p_freq_limit\":0,\"p_freq_ramp\":0.108099564909935,\"p_freq_dramp\":0,\"p_vib_strength\":0,\"p_vib_speed\":0,\"p_arp_mod\":0,\"p_arp_speed\":0,\"p_duty\":0.5050917190499603,\"p_duty_ramp\":0,\"p_repeat_speed\":0.7211700253188611,\"p_pha_offset\":0,\"p_pha_ramp\":0,\"p_lpf_freq\":1,\"p_lpf_ramp\":0,\"p_lpf_resonance\":0,\"p_hpf_freq\":0,\"p_hpf_ramp\":0,\"sound_vol\":0.5,\"sample_rate\":44100,\"sample_size\":16}",
+      "prompt_hash": "53adbce1411514dec31eec2fbb19eedb9abd260a884b3df40df2495af2c73ee6",
+      "sha256": "c8eca72426ae032ffc11587a85249e7641054d6102b8c6bcd45cf042f39a359e",
+      "deterministic": true,
+      "riff": "RIFF",
+      "wave": "WAVE",
+      "channels": 1,
+      "sample_rate": 44100,
+      "bits_per_sample": 16,
+      "bytes": 29084,
+      "data_bytes": 29040,
+      "samples": 14520,
+      "duration_ms": 329.252
+    }
+  ]
+}
+---JSON-SUMMARY-END---
+EXIT=0
