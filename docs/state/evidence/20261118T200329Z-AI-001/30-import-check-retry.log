@@ -1,0 +1,8 @@
+$ /content/ai/venv-trisr/bin/python -c "import torch, torchvision, omegaconf, einops, trimesh, transformers, huggingface_hub, rembg, torchmcubes; print("torch", torch.__version__, "cuda", torch.cuda.is_available()); print("transformers", transformers.__version__); print("huggingface_hub", huggingface_hub.__version__); print("trimesh", trimesh.__version__)"
+/content/ai/venv-trisr/lib/python3.13/site-packages/transformers/utils/generic.py:441: FutureWarning: `torch.utils._pytree._register_pytree_node` is deprecated. Please use `torch.utils._pytree.register_pytree_node` instead.
+  _torch_pytree._register_pytree_node(
+torch 2.15.0+cu132 cuda True
+transformers 4.36.2
+huggingface_hub 0.36.2
+trimesh 5.2.1
+EXIT=0

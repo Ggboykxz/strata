@@ -1,0 +1,73 @@
+$ hf download --help
+Usage: hf download [OPTIONS] REPO_ID [FILENAMES]...
+
+  Download files from the Hub.
+
+Arguments:
+  REPO_ID         The ID of the repo (e.g. `username/repo-name` or
+                  `spaces/username/repo-name`).  [required]
+  [FILENAMES]...  Files to download (e.g. `config.json`,
+                  `data/metadata.jsonl`).
+
+Options:
+  --type, --repo-type [model|dataset|space|kernel]
+                                  The type of repository (model, dataset,
+                                  space, or kernel).  [default: (model)]
+  --revision TEXT                 Git revision id which can be a branch name,
+                                  a tag, or a commit hash.
+  --include TEXT                  Glob patterns to include from files to
+                                  download. eg: *.json
+  --exclude TEXT                  Glob patterns to exclude from files to
+                                  download.
+  --cache-dir TEXT                Directory where to save files.
+  --local-dir TEXT                If set, the downloaded file will be placed
+                                  under this directory. Check out https://hugg
+                                  ingface.co/docs/huggingface_hub/guides/downl
+                                  oad#download-files-to-a-local-folder for
+                                  more details.
+  --force-download / --no-force-download
+                                  If True, the files will be downloaded even
+                                  if they are already cached.  [default: no-
+                                  force-download]
+  --dry-run / --no-dry-run        If True, perform a dry run without actually
+                                  downloading the file.  [default: no-dry-run]
+  --token TEXT                    A User Access Token generated from
+                                  https://huggingface.co/settings/tokens.
+  --max-workers INTEGER           Maximum number of workers to use for
+                                  downloading files. Default is 8.  [default:
+                                  8]
+  -h, --help                      Show this message and exit.
+
+Formatting options:
+$ hf upload --help
+Usage: hf upload [OPTIONS] REPO_ID [LOCAL_PATH] [PATH_IN_REPO]
+
+  Upload a file or a folder to the Hub. Recommended for single-commit uploads.
+
+Arguments:
+  REPO_ID         The ID of the repo (e.g. `username/repo-name` or
+                  `spaces/username/repo-name`).  [required]
+  [LOCAL_PATH]    Local path to the file or folder to upload. Wildcard
+                  patterns are supported. Defaults to current directory.
+  [PATH_IN_REPO]  Path of the file or folder in the repo. Defaults to the
+                  relative path of the file or folder.
+
+Options:
+  --type, --repo-type [model|dataset|space|kernel]
+                                  The type of repository (model, dataset,
+                                  space, or kernel).  [default: (model)]
+  --revision TEXT                 Git revision id which can be a branch name,
+                                  a tag, or a commit hash.
+  --private / --no-private        Whether to create a private repo if repo
+                                  doesn't exist on the Hub. Ignored if the
+                                  repo already exists.
+  --include TEXT                  Glob patterns to match files to upload.
+  --exclude TEXT                  Glob patterns to exclude from files to
+                                  upload.
+  --delete TEXT                   Glob patterns for file to be deleted from
+                                  the repo while committing.
+  --commit-message TEXT           The summary / title / first line of the
+                                  generated commit.
+  --commit-description TEXT       The description of the generated commit.
+  --create-pr / --no-create-pr    Whether to upload content as a new Pull
+EXIT=0

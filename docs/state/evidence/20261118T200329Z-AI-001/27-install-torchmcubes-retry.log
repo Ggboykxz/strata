@@ -1,0 +1,11 @@
+$ CUDA_HOME=/usr/local/cuda MAX_JOBS=2 uv pip install --python /content/ai/venv-trisr/bin/python --no-cache --no-build-isolation "git+https://github.com/tatsy/torchmcubes.git@a9ac95aa329957ba646e7bb057f825f5dfa77f38"
+Using Python 3.13.16 environment at: /content/ai/venv-trisr
+   Updating https://github.com/tatsy/torchmcubes.git (a9ac95aa329957ba646e7bb057f825f5dfa77f38)
+    Updated https://github.com/tatsy/torchmcubes.git (a9ac95aa329957ba646e7bb057f825f5dfa77f38)
+Resolved 30 packages in 2.06s
+   Building torchmcubes @ git+https://github.com/tatsy/torchmcubes.git@a9ac95aa329957ba646e7bb057f825f5dfa77f38
+      Built torchmcubes @ git+https://github.com/tatsy/torchmcubes.git@a9ac95aa329957ba646e7bb057f825f5dfa77f38
+Prepared 1 package in 6m 29s
+Installed 1 package in 0.98ms
+ + torchmcubes==0.1.0 (from git+https://github.com/tatsy/torchmcubes.git@a9ac95aa329957ba646e7bb057f825f5dfa77f38)
+EXIT=0

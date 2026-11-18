@@ -1,0 +1,9 @@
+$ free -m
+               total        used        free      shared  buff/cache   available
+Mem:           12975        1900        3249           2        8147       11075
+Swap:              0           0           0
+$ nproc
+2
+$ getconf _NPROCESSORS_ONLN
+2
+EXIT=0

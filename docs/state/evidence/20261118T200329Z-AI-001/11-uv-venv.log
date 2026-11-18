@@ -1,0 +1,10 @@
+$ uv --version
+uv 0.13.4 (x86_64-unknown-linux-gnu)
+$ /usr/bin/python3 --version
+Python 3.13.16
+$ uv venv /content/ai/venv-mesh --python /usr/bin/python3
+warning: The `--system` flag has no effect, `uv venv` always ignores virtual environments when finding a Python interpreter; did you mean `--no-managed-python`?
+Using CPython 3.13.16 interpreter at: /usr/bin/python3
+Creating virtual environment at: /content/ai/venv-mesh
+Activate with: source /content/ai/venv-mesh/bin/activate
+EXIT=0

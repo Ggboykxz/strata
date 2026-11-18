@@ -1,0 +1,3 @@
+$ /content/ai/venv-mesh/bin/python -c "import torch; print(torch.__version__, torch.cuda.is_available(), torch.cuda.get_device_name(0) if torch.cuda.is_available() else None, torch.cuda.get_device_properties(0).total_memory if torch.cuda.is_available() else None)"
+2.15.0+cu132 True Tesla T4 15637086208
+EXIT=0

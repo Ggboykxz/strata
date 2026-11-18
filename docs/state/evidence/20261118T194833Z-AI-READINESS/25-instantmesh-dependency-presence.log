@@ -1,0 +1,26 @@
+$ python3 -c 'import nvdiffrast'
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+    import nvdiffrast
+ModuleNotFoundError: No module named 'nvdiffrast'
+EXIT=1
+$ python3 -c 'import xatlas'
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+    import xatlas
+ModuleNotFoundError: No module named 'xatlas'
+EXIT=1
+$ python3 -c 'import rembg; print('rembg present')'
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+    import rembg; print('rembg present')
+    ^^^^^^^^^^^^
+ModuleNotFoundError: No module named 'rembg'
+EXIT=1
+$ python3 -c 'import onnxruntime as o; print('onnxruntime', o.__version__)'
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+    import onnxruntime as o; print('onnxruntime', o.__version__)
+    ^^^^^^^^^^^^^^^^^^^^^^^
+ModuleNotFoundError: No module named 'onnxruntime'
+EXIT=1

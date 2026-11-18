@@ -1,0 +1,79 @@
+$ uv pip compile --help
+Compile a `requirements.in` file to a `requirements.txt` or `pylock.toml` file
+
+Usage: uv pip compile [OPTIONS] <SRC_FILE|--group <GROUP>>
+
+Arguments:
+  [SRC_FILE]...  Include the packages listed in the given files
+
+Options:
+  -c, --constraints <CONSTRAINTS>
+          Constrain versions using the given requirements files [env: `UV_CONSTRAINT`=]
+      --overrides <OVERRIDES>
+          Override versions using the given requirements files [env: `UV_OVERRIDE`=]
+      --excludes <EXCLUDES>
+          Exclude packages from resolution using the given requirements files [env: `UV_EXCLUDE`=]
+  -b, --build-constraints <BUILD_CONSTRAINTS>
+          Constrain build dependencies using the given requirements files when building source
+          distributions [env: `UV_BUILD_CONSTRAINT`=]
+      --require-build-hashes
+          Require hashes for all build dependencies
+      --extra <EXTRA>
+          Include optional dependencies from the specified extra name; may be provided more than
+          once
+      --all-extras
+          Include all optional dependencies
+      --group <GROUP>
+          Install the specified dependency group from a `pyproject.toml`
+      --cert <FILE>
+          Path to a PEM-encoded CA certificate bundle
+      --no-deps
+          Ignore package dependencies, instead only add those packages explicitly listed on the
+          command line to the resulting requirements file
+  -o, --output-file <OUTPUT_FILE>
+          Write the compiled requirements to the given `requirements.txt` or `pylock.toml` file
+      --format <FORMAT>
+          The format in which the resolution should be output [possible values: requirements.txt,
+$ uv pip sync --help
+Sync an environment with a `requirements.txt` or `pylock.toml` file
+
+Usage: uv pip sync [OPTIONS] <SRC_FILE>...
+
+Arguments:
+  <SRC_FILE>...  Include the packages listed in the given files
+
+Options:
+  -c, --constraints <CONSTRAINTS>
+          Constrain versions using the given requirements files [env: `UV_CONSTRAINT`=]
+  -b, --build-constraints <BUILD_CONSTRAINTS>
+          Constrain build dependencies using the given requirements files when building source
+          distributions [env: `UV_BUILD_CONSTRAINT`=]
+      --extra <EXTRA>
+          Include optional dependencies from the specified extra name; may be provided more than
+          once
+      --all-extras
+          Include all optional dependencies
+      --group <GROUP>
+          Install the specified dependency group from a `pylock.toml` or `pyproject.toml`
+$ uv venv --help
+Create a virtual environment
+
+Usage: uv venv [OPTIONS] [PATH]
+
+Arguments:
+  [PATH]  The path to the virtual environment to create
+
+Options:
+      --no-project             Avoid discovering a project or workspace [env: UV_NO_PROJECT=]
+      --seed                   Install seed packages (one or more of: `pip`, `setuptools`, and
+                               `wheel`) into the virtual environment [env: UV_VENV_SEED=]
+  -c, --clear                  Remove any existing files or directories at the target path [env:
+                               UV_VENV_CLEAR=]
+      --force                  Allow `--clear` to remove a non-virtual environment directory
+      --allow-existing         Preserve any existing files or directories at the target path
+      --prompt <PROMPT>        Provide an alternative prompt prefix for the virtual environment.
+      --system-site-packages   Give the virtual environment access to the system site packages
+                               directory
+      --relocatable            Make the virtual environment relocatable [env: UV_VENV_RELOCATABLE=]
+      --link-mode <LINK_MODE>  The method to use when installing packages from the global cache
+EXIT=0

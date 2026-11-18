@@ -1,0 +1,29 @@
+$ python3 -c 'import trimesh; print(trimesh.__version__)'
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+    import trimesh; print(trimesh.__version__)
+    ^^^^^^^^^^^^^^
+ModuleNotFoundError: No module named 'trimesh'
+EXIT=1
+$ command -v obj2gltf
+EXIT=1
+$ python3 -c 'import mcubes; print('mcubes present')'
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+    import mcubes; print('mcubes present')
+    ^^^^^^^^^^^^^
+ModuleNotFoundError: No module named 'mcubes'
+EXIT=1
+$ python3 -c 'import einops; print('einops', einops.__version__)'
+einops 0.8.2
+EXIT=0
+$ python3 -c 'import omegaconf; print('omegaconf', omegaconf.__version__)'
+omegaconf 2.4.0
+EXIT=0
+$ python3 -c 'import pytorch_lightning as pl; print('pytorch_lightning', pl.__version__)'
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+    import pytorch_lightning as pl; print('pytorch_lightning', pl.__version__)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ModuleNotFoundError: No module named 'pytorch_lightning'
+EXIT=1

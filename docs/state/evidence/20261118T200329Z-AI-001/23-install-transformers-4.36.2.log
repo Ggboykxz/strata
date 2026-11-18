@@ -1,0 +1,21 @@
+$ uv pip install --python /content/ai/venv-trisr/bin/python transformers==4.36.2 tokenizers==0.15.2   # deviation: transformers==4.35.0 hard-pins tokenizers<0.15; no cp313 wheels for 0.14.x; minimal bump to 4.36.2 allows 0.15.2
+Using Python 3.13.16 environment at: /content/ai/venv-trisr
+Resolved 18 packages in 178ms
+Downloading tokenizers (3.4MiB)
+Downloading transformers (7.8MiB)
+ Downloaded tokenizers
+ Downloaded transformers
+Prepared 3 packages in 558ms
+Uninstalled 1 package in 11ms
+Installed 9 packages in 104ms
+ + certifi==2026.10.23
+ + charset-normalizer==3.5.2
+ - huggingface-hub==2.4.0
+ + huggingface-hub==0.36.2
+ + regex==2026.11.19
+ + requests==2.34.2
+ + safetensors==0.8.0
+ + tokenizers==0.15.2
+ + transformers==4.36.2
+ + urllib3==2.8.0
+EXIT=0

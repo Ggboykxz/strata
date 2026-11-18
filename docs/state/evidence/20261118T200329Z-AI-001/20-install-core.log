@@ -1,0 +1,24 @@
+$ uv pip install --python /content/ai/venv-trisr/bin/python omegaconf==2.3.0 einops==0.7.0 trimesh huggingface-hub
+Using Python 3.13.16 environment at: /content/ai/venv-trisr
+Resolved 20 packages in 1.31s
+   Building antlr4-python3-runtime==4.9.3
+      Built antlr4-python3-runtime==4.9.3
+Prepared 3 packages in 765ms
+Installed 16 packages in 30ms
+ + antlr4-python3-runtime==4.9.3
+ + anyio==4.16.0
+ + click==8.5.1
+ + einops==0.7.0
+ + h11==0.16.0
+ + hf-xet==1.8.0
+ + httpcore2==2.16.2
+ + httpx2==2.16.2
+ + huggingface-hub==2.4.0
+ + idna==3.20
+ + omegaconf==2.3.0
+ + packaging==26.3
+ + pyyaml==6.0.3
+ + tqdm==4.70.1
+ + trimesh==5.2.1
+ + truststore==0.10.5
+EXIT=0

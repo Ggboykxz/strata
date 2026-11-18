@@ -1,0 +1,3 @@
+$ hf download TencentARC/InstantMesh instant_mesh_base.ckpt instant_mesh_large.ckpt --local-dir /content/ai/models/instantmesh
+path=/content/ai/models/instantmesh
+EXIT=0

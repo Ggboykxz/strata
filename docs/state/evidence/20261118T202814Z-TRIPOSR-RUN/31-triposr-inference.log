@@ -1,0 +1,7 @@
+$ PYTHONPATH=/content/ai/shim /content/ai/venv-trisr/bin/python /content/ai/graph/TripoSR/run.py /content/ai/hero_input_white.png --pretrained-model-name-or-path /content/ai/models/triposr --output-dir /content/ai/output --no-remove-bg --model-save-format glb
+Traceback (most recent call last):
+  File "/content/ai/graph/TripoSR/run.py", line 9, in <module>
+    import xatlas
+ModuleNotFoundError: No module named 'xatlas'
+wall_seconds 5.257
+EXIT=1

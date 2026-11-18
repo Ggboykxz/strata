@@ -1,0 +1,16 @@
+$ node scripts/validate-docs.mjs
+
+D1  vision document (--check)
+OK    VISION.md: metadata, 8 sections, locked sentence, amendment and non-goals present
+
+D2  ADR structure
+OK    9 ADR(s) have title, status and a Context/Decision section
+
+D3  TDD structure
+OK    3 TDD file(s) have title, status, Context and GIVEN/WHEN/THEN
+
+D4  slice, UX and localization specs
+OK    slice T2 numbers, 7 a11y controls and FR/EN parity rules present
+
+RESULT: PASS — 9 ADR(s), 3 TDD(s), 0 error(s). Structural check only; no claim validated.
+EXIT=0

@@ -1,0 +1,9 @@
+$ uv venv /content/ai/venv-trisr --python /usr/bin/python3 --system-site-packages
+warning: The `--system` flag has no effect, `uv venv` always ignores virtual environments when finding a Python interpreter; did you mean `--no-managed-python`?
+Using CPython 3.13.16 interpreter at: /usr/bin/python3
+Creating virtual environment at: /content/ai/venv-trisr
+error: Failed to create virtual environment
+  cause: A virtual environment already exists at: /content/ai/venv-trisr
+
+hint: Use the `--clear` flag or set `UV_VENV_CLEAR=1` to replace the existing virtual environment
+EXIT=2

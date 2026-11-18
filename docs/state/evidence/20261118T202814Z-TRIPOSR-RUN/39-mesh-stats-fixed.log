@@ -1,0 +1,9 @@
+$ PYTHONPATH=/content/ai/shim /content/ai/venv-trisr/bin/python - <<PY  # GLB scene stats
+scene_geometry_count 1
+vertices 94306
+faces 188608
+bytes 3773188
+sha256 9ad2fac19c9f10b4c9fca17f8f2dbb7845283b65e02adc3c04734e707e0ee05d
+animation_tracks 0
+PY
+EXIT=0

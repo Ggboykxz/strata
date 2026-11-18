@@ -1,0 +1,5 @@
+https://huggingface.co/sudo-ai/zero123plus-v1.2/resolve/main/unet/diffusion_pytorch_model.bin -> HTTP 404
+https://huggingface.co/facebook/dino-vitb16/resolve/main/pytorch_model.bin -> HTTP 302
+https://huggingface.co/TencentARC/InstantMesh/resolve/main/diffusion_pytorch_model.bin -> HTTP 302
+https://huggingface.co/tencent/FLUX.1-schnell/resolve/main/transformer/diffusion_pytorch_model-00001-of-00003.safetensors -> HTTP 401
+EXIT=0

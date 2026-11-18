@@ -1,0 +1,25 @@
+$ git ls-remote https://github.com/NVlabs/nvdiffrast HEAD
+253ac4fcea7de5f396371124af597e6cc957bfae	HEAD
+$ CUDA_HOME=/usr/local/cuda MAX_JOBS=2 uv pip install --python /content/ai/venv-mesh/bin/python --no-cache "git+https://github.com/NVlabs/nvdiffrast/@253ac4fcea7de5f396371124af597e6cc957bfae"
+Using Python 3.13.16 environment at: /content/ai/venv-mesh
+Resolved 2 packages in 319ms
+   Updating https://github.com/NVlabs/nvdiffrast/ (253ac4fcea7de5f396371124af597e6cc957bfae)
+    Updated https://github.com/NVlabs/nvdiffrast/ (253ac4fcea7de5f396371124af597e6cc957bfae)
+   Building nvdiffrast @ git+https://github.com/NVlabs/nvdiffrast/@253ac4fcea7de5f396371124af597e6cc957bfae
+error: Failed to build `nvdiffrast @ git+https://github.com/NVlabs/nvdiffrast/@253ac4fcea7de5f396371124af597e6cc957bfae`
+  cause: The build backend returned an error
+  cause: Call to `setuptools.build_meta.get_requires_for_build_wheel` failed (exit status: 1)
+
+         [stdout]
+
+
+         **********************************************************************
+         ERROR! Cannot compile nvdiffrast CUDA extension. Please ensure that:
+
+         1. You have PyTorch installed
+         2. You run 'pip install' with --no-build-isolation flag
+         **********************************************************************
+
+
+hint: Build failures usually indicate a problem with the package or the build environment
+EXIT=1

@@ -1,0 +1,3 @@
+$ mkdir -p /content/ai/output/0   # upstream run.py bug: per-image dir only created when rembg path runs
+CREATED
+EXIT=0

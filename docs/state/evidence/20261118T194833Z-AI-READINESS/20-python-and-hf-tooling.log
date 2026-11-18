@@ -1,0 +1,21 @@
+$ command -v uv
+/usr/local/bin/uv
+EXIT=0
+$ command -v hf
+/usr/local/bin/hf
+EXIT=0
+$ command -v huggingface-cli
+/usr/local/bin/huggingface-cli
+EXIT=0
+$ command -v git-lfs
+EXIT=1
+$ git lfs version
+git: 'lfs' is not a git command. See 'git --help'.
+
+The most similar command is
+	log
+EXIT=1
+$ python3 -c 'import sys; print(sys.executable); print(sys.prefix)'
+/usr/bin/python3
+/usr
+EXIT=0

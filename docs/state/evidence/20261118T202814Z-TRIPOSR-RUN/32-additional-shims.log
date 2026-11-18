@@ -1,0 +1,28 @@
+$ cat /content/ai/shim/xatlas.py /content/ai/shim/moderngl.py
+"""TripoSR smoke shim: explicit refusal, no UV atlas library is installed or used.
+
+`run.py` imports xatlas at module import time, but xatlas is only called from
+`--bake-texture`; AI-001 exports vertex-coloured GLB with no baking. Both
+entry points refuse loudly so the smoke can never silently depend on it.
+"""
+
+
+def parametrize(*args, **kwargs):
+    raise NotImplementedError("xatlas is intentionally absent from the AI-001 smoke path (no texture baking)")
+
+
+def export(*args, **kwargs):
+    raise NotImplementedError("xatlas is intentionally absent from the AI-001 smoke path (no texture baking)")
+"""TripoSR smoke shim: explicit refusal, no OpenGL context library is installed or used.
+
+`tsr/bake_texture.py` imports moderngl at module import time but only calls
+`moderngl.create_context` inside the texture-baking function; AI-001 exports
+vertex-coloured GLB with no baking.
+"""
+
+
+def create_context(*args, **kwargs):
+    raise NotImplementedError("moderngl is intentionally absent from the AI-001 smoke path (no texture baking)")
+$ PYTHONPATH=/content/ai/shim /content/ai/venv-trisr/bin/python -c "import xatlas, moderngl, rembg, torchmcubes; print("shims import OK")"
+shims import OK
+EXIT=0

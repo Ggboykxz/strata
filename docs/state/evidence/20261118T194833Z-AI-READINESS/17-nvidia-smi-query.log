@@ -1,0 +1,3 @@
+index, name, driver_version, memory.total [MiB], memory.used [MiB], memory.free [MiB], temperature.gpu, power.draw [W], power.limit [W], compute_cap, ecc.mode.current
+0, Tesla T4, 580.82.07, 15360 MiB, 0 MiB, 14913 MiB, 47, 14.52 W, 70.00 W, 7.5, Enabled
+EXIT=0

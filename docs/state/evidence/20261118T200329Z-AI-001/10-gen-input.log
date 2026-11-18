@@ -1,0 +1,6 @@
+$ python3 tools/asset-pipeline/gen_input.py
+wrote /content/ai/hero_input.png
+params seed=1337;size=256;palette=strata-golem-v1;bg=radial;facets=96;mode=rgb
+input_sha256 5ed68135ec5b0da71b96148d2bac6c9f44ff2309d12e84c6d4965f355faf25af
+prompt_hash a5ae7ee36ef09e2997a5fb96c09f5045e508e706c80ab70d8caed0eff2468fce
+EXIT=0
