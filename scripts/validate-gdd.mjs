@@ -83,6 +83,15 @@ for (const id of EXPECTED) {
     if (id === 'GDD-QUEST' && !/3 resolutions|>= 3/.test(field5)) {
       fail('G2 GDD-QUEST field 5 omits the T4 three-resolution minimum');
     }
+    if (id === 'GDD-ECONOMY' && maturity !== 'STUB') {
+      for (const table of ['packages/content/economy/faucets.yaml', 'packages/content/economy/sinks.yaml']) {
+        if (!existsSync(table)) fail(`G2 ${id} DRAFT requires ${table}`);
+        else {
+          try { parseYaml(readFileSync(table, 'utf8')); }
+          catch (e) { fail(`G2 ${table} does not parse: ${e.message}`); }
+        }
+      }
+    }
     if (maturity === 'SIGNED' && !/\*\*Signature|\| signed \|/.test(text)) {
       fail(`G2 ${id} is SIGNED without a recorded signature`);
     }
