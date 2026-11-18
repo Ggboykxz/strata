@@ -7,8 +7,8 @@
 | branch | `session/20261118-hc-001-high-concept` |
 | phase / tier | P1 complete → P2NET next / current `S0`, authorized **`S1`** (GATE:P1 signed 2026-11-18) |
 | director | present for bootstrap; async from now |
-| last task | NET-001 — isomorphic core tick + headless host |
-| next task | **NET-002** — binary protocol, codec, version handshake |
+| last task | NET-002 — binary wire contract + version handshake |
+| next task | **NET-003** — rooms/reconnect — blocked on a Colyseus pin; NET-005 is the fallback |
 
 ## Done this session
 
@@ -41,6 +41,7 @@
 | P0-005.a | resume prompt sentinel + drift §7 + 4 new negatives; `state/locks` registry branch created | 12/12 negatives; drift 0; `verify` 17/17 |
 | GATE:P1 | Director signature recorded; `authorized_tier: S1`, GATES.yaml regenerated | `validate-blueprint` 0; `verify` 17/17 |
 | NET-001 | core tick, hash ring, headless `SimHost`; GDD-NETCODE 0.3; NET-001 acc repaired | core 19/19 · server 8/8 · `verify` 17/17 · tracer 0 |
+| NET-002 | binary v2 frames, handshake, `ProtocolError`; GDD-NETCODE 0.4; NET-002 acc repaired | protocol 23/23 · full 51/51 · `verify` 17/17 · 1 551 B max frame |
 
 **P0-001 and P0-002 were split** although only P0-001 triggered B8: the halves fail for different reasons and
 deserve separate rollback points. Commits: `094f31f`, `bd6f550` (P0-001); `1ceaf20`, `7e9d382` (P0-002).
@@ -171,4 +172,18 @@ blueprint task currently owns the pin: recorded as a gap for the Director/next r
   vitest has no `--filter`, exit 1. Repaired for NET-001; **11 other accs still carry it**. The inverse form
   `pnpm --filter <pkg> test` exits 0 with no tests when the package has no `test` script — a silent false pass.
   A follow-up task must convert all of them and add a B-series rule.
+- **Still Director-only:** ND-004/ND-005 rotation, PR #1 merge.
+
+## Session 2 — NET-002 (2026-11-18T08:34Z)
+
+- **Wire v2.** Six frame classes, fixed little-endian, exact lengths. A trailing byte is a rejected frame,
+  not padding; a version outside 2..2 is answered with `reject`, never coerced. `hash` crosses as u32 and
+  `hashToU32` refuses anything that is not 8 lowercase hex chars.
+- **Measured, then stated.** A 64-entity snapshot is **1 551 B** = **46 530 B/s** at 30 Hz, **3.9× over** the
+  12 KB/s budget. The codec is correctness-only; NET-101 owns AoI + delta. No average is used to hide it.
+- **Two doc/tooling defects fixed.** NET-002's own acc was the broken `pnpm test --filter` form; repaired.
+  `NEEDS_DIRECTOR.md` had ND-010's SIGNED block under ND-004, making token rotation look resolved — ND-004 is
+  OPEN again. Remaining broken accs: **11**, re-measured (the earlier "11" was one short).
+- **Hardware.** The Director declared TPU v5e-1 + T4. T4 is already the sourced 16 GB tier; TPU has no audited
+  generation path, so the CPU-safe policy is correct there. Recorded as ND-011, not guessed into the pipeline.
 - **Still Director-only:** ND-004/ND-005 rotation, PR #1 merge.

@@ -3,7 +3,7 @@
 | field | value |
 |---|---|
 | id | GDD-NETCODE |
-| version | 0.3 |
+| version | 0.4 |
 | owner | netcode-engineer |
 | status | DRAFT |
 
@@ -11,7 +11,7 @@
 
 ## 1. Identity, version, owner, status
 
-ID GDD-NETCODE, version 0.3, owner netcode-engineer, status **DRAFT**. Derived from P1-001 VISION and the locked HIGH_CONCEPT.
+ID GDD-NETCODE, version 0.4, owner netcode-engineer, status **DRAFT**. Derived from P1-001 VISION and the locked HIGH_CONCEPT.
 
 ## 2. Player-facing outcome
 
@@ -36,6 +36,8 @@ T2 requires two clients to observe the same fact_id, variant_id and epoch with e
 - desync detection <= 1 RTT; recovery <= 3 ticks | TUNABLE 1..5 ticks | plan: loss/jitter matrix PR-N2
 - coordinate quantization: 1 mm integer, int32 wire bound +/-2 147 483.647 m | SOURCE: packages/core/src/tick.ts QUANT_MM / WIRE_MAX_MM (a format bound, not a gameplay budget)
 - server hash history: 128 ticks = 4.27 s at 30 Hz | TUNABLE 64..256 ticks | plan: NET-004 reconciliation window, with the 'unknown ack' rate as the measurement
+- v2 frame bytes: intent 11, hash ack 13, hello 4, welcome 3, reject 4, snapshot header 15 + 24 per entity, max 1 551 at 64 entities | SOURCE: packages/protocol/src/binary.ts byte constants; `packages/protocol/test/binary.test.ts` asserts 1 551
+- full-snapshot ceiling: 1 551 B x 30 Hz = 46 530 B/s at 64 entities | MEASURED arithmetic, **over** the 12 KB/s budget by 3.9x | plan: NET-101 owns AoI + delta; the codec does not claim to meet the budget
 
 ## 6. State machine
 
@@ -43,7 +45,9 @@ client: CONNECTING → PREDICTING → RECONCILED → DESYNCED → RESYNCING → 
 
 ## 7. Data contract
 
-protocol v1: IntentMessage{seq,dx,dz}, SnapshotMessage{state,hash,appliedSeq}, HashAckMessage{client,tick,hash}. NET-001: `appliedSeq` is per entity (`EntityState.seq`); a snapshot carries the seq of the entity it describes. JSON codec now; binary codec and version handshake in NET-002. Migration: version mismatch closes the socket and opens a version error event.
+protocol v2 (binary, NET-002): FrameType byte then a fixed little-endian layout — Intent{entity,seq,dx,dz}, Snapshot{tick,appliedSeq,hash,count,entities[]}, HashAck{client,tick,hash}, Hello{version,capabilities}, Welcome{version}, Reject{version,reason}. Lengths are exact: a trailing byte is a rejected frame, never padding. `hash` is the 32-bit FNV-1a value carried as u32, rendered as 8 lowercase hex chars.
+`appliedSeq` in the snapshot header is the **highest** per-entity seq in that snapshot, used as a cheap replay boundary; the authoritative value for "what this client may replay" is each entity's own `seq`. A client replays intents for entity `e` with `seq > snapshot.entities[e].seq`.
+protocol v1 (JSON, TRACER-001) remains exported until the game client moves to v2. Migration: a version outside the supported range is answered with `reject{reason:'version'}` and the socket closes; it is never coerced.
 
 ## 8. Edge cases
 
@@ -52,6 +56,8 @@ protocol v1: IntentMessage{seq,dx,dz}, SnapshotMessage{state,hash,appliedSeq}, H
 3. Hash ack arrives for a tick whose snapshot was not recorded: ignored, not counted as ok.
 4. 80 ms packet loss for 2 s: no state divergence; client resumes at next snapshot.
 5. Client and server on different integer widths: protocol rejects the version, no silent truncation.
+6. Frame with one extra byte: rejected as `trailing-bytes`; a frame is exact, never a prefix.
+7. Frame carrying more than 64 entities: rejected at both encode and decode; the AoI cap is 64 (D90).
 
 ## 9. Failure states
 
@@ -84,6 +90,9 @@ tick_hash_mismatch (count), rtt_ms (p50/p95), snapshot_bytes (p95), reconnect_co
 - GIVEN two replicas and 5 ticks WHEN pnpm tracer --assert runs THEN both hashes equal the server hash.
 - GIVEN a forced desync WHEN the replica acks a wrong hash THEN the server verdict is desync and the command exits 1.
 - GIVEN Math.random injected into packages/core WHEN pnpm lint runs THEN it exits 1.
+- GIVEN a v1 and a v3 hello WHEN `negotiate` runs THEN both return `reject{reason:'version'}` and neither is coerced.
+- GIVEN every v2 message class WHEN it is encoded and decoded THEN the value is identical (round-trip).
+- GIVEN a 64-entity snapshot WHEN encoded THEN it is exactly 1 551 bytes and over the 12 KB/s budget, recorded as NET-101's problem.
 
 ## 16. Perf budget impact
 
@@ -107,3 +116,4 @@ No physics engine, no Babylon on the server tick, no client-authoritative gamepl
 | 0.1 | 2026-11-18 | STUB created by GDD-001 | game-designer |
 | 0.2 | 2026-11-18 | DRAFT: all 19 fields, sources and ranges | GDD-002 |
 | 0.3 | 2026-11-18 | NET-001: integer-only tick rules, quantization bound, hash ring | netcode-engineer |
+| 0.4 | 2026-11-18 | NET-002: binary v2 frames, exact lengths, version handshake, frame budget measured | netcode-engineer |

@@ -1,7 +1,7 @@
 {
   "session": "2026-11-18-s02",
   "utc_start": "2026-11-18T07:23:00Z",
-  "utc_end": "2026-11-18T08:15:00Z",
+  "utc_end": "2026-11-18T08:34:00Z",
   "mode": "RESUME",
   "branch": "session/20261118-hc-001-high-concept",
   "tier": {
@@ -28,6 +28,11 @@
       "id": "NET-001",
       "status": "done",
       "blueprint_task": "NET-001"
+    },
+    {
+      "id": "NET-002",
+      "status": "done",
+      "blueprint_task": "NET-002"
     }
   ],
   "measured": {
@@ -59,12 +64,19 @@
     "core_test_files": 2,
     "core_tests": 19,
     "server_tests": 8,
-    "full_tests": 29,
+    "full_tests": 51,
     "determinism_ticks": 300,
     "hash_ring_capacity": 128,
     "containers_used": 0,
-    "broken_acceptance_commands_repaired": 1,
-    "broken_acceptance_commands_remaining": 11
+    "broken_acceptance_commands_repaired": 2,
+    "broken_acceptance_commands_remaining": 11,
+    "protocol_tests": 23,
+    "test_files": 6,
+    "wire_version": 2,
+    "wire_max_frame_bytes": 1551,
+    "snapshot_bytes_per_second": 46530,
+    "wire_budget_bytes_per_second": 12288,
+    "wire_budget_over_factor": 3.9
   },
   "cis": {
     "value": null,
@@ -216,6 +228,64 @@
       "exit": 0,
       "log": "docs/state/evidence/20261118T081128Z-NET-001/09-tracer.log",
       "result": "equal hashes, desync rejected"
+    },
+    {
+      "cmd": "pnpm test --filter @strata/protocol (as written in the blueprint)",
+      "exit": 1,
+      "log": "docs/state/evidence/20261118T082404Z-NET-002/00-acc-old-form.log",
+      "result": "CACError: vitest has no --filter"
+    },
+    {
+      "cmd": "pnpm vitest run packages/protocol",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T082404Z-NET-002/01-acc-protocol.log",
+      "result": "23/23"
+    },
+    {
+      "cmd": "pnpm typecheck",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T082404Z-NET-002/02-typecheck.log"
+    },
+    {
+      "cmd": "pnpm test",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T082404Z-NET-002/03-full-tests.log",
+      "result": "51/51, 6 files"
+    },
+    {
+      "cmd": "node scripts/lint-core-math.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T082404Z-NET-002/04-core-math.log"
+    },
+    {
+      "cmd": "pnpm verify",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T082404Z-NET-002/05-verify.log",
+      "result": "17/17"
+    },
+    {
+      "cmd": "node scripts/validate-gdd.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T082404Z-NET-002/06-gdd.log",
+      "result": "32 modules"
+    },
+    {
+      "cmd": "node scripts/validate-blueprint.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T082404Z-NET-002/07-blueprint.log",
+      "result": "63 tasks, 12 declared warnings"
+    },
+    {
+      "cmd": "pnpm tracer --assert",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T082404Z-NET-002/08-tracer.log",
+      "result": "equal hashes, desync rejected"
+    },
+    {
+      "cmd": "pnpm vitest run packages/protocol -t \"1 551\"",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T082404Z-NET-002/09-frame-size.log",
+      "result": "64-entity snapshot = 1551 B"
     }
   ],
   "notes": [
@@ -227,6 +297,10 @@
     "scripts/session-result.mjs (D146) is still a declared stub: this result was composed by hand from this file.",
     "NET-001: integer-only tick, canonical (entity, seq) ordering, wire range check, hash ring compared at the acked tick.",
     "The blueprint acc pnpm test --filter is invalid (vitest has no --filter, exit 1); repaired for NET-001, 11 remain.",
-    "Tick p95 is still unmeasured: NET-006 owns the number. No throughput is claimed here."
+    "Tick p95 is still unmeasured: NET-006 owns the number. No throughput is claimed here.",
+    "NET-002: binary v2 frames with exact lengths; a version outside the range is rejected, never coerced.",
+    "Measured: a 64-entity snapshot is 1551 B = 46530 B/s at 30 Hz, 3.9x over the 12 KB/s budget. NET-101 owns AoI/delta; no average hides it.",
+    "11 broken acceptance commands remain (re-measured); the earlier \"11 after NET-001\" was one short, the true count then was 12.",
+    "NEEDS_DIRECTOR.md fixed: ND-010 SIGNED status was appended under ND-004, making token rotation look resolved. ND-004 restored to OPEN."
   ]
 }

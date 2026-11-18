@@ -126,6 +126,11 @@ Anything else goes through a handoff. A conflict is resolved by a handoff or the
   GATES.yaml regenerated, one-step grant (S0→S1). P0-005.a sealed `SESSION_RESUME.md` with
   `<<<STRATA_RESUME_END v8.1>>>` and made `validate-prompt-drift` enforce it (12/12 negatives). The
   `state/locks` registry branch now exists. Next: **NET-001**.
+- **NET-002 landed**: binary v2 frames (intent 11 B, hash ack 13 B, snapshot 15 + 24/entity, max 1 551 B),
+  exact lengths, handshake rejects any version outside 2..2, hash carried as u32. A 64-entity snapshot is
+  46 530 B/s at 30 Hz — **3.9x over** the 12 KB/s budget, recorded as NET-101's task, not hidden. v1 JSON
+  stays exported until the game client migrates. Next: NET-003 (needs a producer-owned Colyseus pin) or
+  NET-005 (no new dependency).
 - Known intentional red: `scope-math --report` exit 2 (throughput unmeasured) and `concept --score` exit 2
   until HC-003. `concept --check` is green: T3 was signed at GATE:P0.
 

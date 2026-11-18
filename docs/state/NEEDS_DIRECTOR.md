@@ -17,6 +17,7 @@ Nothing here blocks the work already done; each item blocks a named future task.
 | ND-008 | **RESOLVED — REVERSED** — ActionForge approved with conditions | CC0 output rights verified from publisher notices |
 | ND-009 | **RESOLVED — option A** | full-MMORPG vision amendment (ADR-A0003), P0 scope unchanged |
 | ND-010 | **RESOLVED — SIGNED** | GATE:P1 signed ("Oui, signe S1"); authorized_tier S1; NET-001..006 selectable |
+| ND-011 | **OPEN — information acknowledged, one decision** | Director declares TPU v5e-1 + T4 16 GB; T4 is already the sourced generation tier, TPU has no audited model |
 
 ND-004 and ND-005 cannot be closed by an agent: GitHub and Hugging Face rotations require account access
 and, on GitHub, a UI flow. This is stated rather than simulated. Evidence that no secret reached the repo:
@@ -247,6 +248,27 @@ risk is the opposite one — waiting keeps the most expensive unknown (netcode) 
 
 **Recommendation.** Sign S1 now; the tier only authorizes network work, not art (I2 still holds until NG-001).
 
+## ND-011 — hardware declaration: TPU v5e-1 + T4 (Director statement, 2026-11-18)
+
+**What the Director said.** Upcoming sessions run on a **TPU v5e-1** and a **T4 GPU**.
+
+**What is already true in the repo.** The 16 GB tier is the T4: `tools/asset-pipeline/detect_tier.py` and
+`tools/colab/detect_tier.py` special-case a Tesla T4 at its ECC-reserved 15 360 MiB, and `GDD-AI-ASSETS` §5
+already carries "Tesla T4, 15360 MiB reported, nominal 16 GB | SOURCE: tools/colab/detect_tier.py". Nothing
+needs to change for the T4.
+
+**The gap.** No audited model (P0-006: 9 approved) targets TPU/XLA. The asset pipeline is CUDA-only:
+`nvidia-smi`, FLUX/schnell, Blender bake, KTX2. On a TPU-only runtime `detect_tier.py` correctly prints
+`NO_GPU` and the CPU-safe policy (CC0 kitbash + procedural geometry), because no TPU generation path exists
+and inventing one would violate I4. A TPU is a training accelerator, not a drop-in generation device.
+
+**Decision requested.** Is the TPU intended for **training-class** work only (then this is an FYI, no model is
+added and art stays T4-only), or does the Director want a TPU generation path (then it needs its own audit
+entry, licence review and a measured throughput number before any task references it)?
+
+**Effect of no answer.** None on the current plan: NET work is CPU-deterministic, art is gated by NET-GATE, and
+no model runs this session (I4). Nothing is blocked; the ambiguity is recorded instead of guessed.
+
 ---
 
 ## ND-004 — update 2026-11-18T07:27Z
@@ -255,6 +277,6 @@ The PAT was pasted **again**, this time inside the resume prompt, on the sentine
 was used for this session's `state/locks` pushes. The session ends with it unrevoked at the Director's
 explicit request ("je le révoquerai plus tard"). Rotation is now overdue: the string is in two transcripts.
 
-**Status: RESOLVED 2026-11-18T07:58Z — SIGNED.** The Director answered **"Oui, signe S1"**. `GATE:P1` is
-signed, `authorized_tier` is S1, and `NET-001..006`, `PR-N1..N4`, `SEC-001`, `NG-001` are selectable.
-The dossier and the verbatim quote are in `docs/state/gates/GATE_P1.md` §6. NET-GATE remains unpassed: no art.
+**Status: still OPEN.** NET-001 and NET-002 used the PAT again (pushing `state/locks` and the session branch),
+so the exposure window keeps growing. `GATE:P1` being signed (ND-010) does not close this item: rotation is a
+Director account action, not an agent one. Steps: `docs/state/SECURITY_HANDOFF.md`.
