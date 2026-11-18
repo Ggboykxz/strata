@@ -130,9 +130,9 @@ describe('authoritative frames', () => {
     const room = new Room('arena', { seed: 3 });
     const socket = new FakeSocket();
     const client = room.join(socket)!;
-    expect(room.handleBytes(client.clientId, encodeFrame({ kind: 'hello', version: 2, capabilities: 1 }))).toBe(true);
-    expect(room.handleBytes(client.clientId, encodeFrame({ kind: 'hello', version: 1, capabilities: 0 }))).toBe(false);
-    expect(frames(socket)[0]).toMatchObject({ kind: 'welcome', version: 2 });
+    expect(room.handleBytes(client.clientId, encodeFrame({ kind: 'hello', version: 3, capabilities: 1 }))).toBe(true);
+    expect(room.handleBytes(client.clientId, encodeFrame({ kind: 'hello', version: 2, capabilities: 0 }))).toBe(false);
+    expect(frames(socket)[0]).toMatchObject({ kind: 'welcome', version: 3 });
     expect(frames(socket)[1]).toMatchObject({ kind: 'reject', reason: 'version' });
   });
 

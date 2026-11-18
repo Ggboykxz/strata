@@ -1,0 +1,11 @@
+$ pnpm vitest run apps/server/test/combat.test.ts
+
+ RUN  v5.1.0 /content/strata
+
+
+ Test Files  1 passed (1)
+      Tests  7 passed (7)
+   Start at  09:15:44
+   Duration  253ms (transform 40%, import 37%, tests 15%, worker 8%)
+
+EXIT=0

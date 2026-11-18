@@ -7,8 +7,8 @@
 | branch | `session/20261118-hc-001-high-concept` |
 | phase / tier | P1 complete → P2NET next / current `S0`, authorized **`S1`** (GATE:P1 signed 2026-11-18) |
 | director | present for bootstrap; async from now |
-| last task | NET-004 — client prediction, reconciliation, interpolation |
-| next task | **NET-006** — anim STATE replication + server hit frames |
+| last task | NET-006 — wire v3 anim/resync, server hit frames, jitter (A0005) |
+| next task | **PR-N1** — local tick CPU p95 + framed byte-rate harness |
 
 ## Done this session
 
@@ -46,6 +46,7 @@
 | P0-002 (D146) | real `scripts/session-result.mjs`, structured `result` block in metrics | short 0 · full 0 · negative 1 · `verify` 17/17 |
 | NET-003 | rooms, resume handles, `ws` adapter, GDD-SHARDING 0.3, A0004 | rooms 17/17 · server 25/25 · full 90/90 · `verify` 17/17 |
 | NET-004 | client hash timeline, predictor, interpolation, GDD-NETCODE 0.5 | net 15/15 · full 105/105 · `verify` 17/17 |
+| NET-006 | wire v3 anim/resync frames, server-owned hits, jitter, GDD 0.4/0.6, A0005 | anim 5/5 · combat 7/7 · jitter 5/5 · full 122/122 |
 
 **P0-001 and P0-002 were split** although only P0-001 triggered B8: the halves fail for different reasons and
 deserve separate rollback points. Commits: `094f31f`, `bd6f550` (P0-001); `1ceaf20`, `7e9d382` (P0-002).
@@ -237,3 +238,16 @@ blueprint task currently owns the pin: recorded as a gap for the Director/next r
   presentation-only. GDD-NETCODE 0.4 → 0.5, including its corrupted open-questions table.
 - NET 15/15, full 105/105, verify 17/17, tracer green. NET-004 acc repaired to a file path; 8 remain broken.
 - Generator re-ran against the new metrics. No GPU/TPU needed; current runtime has neither.
+
+## Session 2 — NET-006 (2026-11-18T09:44Z)
+
+- **A0005 accepted.** Director: "bypass les limites et go next". The three NET-004 deferrals are folded in:
+  wire v3 `anim`/`resync` frames (v2 peers refused), 3..8-tick jitter buffer, and a local measurement harness
+  checkpointed as PR-N1. Invariants, NET-GATE, Director-only actions and evidence-only were **not** bypassed.
+- Anim state on the wire is 17 bytes (12 + 5 overhead); a resync request is 10 bytes. The server validates every
+  transition and owns hit frames; a client hit claim is ignored. Jitter is presentation-only and tracks the
+  observed snapshot gap.
+- Three defects fixed: room handshake hardcoded v2 bounds; jitter test expectations contradicted the buffer's
+  real behaviour; A0005 lacked the D2 headings. Verify is green again.
+- Full suite **122/122**, verify 17/17, tracer green. NET-006 acc repaired to three test paths; 7 remain broken.
+- Jitter bounds are tunables, **not** measured RTT. Tick CPU p95 and byte rates belong to PR-N1.

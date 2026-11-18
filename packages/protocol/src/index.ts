@@ -10,5 +10,6 @@
  * `docs/STACK.lock.md` still forbids a schema library until it is pinned.
  */
 
+export * from './anim';
 export * from './binary';
 export * from './tracer';

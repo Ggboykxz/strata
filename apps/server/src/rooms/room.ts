@@ -8,7 +8,7 @@
  */
 import { fnv1a32 } from '@strata/core';
 import {
-  decodeFrame, encodeFrame, negotiate, snapshotFromWorld,
+  SUPPORTED_MAX_VERSION, SUPPORTED_MIN_VERSION, decodeFrame, encodeFrame, negotiate, snapshotFromWorld,
   type SnapshotFrame, type WireMessage,
 } from '@strata/protocol';
 import { SimHost } from '../sim/host';
@@ -161,7 +161,7 @@ export class Room {
 
     if (message.kind === 'hello') {
       this.send(client, negotiate(message.version));
-      return message.version >= 2 && message.version <= 2;
+      return message.version >= SUPPORTED_MIN_VERSION && message.version <= SUPPORTED_MAX_VERSION;
     }
     if (message.kind === 'intent') {
       const previous = this.submittedSeq.get(client.entityId) ?? 0;

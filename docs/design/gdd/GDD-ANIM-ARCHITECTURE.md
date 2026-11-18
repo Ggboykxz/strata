@@ -3,7 +3,7 @@
 | field | value |
 |---|---|
 | id | GDD-ANIM-ARCHITECTURE |
-| version | 0.3 |
+| version | 0.4 |
 | owner | animation-director |
 | status | DRAFT |
 
@@ -11,7 +11,7 @@
 
 ## 1. Identity, version, owner, status
 
-ID GDD-ANIM-ARCHITECTURE, version 0.3, owner animation-director, status **DRAFT**. Derived from P1-001 VISION and the locked HIGH_CONCEPT.
+ID GDD-ANIM-ARCHITECTURE, version 0.4, owner animation-director, status **DRAFT**. Derived from P1-001 VISION and the locked HIGH_CONCEPT.
 
 ## 2. Player-facing outcome
 
@@ -38,6 +38,7 @@ I3: mesh GLBs and animation GLBs are never merged; N2 propagation is visible thr
 - recovery window = 3 ticks = 100 ms at 30 Hz | TUNABLE 2..5 | plan: PR-S1 feel pass; the number is a commitment, not a guess
 - clip duration = 1..600 ticks (0.033..20 s) | SOURCE: packages/core/src/anim-state/manifest.ts MIN_CLIP_TICKS / MAX_CLIP_TICKS
 - anim_state v1 fields = 12 bytes (u8 archetype + u8 state + u16 clip + u32 tick + u32 seq) | SOURCE: ANIM_STATE_WIRE_BYTES; 52 B under the 64 B budget
+- anim wire frame = 17 bytes (type + entity id + the 12-byte anim_state) | SOURCE: packages/protocol/src/binary.ts ANIM_BYTES; overhead 5 B asserted by packages/protocol/test/anim.test.ts
 
 ## 6. State machine
 
@@ -58,6 +59,8 @@ Requests: accepted from IDLE, LOCOMOTION and TRANSITIONING (a new clip replaces 
 anim_state v1 {archetype_id u8, state u8, clip_id u16, transition_tick u32, sequence u32} = 12 bytes. `sequence` is the anti-replay counter: a request with `sequence <= current` is refused, never reapplied. STATE is one of the five tokens in §6; clip_id 0 means "no clip".
 
 clip manifest v1 {version: 1, clips[]}, each clip {id u16, archetype u8, kind: locomotion|action, durationTicks, loop, events[{tick, kind: hit|footstep}]}. Locomotion clips loop, action clips do not; events are strictly ordered by (tick, kind) and must fall inside the clip. The executable validator is `packages/core/src/anim-state/manifest.ts`; the published JSON Schema is `packages/content/animations/schema/anim_manifest.v1.schema.json`, and the greybox example is `packages/content/animations/examples/humanoid.greybox.v1.json`.
+
+NET-006 wire frame kind `anim` (0x04) carries `{entity, archetype, state index, clip_id, transition_tick, sequence}` in 17 bytes. It is encoded by `packages/protocol/src/anim.ts` from the 12-byte core `AnimState`. No bone transform or joint position ever crosses the wire (I3 / A0001): divergent poses are resolved by resetting to authoritative state, not by sending poses. The server validates every transition with the core machine and owns hit-frame events; a client hit claim is ignored.
 
 Skeleton pack v1 lists exact bone names and parent indices. Migration: bone rename requires a retarget map and a new pack version.
 
@@ -105,6 +108,8 @@ transition_rejections, retarget_coverage, anim_state_bytes, foot_slide_cm. Succe
 - GIVEN the greybox manifest WHEN it is loaded THEN every clip validates, and a duplicate id, a looping action, an event past the clip or an unordered event pair is refused.
 - GIVEN IDLE and a walk clip WHEN the blend tick arrives THEN the state is LOCOMOTION; GIVEN an action WHEN its last tick arrives THEN RECOVERY, then IDLE 3 ticks later.
 - GIVEN RECOVERY and one queued clip WHEN the last recovery tick arrives THEN the clip starts on that tick, and a tie is broken by (sequence, clip_id).
+- GIVEN a client anim request WHEN the server validates it THEN an illegal transition is refused with a reason and the authoritative runtime is unchanged.
+- GIVEN an action clip WHEN its hit tick arrives THEN the server fires the hit exactly once, and a client claim is never accepted.
 
 ## 16. Perf budget impact
 
@@ -126,4 +131,5 @@ No merged GLB, no bone transform replication, no hosted generation before licens
 |---|---|---|---|
 | 0.1 | 2026-11-18 | STUB created by GDD-001 | game-designer |
 | 0.3 | 2026-11-18 | NET-005: state table, 12-byte contract, manifest schema, measured windows | animation-director |
+| 0.4 | 2026-11-18 | NET-006: 17-byte anim frame, server-owned validation and hit frames, A0005 bypass | netcode-engineer |
 | 0.2 | 2026-11-18 | DRAFT: all 19 fields, sources and ranges | GDD-002 |

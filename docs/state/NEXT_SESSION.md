@@ -2,57 +2,61 @@
 
 | field | value |
 |---|---|
-| written | 2026-11-18T09:18Z |
+| written | 2026-11-18T09:45Z |
 | branch | `session/20261118-hc-001-high-concept` — **PR #1** (draft) https://github.com/Ggboykxz/strata/pull/1 |
 | also open | **PR #2** dashboard truth repair — `session/20261118-dashboard-truth`, base = session branch |
 | mode | RESUME |
 | tier | current `S0`, authorized **`S1`** |
-| last task | **NET-004** — client prediction/reconciliation; GDD-NETCODE 0.5 |
-| next task | **NET-006** — anim STATE replication + server-validated transitions + server hit frames |
+| last task | **NET-006** — wire v3 anim/resync, server hit frames, jitter (A0005) |
+| next task | **PR-N1** — local tick CPU p95 + framed byte-rate harness |
 | blocker | ND-004/ND-005 token rotation, PR #1 and #2 merges. ND-011 needs one answer (TPU scope). |
 
 ---
 
 ## 1. State at hand-off
 
-`pnpm verify` **17/17** · net **15/15** · full suite **105/105** (9 files) · tracer green · D146 generator
-short/full 0, byte-identical, fail-closed negatives 1.
+`pnpm verify` **17/17** · anim wire **5/5** · combat **7/7** · jitter **5/5** · full **122/122** (12 files) ·
+tracer green · D146 generator short/full 0, byte-identical, fail-closed negatives 1.
 
 ```bash
 pnpm install --frozen-lockfile && pnpm verify
-pnpm vitest run apps/game/test/net.test.ts
-pnpm vitest run packages/core/test/anim-state.test.ts
-pnpm vitest run apps/server/test/rooms.test.ts
+pnpm vitest run packages/protocol/test/anim.test.ts
+pnpm vitest run apps/server/test/combat.test.ts
+pnpm vitest run apps/game/test/jitter.test.ts
 pnpm tracer --assert
 node scripts/session-result.mjs
 ```
 
 Runtime is ephemeral: `git clone` + `corepack prepare pnpm@12.21.0 --activate` recovers everything.
 
-## 2. NET-006 — next (S1, phase P2NET)
+## 2. PR-N1 — next (S1, P2NET, A0005)
 
-`{id: NET-006, agent: netcode-engineer, gdd: [GDD-ANIM-ARCHITECTURE#wire], deps: [NET-004, NET-005],
-out: [apps/server/src/combat/, packages/protocol/src/anim.ts], split: true}`
+`{id: PR-N1, agent: qa-engineer, gdd: [GDD-NETCODE#acceptance], deps: [NET-006],
+out: [tools/sim/load/prn1_load.ts, docs/qa/prototypes/PRN1.md], split: true}`
 
-Both deps are now satisfied. Its acc `pnpm test --filter @strata/netcode -t animstate` is broken (and even the
-flag-repaired form exits 0 while skipping everything). Create the real test first, then set the acc to that file
-path — never a bare `-t` pattern.
+A0005 folds the previously deferred measurement into this task. Its blueprint acc `pnpm sim prn1 --assert` is
+**broken** (there is no `sim` script in `package.json`). Repair it to a command that exists, e.g.
+`node tools/sim/load/prn1_load.mjs --assert`, and log the real command and exit code.
 
-Available contracts: NET-005 `AnimRuntime`/`applyRequest`/`advanceAnim`/`eventsAt` in core; NET-002 `FrameType`
-and `encodeFrame`/`decodeFrame` (extend the frame table and bump `PROTOCOL_VERSION` only with evidence);
-NET-004 `Predictor` and its resync request; GDD-ANIM-ARCHITECTURE §4 rule 3 (server validates every transition
-and owns hit frames), §7 (12-byte anim_state), §15. A0001 separation stays intact: no merged GLB, no bone
-transforms on the wire — only state tokens, transition tick and clip id.
+Constraints from A0005/I13:
+- measure **local tick CPU p50/p95** over a deterministic scripted run (N ticks, 64 entities), excluding warmup;
+- measure **framed byte rates** with `encodeFrame(snapshotFromWorld(...))` — the full-snapshot ceiling is
+  1 551 B × 30 Hz = 46 530 B/s and is **over** the 12 KB/s budget; report it, do not hide it behind an average;
+- label the numbers as **local simulation CPU and framed byte rates**, never as client RTT or real network loss;
+- no GPU/TPU is available or needed; no model is downloaded (I4); no art (I2);
+- a failure or an unmeasured field stays `NOT COMPUTABLE` with a reason.
 
-## 3. Known defect: 8 broken acceptance commands
+NET-006 and NET-005 give the harness: `SimHost`, `hashWorld`, `encodeFrame`, `snapshotFromWorld`, `AnimAuthority`,
+`HitLedger`. Do not add a dependency to make the harness work.
 
-`pnpm test --filter <pkg>` is invalid (`CACError`, exit 1). `pnpm --filter <pkg> test` can exit 0 without running
+## 3. Known defect: 7 broken acceptance commands
+
+`pnpm test --filter <pkg>` is invalid (`CACError`). `pnpm --filter <pkg> test` can exit 0 without running
 anything, and `pnpm vitest run <dir> -t <pattern>` exits 0 when the pattern matches no test (proven: 41 skipped).
-Rule: name the test file. The 8 remaining, re-counted from the blueprint:
+Rule: name the test file or a command that exists.
 
 | task | broken acc |
 |---|---|
-| NET-006 | `pnpm test --filter @strata/netcode -t animstate` |
 | SEC-001 | `pnpm test --filter @strata/security` |
 | AN-002 | `pnpm test --filter @strata/anim` |
 | P3-005 | `pnpm test --filter @strata/a11y` |
@@ -61,9 +65,8 @@ Rule: name the test file. The 8 remaining, re-counted from the blueprint:
 | NET-103 | `pnpm test --filter @strata/server -t commitqueue` |
 | MOD-001 | `pnpm test --filter @strata/moderation` |
 
-Do not invent a path for packages that do not exist yet (`security`, `anim`, `a11y`, `perf`, `persistence`,
-`moderation`): write the acc when the owning task creates the package. A validator rejecting all three false-pass
-forms should land with that repair.
+PR-N1 adds a different broken form (`pnpm sim …`, no script) — repair it in its own PR. Do not invent a path for
+packages that do not exist yet; write the acc when the owning task creates the package.
 
 ## 4. Open for the Director
 
@@ -84,8 +87,7 @@ forms should land with that repair.
 
 Node 22.23.4, pnpm 12.21.0 via corepack, TypeScript 6.0.3, Vitest 5.1.0.
 
-**Current runtime: no GPU and no TPU** (Director statement 2026-11-18: "là on a pas de tpu ni gpu quand t'en
-aura besoin fais moi signe"). Signal before starting accelerator work. NET-006 is CPU-only, so nothing is
-blocked. The Director also declared future hardware TPU v5e-1 + T4 16 GB: T4 is already the sourced generation
-tier; TPU has no audited model path (ND-011). Art remains gated by NET-GATE. Secrets from env only; the repo is
-public, so reading never needs a token.
+**Current runtime: no GPU and no TPU** (Director: "là on a pas de tpu ni gpu quand t'en aura besoin fais moi
+signe"). Signal before starting accelerator work. PR-N1 is CPU-only. Future hardware declared as TPU v5e-1 +
+T4 16 GB: T4 is already the sourced generation tier; TPU has no audited model path (ND-011). Art remains gated
+by NET-GATE. Secrets from env only; the repo is public, so reading never needs a token.

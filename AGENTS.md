@@ -147,6 +147,9 @@ Anything else goes through a handoff. A conflict is resolved by a handoff or the
 - **NET-004 landed**: client predictor, reconciliation at the acked tick, integer interpolation and a bounded
   client hash timeline. A mismatch is a **desync** — rejected, never silently reconciled. Net 15/15, full 105/105,
   verify 17/17. Next: NET-006 (anim state wire + server hit frames), deps now satisfied.
+- **NET-006 landed with A0005**: wire v3 anim (17 B) + resync (10 B) frames, v2 peers refused, server-owned
+  anim transitions and hit frames, 3..8-tick jitter buffer (tunable, not measured RTT). Full 122/122, verify
+  17/17. Next: PR-N1 — local tick CPU p95 and framed byte-rate harness with a real logged command.
 - Known intentional red: `scope-math --report` exit 2 (throughput unmeasured) and `concept --score` exit 2
   until HC-003. `concept --check` is green: T3 was signed at GATE:P0.
 

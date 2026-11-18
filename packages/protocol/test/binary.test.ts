@@ -10,9 +10,9 @@ import {
 
 const intent: WireMessage = { kind: 'intent', entity: 7, seq: 42, dx: 1, dz: -1 };
 const hashack: WireMessage = { kind: 'hashack', client: 3, tick: 900, hash: 'deadbeef' };
-const hello: WireMessage = { kind: 'hello', version: 2, capabilities: 0b1010_0101 };
-const welcome: WireMessage = { kind: 'welcome', version: 2 };
-const reject: WireMessage = { kind: 'reject', version: 2, reason: 'version' };
+const hello: WireMessage = { kind: 'hello', version: 3, capabilities: 0b1010_0101 };
+const welcome: WireMessage = { kind: 'welcome', version: 3 };
+const reject: WireMessage = { kind: 'reject', version: 3, reason: 'version' };
 
 function roundTrip(msg: WireMessage): WireMessage {
   return decodeFrame(encodeFrame(msg));
@@ -23,10 +23,10 @@ function snapshot(entities: SnapshotFrame['entities']): SnapshotFrame {
 }
 
 describe('binary framing', () => {
-  it('declares v2 and supports exactly that version today', () => {
-    expect(PROTOCOL_VERSION).toBe(2);
-    expect(SUPPORTED_MIN_VERSION).toBe(2);
-    expect(SUPPORTED_MAX_VERSION).toBe(2);
+  it('declares v3 and supports exactly that version today', () => {
+    expect(PROTOCOL_VERSION).toBe(3);
+    expect(SUPPORTED_MIN_VERSION).toBe(3);
+    expect(SUPPORTED_MAX_VERSION).toBe(3);
   });
 
   it('packs every frame to its exact declared length', () => {
@@ -131,17 +131,17 @@ describe('strict decoding', () => {
 
 describe('version handshake', () => {
   it('welcomes the supported version', () => {
-    expect(negotiate(2)).toEqual({ kind: 'welcome', version: 2 });
+    expect(negotiate(3)).toEqual({ kind: 'welcome', version: 3 });
   });
 
   it('rejects an older and a newer version — never coerces', () => {
-    expect(negotiate(1)).toEqual({ kind: 'reject', version: 2, reason: 'version' });
-    expect(negotiate(3)).toEqual({ kind: 'reject', version: 2, reason: 'version' });
-    expect(negotiate(0)).toEqual({ kind: 'reject', version: 2, reason: 'version' });
+    expect(negotiate(2)).toEqual({ kind: 'reject', version: 3, reason: 'version' });
+    expect(negotiate(4)).toEqual({ kind: 'reject', version: 3, reason: 'version' });
+    expect(negotiate(0)).toEqual({ kind: 'reject', version: 3, reason: 'version' });
   });
 
   it('round-trips the reject frame it produces', () => {
-    expect(roundTrip(negotiate(99))).toEqual({ kind: 'reject', version: 2, reason: 'version' });
+    expect(roundTrip(negotiate(99))).toEqual({ kind: 'reject', version: 3, reason: 'version' });
   });
 });
 

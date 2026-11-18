@@ -11,14 +11,14 @@
  * ~46.5 KB/s at 30 Hz — measured, over budget, and deliberately left to the AoI task (see the test).
  */
 import { toWireMm } from '@strata/core';
-import type { Axis, EntityState, WorldState } from '@strata/core';
+import { ANIM_STATES, type AnimStateName, type Axis, type EntityState, type WorldState } from '@strata/core';
 
 /** Bumped whenever the wire layout changes. A peer with another version is refused, never truncated. */
-export const PROTOCOL_VERSION = 2;
+export const PROTOCOL_VERSION = 3;
 
 /** Version bounds the handshake accepts. One version today; a range so NET-004 can widen it. */
-export const SUPPORTED_MIN_VERSION = 2;
-export const SUPPORTED_MAX_VERSION = 2;
+export const SUPPORTED_MIN_VERSION = 3;
+export const SUPPORTED_MAX_VERSION = 3;
 
 /** AoI cap from D90: never more than 64 entities in a snapshot. */
 export const MAX_ENTITIES = 64;
@@ -27,6 +27,8 @@ export const FrameType = {
   Intent: 0x01,
   Snapshot: 0x02,
   HashAck: 0x03,
+  Anim: 0x04,
+  Resync: 0x05,
   Hello: 0x10,
   Welcome: 0x11,
   Reject: 0x12,
@@ -38,6 +40,8 @@ export const INTENT_BYTES = 11;
 export const SNAPSHOT_HEADER_BYTES = 15;
 export const ENTITY_BYTES = 24;
 export const HASH_ACK_BYTES = 13;
+export const ANIM_BYTES = 17;
+export const RESYNC_BYTES = 10;
 export const HELLO_BYTES = 4;
 export const WELCOME_BYTES = 3;
 export const REJECT_BYTES = 4;
@@ -46,6 +50,28 @@ export const REJECT_BYTES = 4;
 export const MAX_FRAME_BYTES = SNAPSHOT_HEADER_BYTES + MAX_ENTITIES * ENTITY_BYTES;
 
 export type RejectReason = 'version' | 'malformed' | 'rate-limit' | 'unauthorized';
+
+export const RESYNC_REASONS = ['hash-mismatch', 'missing-entity', 'timeout'] as const;
+export type ResyncReason = (typeof RESYNC_REASONS)[number];
+
+/** 12-byte anim_state (NET-005) plus a type byte and an entity id. No bone data, ever (I3 / A0001). */
+export interface AnimFrame {
+  readonly kind: 'anim';
+  readonly entity: number;
+  readonly archetype: number;
+  readonly state: AnimStateName;
+  readonly clipId: number;
+  readonly transitionTick: number;
+  readonly sequence: number;
+}
+
+/** A client asks to resynchronise. It is a request: the server still decides the snapshot (I1). */
+export interface ResyncFrame {
+  readonly kind: 'resync';
+  readonly client: number;
+  readonly tick: number;
+  readonly reason: ResyncReason;
+}
 
 export interface IntentFrame {
   readonly kind: 'intent';
@@ -91,6 +117,8 @@ export type WireMessage =
   | IntentFrame
   | SnapshotFrame
   | HashAckFrame
+  | AnimFrame
+  | ResyncFrame
   | HelloFrame
   | WelcomeFrame
   | RejectFrame;
@@ -191,6 +219,34 @@ export function encodeFrame(msg: WireMessage): Uint8Array {
       dv.setUint32(9, hashToU32(msg.hash), true);
       return out;
     }
+    case 'anim': {
+      const stateIndex = ANIM_STATES.indexOf(msg.state);
+      if (stateIndex < 0) throw new ProtocolError('out-of-range', `unknown anim state ${String(msg.state)}`);
+      if (!Number.isInteger(msg.archetype) || msg.archetype < 0 || msg.archetype > 255) {
+        throw new ProtocolError('out-of-range', `archetype ${String(msg.archetype)} is not a u8`);
+      }
+      const out = new Uint8Array(ANIM_BYTES);
+      const dv = new DataView(out.buffer);
+      dv.setUint8(0, FrameType.Anim);
+      dv.setUint32(1, checkU32(msg.entity, 'entity'), true);
+      dv.setUint8(5, msg.archetype);
+      dv.setUint8(6, stateIndex);
+      dv.setUint16(7, checkU16(msg.clipId, 'clipId'), true);
+      dv.setUint32(9, checkU32(msg.transitionTick, 'transitionTick'), true);
+      dv.setUint32(13, checkU32(msg.sequence, 'sequence'), true);
+      return out;
+    }
+    case 'resync': {
+      const reasonIndex = RESYNC_REASONS.indexOf(msg.reason);
+      if (reasonIndex < 0) throw new ProtocolError('out-of-range', `unknown resync reason ${String(msg.reason)}`);
+      const out = new Uint8Array(RESYNC_BYTES);
+      const dv = new DataView(out.buffer);
+      dv.setUint8(0, FrameType.Resync);
+      dv.setUint32(1, checkU32(msg.client, 'client'), true);
+      dv.setUint32(5, checkU32(msg.tick, 'tick'), true);
+      dv.setUint8(9, reasonIndex);
+      return out;
+    }
     case 'hello': {
       const out = new Uint8Array(HELLO_BYTES);
       const dv = new DataView(out.buffer);
@@ -272,6 +328,26 @@ export function decodeFrame(bytes: Uint8Array): WireMessage {
         tick: dv.getUint32(5, true),
         hash: u32ToHash(dv.getUint32(9, true)),
       };
+    }
+    case FrameType.Anim: {
+      if (bytes.length !== ANIM_BYTES) throw lengthError(bytes.length, ANIM_BYTES);
+      const state = ANIM_STATES[dv.getUint8(6)];
+      if (!state) throw new ProtocolError('out-of-range', `unknown anim state index ${dv.getUint8(6)}`);
+      return {
+        kind: 'anim',
+        entity: dv.getUint32(1, true),
+        archetype: dv.getUint8(5),
+        state,
+        clipId: dv.getUint16(7, true),
+        transitionTick: dv.getUint32(9, true),
+        sequence: dv.getUint32(13, true),
+      };
+    }
+    case FrameType.Resync: {
+      if (bytes.length !== RESYNC_BYTES) throw lengthError(bytes.length, RESYNC_BYTES);
+      const reason = RESYNC_REASONS[dv.getUint8(9)];
+      if (!reason) throw new ProtocolError('out-of-range', `unknown resync reason index ${dv.getUint8(9)}`);
+      return { kind: 'resync', client: dv.getUint32(1, true), tick: dv.getUint32(5, true), reason };
     }
     case FrameType.Hello: {
       if (bytes.length !== HELLO_BYTES) throw lengthError(bytes.length, HELLO_BYTES);
