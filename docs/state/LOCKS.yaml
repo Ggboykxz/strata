@@ -275,7 +275,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T09:20:00Z"
     expires_at: "2026-11-18T09:50:00Z"
-    status: active
+    status: released
 
   - path_glob: "apps/server/src/rooms/room.ts"
     owner_agent: backend-engineer
@@ -283,7 +283,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T09:20:00Z"
     expires_at: "2026-11-18T09:50:00Z"
-    status: active
+    status: released
 
   - path_glob: "apps/server/src/rooms/tokens.ts"
     owner_agent: backend-engineer
@@ -291,7 +291,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T09:20:00Z"
     expires_at: "2026-11-18T09:50:00Z"
-    status: active
+    status: released
 
   - path_glob: "apps/server/src/rooms/ws-adapter.ts"
     owner_agent: backend-engineer
@@ -299,7 +299,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T09:20:00Z"
     expires_at: "2026-11-18T09:50:00Z"
-    status: active
+    status: released
 
   - path_glob: "apps/server/test/rooms.test.ts"
     owner_agent: gameplay-engineer
@@ -307,7 +307,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T09:20:00Z"
     expires_at: "2026-11-18T09:50:00Z"
-    status: active
+    status: released
 
   - path_glob: "docs/blueprint/BLUEPRINT.yaml"
     owner_agent: orchestrator
@@ -315,7 +315,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T09:20:00Z"
     expires_at: "2026-11-18T09:50:00Z"
-    status: active
+    status: released
 
   - path_glob: "docs/blueprint/GATES.yaml"
     owner_agent: orchestrator
@@ -323,7 +323,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T09:20:00Z"
     expires_at: "2026-11-18T09:50:00Z"
-    status: active
+    status: released
 
   - path_glob: "docs/design/gdd/GDD-SHARDING.md"
     owner_agent: backend-engineer
@@ -331,5 +331,5 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T09:20:00Z"
     expires_at: "2026-11-18T09:50:00Z"
-    status: active
+    status: released
 
