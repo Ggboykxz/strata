@@ -1851,7 +1851,7 @@ locks:
     branch: session/20261118-prn1-matrix
     acquired_at: "2026-11-18T15:07:00Z"
     expires_at: "2026-11-18T18:00:00Z"
-    status: active
+    status: released
 
   - path_glob: "apps/game/src/net/**"
     owner_agent: netcode-engineer
@@ -1859,7 +1859,7 @@ locks:
     branch: session/20261118-prn1-matrix
     acquired_at: "2026-11-18T15:07:00Z"
     expires_at: "2026-11-18T18:00:00Z"
-    status: active
+    status: released
 
   - path_glob: "apps/game/test/**"
     owner_agent: gameplay-engineer
@@ -1867,7 +1867,7 @@ locks:
     branch: session/20261118-prn1-matrix
     acquired_at: "2026-11-18T15:07:00Z"
     expires_at: "2026-11-18T18:00:00Z"
-    status: active
+    status: released
 
   - path_glob: "docs/design/gdd/GDD-NETCODE.md"
     owner_agent: netcode-engineer
@@ -1875,7 +1875,7 @@ locks:
     branch: session/20261118-prn1-matrix
     acquired_at: "2026-11-18T15:07:00Z"
     expires_at: "2026-11-18T18:00:00Z"
-    status: active
+    status: released
 
   - path_glob: "docs/qa/prototypes/**"
     owner_agent: qa-engineer
@@ -1883,7 +1883,7 @@ locks:
     branch: session/20261118-prn1-matrix
     acquired_at: "2026-11-18T15:07:00Z"
     expires_at: "2026-11-18T18:00:00Z"
-    status: active
+    status: released
 
   - path_glob: "docs/state/**"
     owner_agent: orchestrator
@@ -1891,7 +1891,7 @@ locks:
     branch: session/20261118-prn1-matrix
     acquired_at: "2026-11-18T15:07:00Z"
     expires_at: "2026-11-18T18:00:00Z"
-    status: active
+    status: released
 
   - path_glob: "scripts/validate-netgate.mjs"
     owner_agent: netcode-engineer
@@ -1899,7 +1899,7 @@ locks:
     branch: session/20261118-prn1-matrix
     acquired_at: "2026-11-18T15:07:00Z"
     expires_at: "2026-11-18T18:00:00Z"
-    status: active
+    status: released
 
   - path_glob: "tools/sim/load/**"
     owner_agent: qa-engineer
@@ -1907,5 +1907,5 @@ locks:
     branch: session/20261118-prn1-matrix
     acquired_at: "2026-11-18T15:07:00Z"
     expires_at: "2026-11-18T18:00:00Z"
-    status: active
+    status: released
 
