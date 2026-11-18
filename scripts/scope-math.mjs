@@ -64,7 +64,17 @@ export function parseYamlSubset(text) {
   for (let i = 0; i < lines.length; i++) {
     const { text: line, no } = lines[i];
     const m = line.match(/^(\s*)(-\s+)?([A-Za-z0-9_.\/-]+):\s*(.*)$/);
-    if (!m) throw new Error(`unsupported YAML at line ${no}: ${JSON.stringify(line)}`);
+    if (!m) {
+      // scalar sequence item: `- docs/state/threads/**`
+      const sm = line.match(/^(\s*)-\s+(.+)$/);
+      if (!sm) throw new Error(`unsupported YAML at line ${no}: ${JSON.stringify(line)}`);
+      const sIndent = sm[1].length;
+      while (stack.length && stack[stack.length - 1].indent >= sIndent) stack.pop();
+      const sParent = stack[stack.length - 1]?.node;
+      if (!Array.isArray(sParent)) throw new Error(`scalar item outside a sequence at line ${no}`);
+      sParent.push(parseValue(sm[2], `line ${no}`));
+      continue;
+    }
     const indent = m[1].length;
     const isItem = Boolean(m[2]);
     const key = m[3];

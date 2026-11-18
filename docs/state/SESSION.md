@@ -7,8 +7,22 @@
 | branch | `session/20261118-hc-001-high-concept` |
 | phase / tier | P0 / current `S0`, authorized `S0` |
 | director | present (repo created this session) |
-| last task | HC-001 |
-| next task | SC-001 |
+| last task | WF-001 |
+| next task | P0-001 — **blocked**: master prompt file must exist on disk (see NEXT_SESSION.md §1) |
+
+## Done this session
+
+| task | outputs | acceptance |
+|---|---|---|
+| HC-001 | `docs/design/HIGH_CONCEPT.md`, `scripts/concept-integrity.mjs` | `--init` exit 0 |
+| SC-001 | `docs/SCOPE.md`, `SCOPE_LEDGER.yaml`, `CONTENT_MATH.yaml`, `scope-math.mjs`, `validate-scope.mjs` | `validate-scope` exit 0 |
+| WF-001 | `docs/WORKFLOW.md`, `OWNERSHIP.yaml`, `LOCKS.yaml`, `DISPUTES.md` | ownership map 0 ties |
+
+## Known red (intentional)
+
+- `concept-integrity --check` exit 1 — FINDING-001 (T1 EN 29 > 25) + unsigned T3.
+- `scope-math --report` exit 2 — throughput unmeasured by design.
+- WF-002 refuses itself on ownership until ND-002 is answered.
 
 ## Intent for this session
 

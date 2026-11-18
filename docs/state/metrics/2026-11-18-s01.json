@@ -1,10 +1,16 @@
 {
   "session": "2026-11-18-s01",
   "utc_start": "2026-11-18T00:10:04Z",
+  "utc_end": "2026-11-18T00:55:00Z",
   "mode": "BOOTSTRAP",
   "branch": "session/20261118-hc-001-high-concept",
   "tier": { "current": "S0", "authorized": "S0" },
   "netgate": { "status": "unpassed", "art_allowed": false },
+  "tasks": [
+    { "id": "HC-001", "status": "done" },
+    { "id": "SC-001", "status": "done" },
+    { "id": "WF-001", "status": "done" }
+  ],
   "measured": {
     "hc_t1_en_words": 29,
     "hc_t1_en_limit": 25,
@@ -13,18 +19,37 @@
     "cis_component_sum": 100,
     "novelty_properties": 4,
     "open_concept_findings": 1,
-    "concept_debt_open": 1
+    "concept_debt_open": 1,
+    "ledger_entries": 12,
+    "ledger_accepted_sessions": 25,
+    "budget_P0": 30,
+    "budget_to_P4": 196,
+    "slice_required_variants": 638,
+    "assets_per_session": null,
+    "months_needed": null,
+    "owners": 32,
+    "distinct_globs": 155,
+    "glob_ties": 0,
+    "catch_all_entries": 7,
+    "append_only_zones": 4
   },
   "cis": { "value": null, "reason": "no measured source until HC-003 (P2)" },
   "gdd_coverage": { "value": null, "reason": "no GDD modules until GDD-001 (P1)" },
-  "scope": { "ledger_entries": 0, "balanced": null },
+  "scope": { "ledger_entries": 12, "balanced": true, "phase_margin_P0": 5 },
   "acceptance": [
     { "cmd": "node scripts/concept-integrity.mjs --init", "exit": 0, "log": "docs/state/evidence/20261118T001004Z-HC-001/01-concept-integrity-init.log" },
     { "cmd": "node scripts/concept-integrity.mjs --check", "exit": 1, "log": "docs/state/evidence/20261118T001004Z-HC-001/02-concept-integrity-check.log" },
-    { "cmd": "node scripts/concept-integrity.mjs --score", "exit": 2, "log": "docs/state/evidence/20261118T001004Z-HC-001/03-concept-integrity-score.log" }
+    { "cmd": "node scripts/concept-integrity.mjs --score", "exit": 2, "log": "docs/state/evidence/20261118T001004Z-HC-001/03-concept-integrity-score.log" },
+    { "cmd": "node scripts/scope-math.mjs --check", "exit": 0, "log": "docs/state/evidence/20261118T001004Z-SC-001/01-scope-math-check.log" },
+    { "cmd": "node scripts/scope-math.mjs --report", "exit": 2, "log": "docs/state/evidence/20261118T001004Z-SC-001/02-scope-math-report.log" },
+    { "cmd": "node scripts/scope-math.mjs --tier S3 --report", "exit": 0, "log": "docs/state/evidence/20261118T001004Z-SC-001/03-scope-math-tier-s3.log" },
+    { "cmd": "node scripts/validate-scope.mjs", "exit": 0, "log": "docs/state/evidence/20261118T001004Z-SC-001/04-validate-scope.log" },
+    { "cmd": "test -f docs/state/OWNERSHIP.yaml", "exit": 0, "log": "docs/state/evidence/20261118T001004Z-WF-001/01-ownership-file.log" },
+    { "cmd": "node /tmp/opencode/own-check.mjs", "exit": 0, "log": "docs/state/evidence/20261118T001004Z-WF-001/02-ownership-map.log" }
   ],
   "notes": [
     "every number above was produced by a command in this session; none is an estimate",
-    "exit 1 on --check and exit 2 on --score are the designed behaviour, not regressions"
+    "exit 1 on --check, exit 2 on --report and --score are designed behaviour, not regressions",
+    "assets_per_session and months_needed are null on purpose: no GPU session has been measured"
   ]
 }
