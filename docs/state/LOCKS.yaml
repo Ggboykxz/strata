@@ -1674,4 +1674,35 @@ locks:
     acquired_at: "2026-11-18T18:32:00Z"
     expires_at: "2026-11-18T19:02:00Z"
     status: released
+  - path_glob: "apps/server/src/main.ts"
+    owner_agent: gameplay-engineer
+    task_id: NET-003
+    branch: session/20261118-hc-001-high-concept
+    acquired_at: "2026-11-18T19:04:00Z"
+    expires_at: "2026-11-18T19:34:00Z"
+    status: active
+
+  - path_glob: "apps/server/test/rooms.test.ts"
+    owner_agent: gameplay-engineer
+    task_id: NET-003
+    branch: session/20261118-hc-001-high-concept
+    acquired_at: "2026-11-18T19:04:00Z"
+    expires_at: "2026-11-18T19:34:00Z"
+    status: active
+
+  - path_glob: "docs/state/NEXT_SESSION.md"
+    owner_agent: orchestrator
+    task_id: NET-003
+    branch: session/20261118-hc-001-high-concept
+    acquired_at: "2026-11-18T19:04:00Z"
+    expires_at: "2026-11-18T19:34:00Z"
+    status: active
+
+  - path_glob: "docs/state/metrics/2026-11-18-s02.json"
+    owner_agent: orchestrator
+    task_id: NET-003
+    branch: session/20261118-hc-001-high-concept
+    acquired_at: "2026-11-18T19:04:00Z"
+    expires_at: "2026-11-18T19:34:00Z"
+    status: active
 
