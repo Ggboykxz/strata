@@ -56,3 +56,9 @@ manual ones. GitHub rejected all 12 manual workflows; the run names became file 
 passed because it only checked that `on` existed. Fixed by emitting `on: { … }` and the block form
 `on:\n  workflow_dispatch:`. The negative suite still passes; a GitHub run, not the local validator, was
 what exposed the defect.
+
+**Second defect, next push.** The `on:` keys were fixed but 12 workflows still failed. Strict PyYAML
+located it: `run: echo "A11Y: checklist …"` is a plain scalar containing `: `, which YAML reads as a
+mapping. The local subset parser accepted it; GitHub and PyYAML did not. All such strings now use ` - `
+instead of `: `, and `validate-workflows.mjs` rejects an unquoted `: ` in a `run` scalar (9th negative
+case). All 27 workflows now parse under **strict PyYAML** as well as the local subset parser.

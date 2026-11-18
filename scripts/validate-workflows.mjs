@@ -84,6 +84,9 @@ for (const file of files) {
     if (r) {
       const cmd = r[1].trim();
       runs.push({ at, cmd });
+      if (/:\s/.test(cmd) && !/^(['"]).*\1$/.test(cmd)) {
+        fail(`W5 ${at} unquoted run scalar contains ": " (invalid YAML): ${cmd}`);
+      }
       if (/\bcurl\b.*\|\s*(ba)?sh/.test(cmd)) fail(`W5 ${at} contains curl | bash from an unverified source`);
       if (/\blatest\b/.test(cmd)) fail(`W5 ${at} contains an unpinned "latest"`);
       if (/\bpnpm install\b/.test(cmd) && !/pnpm install --frozen-lockfile/.test(cmd)) {
