@@ -42,6 +42,11 @@ would reject its own task. This is the first live test of the map, and it failed
 **Recommendation.** **A**. The orchestrator is the only role whose job is the process itself, and
 self-enforcement tooling should not be writable by the roles it polices.
 
+**Proposal on disk.** `docs/adr/A0002_workflow-validator-ownership.md` — status **PROPOSED**, option **A**,
+with the `§16` carve-out written down. P0-002 produced the pick; it is not binding until you accept it.
+Accepting means one line in `BLUEPRINT.yaml` (WF-002 `agent: orchestrator`) plus two explicit globs in
+`OWNERSHIP.yaml`; WF-002 then unblocks with no other task changing owner.
+
 **Risk.** A conflicts with §16's "orchestrator edits only docs/**, AGENTS.md, opencode.json". If the
 Director reads §16 as exhaustive, B becomes correct. Either answer is fine; an unrecorded answer is not.
 

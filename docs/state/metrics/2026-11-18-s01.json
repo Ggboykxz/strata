@@ -1,8 +1,8 @@
 {
   "session": "2026-11-18-s01",
   "utc_start": "2026-11-18T00:10:04Z",
-  "utc_end": "2026-11-18T00:28:00Z",
-  "mode": "BOOTSTRAP",
+  "utc_end": "2026-11-18T00:39:00Z",
+  "mode": "RESUME",
   "branch": "session/20261118-hc-001-high-concept",
   "tier": { "current": "S0", "authorized": "S0" },
   "netgate": { "status": "unpassed", "art_allowed": false },
@@ -11,7 +11,9 @@
     { "id": "SC-001", "status": "done" },
     { "id": "WF-001", "status": "done" },
     { "id": "P0-001.a", "status": "done" },
-    { "id": "P0-001.b", "status": "done" }
+    { "id": "P0-001.b", "status": "done" },
+    { "id": "P0-002.a", "status": "done" },
+    { "id": "P0-002.b", "status": "done" }
   ],
   "measured": {
     "hc_t1_en_words": 29,
@@ -47,6 +49,19 @@
     "blueprint_phases": 9,
     "blueprint_duplicate_ids": 0,
     "blueprint_tasks_missing_fields": 0,
+    "blueprint_validator_errors": 0,
+    "blueprint_validator_warnings": 13,
+    "blueprint_negative_tests": 6,
+    "blueprint_negative_tests_passing": 6,
+    "blueprint_scaffold_exemptions": 3,
+    "blueprint_b8_splits": 7,
+    "agent_files": 32,
+    "agent_missing_skill_links": 0,
+    "skill_stubs": 51,
+    "skill_missing_descriptions": 0,
+    "validator_stubs": 21,
+    "validator_stubs_failing": 21,
+    "yaml_parser_documents_equal_to_pyyaml": 3,
     "opencode_mcp_servers": 4
   },
   "cis": { "value": null, "reason": "no measured source until HC-003 (P2)" },
@@ -66,13 +81,24 @@
     { "cmd": "bash /tmp/opencode/drift-negative.sh", "exit": 0, "log": "docs/state/evidence/20261118T001004Z-P0-001/02-drift-negative-tests.log" },
     { "cmd": "python3 -c 'yaml.safe_load(BLUEPRINT.yaml)'", "exit": 0, "log": "docs/state/evidence/20261118T001004Z-P0-001/03-blueprint-parse.log" },
     { "cmd": "jsonschema validate opencode.json", "exit": 0, "log": "docs/state/evidence/20261118T001004Z-P0-001/04-opencode-config-schema.log" },
-    { "cmd": "node scripts/validate-prompt-drift.mjs", "exit": 0, "log": "docs/state/evidence/20261118T001004Z-P0-001/05-validate-prompt-drift.log" }
+    { "cmd": "node scripts/validate-prompt-drift.mjs", "exit": 0, "log": "docs/state/evidence/20261118T001004Z-P0-001/05-validate-prompt-drift.log" },
+    { "cmd": "node scripts/validate-blueprint.mjs", "exit": 0, "log": "docs/state/evidence/20261118T001004Z-P0-002/03-validate-blueprint.log" },
+    { "cmd": "bash /tmp/opencode/bp-negative.sh", "exit": 0, "log": "docs/state/evidence/20261118T001004Z-P0-002/04-blueprint-negative-tests.log" },
+    { "cmd": "node /tmp/opencode/gen-stubs.mjs", "exit": 0, "log": "docs/state/evidence/20261118T001004Z-P0-002/01-stub-generation.log" },
+    { "cmd": "for each stub: node <script> (expect 1)", "exit": 0, "log": "docs/state/evidence/20261118T001004Z-P0-002/02-stubs-fail.log" },
+    { "cmd": "node /tmp/opencode/gen-agents.mjs", "exit": 0, "log": "docs/state/evidence/20261118T001004Z-P0-002/05-agents-skills.log" },
+    { "cmd": "node --input-type=module -e '<agent/skill consistency check>'", "exit": 0, "log": "docs/state/evidence/20261118T001004Z-P0-002/06-opencode-tree.log" },
+    { "cmd": "node scripts/validate-blueprint.mjs --emit-gates", "exit": 0, "log": "docs/state/evidence/20261118T001004Z-P0-002/07-emit-gates.log" },
+    { "cmd": "node parse <3 docs> + python3 yaml.safe_load + deep equal", "exit": 0, "log": "docs/state/evidence/20261118T001004Z-P0-002/08-yaml-equality.log" }
   ],
   "notes": [
     "every number above was produced by a command in this session; none is an estimate",
     "exit 1 on --check, exit 2 on --report and --score are designed behaviour, not regressions",
     "assets_per_session and months_needed are null on purpose: no GPU session has been measured",
     "the master prompt is sealed against itself (sentinel, size, hash, verbatim section diff); it cannot be proven byte-identical to the Director's clipboard — stated in SESSION.md",
-    "two secrets were exposed in chat (GitHub PAT ND-004, HF token ND-005); neither reached disk, git or an evidence log, and both must be rotated"
+    "two secrets were exposed in chat (GitHub PAT ND-004, HF token ND-005); neither reached disk, git or an evidence log, and both must be rotated",
+    "13 blueprint warnings are declared, not hidden: 3 B2 scaffold exemptions, 1 open dispute D-002, 1 B3 deferral, 1 B4/B5 deferral covering 32 tasks, 7 B8 splits",
+    "21 validator stubs exit 1 by design; a stub is counted as a warning, never as a passing acceptance",
+    "the generator scripts live in /tmp and are not committed; their output (agents, skills, stubs) is"
   ]
 }
