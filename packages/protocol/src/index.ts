@@ -8,3 +8,5 @@
 
 /** Bumped whenever the wire format changes. Client and server refuse a mismatch. */
 export const PROTOCOL_VERSION = 1;
+
+export * from './tracer';

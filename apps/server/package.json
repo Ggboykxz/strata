@@ -5,6 +5,10 @@
   "type": "module",
   "dependencies": {
     "@strata/core": "workspace:*",
-    "@strata/protocol": "workspace:*"
+    "@strata/protocol": "workspace:*",
+    "ws": "8.23.0"
+  },
+  "devDependencies": {
+    "@types/ws": "8.18.2"
   }
 }

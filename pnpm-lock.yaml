@@ -193,12 +193,19 @@ importers:
 
   apps/game:
     dependencies:
+      '@babylonjs/core':
+        specifier: 9.37.0
+        version: 9.37.0
       '@strata/core':
         specifier: workspace:*
         version: link:../../packages/core
       '@strata/protocol':
         specifier: workspace:*
         version: link:../../packages/protocol
+    devDependencies:
+      ws:
+        specifier: 8.23.0
+        version: 8.23.0
 
   apps/server:
     dependencies:
@@ -208,10 +215,21 @@ importers:
       '@strata/protocol':
         specifier: workspace:*
         version: link:../../packages/protocol
+      ws:
+        specifier: 8.23.0
+        version: 8.23.0
+    devDependencies:
+      '@types/ws':
+        specifier: 8.18.2
+        version: 8.18.2
 
   packages/core: {}
 
-  packages/protocol: {}
+  packages/protocol:
+    dependencies:
+      '@strata/core':
+        specifier: workspace:*
+        version: link:../core
 
   tools/sim/lib:
     dependencies:
@@ -220,6 +238,9 @@ importers:
         version: link:../../../packages/core
 
 packages:
+
+  '@babylonjs/core@9.37.0':
+    resolution: {integrity: sha512-6RmkNN+KxzJ9Mo+Yuk0TVtWuNo+/9wHiNknIXFL17StVT9hoz7Q2/N3hTZpsW+wVWge140+25Bm/VkWIwDALEQ==}
 
   '@emnapi/core@2.0.0-beta.2':
     resolution: {integrity: sha512-MzCVoWtcg4Pm2B3je5mMvYMvj3MmBKw+fU7vbsJc9/iT8ip6/eYIHo/Dsm/mr+wsHB6SEyJDuxB09Yy6r/8+4A==}
@@ -368,6 +389,9 @@ packages:
 
   '@types/node@22.20.5':
     resolution: {integrity: sha512-U2+DNr+wSjpsTS/wZGYHq7GcwfuSmKiKvoPvK22zwTlRhU91yOniN4qRR5KhIjvif7ysw/dz/hKmfDH0Ris4aA==}
+
+  '@types/ws@8.18.2':
+    resolution: {integrity: sha512-67MQl+fpWKVTT1NYdnmo3U4sc/xPo/zQBncVnI74qmQa0z/b+1g6iYqNmGCPbxO+zz2aklb08a0oHfegiVd0/w==}
 
   '@vitest/mocker@5.1.0':
     resolution: {integrity: sha512-5umB9/jlWcqVS6fsrFmv5Gdnpu6wAUio/lEOwAmvB7v+lFo/IW2B9FhAD0p19GCULTgMzLCdUmuCDCnAzWgppQ==}
@@ -640,7 +664,21 @@ packages:
     engines: {node: '>=20.11'}
     hasBin: true
 
+  ws@8.23.0:
+    resolution: {integrity: sha512-wCkmX8QMOrKjgO8HW2WyDbTSGeqkocxgDzS9iR79rEAexty6/2qzilx3Ag8Tqf9ykop3irLKle0MtVn5qjVnoQ==}
+    engines: {node: '>=10.0.0'}
+    peerDependencies:
+      bufferutil: ^4.0.1
+      utf-8-validate: '>=5.0.2'
+    peerDependenciesMeta:
+      bufferutil:
+        optional: true
+      utf-8-validate:
+        optional: true
+
 snapshots:
+
+  '@babylonjs/core@9.37.0': {}
 
   '@emnapi/core@2.0.0-beta.2':
     dependencies:
@@ -747,6 +785,10 @@ snapshots:
   '@types/node@22.20.5':
     dependencies:
       undici-types: 6.21.0
+
+  '@types/ws@8.18.2':
+    dependencies:
+      '@types/node': 22.20.5
 
   '@vitest/mocker@5.1.0(vite@8.3.8(@types/node@22.20.5))':
     dependencies:
@@ -922,3 +964,5 @@ snapshots:
       - msw
 
   why-is-node-running@3.2.1: {}
+
+  ws@8.23.0: {}

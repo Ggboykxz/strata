@@ -19,6 +19,13 @@ Measured 2026-11-18 on `Linux 6.6.159+ x86_64` — log:
 | TypeScript | **6.0.3** | root `devDependencies` (exact, no `^`) | `tsc -v` |
 | Vitest | **5.1.0** | root `devDependencies` | `vitest --version` |
 | @types/node | **22.20.5** | root `devDependencies` (matches Node 22, not latest) | package.json |
+| Babylon.js (`@babylonjs/core`) | **9.37.0** | `apps/game` dependencies | npm registry + `pnpm-lock.yaml` |
+| `ws` | **8.23.0** | `apps/server` dependencies; `apps/game` devDependencies (test client) | npm registry + `pnpm-lock.yaml` |
+| `@types/ws` | **8.18.2** | `apps/server` devDependencies | npm registry + `pnpm-lock.yaml` |
+
+**Third-party licenses** (read from registry metadata at pin time, 2026-11-18): Babylon.js **Apache-2.0**,
+`ws` **MIT**. Both are permissive and satisfied by §10.5/§10.6. Babylon's `NullEngine` is allowed in
+tooling/CI only — it is not imported by the server tick (I3).
 
 **Why TypeScript 6.0.3 and not 7.0.2.** `typescript@7` ships the native compiler and no longer exposes
 the JavaScript AST API (`import * as ts from 'typescript'` returns only `version`). The core-math ban
@@ -29,7 +36,6 @@ returns to 7 when either the lint is ported or the API ships. Recorded as a trad
 
 | component | status | earliest task / gate that must pin it |
 |---|---|---|
-| Babylon.js | NOT INSTALLED | P2 client work, after NET-GATE |
 | Colyseus | NOT INSTALLED | NET-001 |
 | zod | NOT INSTALLED | first protocol schema (NET-001) |
 | Playwright | NOT INSTALLED | first browser-automation task — not scheduled yet |

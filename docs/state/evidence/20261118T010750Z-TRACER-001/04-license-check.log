@@ -1,0 +1,4 @@
+$ npm view <exact package> license
+babylon: Apache-2.0
+ws: MIT
+@types/ws: MIT

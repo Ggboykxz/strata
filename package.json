@@ -12,6 +12,7 @@
   "scripts": {
     "verify": "node scripts/verify.mjs",
     "typecheck": "tsc -b",
+    "tracer": "node scripts/tracer.mjs",
     "lint": "node scripts/lint-core-math.mjs",
     "test": "vitest run"
   },

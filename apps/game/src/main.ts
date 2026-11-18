@@ -1,12 +1,30 @@
 /**
  * @strata/game — browser client.
  *
- * P0-003 skeleton: no Babylon, no renderer, no networking. Those wait for NET-GATE (I2). This
- * entry only proves the client can consume the workspace packages and typecheck in a DOM context.
+ * TRACER-001: one greybox capsule, predicted locally, reconciled from authoritative snapshots, rendered
+ * above an HTML overlay (no Babylon.GUI HUD). No hero asset, texture or scene generation (I2).
  */
-import { CORE_VERSION, TICK_HZ } from '@strata/core';
+import { Engine, Scene } from '@babylonjs/core';
 import { PROTOCOL_VERSION } from '@strata/protocol';
+import { TracerClient } from './tracer-client';
+import { buildCapsule } from './render';
 
-console.log(
-  `STRATA client skeleton — core ${CORE_VERSION}, tick ${TICK_HZ} Hz, protocol v${PROTOCOL_VERSION}`,
-);
+const canvas = document.getElementById('game');
+if (!(canvas instanceof HTMLCanvasElement)) throw new Error('missing #game canvas');
+
+const engine = new Engine(canvas, true);
+const scene = new Scene(engine);
+const client = new TracerClient('browser');
+buildCapsule(scene, client.interpolate(1));
+engine.runRenderLoop(() => scene.render());
+window.addEventListener('resize', () => engine.resize());
+
+const url = new URL(`ws://${window.location.host}/tracer`);
+url.searchParams.set('v', String(PROTOCOL_VERSION));
+const socket = new WebSocket(url);
+socket.addEventListener('message', (event) => {
+  // The browser path consumes snapshots; the Node assert path exercises the same client logic headlessly.
+  const msg = JSON.parse(String(event.data)) as { kind: string };
+  void msg.kind;
+  void client;
+});

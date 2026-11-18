@@ -17,3 +17,5 @@ export const TICK_MS = 1000 / TICK_HZ;
 
 /** Package version, kept in sync with package.json by hand until a release task exists. */
 export const CORE_VERSION = '0.0.0';
+
+export * from './tracer';
