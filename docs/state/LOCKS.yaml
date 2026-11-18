@@ -1909,3 +1909,74 @@ locks:
     expires_at: "2026-11-18T18:00:00Z"
     status: released
 
+  - path_glob: "AGENTS.md"
+    owner_agent: orchestrator
+    task_id: P0-007
+    branch: session/20261118-dashboard-next
+    acquired_at: "2026-11-18T16:44:00Z"
+    expires_at: "2026-11-18T17:44:00Z"
+    status: active
+
+  - path_glob: "apps/dashboard-next/**"
+    owner_agent: tools-engineer
+    task_id: P0-007
+    branch: session/20261118-dashboard-next
+    acquired_at: "2026-11-18T16:44:00Z"
+    expires_at: "2026-11-18T17:44:00Z"
+    status: active
+
+  - path_glob: "docs/legal/DEPENDENCY_AUDIT_NEXTJS.md"
+    owner_agent: security-auditor
+    task_id: P0-007
+    branch: session/20261118-dashboard-next
+    acquired_at: "2026-11-18T16:44:00Z"
+    expires_at: "2026-11-18T17:44:00Z"
+    status: active
+
+  - path_glob: "docs/qa/prototypes/DASHBOARD_NEXTJS.md"
+    owner_agent: qa-engineer
+    task_id: P0-007
+    branch: session/20261118-dashboard-next
+    acquired_at: "2026-11-18T16:44:00Z"
+    expires_at: "2026-11-18T17:44:00Z"
+    status: active
+
+  - path_glob: "docs/state/**"
+    owner_agent: orchestrator
+    task_id: P0-007
+    branch: session/20261118-dashboard-next
+    acquired_at: "2026-11-18T16:44:00Z"
+    expires_at: "2026-11-18T17:44:00Z"
+    status: active
+
+  - path_glob: "package.json"
+    owner_agent: orchestrator
+    task_id: P0-007
+    branch: session/20261118-dashboard-next
+    acquired_at: "2026-11-18T16:44:00Z"
+    expires_at: "2026-11-18T17:44:00Z"
+    status: active
+
+  - path_glob: "pnpm-lock.yaml"
+    owner_agent: orchestrator
+    task_id: P0-007
+    branch: session/20261118-dashboard-next
+    acquired_at: "2026-11-18T16:44:00Z"
+    expires_at: "2026-11-18T17:44:00Z"
+    status: active
+
+  - path_glob: "tools/qa/audit-dashboard-deps.mjs"
+    owner_agent: tools-engineer
+    task_id: P0-007
+    branch: session/20261118-dashboard-next
+    acquired_at: "2026-11-18T16:44:00Z"
+    expires_at: "2026-11-18T17:44:00Z"
+    status: active
+
+  - path_glob: "vercel.json"
+    owner_agent: tools-engineer
+    task_id: P0-007
+    branch: session/20261118-dashboard-next
+    acquired_at: "2026-11-18T16:44:00Z"
+    expires_at: "2026-11-18T17:44:00Z"
+    status: active
