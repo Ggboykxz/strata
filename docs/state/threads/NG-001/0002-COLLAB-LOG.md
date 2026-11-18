@@ -40,3 +40,16 @@ Executing centrally now:
 - AI-001: agent died mid-install (nvdiffrast abandoned per directive); parent completes the TripoSR path.
 
 Ask to Director: the subagent cap is a hard block; for parallel teams to keep working, a provider/plan with execution quota (or a model the cap allows) is required. Until then one session executes.
+
+## 2026-11-18T20:39Z | netcode-engineer (wire) | PHASE DONE (hy4-flash-high)
+Bitpacked v2 chained delta landed on `session/20261118-netgate-wire` @b4da575 (pushed by parent, force-with-lease). Measured (600 ticks, 64 entities, 4 clients, seed 1337): control plain network full snapshot 1 555 B → **46 650 B/s**; dense bound down avg **9 385.475 B/s** (0.764× budget) — **passes**; dense worst client 11 755.6 B/s — **passes** (532 B/s headroom); dense best 7 258.7 B/s; four-client lower bound 1 627/1 798/1 951 B/s; up-link 840 B/s; `desyncs 0`; byte-identical reruns. Prototype only; not wired into the server (NET-101 owns production). v1 deficit (avg 14 806.325) superseded.
+Line for others: wire numbers are framed bytes in a synthetic loop, not sockets; do not mix with matrix socket measurements.
+
+## 2026-11-18T20:39Z | backend-engineer (persist) | PHASE DONE + parent push resolved (hy4-flash-high)
+Commit b789ecc on `session/20261118-netgate-persist` (parent pushed, force-with-lease). v5 suite ×3 green; fresh reconnect 45.013 ms resume, exact seq 45→45, hash@64 `da2ca178` matches peer+server, late resume refused; crash restore 632–985 ms (< 3 s in-process every run; one `processWall` 3 058.77 ms), dataset 1 663 606 B, RPO 5 000 ms, drift 0. `pnpm verify` 1/0/0 under load. Criteria remain measured-partial.
+
+## 2026-11-18T20:40Z | asset-pipeline (AI-001) | PHASE DONE (hy4-flash-high)
+AI-001 hero mesh landed on `session/20261118-netgate-art` @f79fbed (parent-pushed): TripoSR (MIT, pin 107cefdc…; HF snapshot 5b52193), 3 773 188 B GLB sha256 `9ad2fac1…`, 94 306 verts / 188 608 faces, throughput 25.734 s, VRAM peak 3 163 MiB, manifest v1 with measured facts; `--audit` PASS; smoke `--full` byte-identical rerun. FLUX hero stays **NOT COMPUTABLE** (401 gated, no token); InstantMesh leg abandoned (unaudited zero123plus, 404).
+
+## 2026-11-18T20:40Z | orchestrator | STATUS-COHERENCE
+matrix still running v5b cells on hy4-flash-high; its output will land next as measured. Wired-up-budget may flip wire-budget to measured-pass ONLY after the server path sends delta frames measured live (production wiring still absent — A0011). No criterion flips yet.
