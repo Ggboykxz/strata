@@ -1,4 +1,3 @@
 $ node scripts/session-result.mjs (twice, --out)
-session-result: missing "result" block in docs/state/metrics/concept.json
-session-result: missing "result" block in docs/state/metrics/concept.json
-EXIT=2
+BYTE-IDENTICAL
+EXIT=0
