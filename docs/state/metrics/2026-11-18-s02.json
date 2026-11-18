@@ -1407,7 +1407,8 @@
     "SEC-002: every room socket frame now passes MessageGate before the room; malformed refused with reject, valid admitted. Residual risk 3 mitigated.",
     "ECON-RETUNE: inflation 7264.78% -> 5.00% via named proportional stabilization sink; a sequential levy produced Gini 0.90 and was rejected.",
     "No silent constant change: before/after numbers, checksums and the rejected levy are all in the report and evidence.",
-    "ECON-RETUNE CI at 8f8f8c987fc045646f62a73f88174b0766f6f370: 8/8 triggered workflows success; run ids in docs/state/evidence/20261118T105757Z-ECON-RETUNE/06-ci-proof.log."
+    "ECON-RETUNE CI at 8f8f8c987fc045646f62a73f88174b0766f6f370: 8/8 triggered workflows success; run ids in docs/state/evidence/20261118T105757Z-ECON-RETUNE/06-ci-proof.log.",
+    "CodeQL high alert js/file-system-race in tools/qa/gen-stubs.mjs fixed with atomic exclusive create (openSync wx); generator wrote 0 stubs, verify 19/19."
   ],
   "result": {
     "phase": "P2NET",

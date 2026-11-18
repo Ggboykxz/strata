@@ -1,0 +1,3 @@
+$ node tools/qa/gen-stubs.mjs
+wrote 0 failing stubs:
+EXIT=0

@@ -1,5 +1,5 @@
 // One-off generator for P0-002 failing validator stubs. Not committed; the stubs are.
-import { readFileSync, writeFileSync, existsSync } from 'node:fs';
+import { readFileSync, writeFileSync, openSync, closeSync } from 'node:fs';
 import { parseYaml } from '../../scripts/lib/yaml.mjs';
 
 const ROOT = process.cwd();
@@ -50,7 +50,6 @@ wanted.set('scripts/session-result.mjs', { task: 'P0-002', agent: 'orchestrator'
 const written = [];
 for (const [p, who] of [...wanted].sort()) {
   const abs = `${ROOT}/${p}`;
-  if (existsSync(abs)) continue;
   const map = ownerOf(p);
   const disputed = (p === 'scripts/validate-ownership.mjs' || p === 'scripts/validate-locks.mjs');
   const ownerLine = disputed
@@ -70,7 +69,19 @@ console.error('NOT IMPLEMENTED — ${name} is a declared stub (P0-002).');
 console.error('Owner: ${ownerLine}. Implement it before any task relies on this acceptance command (I5).');
 process.exit(1);
 `;
-  writeFileSync(abs, body, { mode: 0o755 });
+  // Atomic exclusive create: no existsSync/writeFileSync race (CodeQL `js/file-system-race`).
+  let fd;
+  try {
+    fd = openSync(abs, 'wx', 0o755);
+  } catch (error) {
+    if (error.code === 'EEXIST') continue; // already generated: never overwrite a real validator
+    throw error;
+  }
+  try {
+    writeFileSync(fd, body);
+  } finally {
+    closeSync(fd);
+  }
   written.push(`${p}  <- ${ownerLine}`);
 }
 console.log(`wrote ${written.length} failing stubs:`);
