@@ -13,6 +13,13 @@
 
 ---
 
+## 0. Long-term quality doctrine (A0008, Director)
+
+Director: Ashes-of-Creation-class quality with Babylon.js over the long term, "la qualité compte peut importe le
+temps qu'il faudra". **Benchmark only — I11 forbids copying that commercial IP.** Operationally: server truth
+before visuals, evidence over adjectives, audited stack, vertical slice before scale, no silent bypass. The
+current P2-SYS → GATE:P2 → P3-ART sequence is unchanged; unmet criteria stay in the record.
+
 ## 1. State at hand-off
 
 `pnpm verify` **17/17** · NET-GATE integrity **0**, readiness **1** (8/10 unmet) · tracer green · FULL §20 emitted.

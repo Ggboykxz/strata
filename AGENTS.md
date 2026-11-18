@@ -195,6 +195,9 @@ Anything else goes through a handoff. A conflict is resolved by a handoff or the
   deterministic; GDD-WORLD-SIM STUB -> DRAFT. Full 173/173, verify 19/19. Next: PR-S8.
 - **PR-S8 landed**: 10k anim fuzz, 0 mutations on refusal, 833 server hit frames, deterministic;
   GDD-ANIM-ARCHITECTURE 0.5; AN-002 unblocked. Full 175/175, verify 19/19. Next: PR-S3.
+- **Long-term quality doctrine (A0008)**: Director named an Ashes-of-Creation-class quality bar **as a benchmark
+  only** — I11 forbids copying that commercial IP. Quality over time: server truth before visuals, evidence over
+  adjectives, audited stack, vertical slice before scale, no silent gate bypass. Failing numbers stay recorded.
 - Known intentional red: `scope-math --report` exit 2 (throughput unmeasured) and `concept --score` exit 2
   until HC-003. `concept --check` is green: T3 was signed at GATE:P0.
 
