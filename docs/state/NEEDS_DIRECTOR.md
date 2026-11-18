@@ -18,6 +18,7 @@ Nothing here blocks the work already done; each item blocks a named future task.
 | ND-009 | **RESOLVED — option A** | full-MMORPG vision amendment (ADR-A0003), P0 scope unchanged |
 | ND-010 | **RESOLVED — SIGNED** | GATE:P1 signed ("Oui, signe S1"); authorized_tier S1; NET-001..006 selectable |
 | ND-011 | **OPEN — information acknowledged, one decision** | Director declares TPU v5e-1 + T4 16 GB; T4 is already the sourced generation tier, TPU has no audited model |
+| ND-012 | **OPEN — hardware request** | Director said "gère l'art et go next"; current runtime has no GPU/TPU. Need a T4 16 GB (or equivalent) for AI-001; TPU is not a generation device (ND-011) |
 
 ND-004 and ND-005 cannot be closed by an agent: GitHub and Hugging Face rotations require account access
 and, on GitHub, a UI flow. This is stated rather than simulated. Evidence that no secret reached the repo:
@@ -272,6 +273,24 @@ that will be available later, and no art or model task is scheduled now.
 
 **Effect of no answer.** None on the current plan: NET work is CPU-deterministic, art is gated by NET-GATE, and
 no model runs this session (I4). Nothing is blocked; the ambiguity is recorded instead of guessed.
+
+## ND-012 — accelerator needed for art generation (Director: "gère l'art et go next")
+
+**Director statement, verbatim (2026-11-18):** "gère l'art et go next".
+
+**Request.** Provision a **T4 16 GB GPU** (or equivalent) in the runtime before AI-001. The tier is already
+sourced in `tools/asset-pipeline/detect_tier.py` (15 360 MiB ECC → 16 GB) and nine models are already audited
+(`AUDIT-2026-11-18-P0-006`). The declared future TPU v5e-1 is **not** a substitute: no audited model targets XLA
+and ND-011 is still open.
+
+**Why now.** The Director signed NET-GATE with risk (A0006), but art tasks are still blocked by `GATE:P2`
+(needs P2-SYS, HC-003, GDD-005) and by the absence of hardware. No asset has been generated; the CPU-safe policy
+applies. The full handoff is in `docs/state/ART_HANDOFF.md`.
+
+**Effect of no answer.** None on the current plan: PR-S1 (P2-SYS greybox) proceeds on CPU. AI-001..AN-002 remain
+blocked by deps and hardware. Nothing is faked and no model is downloaded.
+
+**Related:** ND-004/ND-005 (token rotation) and ND-011 (TPU scope) remain open; PR #1/#2 merges remain Director-only.
 
 ---
 

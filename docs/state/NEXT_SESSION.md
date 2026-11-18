@@ -2,7 +2,7 @@
 
 | field | value |
 |---|---|
-| written | 2026-11-18T10:46Z |
+| written | 2026-11-18T10:58Z |
 | branch | `session/20261118-hc-001-high-concept` — **PR #1** (draft) https://github.com/Ggboykxz/strata/pull/1 |
 | also open | **PR #2** dashboard truth repair — `session/20261118-dashboard-truth`, base = session branch |
 | mode | RESUME |
@@ -27,7 +27,14 @@ node scripts/session-result.mjs --format full
 
 Runtime is ephemeral: `git clone` + `corepack prepare pnpm@12.21.0 --activate` recovers everything.
 
-## 2. The Director signed everything — what that means and does not mean
+## 2. Art handoff and the hardware request
+
+Director said "gère l'art et go next" (verbatim, `docs/state/ART_HANDOFF.md`). **No art can be generated here**:
+no GPU and no TPU. ND-012 requests a T4 16 GB for AI-001; TPU v5e-1 is not a generation device (ND-011).
+Art tasks AI-001..AN-002 remain blocked by `GATE:P2` (P2-SYS + HC-003 + GDD-005) regardless of the
+risk-accepted NET-GATE signature. No model was downloaded and no asset was produced. Continue PR-S1 greybox.
+
+## 3. The Director signed everything — what that means and does not mean
 
 A0006 records **"je signe tout"** verbatim. NET-GATE is `signed-with-risk`, **not passed**: the dossier still lists
 2 met / 8 unmet criteria (no 4-client matrix, no soak, no tick p95, wire at 3.79× budget, no RPO, gate not wired
@@ -38,7 +45,7 @@ acceptance and with the seven residual risks from `docs/legal/THREAT_MODEL.md` a
 PR #1 and PR #2 were **not merged** — an agent must not self-merge. The Director must merge them from their own
 account. ND-004/ND-005 token rotation also remains a Director action.
 
-## 3. PR-S1 — next (S0, P2SYS)
+## 4. PR-S1 — next (S0, P2SYS)
 
 `{id: PR-S1, agent: gameplay-engineer, role: sup, gdd: [GDD-COMBAT#numbers], deps: [GATE:NET],
 out: [tools/sim/world/prs1_combat.ts, docs/qa/prototypes/PRS1.md], acc: ["pnpm sim prs1 --assert"]}`
@@ -52,7 +59,7 @@ Greybox only: TTK/windows/hit-stop numbers from GDD-COMBAT, no hero asset, no te
 Use the server-authoritative hit frames (NET-006), PR-N4 validity verdicts and the minor-unit ledger (PR-N3)
 where the combat prototype touches them. No new dependency, no GPU/TPU. Label every number as local simulation.
 
-## 4. Non-gated tooling candidates
+## 5. Non-gated tooling candidates
 
 1. Wire `apps/dashboard/check.mjs` into `pnpm verify` — changes the 17-step baseline; own task.
 2. Wire `apps/server/src/main.ts` to `attachRooms` **and** `MessageGate` (SEC-002).
@@ -61,7 +68,7 @@ where the combat prototype touches them. No new dependency, no GPU/TPU. Label ev
 5. Pin the Playwright MCP in `opencode.json` (unpinned, §10.6).
 6. `docs/STACK.lock.md` line 39 is stale — **left stale by instruction in A0004**.
 
-## 5. Re-measurement owed before NET-GATE can be READY
+## 6. Re-measurement owed before NET-GATE can be READY
 
 1. 4-client RTT 0/50/150/300 ms × loss 0/2/5 % × jitter 0/30 ms matrix, 30-minute soak, zero hash mismatch,
    correction p95 < 0.3 m, no rubber-band > 2 m.
@@ -70,7 +77,7 @@ where the combat prototype touches them. No new dependency, no GPU/TPU. Label ev
 4. Measured crash dataset with restore ≤ 3 s and published RPO ≤ 60 s.
 5. `attachRooms` routed through `MessageGate` with no bypass (SEC-002), plus auth and TLS.
 
-## 6. Environment / hardware
+## 7. Environment / hardware
 
 Node 22.23.4, pnpm 12.21.0 via corepack, TypeScript 6.0.3, Vitest 5.1.0.
 

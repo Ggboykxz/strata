@@ -311,3 +311,12 @@ blueprint task currently owns the pin: recorded as a gap for the Director/next r
 - PR #1 and PR #2 were **not merged** — an agent must not self-merge; the Director must do it from their account.
   No art was produced. Art is allowed only by risk acceptance, with the seven residual risks still attached.
 - FULL §20 result emitted. Next: PR-S1 (P2-SYS greybox), with re-measurement of the 8 criteria still owed.
+
+## Session 2 — art handoff / hardware request (2026-11-18T11:00Z)
+
+- Director: "gère l'art et go next" — recorded verbatim in `docs/state/ART_HANDOFF.md` and ND-012.
+- **No asset generated.** No GPU and no TPU in this runtime; a T4 16 GB is requested for AI-001. TPU v5e-1 is
+  not a generation device (ND-011). Nine models are audited; none was downloaded or run (I4).
+- AI-001..AN-002 remain blocked by `GATE:P2` (P2-SYS + HC-003 + GDD-005), not just by hardware. A risk-accepted
+  NET-GATE signature does not satisfy blueprint deps or create measurements.
+- Next task stays PR-S1 (P2-SYS greybox). CPU-safe policy applies.
