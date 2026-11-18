@@ -1,0 +1,17 @@
+
+M1  audit document and whitelist identity
+OK    AUDIT-2026-11-18-P0-006 — whitelist and document agree
+
+M2  approved entries
+OK    8 approved entries: fields, pins, sources and licences valid
+
+M3  blocked and rejected entries stay out of the whitelist
+OK    7 blocked, 5 rejected — all with reasons and audit ids
+
+M4  Director decisions are recorded, not silently granted
+OK    3 decision(s) recorded as OPEN
+
+M5  tier probe measures hardware
+OK    tier probe reads the device and degrades to NO_GPU without inventing VRAM
+
+RESULT: PASS — 8 approved, 7 blocked, 5 rejected, 0 error(s). No model was downloaded or run.

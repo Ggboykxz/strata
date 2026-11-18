@@ -1,0 +1,10 @@
+OK     validate-ownership.mjs exit=0  baseline passes
+OK     validate-ownership.mjs exit=1  identical glob with two owners
+OK     validate-ownership.mjs exit=1  task output outside owner set
+OK     validate-ownership.mjs exit=1  A0002 ownership regression
+OK     validate-locks.mjs exit=0  baseline passes
+OK     validate-locks.mjs exit=1  invalid ttl
+OK     validate-locks.mjs exit=1  two active locks on one path
+OK     validate-locks.mjs exit=1  unknown lock owner
+
+RESULT: PASS — all 8 WF-002 negative tests behaved as required.

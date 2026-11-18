@@ -1,0 +1,1627 @@
+{
+  "session": "2026-11-18-s02",
+  "utc_start": "2026-11-18T07:23:00Z",
+  "utc_end": "2026-11-18T13:58:00Z",
+  "mode": "RESUME",
+  "branch": "session/20261118-hc-001-high-concept",
+  "tier": {
+    "current": "S0",
+    "authorized": "S1",
+    "granted_by": "GATE:P1 signed 2026-11-18 by the Director (\"Oui, signe S1\")"
+  },
+  "netgate": {
+    "status": "signed-with-risk",
+    "art_allowed": true,
+    "risk_accepted": true,
+    "criteria_unmet": 8,
+    "director_statement": "je signe tout",
+    "signed_at": "2026-11-18",
+    "source": "A0006 + docs/qa/prototypes/NET_GATE.md",
+    "note": "Director signed with full knowledge of 8 unmet criteria; evidence and unmeasured fields unchanged."
+  },
+  "tasks": [
+    {
+      "id": "P0-005.a",
+      "blueprint_task": "P0-005",
+      "status": "done"
+    },
+    {
+      "id": "GATE:P1",
+      "status": "signed",
+      "grants": "S1"
+    },
+    {
+      "id": "NET-001",
+      "status": "done",
+      "blueprint_task": "NET-001"
+    },
+    {
+      "id": "NET-002",
+      "status": "done",
+      "blueprint_task": "NET-002"
+    },
+    {
+      "id": "NET-005",
+      "status": "done",
+      "blueprint_task": "NET-005"
+    },
+    {
+      "id": "NET-003",
+      "status": "done",
+      "blueprint_task": "NET-003"
+    },
+    {
+      "id": "NET-004",
+      "status": "done",
+      "blueprint_task": "NET-004"
+    },
+    {
+      "id": "NET-006",
+      "status": "done",
+      "blueprint_task": "NET-006"
+    },
+    {
+      "id": "PR-N1",
+      "status": "done",
+      "blueprint_task": "PR-N1"
+    },
+    {
+      "id": "PR-N3",
+      "status": "done",
+      "blueprint_task": "PR-N3"
+    },
+    {
+      "id": "PR-N4",
+      "status": "done",
+      "blueprint_task": "PR-N4"
+    },
+    {
+      "id": "SEC-001",
+      "status": "done",
+      "blueprint_task": "SEC-001"
+    },
+    {
+      "id": "NG-001",
+      "status": "done",
+      "blueprint_task": "NG-001",
+      "note": "dossier assembled unsigned then Director signed with risk (A0006)"
+    },
+    {
+      "id": "PR-S1",
+      "status": "done",
+      "blueprint_task": "PR-S1"
+    },
+    {
+      "id": "PR-S2",
+      "status": "done",
+      "blueprint_task": "PR-S2"
+    },
+    {
+      "id": "GB-001",
+      "status": "done",
+      "blueprint_task": "GB-001"
+    },
+    {
+      "id": "PR-S4",
+      "status": "done",
+      "blueprint_task": "PR-S4"
+    },
+    {
+      "id": "PR-S5",
+      "status": "done",
+      "blueprint_task": "PR-S5",
+      "note": "inflation target FAILS at 726478 bps; flagged TUNABLE"
+    },
+    {
+      "id": "SEC-002",
+      "status": "done",
+      "blueprint_task": "SEC-002"
+    },
+    {
+      "id": "ECON-RETUNE",
+      "status": "done",
+      "blueprint_task": "PR-S5",
+      "note": "measured retune: 726478 bps -> 500 bps, both recorded"
+    }
+  ],
+  "measured": {
+    "resume_prompt_bytes": 2514,
+    "resume_prompt_last_line": "<<<STRATA_RESUME_END v8.1>>>",
+    "resume_sentinel_standalone_lines": 1,
+    "drift_negative_tests": 12,
+    "drift_negative_tests_before": 8,
+    "verify_steps": 19,
+    "verify_steps_green": 19,
+    "blueprint_tasks": 63,
+    "blueprint_gates": 11,
+    "blueprint_warnings": 12,
+    "ownership_globs": 168,
+    "ownership_ties": 0,
+    "scope_ledger_entries": 12,
+    "scope_balanced": true,
+    "gdd_modules": 32,
+    "gdd_draft": 15,
+    "gdd_stub": 17,
+    "gdd_signed": 0,
+    "gdd_reference_resolution": 1,
+    "locks_acquired": 3,
+    "locks_released": 3,
+    "authorized_tier": "S1",
+    "tier_grant_steps": 1,
+    "deferred_non_p0_tasks": 17,
+    "art_tasks_in_authorized_phases": 0,
+    "core_test_files": 2,
+    "core_tests": 41,
+    "server_tests": 25,
+    "full_tests": 166,
+    "determinism_ticks": 300,
+    "hash_ring_capacity": 128,
+    "containers_used": 0,
+    "broken_acceptance_commands_repaired": 5,
+    "broken_acceptance_commands_remaining": 7,
+    "protocol_tests": 28,
+    "test_files": 19,
+    "wire_version": 3,
+    "wire_max_frame_bytes": 1551,
+    "snapshot_bytes_per_second": 46530,
+    "wire_budget_bytes_per_second": 12288,
+    "wire_budget_over_factor": 3.9,
+    "actions_runs": 8,
+    "actions_runs_success": 8,
+    "ci_head": "8f8f8c987fc045646f62a73f88174b0766f6f370",
+    "anim_tests": 22,
+    "anim_states": 5,
+    "blend_ticks": 2,
+    "recovery_ticks": 3,
+    "anim_state_wire_bytes": 12,
+    "clip_duration_max_ticks": 600,
+    "zero_match_acceptance_patterns": 1,
+    "dashboard_pr": 2,
+    "session_result_generated": true,
+    "session_result_formats": 2,
+    "session_result_negative_tests": 2,
+    "rooms_tests": 17,
+    "room_capacity_default": 2,
+    "reconnect_window_ticks": 30,
+    "resume_handle_fields": 4,
+    "new_dependencies_added": 0,
+    "net_tests": 15,
+    "client_hash_timeline_ticks": 128,
+    "interpolation_denominator": 30,
+    "anim_wire_bytes": 17,
+    "anim_state_bytes": 12,
+    "resync_frame_bytes": 10,
+    "jitter_min_ticks": 3,
+    "jitter_max_ticks": 8,
+    "anim_wire_tests": 5,
+    "combat_tests": 7,
+    "jitter_tests": 5,
+    "local_cpu_p50_ms": 0.1625,
+    "local_cpu_p95_ms": 0.2109,
+    "local_cpu_run2_p95_ms": 0.761,
+    "harness_ticks": 180,
+    "harness_entities": 64,
+    "harness_warmup_ticks": 20,
+    "framed_bytes_per_second": 46530,
+    "over_budget_factor": 3.79,
+    "acceptance_commands_remaining": 7,
+    "ledger_transactions": 10000,
+    "ledger_duplicates": 1000,
+    "ledger_conflicts": 1,
+    "ledger_drift_minor_units": 0,
+    "ledger_posts_after_restore": 0,
+    "ledger_restored_ok": true,
+    "fuzz_tests": 7,
+    "lagcomp_shots": 30,
+    "lagcomp_hits": 4,
+    "lagcomp_cooldown": 16,
+    "lagcomp_blocked": 5,
+    "lagcomp_out_of_range": 4,
+    "lagcomp_stale": 1,
+    "rewind_ticks": 30,
+    "los_cell_mm": 1000,
+    "range_mm": 12000,
+    "cooldown_ticks": 15,
+    "lagcomp_tests": 10,
+    "security_tests": 10,
+    "burst_messages": 200,
+    "burst_admitted": 30,
+    "burst_refused": 170,
+    "rate_limit_per_window": 30,
+    "rate_window_ticks": 30,
+    "unvalidated_paths_claimed": false,
+    "gate_criteria": 10,
+    "gate_criteria_met": 2,
+    "gate_criteria_unmet": 8,
+    "gate_validator_integrity_exit": 0,
+    "gate_assert_ready_exit": 1,
+    "prs1_tests": 4,
+    "prs1_hits_to_kill": 4,
+    "prs1_cycle_ticks": 11,
+    "prs1_ttk_ticks": 36,
+    "prs1_ttk_ms": 1200,
+    "prs1_hit_stop_ticks": 8,
+    "prs2_tests": 8,
+    "prs2_facts_in_window": 5,
+    "prs2_late_facts": 1,
+    "prs2_strata": 2,
+    "prs2_variant_swaps": 5,
+    "prs2_captures": 30,
+    "greybox_strata": 3,
+    "greybox_primitives": 12,
+    "greybox_variant_swaps": 3,
+    "greybox_checksum": "06d8d93c",
+    "scene_validator_fail_closed": true,
+    "craft_recipes": 3,
+    "crafts_completed": 6,
+    "profit_cycles": 1,
+    "craft_inventory_value_minor": 17172,
+    "prs4_tests": 7,
+    "economy_bots": 1000,
+    "economy_days": 30,
+    "economy_epochs": 720,
+    "economy_initial_supply_minor": "1000000",
+    "economy_minted_minor": "396540940",
+    "economy_burned_minor": "322893108",
+    "economy_final_supply_minor": "73647832",
+    "economy_inflation_bps": 726478,
+    "economy_gini_micro": 80768,
+    "economy_conserved": true,
+    "economy_exploit_cycles": 1,
+    "economy_checksum": "080bf7af",
+    "prs5_tests": 5,
+    "verify_steps_before": 17,
+    "mcp_playwright_pin": "@playwright/mcp@0.0.85",
+    "false_pass_acc_legacy": 12,
+    "gate_ids_in_lock_validator": true,
+    "gate_on_live_path": true,
+    "economy_inflation_bps_before": 726478,
+    "economy_inflation_bps_after": 500,
+    "economy_gini_micro_after": 293701,
+    "economy_stabilization_burned_minor": "93073815",
+    "economy_checksum_after": "0e9d284d"
+  },
+  "cis": {
+    "value": null,
+    "reason": "no measured source until HC-003 (P2); concept --score exits 2 by design"
+  },
+  "gdd_coverage": {
+    "value": 1,
+    "basis": "63/63 tasks with fully resolved refs (scripts/gdd-coverage.mjs --min 0.80)",
+    "maturity": {
+      "draft": 15,
+      "stub": 17,
+      "signed": 0
+    }
+  },
+  "scope": {
+    "ledger_entries": 12,
+    "balanced": true
+  },
+  "acceptance": [
+    {
+      "cmd": "bash tools/qa/negative-prompt-drift.sh",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T072941Z-P0-005.a/01-negative-prompt-drift.log",
+      "result": "12/12"
+    },
+    {
+      "cmd": "node scripts/validate-prompt-drift.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T072941Z-P0-005.a/02-validate-prompt-drift.log"
+    },
+    {
+      "cmd": "pnpm verify",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T072941Z-P0-005.a/03-verify.log",
+      "result": "17/17"
+    },
+    {
+      "cmd": "pnpm verify (after the state docs)",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T072941Z-P0-005.a/09-verify-post-docs.log",
+      "result": "17/17"
+    },
+    {
+      "cmd": "node scripts/gdd-coverage.mjs --min 0.80",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T072941Z-P0-005.a/04-gdd-coverage.log",
+      "result": "100.0%"
+    },
+    {
+      "cmd": "node scripts/scope-math.mjs --check",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T072941Z-P0-005.a/05-scope-math-check.log"
+    },
+    {
+      "cmd": "node scripts/validate-ownership.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T072941Z-P0-005.a/06-validate-ownership.log",
+      "result": "168 globs, 0 ties"
+    },
+    {
+      "cmd": "node scripts/validate-blueprint.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T072941Z-P0-005.a/07-validate-blueprint.log",
+      "result": "63 tasks, 11 gates, 12 declared warnings"
+    },
+    {
+      "cmd": "node scripts/validate-blueprint.mjs (post-signature)",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T074117Z-GATE-P1/01-validate-blueprint.log",
+      "result": "0 errors, 12 warnings, one-step S0→S1 grant"
+    },
+    {
+      "cmd": "node scripts/validate-art-bible.mjs (post-signature)",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T074117Z-GATE-P1/02-validate-art-bible.log",
+      "result": "0 art:true tasks in P0/P1/P2NET"
+    },
+    {
+      "cmd": "node scripts/concept-integrity.mjs --check",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T074117Z-GATE-P1/03-concept-check.log"
+    },
+    {
+      "cmd": "node scripts/validate-docs.mjs (post-signature)",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T074117Z-GATE-P1/04-validate-docs.log"
+    },
+    {
+      "cmd": "pnpm verify (post-signature)",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T074117Z-GATE-P1/05-verify.log",
+      "result": "17/17"
+    },
+    {
+      "cmd": "pnpm test --filter @strata/core (as written in the blueprint)",
+      "exit": 1,
+      "log": "docs/state/evidence/20261118T081128Z-NET-001/00-acc-as-written.log",
+      "result": "CACError: vitest has no --filter"
+    },
+    {
+      "cmd": "pnpm vitest run packages/core",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T081128Z-NET-001/01-acc-core.log",
+      "result": "19/19"
+    },
+    {
+      "cmd": "pnpm vitest run apps/server",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T081128Z-NET-001/02-server-sim.log",
+      "result": "8/8"
+    },
+    {
+      "cmd": "pnpm typecheck",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T081128Z-NET-001/03-typecheck.log"
+    },
+    {
+      "cmd": "node scripts/lint-core-math.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T081128Z-NET-001/04-core-math.log",
+      "result": "0 clock, 0 RNG, 0 transcendental, 0 foreign import"
+    },
+    {
+      "cmd": "pnpm test",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T081128Z-NET-001/05-full-tests.log",
+      "result": "29/29, 5 files"
+    },
+    {
+      "cmd": "pnpm verify",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T081128Z-NET-001/06-verify.log",
+      "result": "17/17"
+    },
+    {
+      "cmd": "node scripts/validate-gdd.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T081128Z-NET-001/07-gdd.log",
+      "result": "32 modules"
+    },
+    {
+      "cmd": "node scripts/validate-blueprint.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T081128Z-NET-001/08-blueprint.log",
+      "result": "63 tasks, 12 declared warnings"
+    },
+    {
+      "cmd": "pnpm tracer --assert",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T081128Z-NET-001/09-tracer.log",
+      "result": "equal hashes, desync rejected"
+    },
+    {
+      "cmd": "pnpm test --filter @strata/protocol (as written in the blueprint)",
+      "exit": 1,
+      "log": "docs/state/evidence/20261118T082404Z-NET-002/00-acc-old-form.log",
+      "result": "CACError: vitest has no --filter"
+    },
+    {
+      "cmd": "pnpm vitest run packages/protocol",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T082404Z-NET-002/01-acc-protocol.log",
+      "result": "23/23"
+    },
+    {
+      "cmd": "pnpm typecheck",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T082404Z-NET-002/02-typecheck.log"
+    },
+    {
+      "cmd": "pnpm test",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T082404Z-NET-002/03-full-tests.log",
+      "result": "51/51, 6 files"
+    },
+    {
+      "cmd": "node scripts/lint-core-math.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T082404Z-NET-002/04-core-math.log"
+    },
+    {
+      "cmd": "pnpm verify",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T082404Z-NET-002/05-verify.log",
+      "result": "17/17"
+    },
+    {
+      "cmd": "node scripts/validate-gdd.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T082404Z-NET-002/06-gdd.log",
+      "result": "32 modules"
+    },
+    {
+      "cmd": "node scripts/validate-blueprint.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T082404Z-NET-002/07-blueprint.log",
+      "result": "63 tasks, 12 declared warnings"
+    },
+    {
+      "cmd": "pnpm tracer --assert",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T082404Z-NET-002/08-tracer.log",
+      "result": "equal hashes, desync rejected"
+    },
+    {
+      "cmd": "pnpm vitest run packages/protocol -t \"1 551\"",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T082404Z-NET-002/09-frame-size.log",
+      "result": "64-entity snapshot = 1551 B"
+    },
+    {
+      "cmd": "pnpm test --filter @strata/core -t animstate (as written in the blueprint)",
+      "exit": 1,
+      "log": "docs/state/evidence/20261118T083402Z-NET-005/00-acc-old-form.log",
+      "result": "CACError: vitest has no --filter"
+    },
+    {
+      "cmd": "pnpm vitest run packages/core -t animstate (flag repaired, still a false pass)",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T083402Z-NET-005/00b-acc-t-false-pass.log",
+      "result": "3 files / 41 tests skipped, exit 0"
+    },
+    {
+      "cmd": "pnpm vitest run packages/core/test/anim-state.test.ts",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T083402Z-NET-005/01-acc-anim.log",
+      "result": "22/22"
+    },
+    {
+      "cmd": "pnpm typecheck",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T083402Z-NET-005/02-typecheck.log"
+    },
+    {
+      "cmd": "pnpm test",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T083402Z-NET-005/03-full-tests.log",
+      "result": "73/73, 7 files"
+    },
+    {
+      "cmd": "node scripts/lint-core-math.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T083402Z-NET-005/04-core-math.log"
+    },
+    {
+      "cmd": "pnpm verify",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T083402Z-NET-005/05-verify.log",
+      "result": "17/17"
+    },
+    {
+      "cmd": "node scripts/validate-gdd.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T083402Z-NET-005/06-gdd.log",
+      "result": "32 modules"
+    },
+    {
+      "cmd": "node scripts/validate-blueprint.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T083402Z-NET-005/07-blueprint.log",
+      "result": "63 tasks, 12 declared warnings"
+    },
+    {
+      "cmd": "pnpm tracer --assert",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T083402Z-NET-005/08-tracer.log"
+    },
+    {
+      "cmd": "pnpm vitest run packages/core/test/anim-state.test.ts -t \"JSON Schema\"",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T083402Z-NET-005/09-schema-consistency.log",
+      "result": "schema enums match code"
+    },
+    {
+      "cmd": "node scripts/session-result.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T084957Z-P0-002/01-short.log",
+      "result": "12 SHORT lines from metrics"
+    },
+    {
+      "cmd": "node scripts/session-result.mjs --format full",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T084957Z-P0-002/02-full.log",
+      "result": "SHORT + 10 FULL lines"
+    },
+    {
+      "cmd": "node scripts/session-result.mjs twice --out + cmp",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T084957Z-P0-002/03-deterministic.log",
+      "result": "byte-identical"
+    },
+    {
+      "cmd": "node scripts/session-result.mjs --metrics <missing result.status>",
+      "exit": 1,
+      "log": "docs/state/evidence/20261118T084957Z-P0-002/04-negative-missing-field.log",
+      "result": "fail closed, field named"
+    },
+    {
+      "cmd": "node scripts/session-result.mjs --format bogus",
+      "exit": 1,
+      "log": "docs/state/evidence/20261118T084957Z-P0-002/05-negative-bad-format.log",
+      "result": "fail closed, value named"
+    },
+    {
+      "cmd": "pnpm verify",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T084957Z-P0-002/06-verify.log",
+      "result": "17/17"
+    },
+    {
+      "cmd": "pnpm test --filter @strata/server -t reconnect (as written in the blueprint)",
+      "exit": 1,
+      "log": "docs/state/evidence/20261118T085724Z-NET-003/00-acc-old-form.log",
+      "result": "CACError: vitest has no --filter"
+    },
+    {
+      "cmd": "pnpm vitest run apps/server/test/rooms.test.ts",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T085724Z-NET-003/01-acc-rooms.log",
+      "result": "17/17"
+    },
+    {
+      "cmd": "pnpm vitest run apps/server",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T085724Z-NET-003/02-server-all.log",
+      "result": "25/25"
+    },
+    {
+      "cmd": "pnpm typecheck",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T085724Z-NET-003/03-typecheck.log"
+    },
+    {
+      "cmd": "pnpm test",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T085724Z-NET-003/04-full-tests.log",
+      "result": "90/90, 8 files"
+    },
+    {
+      "cmd": "node scripts/lint-core-math.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T085724Z-NET-003/05-core-math.log"
+    },
+    {
+      "cmd": "pnpm verify",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T085724Z-NET-003/06-verify.log",
+      "result": "17/17"
+    },
+    {
+      "cmd": "node scripts/validate-gdd.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T085724Z-NET-003/07-gdd.log",
+      "result": "32 modules"
+    },
+    {
+      "cmd": "node scripts/validate-blueprint.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T085724Z-NET-003/08-blueprint.log",
+      "result": "63 tasks"
+    },
+    {
+      "cmd": "pnpm tracer --assert",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T085724Z-NET-003/09-tracer.log"
+    },
+    {
+      "cmd": "pnpm test --filter @strata/netcode (as written in the blueprint)",
+      "exit": 1,
+      "log": "docs/state/evidence/20261118T090603Z-NET-004/00-acc-old-form.log",
+      "result": "CACError: vitest has no --filter"
+    },
+    {
+      "cmd": "pnpm vitest run apps/game/test/net.test.ts",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T090603Z-NET-004/01-acc-net.log",
+      "result": "15/15"
+    },
+    {
+      "cmd": "pnpm typecheck",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T090603Z-NET-004/02-typecheck.log"
+    },
+    {
+      "cmd": "pnpm test",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T090603Z-NET-004/03-full-tests.log",
+      "result": "105/105, 9 files"
+    },
+    {
+      "cmd": "node scripts/lint-core-math.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T090603Z-NET-004/04-core-math.log"
+    },
+    {
+      "cmd": "pnpm verify",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T090603Z-NET-004/05-verify.log",
+      "result": "17/17"
+    },
+    {
+      "cmd": "node scripts/validate-gdd.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T090603Z-NET-004/06-gdd.log",
+      "result": "32 modules"
+    },
+    {
+      "cmd": "node scripts/validate-blueprint.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T090603Z-NET-004/07-blueprint.log",
+      "result": "63 tasks"
+    },
+    {
+      "cmd": "pnpm tracer --assert",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T090603Z-NET-004/08-tracer.log"
+    },
+    {
+      "cmd": "pnpm verify (post-docs)",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T090603Z-NET-004/09-verify-final.log",
+      "result": "17/17"
+    },
+    {
+      "cmd": "GitHub Actions at the NET-004 head",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T090603Z-NET-004/10-ci-proof.log",
+      "result": "8/8 success"
+    },
+    {
+      "cmd": "pnpm test --filter @strata/netcode -t animstate (as written in the blueprint)",
+      "exit": 1,
+      "log": "docs/state/evidence/20261118T091539Z-NET-006/00-acc-old-form.log",
+      "result": "CACError"
+    },
+    {
+      "cmd": "pnpm vitest run packages/protocol/test/anim.test.ts",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T091539Z-NET-006/01-anim-wire.log",
+      "result": "5/5"
+    },
+    {
+      "cmd": "pnpm vitest run packages/protocol",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T091539Z-NET-006/02-protocol-all.log",
+      "result": "28/28"
+    },
+    {
+      "cmd": "pnpm vitest run apps/server/test/combat.test.ts",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T091539Z-NET-006/03-combat.log",
+      "result": "7/7"
+    },
+    {
+      "cmd": "pnpm vitest run apps/game/test/jitter.test.ts",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T091539Z-NET-006/04-jitter.log",
+      "result": "5/5"
+    },
+    {
+      "cmd": "pnpm typecheck",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T091539Z-NET-006/05-typecheck.log"
+    },
+    {
+      "cmd": "pnpm test",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T091539Z-NET-006/06-full-tests.log",
+      "result": "122/122, 12 files"
+    },
+    {
+      "cmd": "node scripts/lint-core-math.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T091539Z-NET-006/07-core-math.log"
+    },
+    {
+      "cmd": "pnpm verify",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T091539Z-NET-006/08-verify.log",
+      "result": "17/17"
+    },
+    {
+      "cmd": "node scripts/validate-gdd.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T091539Z-NET-006/09-gdd.log"
+    },
+    {
+      "cmd": "node scripts/validate-blueprint.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T091539Z-NET-006/10-blueprint.log"
+    },
+    {
+      "cmd": "pnpm tracer --assert",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T091539Z-NET-006/11-tracer.log"
+    },
+    {
+      "cmd": "pnpm sim prn1 --assert (as written in the blueprint)",
+      "exit": 1,
+      "log": "docs/state/evidence/20261118T092125Z-PR-N1/00-acc-old-form.log",
+      "result": "no sim script"
+    },
+    {
+      "cmd": "pnpm vitest run tools/sim/load/test/prn1.test.ts --reporter=verbose",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T092125Z-PR-N1/01-acc-harness.log",
+      "result": "3/3, report printed"
+    },
+    {
+      "cmd": "pnpm typecheck",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T092125Z-PR-N1/02-typecheck.log"
+    },
+    {
+      "cmd": "pnpm test",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T092125Z-PR-N1/03-full-tests.log",
+      "result": "125/125, 13 files"
+    },
+    {
+      "cmd": "pnpm verify",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T092125Z-PR-N1/04-verify.log",
+      "result": "17/17"
+    },
+    {
+      "cmd": "node scripts/validate-blueprint.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T092125Z-PR-N1/05-blueprint.log"
+    },
+    {
+      "cmd": "pnpm sim prn3 --assert (as written in the blueprint)",
+      "exit": 1,
+      "log": "docs/state/evidence/20261118T092845Z-PR-N3/00-acc-old-form.log",
+      "result": "no sim script"
+    },
+    {
+      "cmd": "pnpm vitest run tools/sim/persist/test/prn3.test.ts --reporter=verbose",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T092845Z-PR-N3/01-acc-fuzz.log",
+      "result": "7/7, 10k report"
+    },
+    {
+      "cmd": "pnpm vitest run packages/core",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T092845Z-PR-N3/02-core.log",
+      "result": "41/41"
+    },
+    {
+      "cmd": "pnpm typecheck",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T092845Z-PR-N3/03-typecheck.log"
+    },
+    {
+      "cmd": "pnpm test",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T092845Z-PR-N3/04-full-tests.log",
+      "result": "132/132, 14 files"
+    },
+    {
+      "cmd": "node scripts/lint-core-math.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T092845Z-PR-N3/05-core-math.log"
+    },
+    {
+      "cmd": "pnpm verify",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T092845Z-PR-N3/06-verify.log",
+      "result": "17/17"
+    },
+    {
+      "cmd": "node scripts/validate-gdd.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T092845Z-PR-N3/07-gdd.log"
+    },
+    {
+      "cmd": "node scripts/validate-blueprint.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T092845Z-PR-N3/08-blueprint.log"
+    },
+    {
+      "cmd": "pnpm tracer --assert",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T092845Z-PR-N3/09-tracer.log"
+    },
+    {
+      "cmd": "pnpm sim prn4 --assert (as written in the blueprint)",
+      "exit": 1,
+      "log": "docs/state/evidence/20261118T093621Z-PR-N4/00-acc-old-form.log",
+      "result": "no sim script"
+    },
+    {
+      "cmd": "pnpm vitest run tools/sim/net/test/prn4.test.ts --reporter=verbose",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T093621Z-PR-N4/01-acc-lagcomp.log",
+      "result": "10/10, report printed"
+    },
+    {
+      "cmd": "pnpm typecheck",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T093621Z-PR-N4/02-typecheck.log"
+    },
+    {
+      "cmd": "pnpm test",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T093621Z-PR-N4/03-full-tests.log",
+      "result": "142/142, 15 files"
+    },
+    {
+      "cmd": "node scripts/lint-core-math.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T093621Z-PR-N4/04-core-math.log"
+    },
+    {
+      "cmd": "pnpm verify",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T093621Z-PR-N4/05-verify.log",
+      "result": "17/17"
+    },
+    {
+      "cmd": "pnpm tracer --assert",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T093621Z-PR-N4/06-tracer.log"
+    },
+    {
+      "cmd": "node scripts/validate-gdd.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T093621Z-PR-N4/07-gdd.log"
+    },
+    {
+      "cmd": "node scripts/validate-blueprint.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T093621Z-PR-N4/08-blueprint.log"
+    },
+    {
+      "cmd": "pnpm test --filter @strata/security (as written in the blueprint)",
+      "exit": 1,
+      "log": "docs/state/evidence/20261118T094911Z-SEC-001/00-acc-old-form.log",
+      "result": "CACError"
+    },
+    {
+      "cmd": "pnpm vitest run --config tests/security/vitest.config.ts",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T094911Z-SEC-001/01-acc-security.log",
+      "result": "10/10"
+    },
+    {
+      "cmd": "pnpm typecheck",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T094911Z-SEC-001/02-typecheck.log"
+    },
+    {
+      "cmd": "pnpm test",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T094911Z-SEC-001/03-full-tests.log",
+      "result": "142/142, main suite"
+    },
+    {
+      "cmd": "node scripts/lint-core-math.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T094911Z-SEC-001/04-core-math.log"
+    },
+    {
+      "cmd": "pnpm verify",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T094911Z-SEC-001/05-verify.log",
+      "result": "17/17"
+    },
+    {
+      "cmd": "pnpm tracer --assert",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T094911Z-SEC-001/06-tracer.log"
+    },
+    {
+      "cmd": "node scripts/validate-gdd.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T094911Z-SEC-001/07-gdd.log"
+    },
+    {
+      "cmd": "node scripts/validate-blueprint.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T094911Z-SEC-001/08-blueprint.log"
+    },
+    {
+      "cmd": "node scripts/validate-netgate.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T095646Z-NG-001/01-integrity.log",
+      "result": "honest dossier, signature recorded"
+    },
+    {
+      "cmd": "node scripts/validate-netgate.mjs --assert-ready",
+      "exit": 1,
+      "log": "docs/state/evidence/20261118T095646Z-NG-001/02-readiness-fail.log",
+      "result": "8/10 criteria unmet — expected"
+    },
+    {
+      "cmd": "node scripts/validate-netgate.mjs after injecting wire-budget: met",
+      "exit": 1,
+      "log": "docs/state/evidence/20261118T095646Z-NG-001/03-negative-tamper.log",
+      "result": "fail closed"
+    },
+    {
+      "cmd": "node scripts/session-result.mjs --format full",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T095646Z-NG-001/04-full-result.log"
+    },
+    {
+      "cmd": "pnpm verify",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T095646Z-NG-001/05-verify.log",
+      "result": "17/17"
+    },
+    {
+      "cmd": "pnpm tracer --assert",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T095646Z-NG-001/06-tracer.log"
+    },
+    {
+      "cmd": "pnpm sim prs1 --assert (as written in the blueprint)",
+      "exit": 1,
+      "log": "docs/state/evidence/20261118T100756Z-PR-S1/00-acc-old-form.log",
+      "result": "no sim script"
+    },
+    {
+      "cmd": "pnpm vitest run tools/sim/world/test/prs1.test.ts --reporter=verbose",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T100756Z-PR-S1/01-acc-prs1.log",
+      "result": "4/4, report printed"
+    },
+    {
+      "cmd": "pnpm typecheck",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T100756Z-PR-S1/02-typecheck.log"
+    },
+    {
+      "cmd": "pnpm test",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T100756Z-PR-S1/03-full-tests.log",
+      "result": "146/146, 16 files"
+    },
+    {
+      "cmd": "node scripts/lint-core-math.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T100756Z-PR-S1/04-core-math.log"
+    },
+    {
+      "cmd": "pnpm verify",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T100756Z-PR-S1/05-verify.log",
+      "result": "17/17"
+    },
+    {
+      "cmd": "pnpm tracer --assert",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T100756Z-PR-S1/06-tracer.log"
+    },
+    {
+      "cmd": "node scripts/validate-gdd.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T100756Z-PR-S1/07-gdd.log"
+    },
+    {
+      "cmd": "node scripts/validate-blueprint.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T100756Z-PR-S1/08-blueprint.log"
+    },
+    {
+      "cmd": "pnpm sim prs2 --assert (as written in the blueprint)",
+      "exit": 1,
+      "log": "docs/state/evidence/20261118T101524Z-PR-S2/00-acc-old-form.log",
+      "result": "no sim script"
+    },
+    {
+      "cmd": "pnpm vitest run tools/sim/world/test/prs2.test.ts --reporter=verbose",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T101524Z-PR-S2/01-acc-prs2.log",
+      "result": "8/8, report printed"
+    },
+    {
+      "cmd": "pnpm typecheck",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T101524Z-PR-S2/02-typecheck.log"
+    },
+    {
+      "cmd": "pnpm test",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T101524Z-PR-S2/03-full-tests.log",
+      "result": "154/154, 17 files"
+    },
+    {
+      "cmd": "node scripts/lint-core-math.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T101524Z-PR-S2/04-core-math.log"
+    },
+    {
+      "cmd": "pnpm verify",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T101524Z-PR-S2/05-verify.log",
+      "result": "17/17"
+    },
+    {
+      "cmd": "pnpm tracer --assert",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T101524Z-PR-S2/06-tracer.log"
+    },
+    {
+      "cmd": "node scripts/validate-gdd.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T101524Z-PR-S2/07-gdd.log"
+    },
+    {
+      "cmd": "node scripts/validate-blueprint.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T101524Z-PR-S2/08-blueprint.log"
+    },
+    {
+      "cmd": "node scripts/validate-scene-budget.mjs --greybox",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T102136Z-GB-001/01-greybox.log",
+      "result": "3 strata, 12 primitives, 3 swaps"
+    },
+    {
+      "cmd": "node scripts/validate-scene-budget.mjs --parity",
+      "exit": 1,
+      "log": "docs/state/evidence/20261118T102136Z-GB-001/02-parity-fail.log",
+      "result": "WG-001 owns parity"
+    },
+    {
+      "cmd": "node scripts/validate-scene-budget.mjs (no flag)",
+      "exit": 1,
+      "log": "docs/state/evidence/20261118T102136Z-GB-001/03-no-flag.log",
+      "result": "usage, fail closed"
+    },
+    {
+      "cmd": "node scripts/validate-scene-budget.mjs --greybox after injecting mesh field",
+      "exit": 1,
+      "log": "docs/state/evidence/20261118T102136Z-GB-001/04-negative-mesh.log",
+      "result": "forbidden field named"
+    },
+    {
+      "cmd": "pnpm verify",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T102136Z-GB-001/05-verify.log",
+      "result": "17/17"
+    },
+    {
+      "cmd": "pnpm tracer --assert",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T102136Z-GB-001/06-tracer.log"
+    },
+    {
+      "cmd": "node scripts/validate-gdd.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T102136Z-GB-001/07-gdd.log"
+    },
+    {
+      "cmd": "pnpm sim prs4 --assert (as written in the blueprint)",
+      "exit": 1,
+      "log": "docs/state/evidence/20261118T102858Z-PR-S4/00-acc-old-form.log",
+      "result": "no sim script"
+    },
+    {
+      "cmd": "pnpm vitest run tools/sim/economy/test/prs4.test.ts --reporter=verbose",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T102858Z-PR-S4/01-acc-prs4.log",
+      "result": "7/7, report printed"
+    },
+    {
+      "cmd": "pnpm typecheck",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T102858Z-PR-S4/02-typecheck.log"
+    },
+    {
+      "cmd": "pnpm test",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T102858Z-PR-S4/03-full-tests.log",
+      "result": "161/161, 18 files"
+    },
+    {
+      "cmd": "node scripts/lint-core-math.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T102858Z-PR-S4/04-core-math.log"
+    },
+    {
+      "cmd": "pnpm verify",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T102858Z-PR-S4/05-verify.log",
+      "result": "17/17"
+    },
+    {
+      "cmd": "pnpm tracer --assert",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T102858Z-PR-S4/06-tracer.log"
+    },
+    {
+      "cmd": "node scripts/validate-gdd.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T102858Z-PR-S4/07-gdd.log"
+    },
+    {
+      "cmd": "node scripts/validate-blueprint.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T102858Z-PR-S4/08-blueprint.log"
+    },
+    {
+      "cmd": "pnpm sim prs5 --assert (as written in the blueprint)",
+      "exit": 1,
+      "log": "docs/state/evidence/20261118T103750Z-PR-S5/00-acc-old-form.log",
+      "result": "no sim script"
+    },
+    {
+      "cmd": "pnpm vitest run tools/sim/economy/test/prs5.test.ts --reporter=verbose",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T103750Z-PR-S5/01-acc-prs5.log",
+      "result": "5/5, report printed"
+    },
+    {
+      "cmd": "pnpm typecheck",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T103750Z-PR-S5/02-typecheck.log"
+    },
+    {
+      "cmd": "pnpm test",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T103750Z-PR-S5/03-full-tests.log",
+      "result": "166/166, 19 files"
+    },
+    {
+      "cmd": "node scripts/lint-core-math.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T103750Z-PR-S5/04-core-math.log"
+    },
+    {
+      "cmd": "pnpm verify",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T103750Z-PR-S5/05-verify.log",
+      "result": "17/17"
+    },
+    {
+      "cmd": "pnpm tracer --assert",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T103750Z-PR-S5/06-tracer.log"
+    },
+    {
+      "cmd": "node scripts/validate-gdd.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T103750Z-PR-S5/07-gdd.log"
+    },
+    {
+      "cmd": "node scripts/validate-blueprint.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T103750Z-PR-S5/08-blueprint.log"
+    },
+    {
+      "cmd": "node scripts/validate-blueprint.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T105053Z-TOOL-FIXALL/01-blueprint-b9.log",
+      "result": "B9 added, 12 legacy warned"
+    },
+    {
+      "cmd": "node scripts/validate-blueprint.mjs after injecting a false-pass acc",
+      "exit": 1,
+      "log": "docs/state/evidence/20261118T105053Z-TOOL-FIXALL/02-negative-b9.log",
+      "result": "B9 names the new offense"
+    },
+    {
+      "cmd": "node scripts/build-journal.mjs --check after appending stale bytes",
+      "exit": 1,
+      "log": "docs/state/evidence/20261118T105053Z-TOOL-FIXALL/03-negative-journal.log",
+      "result": "stale view refused"
+    },
+    {
+      "cmd": "node scripts/build-journal.mjs --check",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T105053Z-TOOL-FIXALL/04-journal.log"
+    },
+    {
+      "cmd": "node apps/dashboard/check.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T105053Z-TOOL-FIXALL/05-dashboard.log"
+    },
+    {
+      "cmd": "pnpm verify",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T105053Z-TOOL-FIXALL/06-verify.log",
+      "result": "19/19"
+    },
+    {
+      "cmd": "node scripts/validate-docs.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T105053Z-TOOL-FIXALL/07-docs.log"
+    },
+    {
+      "cmd": "pnpm vitest run apps/server/test/rooms.test.ts",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T105502Z-SEC-002/01-rooms.log",
+      "result": "18/18"
+    },
+    {
+      "cmd": "pnpm vitest run --config tests/security/vitest.config.ts",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T105502Z-SEC-002/02-security.log",
+      "result": "10/10"
+    },
+    {
+      "cmd": "pnpm typecheck",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T105502Z-SEC-002/03-typecheck.log"
+    },
+    {
+      "cmd": "pnpm test",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T105502Z-SEC-002/04-full.log",
+      "result": "167/167"
+    },
+    {
+      "cmd": "pnpm verify",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T105502Z-SEC-002/05-verify.log",
+      "result": "19/19"
+    },
+    {
+      "cmd": "node scripts/validate-docs.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T105502Z-SEC-002/06-docs.log"
+    },
+    {
+      "cmd": "pnpm vitest run tools/sim/economy/test/prs5.test.ts --reporter=verbose",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T105757Z-ECON-RETUNE/01-acc-prs5.log",
+      "result": "5/5, after numbers"
+    },
+    {
+      "cmd": "pnpm typecheck",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T105757Z-ECON-RETUNE/02-typecheck.log"
+    },
+    {
+      "cmd": "pnpm test",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T105757Z-ECON-RETUNE/03-full.log",
+      "result": "167/167"
+    },
+    {
+      "cmd": "pnpm verify",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T105757Z-ECON-RETUNE/04-verify.log",
+      "result": "19/19"
+    },
+    {
+      "cmd": "node scripts/validate-gdd.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T105757Z-ECON-RETUNE/05-gdd.log"
+    }
+  ],
+  "notes": [
+    "Repair task selected because GATE:P1 is unsigned and every NET-* task depends on it (BLUEPRINT deps).",
+    "GATE:P1 was then SIGNED by the Director (\"Oui, signe S1\"); authorized_tier S1, current_tier kept at S0 because B6 computes a grant as current+1.",
+    "The resume prompt now declares and carries <<<STRATA_RESUME_END v8.1>>>; the drift gate enforces it.",
+    "The sealed master, PROMPT.lock, CONSTITUTION.md and the scope ledger are unchanged.",
+    "S1 authorizes network work only: NET-GATE is still unpassed, so no hero art, texture bake, motion or scene generation (I2).",
+    "NET-001: integer-only tick, canonical (entity, seq) ordering, wire range check, hash ring compared at the acked tick.",
+    "The blueprint acc pnpm test --filter is invalid (vitest has no --filter, exit 1); repaired for NET-001, 11 remain.",
+    "Tick p95 is still unmeasured: NET-006 owns the number. No throughput is claimed here.",
+    "NET-002: binary v2 frames with exact lengths; a version outside the range is rejected, never coerced.",
+    "Measured: a 64-entity snapshot is 1551 B = 46530 B/s at 30 Hz, 3.9x over the 12 KB/s budget. NET-101 owns AoI/delta; no average hides it.",
+    "11 broken acceptance commands remain (re-measured); the earlier \"11 after NET-001\" was one short, the true count then was 12.",
+    "NEEDS_DIRECTOR.md fixed: ND-010 SIGNED status was appended under ND-004, making token rotation look resolved. ND-004 restored to OPEN.",
+    "CI at 50295d2: 8/8 triggered workflows success; run ids in docs/state/evidence/20261118T082404Z-NET-002/11-ci-proof.log.",
+    "NET-005: server-authoritative anim state machine in core; requests during ACTION are busy, during RECOVERY are queued to the last tick, ties by (sequence, clipId).",
+    "False pass proven: pnpm vitest run packages/core -t animstate exits 0 with 41 tests skipped. Acceptance must name a path, or a -t pattern proven to match.",
+    "GDD-ANIM-ARCHITECTURE 0.2 -> 0.3; corrupted open-questions table repaired, absent 0.2 changelog row not invented.",
+    "Parallel PR #2 repairs the dashboard on a separate branch (base = session branch): build 0, truth check 0, negative 1, verify 17/17, Actions 8/8.",
+    "NET-005 CI at 42dc8a3: 8/8 triggered workflows success; run ids in docs/state/evidence/20261118T083402Z-NET-005/11-ci-proof.log.",
+    "D146 satisfied: this result is generated by scripts/session-result.mjs from this file, not composed by hand.",
+    "CI at 647ad0b: 8/8 triggered workflows success; run ids in docs/state/evidence/20261118T084957Z-P0-002/07-ci-proof.log.",
+    "Director 2026-11-18: this runtime has no TPU and no GPU; signal when one becomes necessary. NET-003 (rooms) needs neither.",
+    "A0004 accepted: Director said \"bypass pin colyseus\"; NET-003 uses ws 8.23.0 already pinned. No dependency added, no lockfile change.",
+    "NET-003: room lifecycle on ws, resume handles are not credentials (SEC-001); replayed seq refused at ingress; no main.ts wiring.",
+    "Director: current runtime has no TPU and no GPU; signal before accelerator work. NET-003 needs neither.",
+    "NET-003 CI at d6d45e0: 8/8 triggered workflows success; run ids in docs/state/evidence/20261118T085724Z-NET-003/12-ci-proof.log.",
+    "NET-004: client hash timeline, prediction/replay, integer interpolation; mismatch is desync and rejected, never reconciled.",
+    "No jitter buffer (D149 100-250 ms), no resync frame, no bandwidth/tick-p95 number: NET-006 owns them.",
+    "NET-004 CI at 78219d3: 8/8 triggered workflows success; run ids in docs/state/evidence/20261118T090603Z-NET-004/10-ci-proof.log.",
+    "A0005: Director said \"bypass les limites et go next\". Invariants, NET-GATE, Director-only actions and evidence-only remain in force.",
+    "NET-006: wire v3 anim/resync frames, server-owned transitions and hit frames, jitter 3..8 ticks. Three defects logged and fixed in the thread.",
+    "Jitter bounds are tunables, not measured RTT. Tick CPU p95 and byte rates belong to PR-N1.",
+    "NET-006 CI at daa0c14: 8/8 triggered workflows success; run ids in docs/state/evidence/20261118T091539Z-NET-006/13-ci-proof.log.",
+    "PR-N1 measured local CPU p50/p95 and exact framed byte rates; explicitly NOT network RTT and NOT a 30-minute soak.",
+    "CPU timings are noisy: two local runs gave p95 0.761 ms and 0.2109 ms. server_tick_p95_ms stays null; do not confuse them.",
+    "Full-snapshot rate 46530 B/s is 3.79x the 12 KB/s budget; NET-101 owns AoI/delta, not hidden here.",
+    "PR-N1 CI at 423d190: 8/8 triggered workflows success; run ids in docs/state/evidence/20261118T092125Z-PR-N1/07-ci-proof.log.",
+    "PR-N3: bigint minor-unit ledger, idempotency by payload hash, checksummed checkpoint; 10k fuzz drift 0 and 0 reposts after restore.",
+    "Ledger is a local structural fuzz: no database, no multi-process concurrency, no RPO promise. Do not read it as a throughput result.",
+    "PR-N3 CI at c6670a6: 8/8 triggered workflows success; run ids in docs/state/evidence/20261118T092845Z-PR-N3/11-ci-proof.log.",
+    "PR-N4: 31-frame rewind ring, bigint squared range, integer Bresenham LOS, per-shooter cooldown; client claim ignored.",
+    "Lag-comp fuzz is local structural: 30 shots, 4 hits, 16 cooldown, 5 blocked, 4 out-of-range, 1 stale. Not RTT, not a loss matrix.",
+    "PR-N4 CI at b1d67a5: 8/8 triggered workflows success; run ids in docs/state/evidence/20261118T093621Z-PR-N4/10-ci-proof.log.",
+    "SEC-001: ingress gate, 30-per-window rate limit, counted reason codes, GM audit. 200-message burst -> 30 admitted.",
+    "No 0-unvalidated-paths claim: attachRooms still bypasses the gate (SEC-002). No auth/TLS, in-memory counters, retention is OPS-001.",
+    "SEC-001 CI at fb595cd: 8/8 triggered workflows success; run ids in docs/state/evidence/20261118T094911Z-SEC-001/10-ci-proof.log.",
+    "A0006: Director said \"je signe tout\" — verbatim. NET-GATE recorded as signed-with-risk, 8/10 criteria unmet; --assert-ready still fails.",
+    "No agent fabricated a signature and no evidence was changed to obtain it. PR merges remain Director-only.",
+    "NG-001: NET-GATE dossier honest (2 met / 8 unmet). Director said \"je signe tout\" — recorded verbatim in A0006 as signed-with-risk, not passed.",
+    "Gate signature does not make criteria measured: --assert-ready still exits 1. PR merges remain Director-only; no art produced.",
+    "NG-001 CI at 90fed4d: 8/8 triggered workflows success; run ids in docs/state/evidence/20261118T095646Z-NG-001/08-ci-proof.log.",
+    "FULL result fields reconciled with git and the lock registry: 98 commits, 105 lock entries, 16 thread dirs, 4 prototype reports.",
+    "PR-S1: greybox TTK 36 ticks / 1200 ms, 11-tick cycle, 8-tick hit-stop; integer ticks, illegal windows refused.",
+    "Local combat math is not a playtest or FUN validation. No art, no GPU/TPU (ND-012).",
+    "PR-S1 CI at 5ee342c: 8/8 triggered workflows success; run ids in docs/state/evidence/20261118T100756Z-PR-S1/10-ci-proof.log.",
+    "PR-S2: immutable fact log, FNV derivation, 5 facts/2 strata/5 swaps/30 captures, two clients agree on {factIds, variantIds, epoch}.",
+    "Not a T2 sign-off: no real geometry, blind-reviewer captures or browser replay — GB-001 and PR-S3 own those.",
+    "PR-S2 CI at the attested head: 8/8 triggered workflows success; run ids in docs/state/evidence/20261118T101524Z-PR-S2/10-ci-proof.log.",
+    "GB-001: 3 strata, 12 capsule/box primitives, 3 PR-S2 variant swaps, checksum 06d8d93c; --parity still fails closed (WG-001).",
+    "No Babylon scene, blind-reviewer captures or art. GATE:P2 still unsatisfied; art tasks remain blocked.",
+    "GB-001 CI at the attested head: 8/8 triggered workflows success; run ids in docs/state/evidence/20261118T102136Z-GB-001/09-ci-proof.log.",
+    "PR-S4: bigint minor-unit crafting graph, Bellman-Ford positive-cycle detection; cycle script -> bundle:replicate -> script named and refused.",
+    "Not ECON-001: no 1000 bots, no 30 days, no inflation/Gini. No art, no GPU/TPU (ND-012).",
+    "PR-S4: first CI 6/8 (O3/B2 co-owner), fixed in d935036; 8/8 at d935036cee2ed5c5df35f3d9eaf53a1885c0351a. Both results recorded, none hidden.",
+    "PR-S5: accounting exact and no negative balances, but inflation 7264.78% FAILS the 5% target — flagged TUNABLE, not silently retuned (GDD §8.4).",
+    "Compressed 720 hourly epochs, not a 30 Hz replay. No real market, players or network. Gini recorded only.",
+    "PR-S5 CI at 50f5f704a1c8f14f585f4472860a7728d8cfd1ab: 8/8 triggered workflows success; run ids in docs/state/evidence/20261118T103750Z-PR-S5/10-ci-proof.log.",
+    "TOOL-FIXALL: Director said \"fix all problems n limits\". Fixed false-pass detection, verify 17->19, journal view, MCP pin, lock gate ids, stale STACK row, dashboard check port.",
+    "Not fixable by an agent remains recorded: no GPU/TPU, 8 unmeasured NET-GATE criteria, Director-only rotations/merges, ND-011, economy retune, SEC-002.",
+    "SEC-002: every room socket frame now passes MessageGate before the room; malformed refused with reject, valid admitted. Residual risk 3 mitigated.",
+    "ECON-RETUNE: inflation 7264.78% -> 5.00% via named proportional stabilization sink; a sequential levy produced Gini 0.90 and was rejected.",
+    "No silent constant change: before/after numbers, checksums and the rejected levy are all in the report and evidence.",
+    "ECON-RETUNE CI at 8f8f8c987fc045646f62a73f88174b0766f6f370: 8/8 triggered workflows success; run ids in docs/state/evidence/20261118T105757Z-ECON-RETUNE/06-ci-proof.log.",
+    "CodeQL high alert js/file-system-race in tools/qa/gen-stubs.mjs fixed with atomic exclusive create (openSync wx); generator wrote 0 stubs, verify 19/19."
+  ],
+  "result": {
+    "phase": "P2NET",
+    "status": "done",
+    "commits": [
+      "04a5efd … 7f11afe (98 commits since root 36bd9af; 2 on dashboard branch)"
+    ],
+    "prs": [
+      {
+        "number": 1,
+        "url": "https://github.com/Ggboykxz/strata/pull/1",
+        "role": "session stack"
+      },
+      {
+        "number": 2,
+        "url": "https://github.com/Ggboykxz/strata/pull/2",
+        "role": "dashboard truth repair (base = session branch)"
+      }
+    ],
+    "reviewer": "none installed — known limit, no self-merge",
+    "locks": {
+      "acquired": 105,
+      "released": 105,
+      "branch": "state/locks",
+      "note": "105 released entries, 0 active; 30 lock commits"
+    },
+    "threads": [
+      "P0-005.a",
+      "GATE-P1",
+      "NET-001",
+      "NET-002",
+      "NET-003",
+      "NET-004",
+      "NET-005",
+      "NET-006",
+      "NG-001",
+      "P0-002",
+      "P0-007",
+      "PR-N1",
+      "PR-N3",
+      "PR-N4",
+      "SC-001",
+      "SEC-001"
+    ],
+    "disputes": 1,
+    "evidence": {
+      "dirs": [
+        {
+          "dir": "docs/state/evidence/20261118T072941Z-P0-005.a/",
+          "logs": 9,
+          "branch": "session"
+        },
+        {
+          "dir": "docs/state/evidence/20261118T074117Z-GATE-P1/",
+          "logs": 6,
+          "branch": "session"
+        },
+        {
+          "dir": "docs/state/evidence/20261118T081128Z-NET-001/",
+          "logs": 11,
+          "branch": "session"
+        },
+        {
+          "dir": "docs/state/evidence/20261118T082404Z-NET-002/",
+          "logs": 12,
+          "branch": "session"
+        },
+        {
+          "dir": "docs/state/evidence/20261118T083402Z-NET-005/",
+          "logs": 13,
+          "branch": "session"
+        },
+        {
+          "dir": "docs/state/evidence/20261118T083922Z-P0-007/",
+          "logs": 6,
+          "branch": "dashboard"
+        },
+        {
+          "dir": "docs/state/evidence/20261118T084957Z-P0-002/",
+          "logs": 7,
+          "branch": "session"
+        },
+        {
+          "dir": "docs/state/evidence/20261118T085724Z-NET-003/",
+          "logs": 13,
+          "branch": "session"
+        },
+        {
+          "dir": "docs/state/evidence/20261118T090603Z-NET-004/",
+          "logs": 11,
+          "branch": "session"
+        },
+        {
+          "dir": "docs/state/evidence/20261118T091539Z-NET-006/",
+          "logs": 14,
+          "branch": "session"
+        },
+        {
+          "dir": "docs/state/evidence/20261118T092125Z-PR-N1/",
+          "logs": 8,
+          "branch": "session"
+        },
+        {
+          "dir": "docs/state/evidence/20261118T092845Z-PR-N3/",
+          "logs": 13,
+          "branch": "session"
+        },
+        {
+          "dir": "docs/state/evidence/20261118T093621Z-PR-N4/",
+          "logs": 12,
+          "branch": "session"
+        },
+        {
+          "dir": "docs/state/evidence/20261118T094911Z-SEC-001/",
+          "logs": 12,
+          "branch": "session"
+        },
+        {
+          "dir": "docs/state/evidence/20261118T095646Z-NG-001/",
+          "logs": 9,
+          "branch": "session"
+        },
+        {
+          "dir": "docs/state/evidence/20261118T100756Z-PR-S1/",
+          "logs": 12,
+          "branch": "session"
+        },
+        {
+          "dir": "docs/state/evidence/20261118T101524Z-PR-S2/",
+          "logs": 12,
+          "branch": "session"
+        },
+        {
+          "dir": "docs/state/evidence/20261118T102136Z-GB-001/",
+          "logs": 10,
+          "branch": "session"
+        },
+        {
+          "dir": "docs/state/evidence/20261118T102858Z-PR-S4/",
+          "logs": 10,
+          "branch": "session"
+        },
+        {
+          "dir": "docs/state/evidence/20261118T103750Z-PR-S5/",
+          "logs": 10,
+          "branch": "session"
+        },
+        {
+          "dir": "docs/state/evidence/20261118T105053Z-TOOL-FIXALL/",
+          "logs": 8,
+          "branch": "session"
+        },
+        {
+          "dir": "docs/state/evidence/20261118T105502Z-SEC-002/",
+          "logs": 8,
+          "branch": "session"
+        },
+        {
+          "dir": "docs/state/evidence/20261118T105757Z-ECON-RETUNE/",
+          "logs": 6,
+          "branch": "session"
+        }
+      ]
+    },
+    "models": "none (I4)",
+    "audit_ids": [
+      "AUDIT-2026-11-18-P0-006"
+    ],
+    "enables": "Nothing player-facing: it protects the evidence chain — a resume prompt that cannot be silently truncated, a tier grant recorded verbatim, a deterministic tick and wire, and a dashboard that reports sources instead of memories.",
+    "next": "PR-S7 — world tick + bounded Rouille cascade",
+    "blockers": [
+      "ND-004 PAT rotation",
+      "ND-005 HF token rotation",
+      "PR #1 and PR #2 merges (Director only)"
+    ],
+    "director_questions": [
+      "ND-011: is the TPU v5e-1 training-only, or is a new audited generation path wanted?"
+    ],
+    "next_session_file": "docs/state/NEXT_SESSION.md",
+    "full": {
+      "handoffs": "Twenty-four handoff+proposal pairs under docs/state/threads/; all ACKed in-process. No external reviewer installed.",
+      "concept_roles": "Roles executed by one process; T3 signed at GATE:P0 and re-signature deferred to the next gate. Signature ratio not recomputable from metrics.json.",
+      "gdd_version_bumps": [
+        "GDD-NETCODE 0.2 -> 0.3 -> 0.4 -> 0.5 -> 0.6 -> 0.7",
+        "GDD-ANIM-ARCHITECTURE 0.2 -> 0.3 -> 0.4",
+        "GDD-SHARDING 0.2 -> 0.3",
+        "GDD-PERSISTENCE 0.2 -> 0.3",
+        "GDD-TRADE 0.2 -> 0.3",
+        "GDD-SECURITY 0.2 -> 0.3",
+        "GDD-COMBAT 0.2 -> 0.3",
+        "GDD-CONSEQUENCE 0.2 -> 0.3",
+        "GDD-CONSEQUENCE 0.3 -> 0.4",
+        "GDD-CRAFT 0.2 -> 0.3",
+        "GDD-ECONOMY 0.2 -> 0.3",
+        "GDD-SECURITY 0.3 -> 0.4",
+        "GDD-ECONOMY 0.3 -> 0.4"
+      ],
+      "scope_ledger_delta": "0 entries (12 -> 12, balanced)",
+      "content_math": "Local CPU p95 0.2109 ms (180-tick harness, 64 entities); network throughput still NOT COMPUTABLE.",
+      "prototype_reports": [
+        "docs/qa/prototypes/PRN1.md",
+        "docs/qa/prototypes/PRN3.md",
+        "docs/qa/prototypes/PRN4.md",
+        "docs/qa/prototypes/NET_GATE.md",
+        "docs/qa/prototypes/PRS1.md",
+        "docs/qa/prototypes/PRS2.md",
+        "docs/qa/prototypes/PRS4.md",
+        "docs/qa/prototypes/ECONOMY_REPORT.md"
+      ],
+      "economy_metrics": "Before retune: inflation 726478 bps (FAIL), Gini 0.080768. After named proportional stabilization sink: inflation 500 bps (5% target), Gini 0.293701 in band, sink burned 93073815 minor units. Both recorded.",
+      "anim_checks": "A0001 separation intact; retarget coverage and foot slide NOT COMPUTABLE (AN-002)",
+      "world_checks": "No world content this session",
+      "files_by_owner": "orchestrator: docs/state/**, docs/blueprint/**, scripts/session-result.mjs, A0004/A0005/A0006; gameplay-engineer: packages/core/src/{tick,index,hash}.ts, apps/server/src/sim/, core/test; netcode-engineer: packages/protocol/**, apps/game/src/net/**, apps/server/src/combat/**, tools/sim/net/, GDD-NETCODE; animation-director: packages/core/src/anim-state/**, packages/content/animations/**, GDD-ANIM-ARCHITECTURE; tools-engineer: apps/dashboard/**; backend-engineer: apps/server/src/rooms/**, packages/core/src/ledger/**, tools/sim/persist/**, GDD-PERSISTENCE; economy-designer: GDD-TRADE; qa-engineer: tools/sim/load/**, tests/security/**; security-auditor: apps/server/src/validation/**, docs/legal/THREAT_MODEL.md, GDD-SECURITY; producer: docs/qa/prototypes/NET_GATE.md, docs/state/gates/GATE_NET.md. gameplay-engineer: tools/sim/world/prs1_combat.ts (PR-S1); game-designer: GDD-COMBAT 0.3. gameplay-engineer: packages/world-state/** + tools/sim/world/prs2_propagation.ts (PR-S2); game-designer: GDD-CONSEQUENCE 0.3. level-designer: apps/game/levels/greybox/oakhollow/manifest.json, scripts/validate-scene-budget.mjs (GB-001). economy-designer: tools/sim/economy/prs4_craft.ts (PR-S4); GDD-CRAFT 0.3. economy-designer: tools/sim/economy/prs5_economy.ts (PR-S5); GDD-ECONOMY 0.3. tools-engineer + producer + orchestrator: verify B9, journal view, MCP pin, STACK row, dashboard check port (TOOL-FIXALL, A0007)."
+    }
+  }
+}

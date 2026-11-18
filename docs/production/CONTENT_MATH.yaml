@@ -1,0 +1,21 @@
+# CONTENT_MATH — vertical slice parameters (§2.5)
+# Every value is either ASSUMPTION (internal planning) or MEASURED (produced by a logged command).
+# A value marked null is NOT yet measured; scope-math refuses to fabricate it.
+slice: vertical-slice-oakhollow
+measured_throughput:
+  assets_per_session: null     # MEASURED at AI-001 (P3) on the real GPU tier
+  sessions_per_week: null      # MEASURED after 4 weeks of sessions
+  measured_at: null
+inputs:                        # ASSUMPTION until P3-001 closes
+  zones: 1
+  strata: 3
+  kits: 2
+  pieces_per_kit: 22
+  props: 40
+  prop_variants: 4
+  prop_lods: 3
+  characters: 3
+  archetypes: 5
+  unique_anim_packs: 1
+thresholds:
+  max_months_to_ship: 12       # above this the producer MUST propose cuts

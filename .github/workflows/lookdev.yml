@@ -1,0 +1,16 @@
+# Lookdev arrivals with P3ART; no generator before NET-GATE (I2).
+name: lookdev
+on:
+  workflow_dispatch:
+permissions: { contents: read }
+concurrency:
+  group: lookdev-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  placeholder:
+    name: no lookdev yet
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - run: echo "LOOKDEV - gated by NET-GATE"

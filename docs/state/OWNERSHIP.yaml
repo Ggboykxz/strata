@@ -1,0 +1,295 @@
+version: 1
+# OWNERSHIP.yaml — single-writer map (CI-enforced from WF-002)
+# Rule: MOST SPECIFIC GLOB WINS. specificity = count of literal characters before the first wildcard.
+# A tie between two owners on the same path is a MAP ERROR, not a judgement call.
+
+specificity_rule: "literal characters before the first wildcard; longest wins; tie = map error"
+
+catch_all:
+  - glob: "docs/**"
+    owner: producer
+  - glob: "apps/**"
+    owner: gameplay-engineer
+  - glob: "packages/**"
+    owner: gameplay-engineer
+  - glob: "tools/**"
+    owner: tools-engineer
+  - glob: "scripts/**"
+    owner: tools-engineer
+  - glob: "tests/**"
+    owner: qa-engineer
+  - glob: "root files (no directory)"
+    owner: tools-engineer
+
+append_only_zones:
+  - docs/state/threads/**
+  - docs/adr/**
+  - docs/tdd/**
+  - docs/qa/prototypes/**
+
+scaffold_exempt_tasks:
+  - P0-002
+  - P0-003
+  - TRACER-001
+  - GDD-001
+
+owners:
+  - agent: orchestrator
+    globs:
+      - docs/state/**
+      - docs/blueprint/**
+      - docs/archive/**
+      - docs/CONSTITUTION.md
+      - docs/WORKFLOW.md
+      - docs/production/DISPUTES.md
+      - docs/design/gdd/GDD-WORKFLOW.md
+      # A0002 — the only scripts/** exceptions to the orchestrator's docs-only boundary.
+      - scripts/validate-ownership.mjs
+      - scripts/validate-locks.mjs
+      - AGENTS.md
+      - opencode.json
+      - scripts/session-result.mjs
+      - scripts/validate-ownership.mjs
+      - scripts/validate-locks.mjs
+      - scripts/validate-prompt-drift.mjs
+
+  - agent: producer
+    globs:
+      - docs/**
+      - docs/SCOPE.md
+      - docs/VISION.md
+      - docs/production/**
+      - docs/legal/**
+      - docs/design/VERTICAL_SLICE_SPEC.md
+      - scripts/scope-*.mjs
+      - scripts/validate-scope.mjs
+      - scripts/validate-docs.mjs
+      - docs/state/NEEDS_DIRECTOR.md
+
+  - agent: high-concept-guardian
+    globs:
+      - docs/design/HIGH_CONCEPT.md
+      - docs/design/concept/**
+      - scripts/concept-*.mjs
+      - tests/replay/hc_*
+
+  - agent: game-designer
+    globs:
+      - docs/design/**
+      - docs/design/GDD.md
+      - docs/design/gdd/**
+      - scripts/validate-gdd.mjs
+      - scripts/gdd-coverage.mjs
+      - scripts/validate-content-blueprints.mjs
+
+  - agent: narrative
+    globs:
+      - docs/design/WORLD_BIBLE.md
+      - docs/design/gdd/GDD-QUEST.md
+      - docs/design/gdd/GDD-DIALOGUE.md
+      - docs/design/gdd/GDD-COMPANION.md
+      - docs/design/gdd/GDD-ENDINGS.md
+      - scripts/validate-lore.mjs
+      - packages/content/blueprints/quests/**
+      - packages/content/blueprints/dialogue/**
+      - tests/replay/q_*
+      - scripts/validate-lore.mjs
+
+  - agent: level-designer
+    globs:
+      - apps/game/levels/greybox/**
+      - scripts/validate-scene-budget.mjs
+      - docs/design/gdd/GDD-NAVIGATION.md
+
+  - agent: netcode-engineer
+    globs:
+      - packages/protocol/**
+      - apps/game/src/net/**
+      - apps/server/src/net/**
+      - apps/server/src/combat/**
+      - apps/server/src/aoi/**
+      - packages/core/src/hash.ts
+      - packages/core/src/quantize.ts
+      - tools/sim/net/**
+      - docs/design/gdd/GDD-NETCODE.md
+      - scripts/validate-netgate.mjs
+
+  - agent: backend-engineer
+    globs:
+      - apps/server/src/rooms/**
+      - apps/server/src/db/**
+      - apps/server/src/commits/**
+      - apps/server/src/moderation/**
+      - migrations/**
+      - packages/core/src/ledger/**
+      - tools/sim/persist/**
+      - apps/dashboard/gm/**
+      - docs/design/gdd/GDD-PERSISTENCE.md
+      - docs/design/gdd/GDD-SHARDING.md
+
+  - agent: economy-designer
+    globs:
+      - docs/design/gdd/GDD-ECONOMY.md
+      - docs/design/gdd/GDD-TRADE.md
+      - docs/design/gdd/GDD-CRAFT.md
+      - packages/content/economy/**
+      - tools/sim/economy/**
+
+  - agent: gameplay-engineer
+    globs:
+      - apps/**
+      - packages/**
+      - packages/core/**
+      - packages/world-state/**
+      - apps/server/src/sim/**
+      - apps/game/src/systems/**
+      - tools/sim/world/**
+
+  - agent: prototype-engineer
+    globs:
+      - tools/sim/systems/**
+      - packages/content/blueprints/quests/proto/**
+
+  - agent: balance-analyst
+    globs:
+      - docs/qa/balance/**
+      - packages/content/tuning/**
+
+  - agent: graphics-engineer
+    globs:
+      - apps/game/src/render/**
+      - apps/game/src/world/**
+      - tools/lookdev/**
+
+  - agent: animation-director
+    globs:
+      - apps/game/src/anim/**
+      - packages/core/src/anim-state/**
+      - packages/content/animations/**
+      - assets/animations/**
+      - docs/design/ART_BIBLE.md
+      - docs/design/gdd/GDD-ANIM-ARCHITECTURE.md
+      - docs/adr/A0001_animation-scenes-textures.md
+      - scripts/validate-anim.mjs
+      - scripts/validate-art-bible.mjs
+      - tools/sim/anim/**
+
+  - agent: rigging-engineer
+    globs:
+      - assets/rigs/**
+      - packages/content/rigs/**
+      - scripts/validate-retarget.mjs
+      - scripts/validate-rig.mjs
+
+  - agent: asset-pipeline
+    globs:
+      - tools/asset-pipeline/**
+      - assets/characters/**
+      - docs/legal/AI_MODEL_AUDIT.md
+      - docs/qa/AI_THROUGHPUT.md
+      - scripts/validate-manifest.mjs
+      - scripts/validate-anim-separation.mjs
+      - docs/design/gdd/GDD-AI-ASSETS.md
+
+  - agent: texture-artist
+    globs:
+      - assets/textures/**
+      - scripts/validate-texture-set.mjs
+
+  - agent: environment-artist
+    globs:
+      - assets/kits/**
+      - assets/worlds/**
+      - apps/game/levels/final/**
+      - packages/content/cells/**
+      - packages/content/blueprints/scenes/**
+      - scripts/validate-kit.mjs
+
+  - agent: lighting-artist
+    globs:
+      - assets/lightmaps/**
+      - packages/content/lighting/**
+      - scripts/validate-lightmap.mjs
+
+  - agent: audio-engineer
+    globs:
+      - apps/game/src/audio/**
+      - assets/audio/**
+
+  - agent: ux-designer
+    globs:
+      - apps/game/src/ui/**
+      - docs/design/UX_SPEC.md
+      - docs/design/gdd/GDD-ONBOARDING.md
+
+  - agent: localization-manager
+    globs:
+      - packages/i18n/**
+      - docs/design/LOCALIZATION.md
+
+  - agent: a11y-auditor
+    globs:
+      - docs/qa/a11y/**
+      - tests/a11y/**
+
+  - agent: perf-engineer
+    globs:
+      - tests/perf/**
+      - tests/soak/**
+      - docs/qa/perf/**
+
+  - agent: qa-engineer
+    globs:
+      - tests/**
+      - docs/qa/**
+      - scripts/gdd-to-tests.mjs
+      - tools/sim/load/**
+
+  - agent: security-auditor
+    globs:
+      - docs/legal/THREAT_MODEL.md
+      - apps/server/src/validation/**
+      - tests/security/**
+      - docs/design/gdd/GDD-SECURITY.md
+
+  - agent: sre-engineer
+    globs:
+      - tools/runner/**
+      - docker-compose.yml
+      - docs/release/**
+      - docs/design/gdd/GDD-LIVEOPS.md
+
+  - agent: release-engineer
+    globs:
+      - .github/workflows/**
+      # WORKFLOW.md §4.2/§6: the validator belongs to the agent who owns the domain.
+      - scripts/validate-workflows.mjs
+
+  - agent: tools-engineer
+    globs:
+      - package.json
+      - pnpm-workspace.yaml
+      - tsconfig.base.json
+      - tools/**
+      - scripts/**
+      - tools/colab/**
+      - tools/sim/lib/**
+      - apps/dashboard/**
+      - .opencode/**
+      - .gitignore
+
+  - agent: tech-writer
+    globs:
+      - README.md
+      - CONTRIBUTING.md
+      - docs/devlog/**
+      - docs/press/**
+
+  - agent: moderation-designer
+    globs:
+      - docs/legal/MODERATION_POLICY.md
+      - docs/design/gdd/GDD-MODERATION.md
+
+  - agent: code-reviewer
+    readonly: true
+    globs: []

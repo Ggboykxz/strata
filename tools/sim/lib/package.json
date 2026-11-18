@@ -1,0 +1,9 @@
+{
+  "name": "@strata/sim-lib",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@strata/core": "workspace:*"
+  }
+}

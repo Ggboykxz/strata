@@ -1,0 +1,2 @@
+main | checks: ['ci', 'netcode', 'high-concept', 'workflow', 'scope', 'model-audit', 'opencode', 'security'] | approvals: 1 | force: False
+session/20261118-hc-001-high-concept | checks: None | approvals: None | force: False

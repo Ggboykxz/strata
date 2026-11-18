@@ -1,0 +1,16 @@
+name: opencode
+on: { push: { branches: [main] }, pull_request: }
+permissions: { contents: read }
+concurrency:
+  group: opencode-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  agents:
+    name: 32 agents and 51 skills
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - run: test -d .opencode/agents
+      - run: test "$(ls .opencode/agents | wc -l)" -eq 32
+      - run: test "$(ls .opencode/skills | wc -l)" -eq 51

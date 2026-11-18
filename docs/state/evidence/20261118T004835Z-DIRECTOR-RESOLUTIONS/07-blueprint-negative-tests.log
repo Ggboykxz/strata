@@ -1,0 +1,8 @@
+OK     exit=0  baseline passes
+OK     exit=1  B1 refuses a dependency cycle on a gate
+OK     exit=1  B2 refuses an out-of-domain writer
+OK     exit=1  B5 refuses art with NET-GATE unpassed
+OK     exit=1  B7 refuses a missing acceptance script
+OK     exit=1  B8 refuses an oversized task without split
+
+RESULT: PASS — all 6 blueprint negative tests behaved as required.

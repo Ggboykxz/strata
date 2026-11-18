@@ -1,0 +1,15 @@
+{
+  "name": "@strata/protocol",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@strata/core": "workspace:*"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/src/index.d.ts",
+      "default": "./src/index.ts"
+    }
+  }
+}

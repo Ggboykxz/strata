@@ -1,0 +1,15 @@
+name: a11y
+on:
+  workflow_dispatch:
+permissions: { contents: read }
+concurrency:
+  group: a11y-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  placeholder:
+    name: no a11y validator yet
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - run: echo "A11Y - checklist arrives with P1-004"

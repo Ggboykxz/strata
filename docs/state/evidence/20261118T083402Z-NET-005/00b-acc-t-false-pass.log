@@ -1,0 +1,14 @@
+$ pnpm vitest run packages/core -t animstate
+
+ RUN  v5.1.0 /content/strata
+
+
+ Test Files  3 skipped (3)
+      Tests  41 skipped (41)
+   Start at  08:34:02
+   Duration  616ms (import 61%, transform 22%, worker 17%, environment 1%)
+
+    Isolate  3 workers spawned · ~156ms startup each (spawn + environment, per file)
+             at least ~312ms faster with isolate: false — reuses workers across files instead of one per file
+
+EXIT=0

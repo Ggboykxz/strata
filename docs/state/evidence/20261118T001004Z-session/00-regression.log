@@ -1,0 +1,14 @@
+SESSION REGRESSION GATE — 2026-11-18T00:14:27Z
+
+== node --check (syntax) ==
+OK  scripts/concept-integrity.mjs
+OK  scripts/scope-math.mjs
+OK  scripts/validate-scope.mjs
+
+== acceptance ==
+node scripts/concept-integrity.mjs --init           exit=0
+node scripts/concept-integrity.mjs --check          exit=1
+node scripts/scope-math.mjs --check                 exit=0
+node scripts/scope-math.mjs --report                exit=2
+node scripts/validate-scope.mjs                     exit=0
+node /tmp/opencode/own-check.mjs                    exit=0

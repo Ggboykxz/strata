@@ -1,0 +1,17 @@
+PASS  EN sentence present
+PASS  FR sentence present
+PASS  signature line present
+PASS  four tests declared (T1..T4)
+PASS  CIS rubric lists 6 components
+PASS  CIS components sum to 100  — sum=100
+PASS  novelty grid has >= 3 properties  — n=4
+DEBT  T1  EN <= 25 words  — 29 words
+PASS  T1  FR <= 35 words  — 31 words
+DEBT  T3  novelty grid signed at this gate
+WARN  1 open finding(s): FINDING-001
+DEBT  T1  EN <= 25 words
+DEBT  T3  novelty grid signed at this gate
+
+mode=check  invariant_failures=0  recorded_debt=2
+exit_code=1
+cmd=node scripts/concept-integrity.mjs --check

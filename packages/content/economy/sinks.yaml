@@ -1,0 +1,7 @@
+version: 1
+audit: AUDIT-2026-11-18-P0-006
+# Every burn has a source or a tunable range. Integer minor units only.
+sinks:
+  - {id: CRAFT_MATERIAL, amount_minor: 200, source: GDD-CRAFT-field-5, tier: S0}
+  - {id: TRADE_FEE, percent: 1, tunable: 0..5, plan: ECON-001-simulation, tier: S1}
+  - {id: ROUILLE_REPAIR, amount_minor: 1000, tunable: 100..5000, plan: ECON-001-measured, tier: S2}

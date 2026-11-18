@@ -1,0 +1,11 @@
+
+D1  vision document (--check)
+OK    VISION.md: metadata, 8 sections, locked sentence, amendment and non-goals present
+
+D2  ADR structure
+OK    2 ADR(s) have title, status and a Context/Decision section
+
+D3  TDD structure
+OK    0 TDD file(s) checked (0 is valid before P1-004)
+
+RESULT: PASS — 2 ADR(s), 0 TDD(s), 0 error(s). Structural check only; no claim validated.

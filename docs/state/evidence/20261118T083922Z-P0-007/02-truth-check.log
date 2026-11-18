@@ -1,0 +1,3 @@
+$ node apps/dashboard/check.mjs
+dashboard truth check — PASS — deterministic, sourced, no hardcoded values
+EXIT=0

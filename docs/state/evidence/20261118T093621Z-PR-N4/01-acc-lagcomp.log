@@ -1,0 +1,34 @@
+$ pnpm vitest run tools/sim/net/test/prn4.test.ts --reporter=verbose
+
+ RUN  v5.1.0 /content/strata
+
+stdout | tools/sim/net/test/prn4.test.ts > PR-N4 harness > prints a deterministic labelled report
+{
+  "shots": 30,
+  "hits": 4,
+  "stale": 1,
+  "cooldown": 16,
+  "blocked": 5,
+  "out_of_range": 4,
+  "client_claims_ignored": true,
+  "deterministic": true,
+  "label": "local structural lag-comp fuzz — NOT network RTT, NOT a 30-minute soak"
+}
+
+ ✓ tools/sim/net/test/prn4.test.ts > integer geometry > uses squared bigint distance and never a square root 3ms
+ ✓ tools/sim/net/test/prn4.test.ts > integer geometry > blocks LOS through a wall cell and allows a clear ray 1ms
+ ✓ tools/sim/net/test/prn4.test.ts > rewind history > records by tick and evicts outside the ring 2ms
+ ✓ tools/sim/net/test/prn4.test.ts > shot validation > refuses a tick outside the rewind window instead of approximating 1ms
+ ✓ tools/sim/net/test/prn4.test.ts > shot validation > refuses an unknown entity 1ms
+ ✓ tools/sim/net/test/prn4.test.ts > shot validation > enforces cooldown from the server map 1ms
+ ✓ tools/sim/net/test/prn4.test.ts > shot validation > refuses a shot beyond the squared range ceiling 0ms
+ ✓ tools/sim/net/test/prn4.test.ts > shot validation > ignores the client claim entirely 1ms
+ ✓ tools/sim/net/test/prn4.test.ts > PR-N4 harness > prints a deterministic labelled report 4ms
+ ✓ tools/sim/net/test/prn4.test.ts > PR-N4 harness > refuses an invalid shot count 1ms
+
+ Test Files  1 passed (1)
+      Tests  10 passed (10)
+   Start at  09:36:22
+   Duration  271ms (import 40%, transform 32%, tests 19%, worker 8%)
+
+EXIT=0

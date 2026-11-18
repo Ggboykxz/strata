@@ -1,0 +1,4 @@
+dashboard truth check — FAIL (2)
+  - gdd.modules 0 != metrics 32
+  - hardcoded stale value still in build.mjs: modules: 0
+EXIT=1

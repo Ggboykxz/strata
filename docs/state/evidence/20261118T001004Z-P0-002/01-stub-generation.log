@@ -1,0 +1,22 @@
+wrote 21 failing stubs:
+  scripts/drill-resume.mjs  <- tools-engineer (map; referenced by P0-005)
+  scripts/gdd-coverage.mjs  <- game-designer (map; referenced by GDD-005)
+  scripts/gdd-to-tests.mjs  <- qa-engineer (map; referenced by GDD-005)
+  scripts/session-result.mjs  <- orchestrator (map; referenced by P0-002)
+  scripts/validate-anim-separation.mjs  <- asset-pipeline (map; referenced by AI-002)
+  scripts/validate-anim.mjs  <- animation-director (map; referenced by AN-001)
+  scripts/validate-art-bible.mjs  <- animation-director (map; referenced by P1-003)
+  scripts/validate-content-blueprints.mjs  <- game-designer (map; referenced by P3-002)
+  scripts/validate-docs.mjs  <- tools-engineer (map; referenced by P1-001)
+  scripts/validate-gdd.mjs  <- game-designer (map; referenced by GDD-001)
+  scripts/validate-kit.mjs  <- environment-artist (map; referenced by P3-001)
+  scripts/validate-lightmap.mjs  <- lighting-artist (map; referenced by P3-001)
+  scripts/validate-locks.mjs  <- DISPUTED — map says orchestrator, task WF-002 says tools-engineer; see dispute D-002
+  scripts/validate-lore.mjs  <- narrative (map; referenced by P1-002)
+  scripts/validate-manifest.mjs  <- asset-pipeline (map; referenced by P0-006)
+  scripts/validate-netgate.mjs  <- netcode-engineer (map; referenced by NG-001)
+  scripts/validate-ownership.mjs  <- DISPUTED — map says orchestrator, task WF-002 says tools-engineer; see dispute D-002
+  scripts/validate-retarget.mjs  <- rigging-engineer (map; referenced by AN-002)
+  scripts/validate-scene-budget.mjs  <- level-designer (map; referenced by WG-001)
+  scripts/validate-texture-set.mjs  <- texture-artist (map; referenced by P3-003)
+  scripts/validate-workflows.mjs  <- tools-engineer (map; referenced by P0-004)

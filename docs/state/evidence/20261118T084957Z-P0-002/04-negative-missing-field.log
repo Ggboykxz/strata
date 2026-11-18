@@ -1,0 +1,3 @@
+$ node scripts/session-result.mjs --metrics /tmp/opencode/sr-missing.json
+session-result: missing or empty result.status in /tmp/opencode/sr-missing.json
+EXIT=1

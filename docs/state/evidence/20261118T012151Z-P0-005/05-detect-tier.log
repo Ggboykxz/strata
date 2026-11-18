@@ -1,0 +1,1 @@
+{"gpu": true, "gpu_name": "Tesla T4", "vram_mib": 15360, "vram_gb": 15.0, "tier": "16GB", "policy": "T4 nominal 16 GB (ECC-reserved); quantized/offload generation; Blender bake; KTX2", "source": "nvidia-smi"}

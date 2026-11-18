@@ -1,0 +1,11 @@
+$ pnpm vitest run packages/core/test/anim-state.test.ts
+
+ RUN  v5.1.0 /content/strata
+
+
+ Test Files  1 passed (1)
+      Tests  22 passed (22)
+   Start at  08:34:04
+   Duration  251ms (import 36%, transform 30%, tests 26%, worker 8%)
+
+EXIT=0

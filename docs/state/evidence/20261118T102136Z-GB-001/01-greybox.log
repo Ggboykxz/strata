@@ -1,0 +1,4 @@
+$ node scripts/validate-scene-budget.mjs --greybox
+validate-scene-budget — PASS — 3 strata, 12 primitives, 3 variant swaps, checksum 06d8d93c
+mode greybox — capsules/boxes only; no mesh, texture, lightmap or collision parity claim (WG-001)
+EXIT=0

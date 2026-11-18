@@ -1,0 +1,13 @@
+PASS  EN sentence present
+PASS  FR sentence present
+PASS  signature line present
+PASS  four tests declared (T1..T4)
+PASS  CIS rubric lists 6 components
+PASS  CIS components sum to 100  — sum=100
+PASS  novelty grid has >= 3 properties  — n=4
+DEBT  T1  EN <= 25 words  — 29 words
+PASS  T1  FR <= 35 words  — 31 words
+NOT MEASURED  docs/state/metrics/concept.json does not exist.
+CIS is computed from evidence (HC-003 at P2), never typed by hand.
+exit_code=2
+cmd=node scripts/concept-integrity.mjs --score

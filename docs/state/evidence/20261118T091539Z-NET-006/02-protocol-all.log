@@ -1,0 +1,14 @@
+$ pnpm vitest run packages/protocol
+
+ RUN  v5.1.0 /content/strata
+
+
+ Test Files  3 passed (3)
+      Tests  28 passed (28)
+   Start at  09:15:42
+   Duration  1.08s (import 49%, tests 25%, transform 15%, worker 10%)
+
+    Isolate  3 workers spawned · ~243ms startup each (spawn + environment, per file)
+             at least ~486ms faster with isolate: false — reuses workers across files instead of one per file
+
+EXIT=0

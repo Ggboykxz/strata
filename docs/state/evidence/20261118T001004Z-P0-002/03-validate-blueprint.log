@@ -1,0 +1,39 @@
+
+B0  structure (63 tasks, 11 gates)
+OK    every task has the 10 required fields and a known phase/role
+
+B1  dependency order and cycles
+OK    no unknown, later or cyclic dependency
+
+B2  ownership (agent ∪ co), append-only zones, scaffold exemption per §4.2
+WARN  B2 P0-002 scaffold exemption: docs/blueprint/GATES.yaml (orchestrator)
+WARN  B2 P0-003 scaffold exemption: packages/ (gameplay-engineer), apps/ (gameplay-engineer), docs/STACK.lock.md (producer)
+WARN  B2 WF-002 refused_ownership — open dispute D-002 (Director level)
+WARN  B2 TRACER-001 scaffold exemption: packages/core/ (gameplay-engineer), packages/protocol/ (netcode-engineer), apps/server/ (gameplay-engineer), apps/game/ (gameplay-engineer)
+OK    every non-scaffold out path resolves to agent ∪ co; no glob tie
+
+B3  gdd[], role, ledger entry, GDD maturity
+WARN  B3 GDD maturity is DEFERRED: no module exists before GDD-001 (P1), and P1 is not authorized yet
+OK    P0 tasks carry gdd[], role and a ledger entry; later phases deferred
+
+B4/B5  tier and art gate (selection-time, enforced on the authorized phase)
+WARN  B4/B5 deferred for 32 non-P0 tasks (tier > S0 or art): NET-002, NET-003, NET-004, NET-005, NET-006, PR-N1, PR-N2, PR-N3, PR-N4, SEC-001, NG-001, PR-S8, HC-003, AI-001, AI-002, WG-001, AN-001, AN-002, P3-001, P3-002, P3-003, P3-004, P3-005, P3-006, HC-004, P4-ENTRY, NET-101, NET-102, NET-103, OPS-001, MOD-001, S3-ENTRY
+OK    P0 is within authorized_tier S0; 0 art task in an authorized phase
+
+B6  only a gate grants a tier
+OK    no task grants a tier; every gate grant is exactly one step
+
+B7  acceptance commands exist; stubs fail
+OK    every acc script exists; 30 are declared stubs (they exit 1 until implemented)
+
+B8  split heuristic (acc > 3 or out > 4)
+WARN  B8 P0-001 split required and declared (2 acc, 8 out)
+WARN  B8 P0-003 split required and declared (2 acc, 7 out)
+WARN  B8 GDD-002 split required and declared (1 acc, 6 out)
+WARN  B8 GDD-003 split required and declared (1 acc, 5 out)
+WARN  B8 GDD-004 split required and declared (1 acc, 5 out)
+WARN  B8 P1-004 split required and declared (1 acc, 5 out)
+WARN  B8 P3-001 split required and declared (2 acc, 5 out)
+OK    no oversized, undeclared task
+
+RESULT: PASS — 63 tasks, 11 gates, 0 error(s), 13 warning(s)

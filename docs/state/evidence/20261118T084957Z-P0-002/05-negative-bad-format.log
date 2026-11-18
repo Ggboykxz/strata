@@ -1,0 +1,3 @@
+$ node scripts/session-result.mjs --format bogus
+session-result: --format must be short or full, got bogus
+EXIT=1

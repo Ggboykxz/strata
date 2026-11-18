@@ -1,0 +1,3 @@
+$ node scripts/validate-scene-budget.mjs
+usage: node scripts/validate-scene-budget.mjs --greybox | --parity
+EXIT=1

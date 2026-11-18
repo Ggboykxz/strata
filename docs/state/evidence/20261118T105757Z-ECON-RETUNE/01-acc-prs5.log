@@ -1,0 +1,42 @@
+$ pnpm vitest run tools/sim/economy/test/prs5.test.ts --reporter=verbose
+
+ RUN  v5.1.0 /content/strata
+
+stdout | tools/sim/economy/test/prs5.test.ts > PR-S5 economy simulation > prints a deterministic labelled report for 1000 bots x 30 days
+{
+  "bots": 1000,
+  "days": 30,
+  "epochs": 720,
+  "initial_supply_minor": "1000000",
+  "minted_minor": "396540940",
+  "burned_minor": "395490940",
+  "stabilization_burned_minor": "93073815",
+  "inflation_target_bps": "500",
+  "inflation_before_bps": "726478",
+  "final_supply_minor": "1050000",
+  "inflation_bps": "500",
+  "gini_micro": "293701",
+  "conserved": true,
+  "negative_balances": 0,
+  "replay_refusals": 10,
+  "exploit_cycles": 1,
+  "cycle_path": [
+    "script",
+    "bundle:economy-replicate"
+  ],
+  "checksum": "0e9d284d",
+  "label": "local compressed economy simulation — 720 hourly epochs, NOT a 30 Hz replay"
+}
+
+ ✓ tools/sim/economy/test/prs5.test.ts > economy measures > computes Gini in micro units with integer math 3ms
+ ✓ tools/sim/economy/test/prs5.test.ts > economy measures > refuses an idempotency-key replay 1ms
+ ✓ tools/sim/economy/test/prs5.test.ts > PR-S5 economy simulation > conserves bigint minor units on a small run 16ms
+ ✓ tools/sim/economy/test/prs5.test.ts > PR-S5 economy simulation > prints a deterministic labelled report for 1000 bots x 30 days 909ms
+ ✓ tools/sim/economy/test/prs5.test.ts > PR-S5 economy simulation > refuses invalid simulation parameters 1ms
+
+ Test Files  1 passed (1)
+      Tests  5 passed (5)
+   Start at  10:57:57
+   Duration  1.18s (tests 94%, import 3%, transform 3%, worker 1%)
+
+EXIT=0

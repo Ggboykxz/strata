@@ -1,0 +1,11 @@
+$ pnpm vitest run packages/protocol
+
+ RUN  v5.1.0 /content/strata
+
+
+ Test Files  2 passed (2)
+      Tests  23 passed (23)
+   Start at  08:24:05
+   Duration  448ms (import 41%, tests 25%, transform 21%, worker 12%)
+
+EXIT=0

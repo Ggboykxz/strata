@@ -1,0 +1,14 @@
+$ heartbeat.py --print
+{
+  "utc": "2026-11-18T01:21:59Z",
+  "session": "2026-11-18-s01",
+  "task": "P0-005",
+  "branch": "session/20261118-hc-001-high-concept",
+  "locks": [],
+  "head": "9136b1c",
+  "note": "generated state; gitignored; overwritten (I15)"
+}
+$ heartbeat.py --check-locks
+OK 0 expired active locks
+$ json parse notebook
+valid

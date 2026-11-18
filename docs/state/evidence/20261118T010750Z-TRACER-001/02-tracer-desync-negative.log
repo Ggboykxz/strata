@@ -1,0 +1,34 @@
+$ node scripts/tracer.mjs --assert
+
+ RUN  v5.1.0 /content/strata
+
+ × apps/game/test/tracer.test.ts > TRACER-001 walking skeleton > reaches equal hashes on both sides, rejects a desync, and renders the capsule 343ms
+   → expected 'desync' to be 'ok' // Object.is equality
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  apps/game/test/tracer.test.ts > TRACER-001 walking skeleton > reaches equal hashes on both sides, rejects a desync, and renders the capsule
+AssertionError: expected 'desync' to be 'ok' // Object.is equality
+
+Expected: "ok"
+Received: "desync"
+
+ ❯ apps/game/test/tracer.test.ts:66:30
+     64|       await sleep(30);
+     65|
+     66|       expect(server.verdict).toBe('ok');
+       |                              ^
+     67|       expect(clients[0]!.hash).toBe(stateHash(server.currentState));
+     68|       expect(clients[1]!.hash).toBe(clients[0]!.hash);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed (1)
+   Start at  01:07:03
+   Duration  3.45s (import 88%, tests 11%, transform 1%)
+
+
+RESULT: FAIL — tracer assert exited 1.
+[ELIFECYCLE] Command failed with exit code 1.

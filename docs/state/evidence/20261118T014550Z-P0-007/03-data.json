@@ -1,0 +1,70 @@
+{
+  "generated_at": "2026-11-18T00:00:00.000Z",
+  "source_metric": "2026-11-18-s01.json",
+  "sources": [
+    "docs/state/metrics/<session>.json",
+    "docs/state/OWNERSHIP.yaml",
+    "docs/state/LOCKS.yaml",
+    "docs/blueprint/BLUEPRINT.yaml",
+    "docs/production/DISPUTES.md",
+    "docs/state/threads/",
+    "docs/state/NEEDS_DIRECTOR.md",
+    "tools/asset-pipeline/whitelist.yaml"
+  ],
+  "workflow": {
+    "owners": 32,
+    "globs": 165,
+    "active_locks": 0,
+    "thread_dirs": 11,
+    "disputes": 1,
+    "open_director": [
+      "ND-004",
+      "ND-005"
+    ]
+  },
+  "concept": {
+    "t1_en_words": "25",
+    "t1_en_limit": "25",
+    "t1_fr_words": "30",
+    "t3_gate_signature": "SIGNED at GATE:P0 (HIGH_CONCEPT v1.2)",
+    "cis": "NOT COMPUTABLE"
+  },
+  "gdd": {
+    "modules": 0,
+    "coverage": "NOT COMPUTABLE",
+    "first_module": "GDD-001 (P1, not started)"
+  },
+  "scope": {
+    "ledger_entries": "12",
+    "accepted_sessions": "25",
+    "budget_P0": "30",
+    "margin_P0": "5",
+    "variants": "638",
+    "months_needed": "NOT COMPUTABLE"
+  },
+  "netcode": {
+    "tick_p50_ms": "NOT COMPUTABLE",
+    "tick_p95_ms": "NOT COMPUTABLE",
+    "down_kb_s": "NOT COMPUTABLE",
+    "up_kb_s": "NOT COMPUTABLE",
+    "desyncs": "NOT COMPUTABLE",
+    "reconnects": "NOT COMPUTABLE",
+    "aoi_entities": "NOT COMPUTABLE",
+    "tracer": "green — pnpm tracer --assert (equal state hashes)"
+  },
+  "economy": {
+    "inflation": "NOT COMPUTABLE",
+    "faucets": "NOT COMPUTABLE",
+    "sinks": "NOT COMPUTABLE",
+    "sim_status": "not started (ECON-001)"
+  },
+  "ai_audit": {
+    "approved": 9,
+    "blocked": 0,
+    "rejected": 11
+  },
+  "blueprint": {
+    "tasks": 63,
+    "gates": 11
+  }
+}

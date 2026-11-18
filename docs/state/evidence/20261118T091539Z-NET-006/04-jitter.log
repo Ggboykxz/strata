@@ -1,0 +1,11 @@
+$ pnpm vitest run apps/game/test/jitter.test.ts
+
+ RUN  v5.1.0 /content/strata
+
+
+ Test Files  1 passed (1)
+      Tests  5 passed (5)
+   Start at  09:15:45
+   Duration  256ms (transform 41%, import 40%, tests 10%, worker 9%)
+
+EXIT=0

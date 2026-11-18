@@ -1,0 +1,700 @@
+{
+  "session": "2026-11-18-s01",
+  "utc_start": "2026-11-18T00:10:04Z",
+  "utc_end": "2026-11-18T00:43:00Z",
+  "mode": "RESUME",
+  "branch": "session/20261118-hc-001-high-concept",
+  "tier": {
+    "current": "S0",
+    "authorized": "S0"
+  },
+  "netgate": {
+    "status": "unpassed",
+    "art_allowed": false
+  },
+  "tasks": [
+    {
+      "id": "HC-001",
+      "status": "done"
+    },
+    {
+      "id": "SC-001",
+      "status": "done"
+    },
+    {
+      "id": "WF-001",
+      "status": "done"
+    },
+    {
+      "id": "P0-001.a",
+      "status": "done"
+    },
+    {
+      "id": "P0-001.b",
+      "status": "done"
+    },
+    {
+      "id": "P0-002.a",
+      "status": "done"
+    },
+    {
+      "id": "P0-002.b",
+      "status": "done"
+    },
+    {
+      "id": "P0-003",
+      "status": "done"
+    },
+    {
+      "id": "WF-002",
+      "status": "done"
+    },
+    {
+      "id": "TRACER-001",
+      "status": "done"
+    },
+    {
+      "id": "P0-004",
+      "status": "done"
+    },
+    {
+      "id": "P0-005",
+      "status": "done"
+    },
+    {
+      "id": "P0-006",
+      "status": "done"
+    },
+    {
+      "id": "P0-007",
+      "status": "done"
+    },
+    {
+      "id": "P1-001",
+      "status": "done"
+    },
+    {
+      "id": "GDD-001",
+      "status": "done"
+    },
+    {
+      "id": "GDD-002",
+      "status": "done"
+    },
+    {
+      "id": "GDD-003",
+      "status": "done"
+    },
+    {
+      "id": "GDD-004",
+      "status": "done"
+    },
+    {
+      "id": "P1-002",
+      "status": "done"
+    },
+    {
+      "id": "P1-003",
+      "status": "done"
+    },
+    {
+      "id": "P1-004",
+      "status": "done"
+    }
+  ],
+  "measured": {
+    "hc_t1_en_words": 25,
+    "hc_t1_en_limit": 25,
+    "hc_t1_fr_words": 30,
+    "hc_t1_fr_limit": 35,
+    "cis_component_sum": 100,
+    "novelty_properties": 4,
+    "open_concept_findings": 0,
+    "concept_debt_open": 0,
+    "concept_check_remaining_debt": 0,
+    "ledger_entries": 12,
+    "ledger_accepted_sessions": 25,
+    "budget_P0": 30,
+    "budget_to_P4": 196,
+    "slice_required_variants": 638,
+    "assets_per_session": null,
+    "months_needed": null,
+    "owners": 32,
+    "distinct_globs": 155,
+    "glob_ties": 0,
+    "catch_all_entries": 7,
+    "append_only_zones": 4,
+    "master_bytes": 99289,
+    "master_lines": 953,
+    "master_sha256": "91dd8ab5d336589e97c8128c9175b1752a5842c961deb0b396428c6b3f58b615",
+    "constitution_bytes": 18790,
+    "invariants_quoted_verbatim": 15,
+    "locked_decisions_quoted_verbatim": 77,
+    "drift_negative_tests": 8,
+    "drift_negative_tests_passing": 8,
+    "blueprint_tasks": 63,
+    "blueprint_gates": 11,
+    "blueprint_phases": 9,
+    "blueprint_duplicate_ids": 0,
+    "blueprint_tasks_missing_fields": 0,
+    "blueprint_validator_errors": 0,
+    "blueprint_validator_warnings": 12,
+    "blueprint_refused_ownership": 0,
+    "director_blockers_resolved": 7,
+    "director_blockers_open": 2,
+    "repository_public": true,
+    "gate_p0_drills": 3,
+    "gate_p0_ci_success": 8,
+    "gate_p0_earlier_ci_success": 13,
+    "blueprint_negative_tests": 6,
+    "blueprint_negative_tests_passing": 6,
+    "blueprint_scaffold_exemptions": 3,
+    "blueprint_b8_splits": 7,
+    "agent_files": 32,
+    "agent_missing_skill_links": 0,
+    "skill_stubs": 51,
+    "skill_missing_descriptions": 0,
+    "validator_stubs": 12,
+    "validator_stubs_failing": 12,
+    "gdd_modules": 32,
+    "gdd_critical_modules": 14,
+    "gdd_draft_modules": 15,
+    "gdd_coverage": 1.0,
+    "gate_p0_signed": true,
+    "ownership_globs": 168,
+    "wf002_negative_tests": 8,
+    "tracer_replicas": 2,
+    "tracer_ticks": 5,
+    "tracer_negative_tests": 2,
+    "babylon_version": "9.37.0",
+    "ws_version": "8.23.0",
+    "workflow_files": 27,
+    "workflow_pinned_uses": 80,
+    "workflow_manual_stub_jobs": 12,
+    "p004_negative_tests": 8,
+    "p005_negative_tests": 7,
+    "ai_approved": 9,
+    "ai_blocked_pending_director": 0,
+    "ai_rejected": 11,
+    "ai_fallback_mappings": 11,
+    "p006_negative_tests": 9,
+    "dashboard_views": 8,
+    "dashboard_not_computable": 14,
+    "p007_checks": 7,
+    "yaml_parser_documents_equal_to_pyyaml": 3,
+    "workspace_projects": 7,
+    "workspace_packages": 2,
+    "workspace_apps": 3,
+    "workspace_tools_libs": 1,
+    "node_version": "22.23.4",
+    "pnpm_version": "12.21.0",
+    "typescript_version": "6.0.3",
+    "verify_steps_enabled": 17,
+    "verify_deferred_groups": 3,
+    "unit_test_files": 3,
+    "unit_tests": 4,
+    "p003_negative_tests": 4,
+    "opencode_mcp_servers": 4,
+    "glossary_entries": 6,
+    "tdd_files": 3,
+    "gate_p1_assembled": true
+  },
+  "cis": {
+    "value": null,
+    "reason": "no measured source until HC-003 (P2)"
+  },
+  "gdd_coverage": {
+    "value": null,
+    "reason": "no GDD modules until GDD-001 (P1)"
+  },
+  "scope": {
+    "ledger_entries": 12,
+    "balanced": true,
+    "phase_margin_P0": 5
+  },
+  "acceptance": [
+    {
+      "cmd": "node scripts/concept-integrity.mjs --init",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T001004Z-HC-001/01-concept-integrity-init.log"
+    },
+    {
+      "cmd": "node scripts/concept-integrity.mjs --check",
+      "exit": 1,
+      "log": "docs/state/evidence/20261118T001004Z-HC-001/02-concept-integrity-check.log"
+    },
+    {
+      "cmd": "node scripts/concept-integrity.mjs --score",
+      "exit": 2,
+      "log": "docs/state/evidence/20261118T001004Z-HC-001/03-concept-integrity-score.log"
+    },
+    {
+      "cmd": "node scripts/scope-math.mjs --check",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T001004Z-SC-001/01-scope-math-check.log"
+    },
+    {
+      "cmd": "node scripts/scope-math.mjs --report",
+      "exit": 2,
+      "log": "docs/state/evidence/20261118T001004Z-SC-001/02-scope-math-report.log"
+    },
+    {
+      "cmd": "node scripts/scope-math.mjs --tier S3 --report",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T001004Z-SC-001/03-scope-math-tier-s3.log"
+    },
+    {
+      "cmd": "node scripts/validate-scope.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T001004Z-SC-001/04-validate-scope.log"
+    },
+    {
+      "cmd": "test -f docs/state/OWNERSHIP.yaml",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T001004Z-WF-001/01-ownership-file.log"
+    },
+    {
+      "cmd": "node tools/qa/check-ownership-map.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T001004Z-WF-001/02-ownership-map.log"
+    },
+    {
+      "cmd": "test -f docs/CONSTITUTION.md",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T001004Z-P0-001/01-constitution-present.log"
+    },
+    {
+      "cmd": "bash tools/qa/negative-prompt-drift.sh",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T001004Z-P0-001/02-drift-negative-tests.log"
+    },
+    {
+      "cmd": "python3 -c 'yaml.safe_load(BLUEPRINT.yaml)'",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T001004Z-P0-001/03-blueprint-parse.log"
+    },
+    {
+      "cmd": "jsonschema validate opencode.json",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T001004Z-P0-001/04-opencode-config-schema.log"
+    },
+    {
+      "cmd": "node scripts/validate-prompt-drift.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T001004Z-P0-001/05-validate-prompt-drift.log"
+    },
+    {
+      "cmd": "node scripts/validate-blueprint.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T001004Z-P0-002/03-validate-blueprint.log"
+    },
+    {
+      "cmd": "bash tools/qa/negative-blueprint.sh",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T001004Z-P0-002/04-blueprint-negative-tests.log"
+    },
+    {
+      "cmd": "node tools/qa/gen-stubs.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T001004Z-P0-002/01-stub-generation.log"
+    },
+    {
+      "cmd": "for each stub: node <script> (expect 1)",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T001004Z-P0-002/02-stubs-fail.log"
+    },
+    {
+      "cmd": "node tools/qa/gen-agents.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T001004Z-P0-002/05-agents-skills.log"
+    },
+    {
+      "cmd": "node --input-type=module -e '<agent/skill consistency check>'",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T001004Z-P0-002/06-opencode-tree.log"
+    },
+    {
+      "cmd": "node scripts/validate-blueprint.mjs --emit-gates",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T001004Z-P0-002/07-emit-gates.log"
+    },
+    {
+      "cmd": "node parse <3 docs> + python3 yaml.safe_load + deep equal",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T001004Z-P0-002/08-yaml-equality.log"
+    },
+    {
+      "cmd": "pnpm install --frozen-lockfile",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T004153Z-P0-003/01-install-frozen.log"
+    },
+    {
+      "cmd": "pnpm typecheck",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T004153Z-P0-003/02-typecheck.log"
+    },
+    {
+      "cmd": "pnpm lint",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T004153Z-P0-003/03-lint.log"
+    },
+    {
+      "cmd": "pnpm test",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T004153Z-P0-003/04-unit.log"
+    },
+    {
+      "cmd": "pnpm verify",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T004153Z-P0-003/05-verify.log"
+    },
+    {
+      "cmd": "pnpm typecheck (deliberate type error)",
+      "exit": 2,
+      "log": "docs/state/evidence/20261118T004153Z-P0-003/06-negative-typecheck.log"
+    },
+    {
+      "cmd": "pnpm lint (Math.random + Date.now in core)",
+      "exit": 1,
+      "log": "docs/state/evidence/20261118T004153Z-P0-003/07-negative-lint.log"
+    },
+    {
+      "cmd": "pnpm test (deliberately failing assertion)",
+      "exit": 1,
+      "log": "docs/state/evidence/20261118T004153Z-P0-003/08-negative-unit.log"
+    },
+    {
+      "cmd": "pnpm verify (deliberate type error, fail-fast)",
+      "exit": 1,
+      "log": "docs/state/evidence/20261118T004153Z-P0-003/09-negative-verify.log"
+    },
+    {
+      "cmd": "secret-prefix scan of .git + tracked worktree",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T004835Z-DIRECTOR-RESOLUTIONS/01-secret-scan.log"
+    },
+    {
+      "cmd": "node scripts/concept-integrity.mjs --check",
+      "exit": 1,
+      "log": "docs/state/evidence/20261118T004835Z-DIRECTOR-RESOLUTIONS/02-concept-check.log"
+    },
+    {
+      "cmd": "node scripts/concept-integrity.mjs --init",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T004835Z-DIRECTOR-RESOLUTIONS/03-concept-init.log"
+    },
+    {
+      "cmd": "node scripts/validate-blueprint.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T004835Z-DIRECTOR-RESOLUTIONS/04-validate-blueprint.log"
+    },
+    {
+      "cmd": "bash tools/qa/negative-blueprint.sh",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T004835Z-DIRECTOR-RESOLUTIONS/07-blueprint-negative-tests.log"
+    },
+    {
+      "cmd": "pnpm verify",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T004835Z-DIRECTOR-RESOLUTIONS/08-verify.log"
+    },
+    {
+      "cmd": "node scripts/concept-integrity.mjs --check",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T004835Z-DIRECTOR-RESOLUTIONS/09-concept-signed-check.log"
+    },
+    {
+      "cmd": "node scripts/validate-ownership.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T005800Z-WF-002/01-validate-ownership.log"
+    },
+    {
+      "cmd": "node scripts/validate-locks.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T005800Z-WF-002/02-validate-locks.log"
+    },
+    {
+      "cmd": "bash tools/qa/negative-workflow-map.sh",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T005800Z-WF-002/03-negative-tests.log"
+    },
+    {
+      "cmd": "pnpm verify (9 enabled steps)",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T005800Z-WF-002/05-verify-integrated.log"
+    },
+    {
+      "cmd": "pnpm tracer --assert",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T010750Z-TRACER-001/01-tracer-assert.log"
+    },
+    {
+      "cmd": "TRACER_FORCE_DESYNC=1 pnpm tracer --assert",
+      "exit": 1,
+      "log": "docs/state/evidence/20261118T010750Z-TRACER-001/02-tracer-desync-negative.log"
+    },
+    {
+      "cmd": "pnpm lint (Math.random in core)",
+      "exit": 1,
+      "log": "docs/state/evidence/20261118T010750Z-TRACER-001/03-lint-negative.log"
+    },
+    {
+      "cmd": "npm view <exact packages> license",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T010750Z-TRACER-001/04-license-check.log"
+    },
+    {
+      "cmd": "pnpm install --frozen-lockfile",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T010750Z-TRACER-001/05-frozen-install.log"
+    },
+    {
+      "cmd": "pnpm verify (9 enabled steps)",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T010750Z-TRACER-001/06-verify.log"
+    },
+    {
+      "cmd": "node scripts/validate-workflows.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T011433Z-P0-004/01-validate-workflows.log"
+    },
+    {
+      "cmd": "bash tools/qa/negative-ci-workflows.sh",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T011433Z-P0-004/02-negative-tests.log"
+    },
+    {
+      "cmd": "node scripts/validate-ownership.mjs (165 globs)",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T011433Z-P0-004/03-ownership-after-map-change.log"
+    },
+    {
+      "cmd": "pnpm verify (10 enabled steps)",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T011433Z-P0-004/06-verify.log"
+    },
+    {
+      "cmd": "node scripts/drill-resume.mjs --dry",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T012151Z-P0-005/01-drill-dry.log"
+    },
+    {
+      "cmd": "bash -n tools/colab/setup.sh",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T012151Z-P0-005/02-setup-syntax.log"
+    },
+    {
+      "cmd": "bash tools/qa/negative-resume.sh",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T012151Z-P0-005/07-negative-tests.log"
+    },
+    {
+      "cmd": "GitHub + HF licence metadata queries",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T012845Z-P0-006/01-license-metadata.log"
+    },
+    {
+      "cmd": "node scripts/validate-manifest.mjs --audit",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T012845Z-P0-006/02-validate-manifest.log"
+    },
+    {
+      "cmd": "bash tools/qa/negative-manifest.sh",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T012845Z-P0-006/03-negative-tests.log"
+    },
+    {
+      "cmd": "pnpm verify (12 enabled steps)",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T012845Z-P0-006/05-verify.log"
+    },
+    {
+      "cmd": "node scripts/validate-manifest.mjs --audit (after resolution)",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T012845Z-P0-006/07-resolution-validate.log"
+    },
+    {
+      "cmd": "bash tools/qa/negative-manifest.sh (9 cases)",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T012845Z-P0-006/08-resolution-negative-tests.log"
+    },
+    {
+      "cmd": "pnpm --filter @strata/dashboard build",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T014550Z-P0-007/01-dashboard-build.log"
+    },
+    {
+      "cmd": "bash tools/qa/negative-dashboard.sh",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T014550Z-P0-007/02-negative-tests.log"
+    },
+    {
+      "cmd": "node scripts/drill-resume.mjs --dry (clean / expired lock / corrupt heartbeat)",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T014957Z-GATE-P0/01-drill-clean.log"
+    },
+    {
+      "cmd": "GitHub Actions API — latest run per workflow",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T014957Z-GATE-P0/09-ci-results.log"
+    },
+    {
+      "cmd": "GitHub Actions API — head cfe1fdf (master §18 names)",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T014957Z-GATE-P0/14-ci-after-reconciliation.log"
+    },
+    {
+      "cmd": "node scripts/validate-workflows.mjs (master §18 names)",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T020134Z-P0-004-RECONCILE/02-validate-workflows.log"
+    },
+    {
+      "cmd": "bash tools/qa/negative-ci-workflows.sh (after reconciliation)",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T020134Z-P0-004-RECONCILE/03-negative-tests.log"
+    },
+    {
+      "cmd": "node scripts/validate-docs.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T021621Z-P1-001/01-validate-docs.log"
+    },
+    {
+      "cmd": "bash tools/qa/negative-docs.sh",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T021621Z-P1-001/02-negative-tests.log"
+    },
+    {
+      "cmd": "pnpm verify (13 enabled steps)",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T021621Z-P1-001/04-verify.log"
+    },
+    {
+      "cmd": "node scripts/validate-gdd.mjs --template",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T022611Z-GDD-001/01-template.log"
+    },
+    {
+      "cmd": "node scripts/validate-gdd.mjs --critical",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T022611Z-GDD-001/02-critical.log"
+    },
+    {
+      "cmd": "node scripts/gdd-coverage.mjs --min 0.80",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T022611Z-GDD-001/03-coverage.log"
+    },
+    {
+      "cmd": "bash tools/qa/negative-gdd.sh",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T022611Z-GDD-001/04-negative-tests.log"
+    },
+    {
+      "cmd": "pnpm verify (15 enabled steps)",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T022611Z-GDD-001/05-verify.log"
+    },
+    {
+      "cmd": "node scripts/validate-gdd.mjs --template (six DRAFT modules)",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T024155Z-GDD-002/01-template.log"
+    },
+    {
+      "cmd": "bash tools/qa/negative-gdd.sh (10 cases)",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T024155Z-GDD-002/04-negative-tests.log"
+    },
+    {
+      "cmd": "pnpm verify (15 enabled steps, after GDD-002)",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T024155Z-GDD-002/05-verify.log"
+    },
+    {
+      "cmd": "bash tools/qa/negative-gdd.sh (12 cases)",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T024736Z-GDD-003/04-negative-tests.log"
+    },
+    {
+      "cmd": "pnpm verify (15 enabled steps, after GDD-003)",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T024736Z-GDD-003/05-verify.log"
+    },
+    {
+      "cmd": "node scripts/validate-gdd.mjs --critical (closure)",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T025203Z-GDD-004/02-critical.log"
+    },
+    {
+      "cmd": "bash tools/qa/negative-gdd.sh (13 cases)",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T025203Z-GDD-004/03-negative-tests.log"
+    },
+    {
+      "cmd": "node scripts/validate-lore.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T025647Z-P1-002/01-validate-lore.log"
+    },
+    {
+      "cmd": "bash tools/qa/negative-lore.sh",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T025647Z-P1-002/02-negative-tests.log"
+    },
+    {
+      "cmd": "node scripts/validate-art-bible.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T030121Z-P1-003/01-validate-art.log"
+    },
+    {
+      "cmd": "bash tools/qa/negative-art.sh",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T030121Z-P1-003/02-negative-tests.log"
+    },
+    {
+      "cmd": "node scripts/validate-docs.mjs (P1-004 specs)",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T030636Z-P1-004/01-validate-docs.log"
+    },
+    {
+      "cmd": "bash tools/qa/negative-docs.sh (8 cases)",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T030636Z-P1-004/02-negative-tests.log"
+    }
+  ],
+  "notes": [
+    "every number above was produced by a command in this session; none is an estimate",
+    "exit 1 on --check, exit 2 on --report and --score are designed behaviour, not regressions",
+    "assets_per_session and months_needed are null on purpose: no GPU session has been measured",
+    "the master prompt is sealed against itself (sentinel, size, hash, verbatim section diff); it cannot be proven byte-identical to the Director's clipboard — stated in SESSION.md",
+    "two secrets were exposed in chat (GitHub PAT ND-004, HF token ND-005); neither reached disk, git or an evidence log, and both must be rotated",
+    "12 blueprint warnings are declared, not hidden: 3 B2 scaffold exemptions, 1 B3 deferral, 1 B4/B5 deferral covering 32 tasks, 7 B8 splits; the WF-002 refusal was closed by A0002",
+    "ND-001 closed: EN 25/25 and FR 30/35, FINDING-001/CD-001 closed, T1 limit unchanged; T3 signed at GATE:P0 per master §1.4 so concept --check exits 0",
+    "ND-002 closed: ADR A0002 option A accepted, D-002 RESOLVED, WF-002 assigned to orchestrator with two named scripts/** exceptions; validate-blueprint now has 0 refusals",
+    "ND-003 resolved: repository made public 2026-11-18 by Director decision after README, Apache-2.0 LICENSE and NOTICE landed; unauthenticated API and raw README reads returned HTTP 200",
+    "ND-004/ND-005 remain open because token rotation requires the Director's GitHub and HF account access; a prefix scan found 0 secrets in git or the tracked worktree",
+    "21 validator stubs were created by P0-002; WF-002, validate-workflows, drill-resume, validate-manifest, validate-docs, validate-gdd and gdd-coverage were implemented, leaving 14, all still exiting 1 by design",
+    "GATE:P0 signed by recorded Director decision ('prends toutes les bonnes decisions'), transcribed by the orchestrator with the dependency-review exception accepted; no self-signature",
+    "SECURITY_HANDOFF.md records exact fine-grained token rotation steps; ND-004/005 remain open because account access is Director-only",
+    "The Tesla T4 reports 15360 MiB because ECC reserves memory; the nominal tier is 16 GB, not 12 GB",
+    "P0-006 audit resolution: 9 approved / 0 blocked / 11 rejected / 11 fallbacks; ActionForge reversed on publisher CC0 output rights, Tencent + SDXL rejected with fallbacks",
+    "P0-007: build.mjs is the only source reader; data.json is the only page input; 14 NOT COMPUTABLE fields and byte-identical rebuild with STRATA_BUILD_UTC",
+    "GDD-002: six P2-critical modules advanced to DRAFT with all 19 fields; field-5 numbers carry SOURCE or TUNABLE ranges; 26 modules remain STUB",
+    "GDD-001: 32 honest STUB modules (fields 1/2/3/17/18 only), 14 critical modules computed from P2 gdd[] refs, coverage 100% for reference resolution not maturity",
+    "GATE:P0 dossier assembled unsigned: 3 kill-session drills, 13 green GitHub Actions runs at head 3c9c48fd, all local gates 0",
+    "ND-009 resolved option A via ADR-A0003: long-term vision is a full MMORPG delivered through a vertical slice; PROMPT.lock amended [ADR-A0003] and Constitution ## AMENDMENTS; scope, tier, tasks and gates unchanged",
+    "Workflow names reconciled with master §18: 27 exact names, 56 SHA pins, 9/9 negative tests, verify 12/12; two GitHub-only YAML defects (on: key, unquoted ': ' in run scalars) fixed after real runs exposed them",
+    "P0-004 acceptance is static: no GitHub Actions job was executed in the sandbox; 12 workflows calling declared stubs are workflow_dispatch-only so a stub never becomes a permanently red PR gate",
+    "WF-002's glob compiler mirrors validate-blueprint B2; consolidation into scripts/lib/ownership.mjs is a recorded tools-engineer handoff (I6: orchestrator cannot edit scripts/lib/**)",
+    "TRACER-001: 2 replicas and 5 authoritative ticks reach equal FNV-1a hashes; forcing a desync exits 1, and Math.random in core still fails the AST lint",
+    "Babylon 9.37.0 (Apache-2.0) and ws 8.23.0 (MIT) were pinned and license-checked from the registry before first import; NullEngine is CI-only",
+    "the generator scripts live in /tmp and are not committed; their output (agents, skills, stubs) is",
+    "the four negative P0-003 entries exit nonzero on purpose: they prove typecheck, the core-math ban, vitest and verify can fail before being trusted",
+    "TypeScript is pinned to 6.0.3, not 7.0.2: the 7.x package ships the native compiler and no JS AST API, which scripts/lint-core-math.mjs needs; documented in docs/STACK.lock.md",
+    "P0-003's 7 output paths trigger B8 and the task is declared split in the blueprint, but it landed as one commit: a workspace without its packages cannot typecheck and a skeleton without verify cannot pass. The split is a size label, not a bisectable boundary here",
+    "Reproduction scripts are committed under tools/qa/; older /tmp/opencode command names in evidence logs map to those files via tools/qa/README.md.",
+    "GDD-003: 11 DRAFT modules, T2 900-tick budget and T4 three-resolution minimum enforced as validator failures; generator committed under tools/qa/",
+    "GDD-004 closed the 14 critical modules as DRAFT; economy tables committed; no invented inflation, Gini or throughput",
+    "P1-002: 6 original FR/EN glossary entries, 11 franchise names rejected; validate-lore structural only, cannot judge story quality",
+    "P1-003: A0001 separated mesh/animation/skeleton architecture; validate-blueprint B2 caught an unowned ADR path before handoff, fixed by explicit map entry",
+    "P1-004: slice/UX/localization specs and 3 TDDs; validate-docs structural only, cannot judge UX quality or claim T2 demonstrated",
+    "GATE:P1 dossier assembled unsigned at head fea7306; tier S1 promotion left to the Director, no agent self-signs a gate"
+  ]
+}

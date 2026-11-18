@@ -1,0 +1,76 @@
+# STACK LOCK
+
+Master §6: "`docs/STACK.lock.md` pins exact versions … `packageManager` is pinned in `package.json`.
+'Latest' is not a version."
+
+This file is normative. A dependency not listed here is not approved; an entry marked **NOT INSTALLED**
+must be pinned before its first import. Changing a pin is a PR that touches this file and `pnpm-lock.yaml`
+in the same commit.
+
+Measured 2026-11-18 on `Linux 6.6.159+ x86_64` — log:
+`docs/state/evidence/20261118T004153Z-P0-003/10-versions.log`.
+
+## Pinned and installed
+
+| component | exact version | where it is pinned | measured by |
+|---|---|---|---|
+| Node.js | **22.23.4** | `engines.node: ">=22.23.4 <23"` + this table (the exact reference) | `node -v` |
+| pnpm | **12.21.0** | `package.json` → `packageManager` | `pnpm -v` |
+| TypeScript | **6.0.3** | root `devDependencies` (exact, no `^`) | `tsc -v` |
+| Vitest | **5.1.0** | root `devDependencies` | `vitest --version` |
+| @types/node | **22.20.5** | root `devDependencies` (matches Node 22, not latest) | package.json |
+| Babylon.js (`@babylonjs/core`) | **9.37.0** | `apps/game` dependencies | npm registry + `pnpm-lock.yaml` |
+| `ws` | **8.23.0** | `apps/server` dependencies; `apps/game` devDependencies (test client) | npm registry + `pnpm-lock.yaml` |
+| `@types/ws` | **8.18.2** | `apps/server` devDependencies | npm registry + `pnpm-lock.yaml` |
+
+**Third-party licenses** (read from registry metadata at pin time, 2026-11-18): Babylon.js **Apache-2.0**,
+`ws` **MIT**. Both are permissive and satisfied by §10.5/§10.6. Babylon's `NullEngine` is allowed in
+tooling/CI only — it is not imported by the server tick (I3).
+
+**Why TypeScript 6.0.3 and not 7.0.2.** `typescript@7` ships the native compiler and no longer exposes
+the JavaScript AST API (`import * as ts from 'typescript'` returns only `version`). The core-math ban
+(`scripts/lint-core-math.mjs`) parses the AST; a regex would be fooled by comments and strings. The pin
+returns to 7 when either the lint is ported or the API ships. Recorded as a trade-off, not a preference.
+
+## Not installed — no task may import them yet
+
+| component | status | earliest task / gate that must pin it |
+|---|---|---|
+| Colyseus | NOT INSTALLED — bypassed by A0004/A0007, `ws` 8.23.0 used instead | NET-003 (superseded) |
+| zod | NOT INSTALLED | first protocol schema (NET-001) |
+| Playwright | NOT INSTALLED | first browser-automation task — not scheduled yet |
+| Blender | NOT INSTALLED | first asset-pipeline task, after P0-006 license audit |
+| ComfyUI | NOT INSTALLED | AI-001, after P0-006 license audit |
+| CUDA | NOT INSTALLED | AI-001; VRAM tier detection first |
+
+An empty cell is not "whatever pnpm resolves". It is a gate.
+
+## Install and verify
+
+```bash
+corepack enable                 # provides the pinned pnpm
+pnpm install --frozen-lockfile  # the only accepted install in CI
+pnpm verify                     # the one definition, scripts/verify.mjs
+```
+
+`pnpm verify` at P0-005 runs, fail-fast: **typecheck** (`tsc -b`) → **lint** (core-math AST ban) →
+**unit** (Vitest) → `validate-prompt-drift` → `validate-scope` → `scope-math --check` →
+`validate-blueprint` → `validate-ownership` → `validate-locks` → `validate-workflows` → resume drill
+`--dry`) → `validate-manifest --audit` → `validate-docs` → `validate-gdd --template` →
+`gdd-coverage --min 0.80` → `validate-lore` → `validate-art-bible`. It prints `DEFERRED` for determinism replay, GDD coverage and every declared
+stub. Deferred steps are never counted as green; the full pipeline from §6 is the target, not a claim.
+
+## AI models and tools — gated by a separate audit
+
+No model or generation tool is installed. `docs/legal/AI_MODEL_AUDIT.md` and
+`tools/asset-pipeline/whitelist.yaml` are the authority (P0-006, I4). Only 8 entries are APPROVED; 7 are
+blocked pending Director decisions and 5 are rejected. `pnpm verify` runs
+`node scripts/validate-manifest.mjs --audit` so a forbidden licence cannot enter the whitelist silently.
+
+## Lockfile policy
+
+- `pnpm-lock.yaml` is committed. `--frozen-lockfile` is the CI default.
+- No `^`, `~`, `latest` or `*` in any `dependencies`/`devDependencies`; workspace links are `workspace:*`.
+- pnpm 12 supply-chain verification must pass; a failed policy check is a red build, not a warning to ignore.
+- Adding a dependency requires: license audit (§10.6) if it ships in the client, an exact pin here, and a
+  line in the task's evidence.

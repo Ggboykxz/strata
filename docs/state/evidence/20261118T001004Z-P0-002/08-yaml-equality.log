@@ -1,0 +1,7 @@
+$ node --input-type=module (parse the 3 YAML docs with scripts/lib/yaml.mjs)
+$ python3 yaml.safe_load on the same 3 docs
+$ deep-equal every pair
+MATCH   docs/blueprint/BLUEPRINT.yaml  (node subset parser == PyYAML)
+MATCH   docs/state/OWNERSHIP.yaml  (node subset parser == PyYAML)
+MATCH   docs/production/SCOPE_LEDGER.yaml  (node subset parser == PyYAML)
+RESULT: PASS — 3/3 documents equal

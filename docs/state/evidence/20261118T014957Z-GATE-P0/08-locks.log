@@ -1,0 +1,8 @@
+
+L1  registry schema
+OK    version 1 · branch state/locks · ttl 60m · heartbeat 10m · 4 rules
+
+L2  0 lock entries
+OK    0 entries valid, 0 active lock(s), 0 collision(s)
+
+RESULT: PASS — registry structurally valid, 0 active locks (empty registry is valid)

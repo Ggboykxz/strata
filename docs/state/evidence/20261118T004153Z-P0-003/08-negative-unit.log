@@ -1,0 +1,38 @@
+$ pnpm test   # with a deliberately failing assertion
+$ vitest run
+
+ RUN  v5.1.0 /content/strata
+
+ ❯ packages/core/test/__negative__.test.ts (1 test | 1 failed) 25ms
+   × deliberately fails 20ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  packages/core/test/__negative__.test.ts > deliberately fails
+AssertionError: expected 1 to be 2 // Object.is equality
+
+- Expected
++ Received
+
+- 2
++ 1
+
+ ❯ packages/core/test/__negative__.test.ts:2:44
+      1| import { expect, it } from "vitest";
+      2| it("deliberately fails", () => { expect(1).toBe(2); });
+       |                                            ^
+      3|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 3 passed (4)
+      Tests  1 failed | 4 passed (5)
+   Start at  00:42:22
+   Duration  812ms (import 35%, transform 26%, tests 25%, worker 14%, environment 1%)
+
+    Isolate  4 workers spawned · ~146ms startup each (spawn + environment, per file)
+             at least ~438ms faster with isolate: false — reuses workers across files instead of one per file
+
+[ELIFECYCLE] Test failed. See above for more details.
+EXIT=1

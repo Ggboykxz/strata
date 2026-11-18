@@ -1,0 +1,18 @@
+$ pnpm tracer --assert
+$ node scripts/tracer.mjs --assert
+
+ RUN  v5.1.0 /content/strata
+
+stdout | apps/game/test/tracer.test.ts > TRACER-001 walking skeleton > reaches equal hashes on both sides, rejects a desync, and renders the capsule
+BJS - [09:29:10]: Babylon.js v9.37.0 - Null engine
+
+ ✓ apps/game/test/tracer.test.ts > TRACER-001 walking skeleton > reaches equal hashes on both sides, rejects a desync, and renders the capsule 423ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed (1)
+   Start at  09:29:06
+   Duration  3.98s (import 83%, tests 12%, transform 4%)
+
+
+RESULT: PASS — tracer assert: equal state hashes, desync rejected, capsule rendered.
+EXIT=0

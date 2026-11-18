@@ -1,0 +1,4 @@
+$ node scripts/lint-core-math.mjs
+core-math ban — 11 file(s) under packages/core/src
+RESULT: PASS — 0 wall-clock reads, 0 unseeded randomness, 0 transcendentals, 0 foreign imports.
+EXIT=0

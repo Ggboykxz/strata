@@ -1,0 +1,193 @@
+# SCOPE_LEDGER — zero-sum feature ledger (§2.4)
+# Every added feature pays for itself by cutting or deferring equal-or-greater cost.
+# Entries for a phase are created by the producer BEFORE a task becomes ready.
+version: 1
+project: strata
+currency: EUR
+budget:
+  P0: 30
+  P1: 34
+  P2NET: 40
+  P2SYS: 32
+  P3ART: 60
+entries:
+  - id: SL-HC-001
+    title: "High Concept + guardian + CIS validator"
+    phase: P0
+    tier_required: S0
+    dev_sessions: 1
+    assets_count: 0
+    gpu_hours: 0
+    server_cost_month: 0
+    bandwidth_kbps_per_player: 0
+    storage_mb: 0
+    ops_burden_hours_month: 0
+    concept_role: sig
+    gdd_ref: GDD-CORE#concept
+    status: accepted
+    traded_against: []
+  - id: SL-SC-001
+    title: "Scope + tier ladder + ledger + content math"
+    phase: P0
+    tier_required: S0
+    dev_sessions: 1
+    assets_count: 0
+    gpu_hours: 0
+    server_cost_month: 0
+    bandwidth_kbps_per_player: 0
+    storage_mb: 0
+    ops_burden_hours_month: 0
+    concept_role: sig
+    gdd_ref: GDD-SCOPE
+    status: accepted
+    traded_against: []
+  - id: SL-WF-001
+    title: "Workflow OS docs: ownership map, lock protocol, ACP, arbitration, handoffs"
+    phase: P0
+    tier_required: S0
+    dev_sessions: 1
+    assets_count: 0
+    gpu_hours: 0
+    server_cost_month: 0
+    bandwidth_kbps_per_player: 0
+    storage_mb: 0
+    ops_burden_hours_month: 0
+    concept_role: sig
+    gdd_ref: GDD-WORKFLOW
+    status: accepted
+    traded_against: []
+  - id: SL-P0-001
+    title: "Constitution + AGENTS.md + opencode.json + BLUEPRINT.yaml + PROMPT.lock"
+    phase: P0
+    tier_required: S0
+    dev_sessions: 2
+    assets_count: 0
+    gpu_hours: 0
+    server_cost_month: 0
+    bandwidth_kbps_per_player: 0
+    storage_mb: 0
+    ops_burden_hours_month: 0
+    concept_role: sup
+    gdd_ref: GDD-CORE#meta
+    status: accepted
+    traded_against: []
+  - id: SL-P0-002
+    title: "Agents + skills + blueprint validator + failing validator stubs"
+    phase: P0
+    tier_required: S0
+    dev_sessions: 2
+    assets_count: 0
+    gpu_hours: 0
+    server_cost_month: 0
+    bandwidth_kbps_per_player: 0
+    storage_mb: 0
+    ops_burden_hours_month: 0
+    concept_role: sup
+    gdd_ref: GDD-WORKFLOW
+    status: accepted
+    traded_against: []
+  - id: SL-P0-003
+    title: "Monorepo skeleton + pnpm verify"
+    phase: P0
+    tier_required: S0
+    dev_sessions: 4
+    assets_count: 0
+    gpu_hours: 0
+    server_cost_month: 0
+    bandwidth_kbps_per_player: 0
+    storage_mb: 0
+    ops_burden_hours_month: 0
+    concept_role: sig
+    gdd_ref: GDD-NETCODE#authority
+    status: accepted
+    traded_against: []
+  - id: SL-WF-002
+    title: "Ownership + lock validators (CI-enforced)"
+    phase: P0
+    tier_required: S0
+    dev_sessions: 1
+    assets_count: 0
+    gpu_hours: 0
+    server_cost_month: 0
+    bandwidth_kbps_per_player: 0
+    storage_mb: 0
+    ops_burden_hours_month: 0
+    concept_role: sig
+    gdd_ref: GDD-WORKFLOW
+    status: accepted
+    traded_against: []
+  - id: SL-TRACER-001
+    title: "Tracer bullet: capsule, 30 Hz server tick, equal state hash both sides"
+    phase: P0
+    tier_required: S0
+    dev_sessions: 3
+    assets_count: 0
+    gpu_hours: 0
+    server_cost_month: 0
+    bandwidth_kbps_per_player: 0
+    storage_mb: 0
+    ops_burden_hours_month: 0
+    concept_role: sig
+    gdd_ref: GDD-NETCODE#authority
+    status: accepted
+    traded_against: []
+  - id: SL-P0-004
+    title: "CI workflows (27)"
+    phase: P0
+    tier_required: S0
+    dev_sessions: 2
+    assets_count: 0
+    gpu_hours: 0
+    server_cost_month: 0
+    bandwidth_kbps_per_player: 0
+    storage_mb: 0
+    ops_burden_hours_month: 0
+    concept_role: amp
+    gdd_ref: GDD-WORKFLOW
+    status: accepted
+    traded_against: []
+  - id: SL-P0-005
+    title: "Colab bootstrap + watchdog + heartbeat + resume drill"
+    phase: P0
+    tier_required: S0
+    dev_sessions: 2
+    assets_count: 0
+    gpu_hours: 0
+    server_cost_month: 0
+    bandwidth_kbps_per_player: 0
+    storage_mb: 0
+    ops_burden_hours_month: 0
+    concept_role: sup
+    gdd_ref: GDD-AI-ASSETS#tiers
+    status: accepted
+    traded_against: []
+  - id: SL-P0-006
+    title: "AI license audit of the generation stack + tier detect"
+    phase: P0
+    tier_required: S0
+    dev_sessions: 3
+    assets_count: 0
+    gpu_hours: 0
+    server_cost_month: 0
+    bandwidth_kbps_per_player: 0
+    storage_mb: 0
+    ops_burden_hours_month: 0
+    concept_role: sig
+    gdd_ref: GDD-AI-ASSETS#licenses
+    status: accepted
+    traded_against: []
+  - id: SL-P0-007
+    title: "Dashboard: workflow, concept, GDD, scope, netcode, economy"
+    phase: P0
+    tier_required: S0
+    dev_sessions: 3
+    assets_count: 0
+    gpu_hours: 0
+    server_cost_month: 0
+    bandwidth_kbps_per_player: 0
+    storage_mb: 0
+    ops_burden_hours_month: 0
+    concept_role: amp
+    gdd_ref: GDD-WORKFLOW
+    status: accepted
+    traded_against: []

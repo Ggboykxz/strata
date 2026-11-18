@@ -1,0 +1,15 @@
+$ pnpm test
+$ vitest run
+
+ RUN  v5.1.0 /content/strata
+
+
+ Test Files  15 passed (15)
+      Tests  142 passed (142)
+   Start at  09:49:13
+   Duration  3.76s (tests 49%, import 34%, transform 9%, worker 8%)
+
+    Isolate  15 workers spawned · ~159ms startup each (spawn + environment, per file)
+             at least ~2.22s faster with isolate: false — reuses workers across files instead of one per file
+
+EXIT=0

@@ -1,0 +1,3 @@
+validate-netgate — FAIL (1)
+  - wire budget must be reported as failing at 3.79x, not averaged away
+EXIT=1

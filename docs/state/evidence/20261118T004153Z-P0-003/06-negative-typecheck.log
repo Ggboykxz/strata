@@ -1,0 +1,5 @@
+$ pnpm typecheck   # with a deliberate type error
+$ tsc -b
+packages/core/src/__negative__.ts(1,14): error TS2322: Type 'string' is not assignable to type 'number'.
+[ELIFECYCLE] Command failed with exit code 2.
+EXIT=2

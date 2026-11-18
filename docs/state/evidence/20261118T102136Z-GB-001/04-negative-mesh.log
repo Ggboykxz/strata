@@ -1,0 +1,3 @@
+validate-scene-budget — FAIL (1)
+  - primitive s1-p1 carries forbidden field mesh — meshes/textures/materials are not greybox
+EXIT=1
