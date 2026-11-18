@@ -237,6 +237,39 @@ for (const t of tasks) {
 }
 if (errors.length === b7Before) ok(`every acc script exists; ${stubCount} are declared stubs (they exit 1 until implemented)`);
 
+console.log(`\nB9  acceptance commands must not be false-pass forms`);
+const LEGACY_FALSE_PASS = new Set([
+  'PR-N2::pnpm sim prn2 --assert',
+  'PR-S3::pnpm sim prs3 --assert',
+  'PR-S6::pnpm sim prs6 --assert',
+  'PR-S7::pnpm sim prs7 --assert',
+  'PR-S8::pnpm sim prs8 --assert',
+  'AN-002::pnpm test --filter @strata/anim',
+  'P3-005::pnpm test --filter @strata/a11y',
+  'P3-006::pnpm test --filter @strata/perf',
+  'NET-101::pnpm sim prn1 --tier S2 --assert',
+  'NET-102::pnpm test --filter @strata/persistence',
+  'NET-103::pnpm test --filter @strata/server -t commitqueue',
+  'MOD-001::pnpm test --filter @strata/moderation',
+]);
+const falsePass = (cmd) => /^pnpm test --filter\b/.test(cmd)
+  || /^pnpm --filter \S+ test\b/.test(cmd)
+  || /^pnpm vitest run .+ -t \S/.test(cmd)
+  || /^pnpm sim \S+ --assert/.test(cmd);
+let legacyCount = 0;
+for (const t of tasks) {
+  for (const cmd of t.acc ?? []) {
+    if (!falsePass(cmd)) continue;
+    if (LEGACY_FALSE_PASS.has(`${t.id}::${cmd}`)) {
+      legacyCount++;
+      warn(`B9 ${t.id} legacy false-pass acc "${cmd}" — repair when the task is implemented`);
+    } else {
+      bad(`B9 ${t.id} new false-pass acc "${cmd}" — name a real test file or command`);
+    }
+  }
+}
+ok(`${legacyCount} declared legacy false-pass accs; no new ones accepted`);
+
 console.log(`\nB8  split heuristic (acc > 3 or out > 4)`);
 for (const t of tasks) {
   const acc = (t.acc ?? []).length;

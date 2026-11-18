@@ -362,3 +362,13 @@ blueprint task currently owns the pin: recorded as a gap for the Director/next r
   0,080768 recorded only. A value-printing cycle was detected and named.
 - GDD-ECONOMY 0.3; acc repaired (fifteenth broken form); qa-engineer co-owner declared up front. Full 166/166,
   verify 17/17. No real market/players/network; no art or GPU/TPU (ND-012). Next: PR-S7.
+
+## Session 2 — TOOL-FIXALL / A0007 (2026-11-18T13:24Z)
+
+- Director: "fix all problems n limits" (A0007, verbatim). Fixed repo-side issues: B9 false-pass rejection with
+  12 declared legacy offenses, `pnpm verify` **17 → 19** steps (dashboard truth + journal freshness), generated
+  `docs/state/JOURNAL.md`, Playwright MCP pinned to `@playwright/mcp@0.0.85`, `validate-locks` accepts gate ids,
+  stale Colyseus row corrected, dashboard truth check ported from PR #2.
+- Negative tests: injecting a false-pass acc → B9 error; stale journal view → exit 1. Verify 19/19, docs 0 errors.
+- **Not fixable by an agent** remains recorded: no GPU/TPU (ND-012), 8 unmeasured NET-GATE criteria, PAT/HF
+  rotation and PR merges (Director-only), ND-011, economy retune and SEC-002 wiring (separate checkpoints).

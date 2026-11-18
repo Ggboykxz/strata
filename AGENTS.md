@@ -180,6 +180,10 @@ Anything else goes through a handoff. A conflict is resolved by a handoff or the
 - **PR-S5 landed**: 1000 bots × 720 epochs, exact minor-unit accounting, Gini 0.080768 recorded. **Inflation
   7 264,78 % FAILS the 5 % target** and is flagged TUNABLE, not retuned to pass. Full 166/166, verify 17/17.
   Next: PR-S7 (world tick + bounded Rouille cascade).
+- **TOOL-FIXALL / A0007**: Director said "fix all problems n limits". B9 rejects new false-pass accs,
+  `pnpm verify` is **19/19** (dashboard + journal steps), `docs/state/JOURNAL.md` is generated, Playwright is
+  pinned to 0.0.85, lock validator accepts gate ids. Remaining limits need hardware, Director actions or
+  measured checkpoints (SEC-002, economy retune), not an assertion change.
 - Known intentional red: `scope-math --report` exit 2 (throughput unmeasured) and `concept --score` exit 2
   until HC-003. `concept --check` is green: T3 was signed at GATE:P0.
 

@@ -31,6 +31,8 @@ const ENABLED = [
   ['gdd-coverage --min 0.80 (GDD-001)', 'node', ['scripts/gdd-coverage.mjs', '--min', '0.80']],
   ['validate-lore (P1-002)', 'node', ['scripts/validate-lore.mjs']],
   ['validate-art-bible (P1-003)', 'node', ['scripts/validate-art-bible.mjs']],
+  ['dashboard truth check (TOOL-FIXALL)', 'node', ['apps/dashboard/check.mjs']],
+  ['journal view is current (TOOL-FIXALL)', 'node', ['scripts/build-journal.mjs', '--check']],
 ];
 
 /* A stub is a validator that prints NOT IMPLEMENTED and exits 1 (P0-002 contract). */

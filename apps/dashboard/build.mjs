@@ -7,6 +7,7 @@
  * This builder is the only place that reads source files. Unmeasured values are printed as NOT COMPUTABLE
  * (I5/I13). The output is deterministic except for `generated_at`, which is metadata, not a metric.
  */
+import { execFileSync } from 'node:child_process';
 import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { parseYaml } from '../../scripts/lib/yaml.mjs';
@@ -33,37 +34,83 @@ const openDirector = read('docs/state/NEEDS_DIRECTOR.md').split('\n')
   .filter(l => /^\| ND-\d+ \| \*\*OPEN/.test(l)).map(l => l.split('|')[1].trim());
 const m = metrics.measured ?? {};
 
+function activeLocks() {
+  for (const ref of ['origin/state/locks', 'state/locks']) {
+    try {
+      const text = execFileSync('git', ['show', `${ref}:docs/state/LOCKS.yaml`], {
+        cwd: ROOT, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'],
+      });
+      const registry = parseYaml(text);
+      return {
+        count: (registry.locks ?? []).filter(l => l.status === 'active').length,
+        source: `${ref}:docs/state/LOCKS.yaml`,
+      };
+    } catch { /* try the next ref */ }
+  }
+  return { count: null, source: 'state/locks unavailable' };
+}
+const lockView = activeLocks();
+
+function tracerProof() {
+  try {
+    const dirs = readdirSync(p('docs/state/evidence')).filter(d => /^\d{8}T\d{6}Z-/.test(d)).sort();
+    for (let i = dirs.length - 1; i >= 0; i--) {
+      const dir = `docs/state/evidence/${dirs[i]}`;
+      const logs = readdirSync(p(dir)).filter(f => f.includes('tracer') && f.endsWith('.log'));
+      for (const log of logs) {
+        if (read(`${dir}/${log}`).includes('RESULT: PASS — tracer assert')) {
+          return `green — ${dir}/${log} (exit 0)`;
+        }
+      }
+    }
+  } catch { /* no evidence: honest NOT COMPUTABLE */ }
+  return null;
+}
+const hcText = read('docs/design/HIGH_CONCEPT.md');
+const hcVersion = hcText.match(/^\| version \| ([^|]+?) \|/m)?.[1]?.trim() ?? null;
+const t3 = hcText.match(/^## 5\. NOVELTY GRID v1 \(SIGNED — ([^,]+), ([^)]+)\)/m);
+const t3Signature = t3 ? `SIGNED at ${t3[1].trim()}, ${t3[2].trim()} — gate-scoped` : null;
+const maturity = metrics.gdd_coverage?.maturity ?? {};
+const percent = (v) => (typeof v === 'number' ? `${Math.round(v * 100)}%` : show(v));
+
 /* ---------- views: raw values, no derived claims ---------- */
 const data = {
   generated_at: process.env.STRATA_BUILD_UTC ?? new Date().toISOString(),
   source_metric: metricFiles.at(-1),
   sources: [
-    'docs/state/metrics/<session>.json', 'docs/state/OWNERSHIP.yaml', 'docs/state/LOCKS.yaml',
+    'docs/state/metrics/<session>.json', 'docs/state/OWNERSHIP.yaml', 'state/locks:docs/state/LOCKS.yaml',
     'docs/blueprint/BLUEPRINT.yaml', 'docs/production/DISPUTES.md', 'docs/state/threads/',
+    'docs/design/HIGH_CONCEPT.md', 'docs/state/evidence/<utc>-<task>/*tracer*.log',
     'docs/state/NEEDS_DIRECTOR.md', 'tools/asset-pipeline/whitelist.yaml',
   ],
   workflow: {
     owners: own.owners?.length ?? 0,
     globs: (own.owners ?? []).reduce((n, o) => n + (o.globs?.length ?? 0), 0) + (own.catch_all?.length ?? 0),
-    active_locks: (locks.locks ?? []).filter(l => l.status === 'active').length,
+    active_locks: show(lockView.count),
+    locks_source: lockView.source,
     thread_dirs: threads,
     disputes,
     open_director: openDirector,
   },
   concept: {
+    hc_version: show(hcVersion),
     t1_en_words: show(m.hc_t1_en_words),
     t1_en_limit: show(m.hc_t1_en_limit),
     t1_fr_words: show(m.hc_t1_fr_words),
-    t3_gate_signature: 'SIGNED at GATE:P0 (HIGH_CONCEPT v1.2)',
+    t3_gate_signature: show(t3Signature),
     cis: show(metrics.cis?.value),
+    cis_reason: show(metrics.cis?.reason),
   },
   gdd: {
-    modules: 0,
-    coverage: show(metrics.gdd_coverage?.value),
-    first_module: 'GDD-001 (P1, not started)',
+    modules: show(m.gdd_modules),
+    draft: show(maturity.draft),
+    stub: show(maturity.stub),
+    signed: show(maturity.signed),
+    coverage: percent(metrics.gdd_coverage?.value),
   },
   scope: {
-    ledger_entries: show(m.ledger_entries),
+    ledger_entries: show(metrics.scope?.ledger_entries),
+    balanced: show(metrics.scope?.balanced),
     accepted_sessions: show(m.ledger_accepted_sessions),
     budget_P0: show(m.budget_P0),
     margin_P0: show(metrics.scope?.phase_margin_P0),
@@ -78,13 +125,22 @@ const data = {
     desyncs: show(m.desyncs),
     reconnects: show(m.reconnects),
     aoi_entities: show(m.aoi_entities),
-    tracer: 'green — pnpm tracer --assert (equal state hashes)',
+    tracer: show(tracerProof()),
   },
   economy: {
     inflation: show(m.economy_inflation),
     faucets: show(m.economy_faucets),
     sinks: show(m.economy_sinks),
     sim_status: 'not started (ECON-001)',
+  },
+  tier: {
+    current: show(metrics.tier?.current),
+    authorized: show(metrics.tier?.authorized),
+    granted_by: show(metrics.tier?.granted_by),
+  },
+  netgate: {
+    status: show(metrics.netgate?.status),
+    art_allowed: show(metrics.netgate?.art_allowed),
   },
   ai_audit: {
     approved: whitelist.approved?.length ?? 0,
@@ -113,6 +169,8 @@ ${section('gdd', 'GDD', Object.entries(data.gdd))}
 ${section('scope', 'SCOPE', Object.entries(data.scope))}
 ${section('netcode', 'NETCODE', Object.entries(data.netcode))}
 ${section('economy', 'ECONOMY', Object.entries(data.economy))}
+${section('tier', 'TIER', Object.entries(data.tier))}
+${section('netgate', 'NET-GATE', Object.entries(data.netgate))}
 ${section('audit', 'AI AUDIT + BLUEPRINT', [...Object.entries(data.ai_audit), ...Object.entries(data.blueprint)])}
 <footer>source metric: <code>${esc(data.source_metric)}</code> · generated ${esc(data.generated_at)}
 <br>sources: ${esc(data.sources.join(' · '))}</footer></body></html>

@@ -19,6 +19,7 @@ Nothing here blocks the work already done; each item blocks a named future task.
 | ND-010 | **RESOLVED — SIGNED** | GATE:P1 signed ("Oui, signe S1"); authorized_tier S1; NET-001..006 selectable |
 | ND-011 | **OPEN — information acknowledged, one decision** | Director declares TPU v5e-1 + T4 16 GB; T4 is already the sourced generation tier, TPU has no audited model |
 | ND-012 | **OPEN — hardware request** | Director said "gère l'art et go next"; current runtime has no GPU/TPU. Need a T4 16 GB (or equivalent) for AI-001; TPU is not a generation device (ND-011) |
+| ND-013 | **PARTIAL — fix-all instruction** | Director said "fix all problems n limits"; repo-side fixes landed (A0007), hardware/Director/net-measurement limits remain open |
 
 ND-004 and ND-005 cannot be closed by an agent: GitHub and Hugging Face rotations require account access
 and, on GitHub, a UI flow. This is stated rather than simulated. Evidence that no secret reached the repo:
@@ -291,6 +292,20 @@ applies. The full handoff is in `docs/state/ART_HANDOFF.md`.
 blocked by deps and hardware. Nothing is faked and no model is downloaded.
 
 **Related:** ND-004/ND-005 (token rotation) and ND-011 (TPU scope) remain open; PR #1/#2 merges remain Director-only.
+
+## ND-013 — "fix all problems n limits" — partial by construction
+
+**Director statement, verbatim (2026-11-18):** "fix all problems n limits".
+
+**Fixed** (A0007, TOOL-FIXALL): false-pass acceptance detection, verify coverage 17 → 19, generated journal view,
+MCP pin, lock validator gate ids, stale STACK row, dashboard check port.
+
+**Still open because an agent cannot fix them:** no GPU/TPU (ND-012); 4-client RTT/loss/jitter matrix, 30-minute
+soak, server tick p95, RPO dataset and AoI/delta (NET-GATE 8 unmet criteria); PAT/HF rotation and PR #1/#2 merges
+(Director-only); TPU scope (ND-011). The economy retune and SEC-002 gate wiring are fixable but require their own
+measured checkpoints, not an assertion change. None of these were silently closed.
+
+**Effect of no answer:** nothing new is blocked; the list above is the true residual limit set.
 
 ---
 

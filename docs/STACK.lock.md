@@ -36,7 +36,7 @@ returns to 7 when either the lint is ported or the API ships. Recorded as a trad
 
 | component | status | earliest task / gate that must pin it |
 |---|---|---|
-| Colyseus | NOT INSTALLED | NET-001 |
+| Colyseus | NOT INSTALLED — bypassed by A0004/A0007, `ws` 8.23.0 used instead | NET-003 (superseded) |
 | zod | NOT INSTALLED | first protocol schema (NET-001) |
 | Playwright | NOT INSTALLED | first browser-automation task — not scheduled yet |
 | Blender | NOT INSTALLED | first asset-pipeline task, after P0-006 license audit |

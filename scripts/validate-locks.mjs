@@ -58,7 +58,7 @@ if (!errors.length) ok(`version 1 · branch ${locksDoc.branch} · ttl ${ttl}m ·
 
 /* ---------- referenced identities ---------- */
 const owners = new Set((own.owners ?? []).map(o => o.agent));
-const tasks = new Set((bp.tasks ?? []).map(t => t.id));
+const tasks = new Set([...(bp.tasks ?? []).map(t => t.id), ...Object.keys(bp.gates ?? {})]);
 const locks = Array.isArray(locksDoc.locks) ? locksDoc.locks : [];
 const REQUIRED = ['path_glob', 'owner_agent', 'task_id', 'branch', 'acquired_at', 'expires_at', 'status'];
 const ACTIVE = new Map();
@@ -71,7 +71,7 @@ for (const [i, l] of locks.entries()) {
   for (const f of REQUIRED) if (!(f in l)) fail(`${at} missing ${f}`);
   if (typeof l.path_glob !== 'string' || !l.path_glob) fail(`${at} path_glob must be a non-empty string`);
   if (!owners.has(l.owner_agent)) fail(`${at} owner_agent "${l.owner_agent}" is not in OWNERSHIP.yaml`);
-  if (!tasks.has(l.task_id)) fail(`${at} task_id "${l.task_id}" is not in BLUEPRINT.yaml`);
+  if (!tasks.has(l.task_id)) fail(`${at} task_id "${l.task_id}" is neither a blueprint task nor a gate`);
   if (typeof l.branch !== 'string' || !/^(session|state)\//.test(l.branch)) {
     fail(`${at} branch must start with session/ or state/ (found ${JSON.stringify(l.branch)})`);
   }

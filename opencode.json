@@ -40,7 +40,7 @@
       },
       "playwright": {
         "type": "local",
-        "command": ["npx", "-y", "@playwright/mcp"]
+        "command": ["npx", "-y", "@playwright/mcp@0.0.85"]
       },
       "github": {
         "type": "remote",
