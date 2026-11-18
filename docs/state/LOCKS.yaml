@@ -332,4 +332,83 @@ locks:
     acquired_at: "2026-11-18T09:20:00Z"
     expires_at: "2026-11-18T09:50:00Z"
     status: released
+  - path_glob: "apps/game/src/net/index.ts"
+    owner_agent: netcode-engineer
+    task_id: NET-004
+    branch: session/20261118-hc-001-high-concept
+    acquired_at: "2026-11-18T09:36:00Z"
+    expires_at: "2026-11-18T10:06:00Z"
+    status: active
+
+  - path_glob: "apps/game/src/net/interpolate.ts"
+    owner_agent: netcode-engineer
+    task_id: NET-004
+    branch: session/20261118-hc-001-high-concept
+    acquired_at: "2026-11-18T09:36:00Z"
+    expires_at: "2026-11-18T10:06:00Z"
+    status: active
+
+  - path_glob: "apps/game/src/net/predictor.ts"
+    owner_agent: netcode-engineer
+    task_id: NET-004
+    branch: session/20261118-hc-001-high-concept
+    acquired_at: "2026-11-18T09:36:00Z"
+    expires_at: "2026-11-18T10:06:00Z"
+    status: active
+
+  - path_glob: "apps/game/src/net/snapshot-buffer.ts"
+    owner_agent: netcode-engineer
+    task_id: NET-004
+    branch: session/20261118-hc-001-high-concept
+    acquired_at: "2026-11-18T09:36:00Z"
+    expires_at: "2026-11-18T10:06:00Z"
+    status: active
+
+  - path_glob: "apps/game/test/net.test.ts"
+    owner_agent: gameplay-engineer
+    task_id: NET-004
+    branch: session/20261118-hc-001-high-concept
+    acquired_at: "2026-11-18T09:36:00Z"
+    expires_at: "2026-11-18T10:06:00Z"
+    status: active
+
+  - path_glob: "docs/blueprint/BLUEPRINT.yaml"
+    owner_agent: orchestrator
+    task_id: NET-004
+    branch: session/20261118-hc-001-high-concept
+    acquired_at: "2026-11-18T09:36:00Z"
+    expires_at: "2026-11-18T10:06:00Z"
+    status: active
+
+  - path_glob: "docs/blueprint/GATES.yaml"
+    owner_agent: orchestrator
+    task_id: NET-004
+    branch: session/20261118-hc-001-high-concept
+    acquired_at: "2026-11-18T09:36:00Z"
+    expires_at: "2026-11-18T10:06:00Z"
+    status: active
+
+  - path_glob: "docs/design/gdd/GDD-NETCODE.md"
+    owner_agent: netcode-engineer
+    task_id: NET-004
+    branch: session/20261118-hc-001-high-concept
+    acquired_at: "2026-11-18T09:36:00Z"
+    expires_at: "2026-11-18T10:06:00Z"
+    status: active
+
+  - path_glob: "packages/core/src/hash.ts"
+    owner_agent: netcode-engineer
+    task_id: NET-004
+    branch: session/20261118-hc-001-high-concept
+    acquired_at: "2026-11-18T09:36:00Z"
+    expires_at: "2026-11-18T10:06:00Z"
+    status: active
+
+  - path_glob: "packages/core/src/index.ts"
+    owner_agent: gameplay-engineer
+    task_id: NET-004
+    branch: session/20261118-hc-001-high-concept
+    acquired_at: "2026-11-18T09:36:00Z"
+    expires_at: "2026-11-18T10:06:00Z"
+    status: active
 
