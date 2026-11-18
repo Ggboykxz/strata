@@ -1,0 +1,27 @@
+{
+  "asset_manifest": "v1",
+  "asset_id": "ai-001-hero-mesh-0002",
+  "licence_id": "TRIPOSR",
+  "model_revision": "107cefdc244c39106fa830359024f6a2f1c78871",
+  "weights_revision": "5b521936b01fbe1890f6f9baed0254ab6351c04a",
+  "weights_sha256": "429e2c6b22a0923967459de24d67f05962b235f79cde6b032aa7ed2ffcd970ee",
+  "prompt_hash": "26379a29a108e3f962089e701c28824a12a7d05d707952affdeae9a7c122a157",
+  "tier": "16GB",
+  "gpu": "Tesla T4",
+  "class": "ai-generated-smoke-bypass-A0012-v2",
+  "generated_at": "2026-11-18T22:05Z",
+  "input_sha256": "840c29673b37f9b1b2f9e0b48b13abfdfc5dd6e5ab0e7da0f25f11a07efa7a3b",
+  "output_bytes": 2823460,
+  "output_sha256": {
+    "glb": "be9def80ae2fbbb319a1492649776e62d9ecf556fcba524810b7efe65491f392",
+    "obj": null
+  },
+  "mesh_stats": {
+    "vertices": 70561,
+    "faces": 141124,
+    "animation_tracks": 0
+  },
+  "notes": [
+    "A0012 smoke asset; not production art; not NET-GATE evidence"
+  ]
+}

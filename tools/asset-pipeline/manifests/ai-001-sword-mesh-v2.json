@@ -1,0 +1,27 @@
+{
+  "asset_manifest": "v1",
+  "asset_id": "ai-001-sword-mesh-0001",
+  "licence_id": "TRIPOSR",
+  "model_revision": "107cefdc244c39106fa830359024f6a2f1c78871",
+  "weights_revision": "5b521936b01fbe1890f6f9baed0254ab6351c04a",
+  "weights_sha256": "429e2c6b22a0923967459de24d67f05962b235f79cde6b032aa7ed2ffcd970ee",
+  "prompt_hash": "f776ec1cc380886ab7184b82df1e234bc9cb42d8ffb471f3364873c6ad720f5c",
+  "tier": "16GB",
+  "gpu": "Tesla T4",
+  "class": "ai-generated-smoke-bypass-A0012-v2",
+  "generated_at": "2026-11-18T22:05Z",
+  "input_sha256": "03bcdf6f23411e97cacba587ce1936a9ddc66e19fbadaa823e632ba9bd0ea820",
+  "output_bytes": 407264,
+  "output_sha256": {
+    "glb": "dea6c9748b0784a21f6f35767b31ce9ec26d895a1c2cb31a747b13ae343ccd7f",
+    "obj": null
+  },
+  "mesh_stats": {
+    "vertices": 10158,
+    "faces": 20312,
+    "animation_tracks": 0
+  },
+  "notes": [
+    "A0012 smoke asset; not production art; not NET-GATE evidence"
+  ]
+}

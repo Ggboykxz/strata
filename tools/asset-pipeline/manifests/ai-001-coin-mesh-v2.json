@@ -1,0 +1,27 @@
+{
+  "asset_manifest": "v1",
+  "asset_id": "ai-001-coin-mesh-0001",
+  "licence_id": "TRIPOSR",
+  "model_revision": "107cefdc244c39106fa830359024f6a2f1c78871",
+  "weights_revision": "5b521936b01fbe1890f6f9baed0254ab6351c04a",
+  "weights_sha256": "429e2c6b22a0923967459de24d67f05962b235f79cde6b032aa7ed2ffcd970ee",
+  "prompt_hash": "654faac85b71d67a2eac69482d20b97030b5f6ae319b85c910da6519c53ea59b",
+  "tier": "16GB",
+  "gpu": "Tesla T4",
+  "class": "ai-generated-smoke-bypass-A0012-v2",
+  "generated_at": "2026-11-18T22:05Z",
+  "input_sha256": "55b54ad6bdca84b50dd7b4e46eb7549e4be39eda6c139e9c1a70b433af9c42a5",
+  "output_bytes": 3193424,
+  "output_sha256": {
+    "glb": "0a53d65790ca592afacc6913346539f4055a3aeb7c41788b49af152475b20a8c",
+    "obj": null
+  },
+  "mesh_stats": {
+    "vertices": 79812,
+    "faces": 159620,
+    "animation_tracks": 0
+  },
+  "notes": [
+    "A0012 smoke asset; not production art; not NET-GATE evidence"
+  ]
+}

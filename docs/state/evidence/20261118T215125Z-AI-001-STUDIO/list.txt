@@ -1,0 +1,9 @@
+golem
+chest
+shield
+crystal
+coin
+torch
+sword
+pine
+rock

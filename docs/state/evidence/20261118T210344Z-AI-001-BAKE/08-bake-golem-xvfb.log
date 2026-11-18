@@ -1,0 +1,50 @@
+2026-11-18 21:46:46,060 - INFO - Initializing model ...
+/content/ai/venv-trisr/lib/python3.13/site-packages/transformers/utils/generic.py:441: FutureWarning: `torch.utils._pytree._register_pytree_node` is deprecated. Please use `torch.utils._pytree.register_pytree_node` instead.
+  _torch_pytree._register_pytree_node(
+/content/ai/venv-trisr/lib/python3.13/site-packages/transformers/utils/generic.py:309: FutureWarning: `torch.utils._pytree._register_pytree_node` is deprecated. Please use `torch.utils._pytree.register_pytree_node` instead.
+  _torch_pytree._register_pytree_node(
+2026-11-18 21:46:52,941 - INFO - Initializing model finished in 6881.59ms.
+2026-11-18 21:46:52,941 - INFO - Processing images ...
+2026-11-18 21:46:52,950 - INFO - Processing images finished in 8.82ms.
+2026-11-18 21:46:52,950 - INFO - Running image 1/1 ...
+2026-11-18 21:46:52,950 - INFO - Running model ...
+2026-11-18 21:46:56,067 - INFO - Running model finished in 3116.67ms.
+2026-11-18 21:46:56,067 - INFO - Extracting mesh ...
+2026-11-18 21:46:59,537 - INFO - Extracting mesh finished in 3469.18ms.
+2026-11-18 21:46:59,537 - INFO - Baking texture ...
+Traceback (most recent call last):
+  File "/content/ai/graph/TripoSR/run.py", line 181, in <module>
+    bake_output = bake_texture(meshes[0], model, scene_codes[0], args.texture_resolution)
+  File "/content/ai/graph/TripoSR/tsr/bake_texture.py", line 162, in bake_texture
+    colors_texture = positions_to_colors(
+        model, scene_code, positions_texture, texture_resolution
+    )
+  File "/content/ai/graph/TripoSR/tsr/bake_texture.py", line 140, in positions_to_colors
+    queried_grid = model.renderer.query_triplane(
+        model.decoder,
+        positions,
+        scene_code,
+    )
+  File "/content/ai/graph/TripoSR/tsr/models/nerf_renderer.py", line 78, in query_triplane
+    net_out = chunk_batch(_query_chunk, self.chunk_size, positions)
+  File "/content/ai/graph/TripoSR/tsr/utils.py", line 169, in chunk_batch
+    out_chunk = func(
+        *[
+    ...<6 lines>...
+        },
+    )
+  File "/content/ai/graph/TripoSR/tsr/models/nerf_renderer.py", line 61, in _query_chunk
+    out: torch.Tensor = F.grid_sample(
+                        ~~~~~~~~~~~~~^
+        rearrange(triplane, "Np Cp Hp Wp -> Np Cp Hp Wp", Np=3),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        mode="bilinear",
+        ^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/content/ai/venv-trisr/lib/python3.13/site-packages/torch/nn/functional.py", line 5701, in grid_sample
+    return torch.grid_sampler(input, grid, mode_enum, padding_mode_enum, align_corners)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: Expected all tensors to be on the same device, but got grid is on cpu, different from other tensors on cuda:0 (when checking argument in method wrapper_CUDA__grid_sampler_2d)
+EXIT=1

@@ -1,0 +1,25 @@
+$ retry after xatlas state settled
+2026-11-18 21:39:55,951 - INFO - Initializing model ...
+/content/ai/venv-trisr/lib/python3.13/site-packages/transformers/utils/generic.py:441: FutureWarning: `torch.utils._pytree._register_pytree_node` is deprecated. Please use `torch.utils._pytree.register_pytree_node` instead.
+  _torch_pytree._register_pytree_node(
+/content/ai/venv-trisr/lib/python3.13/site-packages/transformers/utils/generic.py:309: FutureWarning: `torch.utils._pytree._register_pytree_node` is deprecated. Please use `torch.utils._pytree.register_pytree_node` instead.
+  _torch_pytree._register_pytree_node(
+2026-11-18 21:40:06,510 - INFO - Initializing model finished in 10559.03ms.
+2026-11-18 21:40:06,510 - INFO - Processing images ...
+2026-11-18 21:40:06,535 - INFO - Processing images finished in 24.62ms.
+2026-11-18 21:40:06,535 - INFO - Running image 1/1 ...
+2026-11-18 21:40:06,535 - INFO - Running model ...
+2026-11-18 21:40:11,393 - INFO - Running model finished in 4855.54ms.
+2026-11-18 21:40:11,393 - INFO - Extracting mesh ...
+2026-11-18 21:40:16,927 - INFO - Extracting mesh finished in 5533.87ms.
+2026-11-18 21:40:16,927 - INFO - Baking texture ...
+Traceback (most recent call last):
+  File "/content/ai/graph/TripoSR/run.py", line 181, in <module>
+    bake_output = bake_texture(meshes[0], model, scene_codes[0], args.texture_resolution)
+  File "/content/ai/graph/TripoSR/tsr/bake_texture.py", line 153, in bake_texture
+    atlas = make_atlas(mesh, texture_resolution, texture_padding)
+  File "/content/ai/graph/TripoSR/tsr/bake_texture.py", line 10, in make_atlas
+    atlas = xatlas.Atlas()
+            ^^^^^^^^^^^^
+AttributeError: module 'xatlas' has no attribute 'Atlas'
+EXIT=1

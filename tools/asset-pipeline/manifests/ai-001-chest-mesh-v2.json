@@ -1,0 +1,27 @@
+{
+  "asset_manifest": "v1",
+  "asset_id": "ai-001-chest-mesh-0001",
+  "licence_id": "TRIPOSR",
+  "model_revision": "107cefdc244c39106fa830359024f6a2f1c78871",
+  "weights_revision": "5b521936b01fbe1890f6f9baed0254ab6351c04a",
+  "weights_sha256": "429e2c6b22a0923967459de24d67f05962b235f79cde6b032aa7ed2ffcd970ee",
+  "prompt_hash": "b2b5feba60072e801b82c20e49e96f75b38f710bc1a9dc47b58cd8d978e5cd2b",
+  "tier": "16GB",
+  "gpu": "Tesla T4",
+  "class": "ai-generated-smoke-bypass-A0012-v2",
+  "generated_at": "2026-11-18T22:05Z",
+  "input_sha256": "b770b471e552a651013b4d6b60835b53cc5535f4afbd17d4587654673ed176ff",
+  "output_bytes": 2954420,
+  "output_sha256": {
+    "glb": "1f14831f89fdc8861d0b77e3c2be61a95dd38ee0c5d2e745a2b2844f2afe8063",
+    "obj": null
+  },
+  "mesh_stats": {
+    "vertices": 73838,
+    "faces": 147668,
+    "animation_tracks": 0
+  },
+  "notes": [
+    "A0012 smoke asset; not production art; not NET-GATE evidence"
+  ]
+}

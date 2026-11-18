@@ -1,0 +1,24 @@
+2026-11-18 21:36:19,329 - INFO - Initializing model ...
+/content/ai/venv-trisr/lib/python3.13/site-packages/transformers/utils/generic.py:441: FutureWarning: `torch.utils._pytree._register_pytree_node` is deprecated. Please use `torch.utils._pytree.register_pytree_node` instead.
+  _torch_pytree._register_pytree_node(
+/content/ai/venv-trisr/lib/python3.13/site-packages/transformers/utils/generic.py:309: FutureWarning: `torch.utils._pytree._register_pytree_node` is deprecated. Please use `torch.utils._pytree.register_pytree_node` instead.
+  _torch_pytree._register_pytree_node(
+2026-11-18 21:36:26,538 - INFO - Initializing model finished in 7209.18ms.
+2026-11-18 21:36:26,538 - INFO - Processing images ...
+2026-11-18 21:36:26,548 - INFO - Processing images finished in 10.39ms.
+2026-11-18 21:36:26,549 - INFO - Running image 1/1 ...
+2026-11-18 21:36:26,549 - INFO - Running model ...
+2026-11-18 21:36:28,962 - INFO - Running model finished in 2412.90ms.
+2026-11-18 21:36:28,964 - INFO - Extracting mesh ...
+2026-11-18 21:36:32,699 - INFO - Extracting mesh finished in 3737.66ms.
+2026-11-18 21:36:32,700 - INFO - Exporting mesh ...
+Traceback (most recent call last):
+  File "/content/ai/graph/TripoSR/run.py", line 190, in <module>
+    meshes[0].export(out_mesh_path)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/content/ai/venv-trisr/lib/python3.13/site-packages/trimesh/base.py", line 3045, in export
+    return export_mesh(mesh=self, file_obj=file_obj, file_type=file_type, **kwargs)
+  File "/content/ai/venv-trisr/lib/python3.13/site-packages/trimesh/exchange/export.py", line 55, in export_mesh
+    file_obj = open(file_path, "wb")
+FileNotFoundError: [Errno 2] No such file or directory: '/content/ai/output-chest/0/mesh.glb'
+EXIT=1
