@@ -1,0 +1,40 @@
+{
+  "version": 1,
+  "level": "oakhollow",
+  "mode": "greybox",
+  "kitGridMm": 2000,
+  "cellMm": 64000,
+  "source": "PR-S2 consequence variant ids; capsules and boxes only (A0001/I2)",
+  "strata": [
+    {
+      "id": 1,
+      "name": "surface",
+      "primitives": [
+        { "id": "s1-p1", "kind": "capsule", "x": 0, "y": 1000, "z": 0, "sx": 1000, "sy": 2000, "sz": 1000, "variantId": 0 },
+        { "id": "s1-p2", "kind": "box", "x": 2000, "y": 500, "z": 4000, "sx": 2000, "sy": 1000, "sz": 2000, "variantId": 0 },
+        { "id": "s1-p3", "kind": "box", "x": -2000, "y": 500, "z": 4000, "sx": 2000, "sy": 1000, "sz": 2000, "variantId": 3, "factId": "f-3ad40f21-31" },
+        { "id": "s1-p4", "kind": "capsule", "x": 6000, "y": 1000, "z": -2000, "sx": 1000, "sy": 2000, "sz": 1000, "variantId": 0 }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "mid",
+      "primitives": [
+        { "id": "s2-p1", "kind": "box", "x": 0, "y": 0, "z": 0, "sx": 8000, "sy": 500, "sz": 8000, "variantId": 0 },
+        { "id": "s2-p2", "kind": "capsule", "x": 4000, "y": 1000, "z": 4000, "sx": 1000, "sy": 2000, "sz": 1000, "variantId": 0 },
+        { "id": "s2-p3", "kind": "box", "x": -4000, "y": 500, "z": -4000, "sx": 2000, "sy": 1000, "sz": 2000, "variantId": 1, "factId": "f-51a02cd4-38" },
+        { "id": "s2-p4", "kind": "capsule", "x": 8000, "y": 1000, "z": -6000, "sx": 1000, "sy": 2000, "sz": 1000, "variantId": 0 }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "deep",
+      "primitives": [
+        { "id": "s3-p1", "kind": "box", "x": 0, "y": -1000, "z": 0, "sx": 16000, "sy": 500, "sz": 16000, "variantId": 0 },
+        { "id": "s3-p2", "kind": "capsule", "x": 6000, "y": 0, "z": 6000, "sx": 1000, "sy": 2000, "sz": 1000, "variantId": 0 },
+        { "id": "s3-p3", "kind": "box", "x": -6000, "y": 0, "z": 6000, "sx": 2000, "sy": 1000, "sz": 2000, "variantId": 4, "factId": "f-9900aa11-45" },
+        { "id": "s3-p4", "kind": "capsule", "x": 0, "y": 0, "z": -8000, "sx": 1000, "sy": 2000, "sz": 1000, "variantId": 0 }
+      ]
+    }
+  ]
+}

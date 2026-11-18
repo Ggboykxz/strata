@@ -1,7 +1,7 @@
 {
   "session": "2026-11-18-s02",
   "utc_start": "2026-11-18T07:23:00Z",
-  "utc_end": "2026-11-18T11:34:00Z",
+  "utc_end": "2026-11-18T12:02:00Z",
   "mode": "RESUME",
   "branch": "session/20261118-hc-001-high-concept",
   "tier": {
@@ -95,6 +95,11 @@
       "id": "PR-S2",
       "status": "done",
       "blueprint_task": "PR-S2"
+    },
+    {
+      "id": "GB-001",
+      "status": "done",
+      "blueprint_task": "GB-001"
     }
   ],
   "measured": {
@@ -219,7 +224,12 @@
     "prs2_late_facts": 1,
     "prs2_strata": 2,
     "prs2_variant_swaps": 5,
-    "prs2_captures": 30
+    "prs2_captures": 30,
+    "greybox_strata": 3,
+    "greybox_primitives": 12,
+    "greybox_variant_swaps": 3,
+    "greybox_checksum": "06d8d93c",
+    "scene_validator_fail_closed": true
   },
   "cis": {
     "value": null,
@@ -1034,6 +1044,46 @@
       "cmd": "node scripts/validate-blueprint.mjs",
       "exit": 0,
       "log": "docs/state/evidence/20261118T101524Z-PR-S2/08-blueprint.log"
+    },
+    {
+      "cmd": "node scripts/validate-scene-budget.mjs --greybox",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T102136Z-GB-001/01-greybox.log",
+      "result": "3 strata, 12 primitives, 3 swaps"
+    },
+    {
+      "cmd": "node scripts/validate-scene-budget.mjs --parity",
+      "exit": 1,
+      "log": "docs/state/evidence/20261118T102136Z-GB-001/02-parity-fail.log",
+      "result": "WG-001 owns parity"
+    },
+    {
+      "cmd": "node scripts/validate-scene-budget.mjs (no flag)",
+      "exit": 1,
+      "log": "docs/state/evidence/20261118T102136Z-GB-001/03-no-flag.log",
+      "result": "usage, fail closed"
+    },
+    {
+      "cmd": "node scripts/validate-scene-budget.mjs --greybox after injecting mesh field",
+      "exit": 1,
+      "log": "docs/state/evidence/20261118T102136Z-GB-001/04-negative-mesh.log",
+      "result": "forbidden field named"
+    },
+    {
+      "cmd": "pnpm verify",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T102136Z-GB-001/05-verify.log",
+      "result": "17/17"
+    },
+    {
+      "cmd": "pnpm tracer --assert",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T102136Z-GB-001/06-tracer.log"
+    },
+    {
+      "cmd": "node scripts/validate-gdd.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T102136Z-GB-001/07-gdd.log"
     }
   ],
   "notes": [
@@ -1093,7 +1143,9 @@
     "PR-S1 CI at 5ee342c: 8/8 triggered workflows success; run ids in docs/state/evidence/20261118T100756Z-PR-S1/10-ci-proof.log.",
     "PR-S2: immutable fact log, FNV derivation, 5 facts/2 strata/5 swaps/30 captures, two clients agree on {factIds, variantIds, epoch}.",
     "Not a T2 sign-off: no real geometry, blind-reviewer captures or browser replay — GB-001 and PR-S3 own those.",
-    "PR-S2 CI at the attested head: 8/8 triggered workflows success; run ids in docs/state/evidence/20261118T101524Z-PR-S2/10-ci-proof.log."
+    "PR-S2 CI at the attested head: 8/8 triggered workflows success; run ids in docs/state/evidence/20261118T101524Z-PR-S2/10-ci-proof.log.",
+    "GB-001: 3 strata, 12 capsule/box primitives, 3 PR-S2 variant swaps, checksum 06d8d93c; --parity still fails closed (WG-001).",
+    "No Babylon scene, blind-reviewer captures or art. GATE:P2 still unsatisfied; art tasks remain blocked."
   ],
   "result": {
     "phase": "P2NET",
@@ -1225,6 +1277,11 @@
           "dir": "docs/state/evidence/20261118T101524Z-PR-S2/",
           "logs": 12,
           "branch": "session"
+        },
+        {
+          "dir": "docs/state/evidence/20261118T102136Z-GB-001/",
+          "logs": 9,
+          "branch": "session"
         }
       ]
     },
@@ -1233,7 +1290,7 @@
       "AUDIT-2026-11-18-P0-006"
     ],
     "enables": "Nothing player-facing: it protects the evidence chain — a resume prompt that cannot be silently truncated, a tier grant recorded verbatim, a deterministic tick and wire, and a dashboard that reports sources instead of memories.",
-    "next": "GB-001 — greybox Oakhollow x3 strata + variant swap",
+    "next": "PR-S4 — crafting chain + infinite-profit cycle detection",
     "blockers": [
       "ND-004 PAT rotation",
       "ND-005 HF token rotation",
@@ -1244,7 +1301,7 @@
     ],
     "next_session_file": "docs/state/NEXT_SESSION.md",
     "full": {
-      "handoffs": "Eighteen handoff+proposal pairs under docs/state/threads/; all ACKed in-process. No external reviewer installed.",
+      "handoffs": "Nineteen handoff+proposal pairs under docs/state/threads/; all ACKed in-process. No external reviewer installed.",
       "concept_roles": "Roles executed by one process; T3 signed at GATE:P0 and re-signature deferred to the next gate. Signature ratio not recomputable from metrics.json.",
       "gdd_version_bumps": [
         "GDD-NETCODE 0.2 -> 0.3 -> 0.4 -> 0.5 -> 0.6 -> 0.7",
@@ -1254,7 +1311,8 @@
         "GDD-TRADE 0.2 -> 0.3",
         "GDD-SECURITY 0.2 -> 0.3",
         "GDD-COMBAT 0.2 -> 0.3",
-        "GDD-CONSEQUENCE 0.2 -> 0.3"
+        "GDD-CONSEQUENCE 0.2 -> 0.3",
+        "GDD-CONSEQUENCE 0.3 -> 0.4"
       ],
       "scope_ledger_delta": "0 entries (12 -> 12, balanced)",
       "content_math": "Local CPU p95 0.2109 ms (180-tick harness, 64 entities); network throughput still NOT COMPUTABLE.",
@@ -1269,7 +1327,7 @@
       "economy_metrics": "Ledger 10k fuzz: drift 0 minor units, 1000 duplicates deduped, 1 conflict, restore verified. Inflation/Gini still NOT COMPUTABLE (ECON-001).",
       "anim_checks": "A0001 separation intact; retarget coverage and foot slide NOT COMPUTABLE (AN-002)",
       "world_checks": "No world content this session",
-      "files_by_owner": "orchestrator: docs/state/**, docs/blueprint/**, scripts/session-result.mjs, A0004/A0005/A0006; gameplay-engineer: packages/core/src/{tick,index,hash}.ts, apps/server/src/sim/, core/test; netcode-engineer: packages/protocol/**, apps/game/src/net/**, apps/server/src/combat/**, tools/sim/net/, GDD-NETCODE; animation-director: packages/core/src/anim-state/**, packages/content/animations/**, GDD-ANIM-ARCHITECTURE; tools-engineer: apps/dashboard/**; backend-engineer: apps/server/src/rooms/**, packages/core/src/ledger/**, tools/sim/persist/**, GDD-PERSISTENCE; economy-designer: GDD-TRADE; qa-engineer: tools/sim/load/**, tests/security/**; security-auditor: apps/server/src/validation/**, docs/legal/THREAT_MODEL.md, GDD-SECURITY; producer: docs/qa/prototypes/NET_GATE.md, docs/state/gates/GATE_NET.md. gameplay-engineer: tools/sim/world/prs1_combat.ts (PR-S1); game-designer: GDD-COMBAT 0.3. gameplay-engineer: packages/world-state/** + tools/sim/world/prs2_propagation.ts (PR-S2); game-designer: GDD-CONSEQUENCE 0.3."
+      "files_by_owner": "orchestrator: docs/state/**, docs/blueprint/**, scripts/session-result.mjs, A0004/A0005/A0006; gameplay-engineer: packages/core/src/{tick,index,hash}.ts, apps/server/src/sim/, core/test; netcode-engineer: packages/protocol/**, apps/game/src/net/**, apps/server/src/combat/**, tools/sim/net/, GDD-NETCODE; animation-director: packages/core/src/anim-state/**, packages/content/animations/**, GDD-ANIM-ARCHITECTURE; tools-engineer: apps/dashboard/**; backend-engineer: apps/server/src/rooms/**, packages/core/src/ledger/**, tools/sim/persist/**, GDD-PERSISTENCE; economy-designer: GDD-TRADE; qa-engineer: tools/sim/load/**, tests/security/**; security-auditor: apps/server/src/validation/**, docs/legal/THREAT_MODEL.md, GDD-SECURITY; producer: docs/qa/prototypes/NET_GATE.md, docs/state/gates/GATE_NET.md. gameplay-engineer: tools/sim/world/prs1_combat.ts (PR-S1); game-designer: GDD-COMBAT 0.3. gameplay-engineer: packages/world-state/** + tools/sim/world/prs2_propagation.ts (PR-S2); game-designer: GDD-CONSEQUENCE 0.3. level-designer: apps/game/levels/greybox/oakhollow/manifest.json, scripts/validate-scene-budget.mjs (GB-001)."
     }
   }
 }

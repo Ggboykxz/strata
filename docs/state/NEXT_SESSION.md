@@ -2,12 +2,12 @@
 
 | field | value |
 |---|---|
-| written | 2026-11-18T11:36Z |
+| written | 2026-11-18T12:04Z |
 | branch | `session/20261118-hc-001-high-concept` — **PR #1** (draft) https://github.com/Ggboykxz/strata/pull/1 |
 | also open | **PR #2** dashboard truth repair — `session/20261118-dashboard-truth`, base = session branch |
 | mode | RESUME |
 | tier | current `S0`, authorized **`S1`** |
-| last task | **PR-S2** — consequence propagation; GDD-CONSEQUENCE 0.3 |
+| last task | **GB-001** — greybox Oakhollow ×3 strata; GDD-CONSEQUENCE 0.4 |
 | next task | **PR-S1** — combat TTK/windows/hit-stop prototype (P2-SYS) |
 | blocker | PR #1 and #2 merges (Director must do it), ND-004/ND-005 rotation. ND-011 needs one answer (TPU scope). |
 
@@ -45,18 +45,19 @@ acceptance and with the seven residual risks from `docs/legal/THREAT_MODEL.md` a
 PR #1 and PR #2 were **not merged** — an agent must not self-merge. The Director must merge them from their own
 account. ND-004/ND-005 token rotation also remains a Director action.
 
-## 4. GB-001 — next (S0, P2SYS)
+## 4. PR-S4 — next (S0, P2SYS)
 
-`{id: GB-001, agent: level-designer, role: sig, gdd: [GDD-CONSEQUENCE#visible-variants],
-deps: [GATE:NET, PR-S2], out: [apps/game/levels/greybox/oakhollow/, scripts/validate-scene-budget.mjs]}`
+`{id: PR-S4, ph: P2SYS, tier: S0, t: "Crafting chain + infinite-profit cycle detection", agent: economy-designer,
+role: sig, gdd: [GDD-CRAFT], deps: [PR-N3], out: [tools/sim/economy/prs4_craft.ts, docs/qa/prototypes/PRS4.md]}`
 
-Deps are satisfied by PR-S2. Its acc `node scripts/validate-scene-budget.mjs --greybox` points at a **declared
-P0-002 stub that exits 1** (owner level-designer) — implement it under its lock, fail-closed, in the same PR.
-Do not weaken an assertion to make it pass; the NET-GATE `--assert-ready` precedent applies.
+Deps are satisfied by PR-N3's zero-sum minor-unit ledger. Its acc (check the blueprint line) uses the broken
+`pnpm sim …` or `pnpm test --filter …` form — repair it to a real command that exists (a vitest test path). This
+is the fourteenth known broken acc form; 7 `pnpm test --filter` accs remain.
 
-Deliver greybox Oakhollow in ×3 strata with **capsules/boxes only** and a visible variant swap driven by PR-S2's
-`variant_id`. No hero mesh, no texture, no lightmaps, no motion generation (I2/I4), and no GPU/TPU (ND-012).
-The world-state module and PR-S1/PR-S2 harnesses are the inputs; PR-S3 and P3-001 depend on this task.
+Deliver a deterministic crafting-chain prototype with **infinite-profit cycle detection**: all money as bigint
+minor units (D150), every recipe conserves value unless a documented sink/fee applies, and a cycle that creates
+value is detected and refused, not averaged away. Reuse the PR-N1/N3 harness pattern and the append-only
+`docs/qa/prototypes/` zone with the correct `co:` owner declared. No art, no GPU/TPU (ND-012).
 
 ## 5. Non-gated tooling candidates
 

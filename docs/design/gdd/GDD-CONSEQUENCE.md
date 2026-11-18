@@ -3,7 +3,7 @@
 | field | value |
 |---|---|
 | id | GDD-CONSEQUENCE |
-| version | 0.3 |
+| version | 0.4 |
 | owner | game-designer |
 | status | DRAFT |
 
@@ -11,7 +11,7 @@
 
 ## 1. Identity, version, owner, status
 
-ID GDD-CONSEQUENCE, version 0.3, owner game-designer, status **DRAFT**. Derived from VISION v1.0 and the locked HIGH_CONCEPT.
+ID GDD-CONSEQUENCE, version 0.4, owner game-designer, status **DRAFT**. Derived from VISION v1.0 and the locked HIGH_CONCEPT.
 
 ## 2. Player-facing outcome
 
@@ -35,6 +35,8 @@ T2 is the blocking demo: 1 act, <=900 ticks, >=3 facts, >=2 strata, >=1 physical
 - 2 clients must report identical fact_id, variant_id and epoch | SOURCE: master T2 / D137
 - fact id and consequence derivation = FNV-1a over immutable fact fields | SOURCE: packages/world-state/src/index.ts (PR-S2)
 - variant ids = 1..4 over 3 strata, baseline 0 | SOURCE: packages/world-state/src/index.ts deriveConsequence; a text-only change does not satisfy T2
+- greybox Oakhollow = 3 strata, 12 capsule/box primitives, 3 variant swaps, checksum 06d8d93c | SOURCE: apps/game/levels/greybox/oakhollow/manifest.json + scripts/validate-scene-budget.mjs (GB-001)
+- primitive cap = 64 per stratum | SOURCE: NET-002 AoI cap borrowed as a greybox budget; not a measured scene limit
 
 ## 6. State machine
 
@@ -45,6 +47,8 @@ ACT → FACTS_WRITTEN(3+) → PROPAGATED(2+ strata) → VARIANT_SWAPPED → CAPT
 fact v1 {fact_id, actor_id, tick, kind, payload_hash}; consequence v1 {fact_id, stratum_id, variant_id, epoch, capture_ids[]}. Migration: a changed payload_hash creates a new fact id, never rewrites an old one.
 
 PR-S2 reference implementation: `packages/world-state/` holds the immutable `FactLog`, the deterministic `deriveConsequence`, the per-client `ClientReport` and the `t2Verdict`. Client agreement is compared on `{factIds, variantIds, epoch}` only — the `client` id is not part of the proof. Facts are stored even after tick 900 but excluded from the replay window.
+
+GB-001 greybox manifest v1 `{version, level, mode, kitGridMm, cellMm, strata[{id, name, primitives[]}]}` allows only `{id, kind, x, y, z, sx, sy, sz, variantId, factId?}` per primitive, with `kind ∈ {capsule, box}`. Any mesh, texture, material or GLB field is refused by `scripts/validate-scene-budget.mjs --greybox`, not silently ignored. Collision/visual parity (`--parity`) is WG-001 and exits 1 until implemented.
 
 ## 8. Edge cases
 
@@ -89,6 +93,9 @@ facts_per_act, strata_affected, variant_swaps, capture_count, reviewer_inference
 - GIVEN an immutable fact script WHEN derived on two clients THEN fact_id, variant_id and epoch reports are byte-identical.
 - GIVEN fewer than 3 facts, fewer than 2 strata, no geometry variant swap or one client WHEN verdict is computed THEN it fails and names the requirement.
 
+- GIVEN the greybox manifest WHEN `--greybox` runs THEN exactly 3 strata and at least one physical variant swap are validated and a deterministic checksum is printed.
+- GIVEN a mesh/texture field, a duplicate id or a removed variant swap WHEN validated THEN the command exits 1 and names the defect.
+
 ## 16. Perf budget impact
 
 Propagation completes within the 900-tick budget; no chain work on the render thread; captures are generated off the tick path.
@@ -111,3 +118,4 @@ No text-only consequence, no pre-authored epoch change, no single-client-only de
 | 0.1 | 2026-11-18 | STUB created by GDD-001 | game-designer |
 | 0.2 | 2026-11-18 | DRAFT: all 19 fields, T2/T4 numbers and sources | GDD-003 |
 | 0.3 | 2026-11-18 | PR-S2: immutable facts, FNV derivation, T2 verdict contract | gameplay-engineer |
+| 0.4 | 2026-11-18 | GB-001: greybox Oakhollow x3 strata, capsule/box budget, fail-closed validator | level-designer |

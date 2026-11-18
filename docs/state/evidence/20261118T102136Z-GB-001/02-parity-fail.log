@@ -1,0 +1,3 @@
+$ node scripts/validate-scene-budget.mjs --parity
+validate-scene-budget — --parity is NOT IMPLEMENTED: WG-001 owns collision/visual parity. Fail closed.
+EXIT=1

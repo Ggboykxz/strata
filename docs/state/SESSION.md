@@ -337,3 +337,11 @@ blueprint task currently owns the pin: recorded as a gap for the Director/next r
 - Two test defects fixed: client id excluded from agreement comparison; test script spans 2+ strata. Acc repaired
   (thirteenth broken form), GDD-CONSEQUENCE 0.3. Full 154/154, verify 17/17.
 - Not a T2 sign-off: GB-001 and PR-S3 own geometry, captures and replay. No art, no GPU/TPU (ND-012).
+
+## Session 2 — GB-001 greybox Oakhollow (2026-11-18T12:02Z)
+
+- `apps/game/levels/greybox/oakhollow/manifest.json`: 3 strata, 12 capsule/box primitives, 3 physical variant
+  swaps from PR-S2 `variant_id`. `scripts/validate-scene-budget.mjs` is no longer a stub: `--greybox` exits 0 with
+  checksum `06d8d93c`; `--parity` (WG-001), no flag and an injected `mesh` field each exit 1.
+- GDD-CONSEQUENCE 0.4. Verify 17/17, tracer green. No Babylon scene, blind-reviewer capture or art.
+- Art tasks remain blocked by GATE:P2 and no GPU/TPU (ND-012). Next: PR-S4 (crafting cycle detection).

@@ -171,6 +171,9 @@ Anything else goes through a handoff. A conflict is resolved by a handoff or the
 - **PR-S2 landed**: immutable facts, FNV propagation and a T2 verdict naming failed requirements; 5 facts / 2
   strata / 30 captures, two clients agreeing on `{factIds, variantIds, epoch}`. Full 154/154, verify 17/17.
   Not a T2 sign-off. Next: GB-001 greybox Oakhollow.
+- **GB-001 landed**: Oakhollow greybox ×3 strata, capsules/boxes only, 3 PR-S2 variant swaps, checksum
+  `06d8d93c`. `validate-scene-budget.mjs` is real and fail-closed (`--parity` still exits 1, WG-001). Verify
+  17/17. No art, no GPU/TPU. Next: PR-S4 (crafting cycle detection).
 - Known intentional red: `scope-math --report` exit 2 (throughput unmeasured) and `concept --score` exit 2
   until HC-003. `concept --check` is green: T3 was signed at GATE:P0.
 
