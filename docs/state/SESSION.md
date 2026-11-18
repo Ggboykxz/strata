@@ -7,8 +7,8 @@
 | branch | `session/20261118-hc-001-high-concept` |
 | phase / tier | P0 / current `S0`, authorized `S0` |
 | director | present for bootstrap; async from now |
-| last task | P1-001 (concept-first VISION + docs validator) |
-| next task | **GDD-001** — GDD index, 19-field template, 32 stub modules |
+| last task | GDD-001 (index + 32 STUB modules + GDD gates) |
+| next task | **GDD-002** — sign NETCODE/PERSISTENCE/SHARDING/SECURITY/ANIM/WORKFLOW modules |
 
 ## Done this session
 
@@ -31,6 +31,7 @@
 | P0-007 | `apps/dashboard/build.mjs`, generated views | build exit 0; 7/7 checks; byte-identical rebuild |
 | GATE:P0 | `docs/state/gates/GATE_P0.md` — assembled dossier | 3 drills, 8 green CI runs at final head, all local gates 0 |
 | P1-001 | `docs/VISION.md`, real `validate-docs.mjs` | validator 0; 5/5 negatives; `verify` 13/13 |
+| GDD-001 | GDD index, 32 STUB modules, `validate-gdd`, `gdd-coverage` | 7/7 negatives; 14 critical modules; `verify` 15/15 |
 
 **P0-001 and P0-002 were split** although only P0-001 triggered B8: the halves fail for different reasons and
 deserve separate rollback points. Commits: `094f31f`, `bd6f550` (P0-001); `1ceaf20`, `7e9d382` (P0-002).
@@ -82,8 +83,9 @@ their banners record the new owner (orchestrator) after A0002.
 - **ND-009 RESOLVED — option A applied.** ADR-A0003 declares the full-MMORPG long-term vision via the
   sealed-master amendment escape hatch (`PROMPT.lock amended: [ADR-A0003]` + `## AMENDMENTS`). The P0
   vertical slice, tier, ledger, tasks and gates are unchanged. Drift and concept gates exit 0.
-- P1 work is selected under the Director's repeated "go next", recorded in the GATE:P0 dossier. The formal
-  gate signature remains PENDING — no agent signed it.
+- GATE:P0 is **SIGNED** by recorded Director decision ("prends toutes les bonnes decisions"), transcribed in
+  `docs/state/gates/GATE_P0.md` with the dependency-review exception accepted. No agent claimed the
+  signature as its own. P1 work flows from that decision.
   A prefix scan found 0 token strings in `.git` or the tracked worktree. The agent cannot close these.
 
 Details, options and evidence: `docs/state/NEEDS_DIRECTOR.md` and
@@ -92,7 +94,8 @@ Details, options and evidence: `docs/state/NEEDS_DIRECTOR.md` and
 ## Known red (intentional)
 
 - `scope-math --report` exit 2 — throughput unmeasured by design.
-- The two WF-002 validators are real and enabled in `verify`; 19 declared stubs remain, all failing by design.
+- All implemented validators are real and enabled in `verify`; **14 declared stubs** remain, all failing by
+  design. `pnpm verify` now runs **15 steps**.
 
 ## Config reality
 
