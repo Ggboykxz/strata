@@ -372,3 +372,11 @@ blueprint task currently owns the pin: recorded as a gap for the Director/next r
 - Negative tests: injecting a false-pass acc → B9 error; stale journal view → exit 1. Verify 19/19, docs 0 errors.
 - **Not fixable by an agent** remains recorded: no GPU/TPU (ND-012), 8 unmeasured NET-GATE criteria, PAT/HF
   rotation and PR merges (Director-only), ND-011, economy retune and SEC-002 wiring (separate checkpoints).
+
+## Session 2 — SEC-002 gate wiring (2026-11-18T13:40Z)
+
+- Director "fix all problems n limits" → residual risk 3 fixed: `attachRooms` routes every frame through
+  `MessageGate` before the room. Malformed → `reject`, room hash unchanged; valid v3 hello → `welcome`.
+- GDD-SECURITY 0.4, THREAT_MODEL risk 3 rewritten. Rooms 18/18, security 10/10, full 167/167, verify 19/19.
+- Still open because an agent cannot fix them: no GPU/TPU, 8 unmeasured NET-GATE criteria, Director-only rotations
+  and merges, ND-011. Economy retune is next.

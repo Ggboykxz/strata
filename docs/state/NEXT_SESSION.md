@@ -2,12 +2,12 @@
 
 | field | value |
 |---|---|
-| written | 2026-11-18T13:26Z |
+| written | 2026-11-18T13:42Z |
 | branch | `session/20261118-hc-001-high-concept` — **PR #1** (draft) https://github.com/Ggboykxz/strata/pull/1 |
 | also open | **PR #2** dashboard truth repair — `session/20261118-dashboard-truth`, base = session branch |
 | mode | RESUME |
 | tier | current `S0`, authorized **`S1`** |
-| last task | **TOOL-FIXALL** — A0007; verify 19/19, false-pass B9, journal view, MCP pin |
+| last task | **SEC-002** — MessageGate on the live room path; GDD-SECURITY 0.4 |
 | next task | **PR-S1** — combat TTK/windows/hit-stop prototype (P2-SYS) |
 | blocker | PR #1 and #2 merges (Director must do it), ND-004/ND-005 rotation. ND-011 needs one answer (TPU scope). |
 
@@ -45,15 +45,15 @@ acceptance and with the seven residual risks from `docs/legal/THREAT_MODEL.md` a
 PR #1 and PR #2 were **not merged** — an agent must not self-merge. The Director must merge them from their own
 account. ND-004/ND-005 token rotation also remains a Director action.
 
-## 4. SEC-002 — next (cross-domain wiring)
+## 4. ECONOMY RETUNE — next (measured)
 
-**SEC-002** is the next fixable limit (residual risk 3 in `docs/legal/THREAT_MODEL.md`): `attachRooms` still
-calls `Room.handleBytes` directly, bypassing `MessageGate`. Wire the gate into the live path with its own locks,
-tests and evidence; do not weaken an assertion. Then run the **measured economy retune** (PR-S5 inflation
-7 264,78 % vs 5 %), recording before/after numbers and the named sink.
+**Economy retune** is the next fixable limit. PR-S5 measured 7 264,78 % inflation against ≤ 5 % with exact
+books. Retune the named faucet/sink under a producer/economy-designer lock, re-run the 1000-bot × 720-epoch
+harness, and record before/after numbers plus the named sink. Do not change a constant merely to pass a gate, and
+do not use PR-S7's Rouille sink as an undocumented fix. Then resume blueprint sig selection (PR-S7).
 
-PR-S7 (world tick + bounded Rouille cascade) remains the next blueprint sig task after those fixes; its acc still
-uses a broken `pnpm sim …` form. 7 `pnpm test --filter` accs and 5 `pnpm sim` accs remain declared as legacy by B9.
+Not fixable by an agent remains listed in ND-013: no GPU/TPU (ND-012), 8 unmeasured NET-GATE criteria, PAT/HF
+rotation and PR merges (Director-only), TPU scope (ND-011).
 
 ## 5. Non-gated tooling candidates
 
