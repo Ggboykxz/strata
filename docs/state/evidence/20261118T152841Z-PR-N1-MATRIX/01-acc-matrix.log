@@ -1,0 +1,48 @@
+COMMAND: PRN1_MATRIX_TICKS=360 PRN1_EVIDENCE_DIR=docs/state/evidence/20261118T152841Z-PR-N1-MATRIX pnpm vitest run tools/sim/load/test/prn1-matrix.test.ts --reporter=verbose
+UTC: 2026-11-18T15:28:49Z
+
+ RUN  v5.1.0 /content/strata
+
+stdout | tools/sim/load/test/prn1-matrix.test.ts > PR-N1 NET-GATE matrix > runs the full 24-cell matrix with four clients and zero desyncs
+| RTT ms | loss % | jitter ms | desyncs | verified | speculative | server-ahead | corr p50/p95/max mm | tick p95 ms | down B/s | up B/s |
+|---:|---:|---:|---:|---:|---:|---:|---|---:|---:|---:|
+| 0 | 0 | 0 | 0 | 1432 | 0 | 0 | 0/0/0 | 0.4411 | 46400.75 | 553 |
+| 0 | 0 | 30 | 0 | 1114 | 259 | 56 | 0/50/50 | 0.1701 | 46303.81 | 499.71 |
+| 0 | 2 | 0 | 0 | 1396 | 36 | 0 | 0/0/50 | 0.1851 | 46400.75 | 544.75 |
+| 0 | 2 | 30 | 0 | 1106 | 263 | 59 | 0/50/50 | 0.1544 | 46336.13 | 500.9 |
+| 0 | 5 | 0 | 0 | 1373 | 59 | 0 | 0/0/50 | 0.1591 | 46400.75 | 539.94 |
+| 0 | 5 | 30 | 0 | 1088 | 285 | 55 | 0/50/50 | 0.158 | 46271.5 | 496.23 |
+| 50 | 0 | 0 | 0 | 1432 | 0 | 0 | 0/0/0 | 0.1488 | 46400.75 | 553 |
+| 50 | 0 | 30 | 0 | 1151 | 199 | 79 | 0/50/50 | 0.1363 | 46336.13 | 513.04 |
+| 50 | 2 | 0 | 0 | 1335 | 66 | 31 | 0/50/50 | 0.1428 | 46400.75 | 538.56 |
+| 50 | 2 | 30 | 0 | 1120 | 226 | 83 | 0/50/100 | 0.1496 | 46368.44 | 509.88 |
+| 50 | 5 | 0 | 0 | 1241 | 129 | 62 | 0/50/50 | 0.1582 | 46400.75 | 525.04 |
+| 50 | 5 | 30 | 0 | 1091 | 242 | 97 | 0/50/100 | 0.1616 | 46336.13 | 507.77 |
+| 150 | 0 | 0 | 0 | 1424 | 0 | 0 | 0/0/0 | 0.1534 | 46142.25 | 549 |
+| 150 | 0 | 30 | 0 | 1116 | 188 | 117 | 0/50/50 | 0.1534 | 46077.63 | 528.06 |
+| 150 | 2 | 0 | 0 | 1224 | 166 | 34 | 0/50/200 | 0.1632 | 46142.25 | 522.19 |
+| 150 | 2 | 30 | 0 | 1066 | 253 | 100 | 0/50/250 | 0.1513 | 46045.31 | 515.19 |
+| 150 | 5 | 0 | 0 | 1154 | 224 | 46 | 0/50/200 | 0.15 | 46142.25 | 510.04 |
+| 150 | 5 | 30 | 0 | 1070 | 270 | 80 | 0/50/250 | 0.1474 | 46045.31 | 508.54 |
+| 300 | 0 | 0 | 0 | 1416 | 0 | 0 | 0/0/0 | 0.1511 | 45883.75 | 545 |
+| 300 | 0 | 30 | 0 | 1142 | 158 | 110 | 0/50/50 | 0.1766 | 45786.81 | 530.21 |
+| 300 | 2 | 0 | 0 | 1265 | 134 | 17 | 0/50/400 | 0.1652 | 45883.75 | 523.92 |
+| 300 | 2 | 30 | 0 | 1009 | 310 | 93 | 0/50/450 | 0.1589 | 45851.44 | 510.35 |
+| 300 | 5 | 0 | 0 | 1002 | 367 | 47 | 0/50/400 | 0.1611 | 45883.75 | 494.58 |
+| 300 | 5 | 30 | 0 | 927 | 398 | 87 | 0/50/400 | 0.1665 | 45819.13 | 497.71 |
+VERDICT {"cells":24,"transport_pass":true,"wire_budget_pass":false,"desyncs":0,"server_desyncs":0,"hash_integrity_failures":0,"verified_snapshots":28694,"correction_p95_max_mm":50,"correction_max_mm":450,"rubber_band_over_2m":0,"server_tick_p95_max_ms":0.4411,"down_bytes_per_client_per_s":46400.75}
+RECONNECT {"attempted":true,"same_entity":true,"seq_preserved":true,"hash_valid":true,"exact_state":true,"resumed_within_window":true,"late_resume_refused":true,"disconnected_tick":300,"resumed_tick":306,"seq_at_disconnect":106,"seq_after_resume":106}
+
+ ✓ tools/sim/load/test/prn1-matrix.test.ts > PR-N1 NET-GATE matrix > declares the full RTT x loss x jitter matrix exactly once 8ms
+ ✓ tools/sim/load/test/prn1-matrix.test.ts > PR-N1 NET-GATE matrix > runs the full 24-cell matrix with four clients and zero desyncs 7332ms
+ ✓ tools/sim/load/test/prn1-matrix.test.ts > PR-N1 NET-GATE matrix > proves reconnect: same entity, seq not reset, exact authoritative state 497ms
+ ✓ tools/sim/load/test/prn1-matrix.test.ts > PR-N1 NET-GATE matrix > keeps the 64-entity wire budget failing until NET-101 388ms
+ ✓ tools/sim/load/test/prn1-matrix.test.ts > PR-N1 NET-GATE matrix > is deterministic for transport outcomes across two identical runs 281ms
+ ✓ tools/sim/load/test/prn1-matrix.test.ts > PR-N1 NET-GATE matrix > refuses invalid harness parameters 1ms
+
+ Test Files  1 passed (1)
+      Tests  6 passed (6)
+   Start at  15:28:50
+   Duration  8.86s (tests 98%, transform 1%, import 1%)
+
+EXIT=0

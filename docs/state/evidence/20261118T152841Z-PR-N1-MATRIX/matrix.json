@@ -1,0 +1,1475 @@
+{
+  "label": "in-process emulated RTT/loss/jitter matrix; loss is a reliable-stream retransmit delay, not kernel networking",
+  "ticks_per_cell": 360,
+  "clients": 4,
+  "entities": 64,
+  "cells": [
+    {
+      "requested": {
+        "rtt_ms": 0,
+        "loss_pct": 0,
+        "jitter_ms": 0
+      },
+      "emulated": {
+        "up_ticks": 0,
+        "down_ticks": 1,
+        "jitter_ticks": 0,
+        "lead_ticks": 0,
+        "rtt_ms": 33.33
+      },
+      "ticks": 360,
+      "clients": 4,
+      "entities": 64,
+      "desyncs": 0,
+      "verified_snapshots": 1432,
+      "speculative_snapshots": 0,
+      "server_ahead_snapshots": 0,
+      "no_prediction_snapshots": 0,
+      "hashacks_sent": 1436,
+      "ack_missing_ticks": 0,
+      "server_desyncs": 0,
+      "gate_rejections": 0,
+      "hash_integrity_failures": 0,
+      "ahead_ticks": 0,
+      "input_refusals": 0,
+      "snapshot_bytes": {
+        "min": 1551,
+        "max": 1551
+      },
+      "corrections": {
+        "samples": 1432,
+        "p50_mm": 0,
+        "p95_mm": 0,
+        "max_mm": 0,
+        "over_2m": 0
+      },
+      "server_tick_ms": {
+        "p50": 0.1233,
+        "p95": 0.4411,
+        "max": 4.6008
+      },
+      "wire": {
+        "down_bytes_per_client_per_s": 46400.75,
+        "up_bytes_per_client_per_s": 553,
+        "down_total_bytes_per_s": 185603,
+        "down_budget_bytes_per_s": 12288,
+        "up_budget_bytes_per_s": 3072,
+        "over_budget_factor": 3.776
+      },
+      "checks": {
+        "desyncs": true,
+        "corrections": true,
+        "verified": true,
+        "server_tick": true,
+        "wire_budget": false
+      }
+    },
+    {
+      "requested": {
+        "rtt_ms": 0,
+        "loss_pct": 0,
+        "jitter_ms": 30
+      },
+      "emulated": {
+        "up_ticks": 0,
+        "down_ticks": 1,
+        "jitter_ticks": 1,
+        "lead_ticks": 0,
+        "rtt_ms": 33.33
+      },
+      "ticks": 360,
+      "clients": 4,
+      "entities": 64,
+      "desyncs": 0,
+      "verified_snapshots": 1114,
+      "speculative_snapshots": 259,
+      "server_ahead_snapshots": 56,
+      "no_prediction_snapshots": 0,
+      "hashacks_sent": 1433,
+      "ack_missing_ticks": 0,
+      "server_desyncs": 0,
+      "gate_rejections": 0,
+      "hash_integrity_failures": 0,
+      "ahead_ticks": 232,
+      "input_refusals": 0,
+      "snapshot_bytes": {
+        "min": 1551,
+        "max": 1551
+      },
+      "corrections": {
+        "samples": 1429,
+        "p50_mm": 0,
+        "p95_mm": 50,
+        "max_mm": 50,
+        "over_2m": 0
+      },
+      "server_tick_ms": {
+        "p50": 0.1296,
+        "p95": 0.1701,
+        "max": 2.5795
+      },
+      "wire": {
+        "down_bytes_per_client_per_s": 46303.81,
+        "up_bytes_per_client_per_s": 499.71,
+        "down_total_bytes_per_s": 185215.25,
+        "down_budget_bytes_per_s": 12288,
+        "up_budget_bytes_per_s": 3072,
+        "over_budget_factor": 3.768
+      },
+      "checks": {
+        "desyncs": true,
+        "corrections": true,
+        "verified": true,
+        "server_tick": true,
+        "wire_budget": false
+      }
+    },
+    {
+      "requested": {
+        "rtt_ms": 0,
+        "loss_pct": 2,
+        "jitter_ms": 0
+      },
+      "emulated": {
+        "up_ticks": 0,
+        "down_ticks": 1,
+        "jitter_ticks": 0,
+        "lead_ticks": 0,
+        "rtt_ms": 33.33
+      },
+      "ticks": 360,
+      "clients": 4,
+      "entities": 64,
+      "desyncs": 0,
+      "verified_snapshots": 1396,
+      "speculative_snapshots": 36,
+      "server_ahead_snapshots": 0,
+      "no_prediction_snapshots": 0,
+      "hashacks_sent": 1436,
+      "ack_missing_ticks": 0,
+      "server_desyncs": 0,
+      "gate_rejections": 0,
+      "hash_integrity_failures": 0,
+      "ahead_ticks": 36,
+      "input_refusals": 0,
+      "snapshot_bytes": {
+        "min": 1551,
+        "max": 1551
+      },
+      "corrections": {
+        "samples": 1432,
+        "p50_mm": 0,
+        "p95_mm": 0,
+        "max_mm": 50,
+        "over_2m": 0
+      },
+      "server_tick_ms": {
+        "p50": 0.1183,
+        "p95": 0.1851,
+        "max": 5.0232
+      },
+      "wire": {
+        "down_bytes_per_client_per_s": 46400.75,
+        "up_bytes_per_client_per_s": 544.75,
+        "down_total_bytes_per_s": 185603,
+        "down_budget_bytes_per_s": 12288,
+        "up_budget_bytes_per_s": 3072,
+        "over_budget_factor": 3.776
+      },
+      "checks": {
+        "desyncs": true,
+        "corrections": true,
+        "verified": true,
+        "server_tick": true,
+        "wire_budget": false
+      }
+    },
+    {
+      "requested": {
+        "rtt_ms": 0,
+        "loss_pct": 2,
+        "jitter_ms": 30
+      },
+      "emulated": {
+        "up_ticks": 0,
+        "down_ticks": 1,
+        "jitter_ticks": 1,
+        "lead_ticks": 0,
+        "rtt_ms": 33.33
+      },
+      "ticks": 360,
+      "clients": 4,
+      "entities": 64,
+      "desyncs": 0,
+      "verified_snapshots": 1106,
+      "speculative_snapshots": 263,
+      "server_ahead_snapshots": 59,
+      "no_prediction_snapshots": 2,
+      "hashacks_sent": 1434,
+      "ack_missing_ticks": 0,
+      "server_desyncs": 0,
+      "gate_rejections": 0,
+      "hash_integrity_failures": 0,
+      "ahead_ticks": 229,
+      "input_refusals": 0,
+      "snapshot_bytes": {
+        "min": 1551,
+        "max": 1551
+      },
+      "corrections": {
+        "samples": 1428,
+        "p50_mm": 0,
+        "p95_mm": 50,
+        "max_mm": 50,
+        "over_2m": 0
+      },
+      "server_tick_ms": {
+        "p50": 0.1132,
+        "p95": 0.1544,
+        "max": 3.2118
+      },
+      "wire": {
+        "down_bytes_per_client_per_s": 46336.13,
+        "up_bytes_per_client_per_s": 500.9,
+        "down_total_bytes_per_s": 185344.5,
+        "down_budget_bytes_per_s": 12288,
+        "up_budget_bytes_per_s": 3072,
+        "over_budget_factor": 3.771
+      },
+      "checks": {
+        "desyncs": true,
+        "corrections": true,
+        "verified": true,
+        "server_tick": true,
+        "wire_budget": false
+      }
+    },
+    {
+      "requested": {
+        "rtt_ms": 0,
+        "loss_pct": 5,
+        "jitter_ms": 0
+      },
+      "emulated": {
+        "up_ticks": 0,
+        "down_ticks": 1,
+        "jitter_ticks": 0,
+        "lead_ticks": 0,
+        "rtt_ms": 33.33
+      },
+      "ticks": 360,
+      "clients": 4,
+      "entities": 64,
+      "desyncs": 0,
+      "verified_snapshots": 1373,
+      "speculative_snapshots": 59,
+      "server_ahead_snapshots": 0,
+      "no_prediction_snapshots": 0,
+      "hashacks_sent": 1436,
+      "ack_missing_ticks": 0,
+      "server_desyncs": 0,
+      "gate_rejections": 0,
+      "hash_integrity_failures": 0,
+      "ahead_ticks": 59,
+      "input_refusals": 0,
+      "snapshot_bytes": {
+        "min": 1551,
+        "max": 1551
+      },
+      "corrections": {
+        "samples": 1432,
+        "p50_mm": 0,
+        "p95_mm": 0,
+        "max_mm": 50,
+        "over_2m": 0
+      },
+      "server_tick_ms": {
+        "p50": 0.114,
+        "p95": 0.1591,
+        "max": 2.3912
+      },
+      "wire": {
+        "down_bytes_per_client_per_s": 46400.75,
+        "up_bytes_per_client_per_s": 539.94,
+        "down_total_bytes_per_s": 185603,
+        "down_budget_bytes_per_s": 12288,
+        "up_budget_bytes_per_s": 3072,
+        "over_budget_factor": 3.776
+      },
+      "checks": {
+        "desyncs": true,
+        "corrections": true,
+        "verified": true,
+        "server_tick": true,
+        "wire_budget": false
+      }
+    },
+    {
+      "requested": {
+        "rtt_ms": 0,
+        "loss_pct": 5,
+        "jitter_ms": 30
+      },
+      "emulated": {
+        "up_ticks": 0,
+        "down_ticks": 1,
+        "jitter_ticks": 1,
+        "lead_ticks": 0,
+        "rtt_ms": 33.33
+      },
+      "ticks": 360,
+      "clients": 4,
+      "entities": 64,
+      "desyncs": 0,
+      "verified_snapshots": 1088,
+      "speculative_snapshots": 285,
+      "server_ahead_snapshots": 55,
+      "no_prediction_snapshots": 0,
+      "hashacks_sent": 1432,
+      "ack_missing_ticks": 0,
+      "server_desyncs": 0,
+      "gate_rejections": 0,
+      "hash_integrity_failures": 0,
+      "ahead_ticks": 251,
+      "input_refusals": 0,
+      "snapshot_bytes": {
+        "min": 1551,
+        "max": 1551
+      },
+      "corrections": {
+        "samples": 1428,
+        "p50_mm": 0,
+        "p95_mm": 50,
+        "max_mm": 50,
+        "over_2m": 0
+      },
+      "server_tick_ms": {
+        "p50": 0.1198,
+        "p95": 0.158,
+        "max": 4.1738
+      },
+      "wire": {
+        "down_bytes_per_client_per_s": 46271.5,
+        "up_bytes_per_client_per_s": 496.23,
+        "down_total_bytes_per_s": 185086,
+        "down_budget_bytes_per_s": 12288,
+        "up_budget_bytes_per_s": 3072,
+        "over_budget_factor": 3.766
+      },
+      "checks": {
+        "desyncs": true,
+        "corrections": true,
+        "verified": true,
+        "server_tick": true,
+        "wire_budget": false
+      }
+    },
+    {
+      "requested": {
+        "rtt_ms": 50,
+        "loss_pct": 0,
+        "jitter_ms": 0
+      },
+      "emulated": {
+        "up_ticks": 1,
+        "down_ticks": 1,
+        "jitter_ticks": 0,
+        "lead_ticks": 1,
+        "rtt_ms": 66.67
+      },
+      "ticks": 360,
+      "clients": 4,
+      "entities": 64,
+      "desyncs": 0,
+      "verified_snapshots": 1432,
+      "speculative_snapshots": 0,
+      "server_ahead_snapshots": 0,
+      "no_prediction_snapshots": 0,
+      "hashacks_sent": 1436,
+      "ack_missing_ticks": 0,
+      "server_desyncs": 0,
+      "gate_rejections": 0,
+      "hash_integrity_failures": 0,
+      "ahead_ticks": 0,
+      "input_refusals": 0,
+      "snapshot_bytes": {
+        "min": 1551,
+        "max": 1551
+      },
+      "corrections": {
+        "samples": 1432,
+        "p50_mm": 0,
+        "p95_mm": 0,
+        "max_mm": 0,
+        "over_2m": 0
+      },
+      "server_tick_ms": {
+        "p50": 0.1169,
+        "p95": 0.1488,
+        "max": 0.6321
+      },
+      "wire": {
+        "down_bytes_per_client_per_s": 46400.75,
+        "up_bytes_per_client_per_s": 553,
+        "down_total_bytes_per_s": 185603,
+        "down_budget_bytes_per_s": 12288,
+        "up_budget_bytes_per_s": 3072,
+        "over_budget_factor": 3.776
+      },
+      "checks": {
+        "desyncs": true,
+        "corrections": true,
+        "verified": true,
+        "server_tick": true,
+        "wire_budget": false
+      }
+    },
+    {
+      "requested": {
+        "rtt_ms": 50,
+        "loss_pct": 0,
+        "jitter_ms": 30
+      },
+      "emulated": {
+        "up_ticks": 1,
+        "down_ticks": 1,
+        "jitter_ticks": 1,
+        "lead_ticks": 1,
+        "rtt_ms": 66.67
+      },
+      "ticks": 360,
+      "clients": 4,
+      "entities": 64,
+      "desyncs": 0,
+      "verified_snapshots": 1151,
+      "speculative_snapshots": 199,
+      "server_ahead_snapshots": 79,
+      "no_prediction_snapshots": 1,
+      "hashacks_sent": 1434,
+      "ack_missing_ticks": 0,
+      "server_desyncs": 0,
+      "gate_rejections": 0,
+      "hash_integrity_failures": 0,
+      "ahead_ticks": 176,
+      "input_refusals": 0,
+      "snapshot_bytes": {
+        "min": 1551,
+        "max": 1551
+      },
+      "corrections": {
+        "samples": 1429,
+        "p50_mm": 0,
+        "p95_mm": 50,
+        "max_mm": 50,
+        "over_2m": 0
+      },
+      "server_tick_ms": {
+        "p50": 0.1084,
+        "p95": 0.1363,
+        "max": 0.6547
+      },
+      "wire": {
+        "down_bytes_per_client_per_s": 46336.13,
+        "up_bytes_per_client_per_s": 513.04,
+        "down_total_bytes_per_s": 185344.5,
+        "down_budget_bytes_per_s": 12288,
+        "up_budget_bytes_per_s": 3072,
+        "over_budget_factor": 3.771
+      },
+      "checks": {
+        "desyncs": true,
+        "corrections": true,
+        "verified": true,
+        "server_tick": true,
+        "wire_budget": false
+      }
+    },
+    {
+      "requested": {
+        "rtt_ms": 50,
+        "loss_pct": 2,
+        "jitter_ms": 0
+      },
+      "emulated": {
+        "up_ticks": 1,
+        "down_ticks": 1,
+        "jitter_ticks": 0,
+        "lead_ticks": 1,
+        "rtt_ms": 66.67
+      },
+      "ticks": 360,
+      "clients": 4,
+      "entities": 64,
+      "desyncs": 0,
+      "verified_snapshots": 1335,
+      "speculative_snapshots": 66,
+      "server_ahead_snapshots": 31,
+      "no_prediction_snapshots": 0,
+      "hashacks_sent": 1436,
+      "ack_missing_ticks": 0,
+      "server_desyncs": 0,
+      "gate_rejections": 0,
+      "hash_integrity_failures": 0,
+      "ahead_ticks": 64,
+      "input_refusals": 0,
+      "snapshot_bytes": {
+        "min": 1551,
+        "max": 1551
+      },
+      "corrections": {
+        "samples": 1432,
+        "p50_mm": 0,
+        "p95_mm": 50,
+        "max_mm": 50,
+        "over_2m": 0
+      },
+      "server_tick_ms": {
+        "p50": 0.1081,
+        "p95": 0.1428,
+        "max": 3.1323
+      },
+      "wire": {
+        "down_bytes_per_client_per_s": 46400.75,
+        "up_bytes_per_client_per_s": 538.56,
+        "down_total_bytes_per_s": 185603,
+        "down_budget_bytes_per_s": 12288,
+        "up_budget_bytes_per_s": 3072,
+        "over_budget_factor": 3.776
+      },
+      "checks": {
+        "desyncs": true,
+        "corrections": true,
+        "verified": true,
+        "server_tick": true,
+        "wire_budget": false
+      }
+    },
+    {
+      "requested": {
+        "rtt_ms": 50,
+        "loss_pct": 2,
+        "jitter_ms": 30
+      },
+      "emulated": {
+        "up_ticks": 1,
+        "down_ticks": 1,
+        "jitter_ticks": 1,
+        "lead_ticks": 1,
+        "rtt_ms": 66.67
+      },
+      "ticks": 360,
+      "clients": 4,
+      "entities": 64,
+      "desyncs": 0,
+      "verified_snapshots": 1120,
+      "speculative_snapshots": 226,
+      "server_ahead_snapshots": 83,
+      "no_prediction_snapshots": 2,
+      "hashacks_sent": 1435,
+      "ack_missing_ticks": 0,
+      "server_desyncs": 0,
+      "gate_rejections": 0,
+      "hash_integrity_failures": 0,
+      "ahead_ticks": 190,
+      "input_refusals": 0,
+      "snapshot_bytes": {
+        "min": 1551,
+        "max": 1551
+      },
+      "corrections": {
+        "samples": 1429,
+        "p50_mm": 0,
+        "p95_mm": 50,
+        "max_mm": 100,
+        "over_2m": 0
+      },
+      "server_tick_ms": {
+        "p50": 0.1188,
+        "p95": 0.1496,
+        "max": 1.0305
+      },
+      "wire": {
+        "down_bytes_per_client_per_s": 46368.44,
+        "up_bytes_per_client_per_s": 509.88,
+        "down_total_bytes_per_s": 185473.75,
+        "down_budget_bytes_per_s": 12288,
+        "up_budget_bytes_per_s": 3072,
+        "over_budget_factor": 3.773
+      },
+      "checks": {
+        "desyncs": true,
+        "corrections": true,
+        "verified": true,
+        "server_tick": true,
+        "wire_budget": false
+      }
+    },
+    {
+      "requested": {
+        "rtt_ms": 50,
+        "loss_pct": 5,
+        "jitter_ms": 0
+      },
+      "emulated": {
+        "up_ticks": 1,
+        "down_ticks": 1,
+        "jitter_ticks": 0,
+        "lead_ticks": 1,
+        "rtt_ms": 66.67
+      },
+      "ticks": 360,
+      "clients": 4,
+      "entities": 64,
+      "desyncs": 0,
+      "verified_snapshots": 1241,
+      "speculative_snapshots": 129,
+      "server_ahead_snapshots": 62,
+      "no_prediction_snapshots": 0,
+      "hashacks_sent": 1436,
+      "ack_missing_ticks": 0,
+      "server_desyncs": 0,
+      "gate_rejections": 0,
+      "hash_integrity_failures": 0,
+      "ahead_ticks": 129,
+      "input_refusals": 0,
+      "snapshot_bytes": {
+        "min": 1551,
+        "max": 1551
+      },
+      "corrections": {
+        "samples": 1432,
+        "p50_mm": 0,
+        "p95_mm": 50,
+        "max_mm": 50,
+        "over_2m": 0
+      },
+      "server_tick_ms": {
+        "p50": 0.1181,
+        "p95": 0.1582,
+        "max": 2.8944
+      },
+      "wire": {
+        "down_bytes_per_client_per_s": 46400.75,
+        "up_bytes_per_client_per_s": 525.04,
+        "down_total_bytes_per_s": 185603,
+        "down_budget_bytes_per_s": 12288,
+        "up_budget_bytes_per_s": 3072,
+        "over_budget_factor": 3.776
+      },
+      "checks": {
+        "desyncs": true,
+        "corrections": true,
+        "verified": true,
+        "server_tick": true,
+        "wire_budget": false
+      }
+    },
+    {
+      "requested": {
+        "rtt_ms": 50,
+        "loss_pct": 5,
+        "jitter_ms": 30
+      },
+      "emulated": {
+        "up_ticks": 1,
+        "down_ticks": 1,
+        "jitter_ticks": 1,
+        "lead_ticks": 1,
+        "rtt_ms": 66.67
+      },
+      "ticks": 360,
+      "clients": 4,
+      "entities": 64,
+      "desyncs": 0,
+      "verified_snapshots": 1091,
+      "speculative_snapshots": 242,
+      "server_ahead_snapshots": 97,
+      "no_prediction_snapshots": 0,
+      "hashacks_sent": 1434,
+      "ack_missing_ticks": 0,
+      "server_desyncs": 0,
+      "gate_rejections": 0,
+      "hash_integrity_failures": 0,
+      "ahead_ticks": 202,
+      "input_refusals": 0,
+      "snapshot_bytes": {
+        "min": 1551,
+        "max": 1551
+      },
+      "corrections": {
+        "samples": 1430,
+        "p50_mm": 0,
+        "p95_mm": 50,
+        "max_mm": 100,
+        "over_2m": 0
+      },
+      "server_tick_ms": {
+        "p50": 0.1226,
+        "p95": 0.1616,
+        "max": 1.9874
+      },
+      "wire": {
+        "down_bytes_per_client_per_s": 46336.13,
+        "up_bytes_per_client_per_s": 507.77,
+        "down_total_bytes_per_s": 185344.5,
+        "down_budget_bytes_per_s": 12288,
+        "up_budget_bytes_per_s": 3072,
+        "over_budget_factor": 3.771
+      },
+      "checks": {
+        "desyncs": true,
+        "corrections": true,
+        "verified": true,
+        "server_tick": true,
+        "wire_budget": false
+      }
+    },
+    {
+      "requested": {
+        "rtt_ms": 150,
+        "loss_pct": 0,
+        "jitter_ms": 0
+      },
+      "emulated": {
+        "up_ticks": 2,
+        "down_ticks": 3,
+        "jitter_ticks": 0,
+        "lead_ticks": 2,
+        "rtt_ms": 166.67
+      },
+      "ticks": 360,
+      "clients": 4,
+      "entities": 64,
+      "desyncs": 0,
+      "verified_snapshots": 1424,
+      "speculative_snapshots": 0,
+      "server_ahead_snapshots": 0,
+      "no_prediction_snapshots": 0,
+      "hashacks_sent": 1428,
+      "ack_missing_ticks": 0,
+      "server_desyncs": 0,
+      "gate_rejections": 0,
+      "hash_integrity_failures": 0,
+      "ahead_ticks": 0,
+      "input_refusals": 0,
+      "snapshot_bytes": {
+        "min": 1551,
+        "max": 1551
+      },
+      "corrections": {
+        "samples": 1424,
+        "p50_mm": 0,
+        "p95_mm": 0,
+        "max_mm": 0,
+        "over_2m": 0
+      },
+      "server_tick_ms": {
+        "p50": 0.1127,
+        "p95": 0.1534,
+        "max": 2.3325
+      },
+      "wire": {
+        "down_bytes_per_client_per_s": 46142.25,
+        "up_bytes_per_client_per_s": 549,
+        "down_total_bytes_per_s": 184569,
+        "down_budget_bytes_per_s": 12288,
+        "up_budget_bytes_per_s": 3072,
+        "over_budget_factor": 3.755
+      },
+      "checks": {
+        "desyncs": true,
+        "corrections": true,
+        "verified": true,
+        "server_tick": true,
+        "wire_budget": false
+      }
+    },
+    {
+      "requested": {
+        "rtt_ms": 150,
+        "loss_pct": 0,
+        "jitter_ms": 30
+      },
+      "emulated": {
+        "up_ticks": 2,
+        "down_ticks": 3,
+        "jitter_ticks": 1,
+        "lead_ticks": 2,
+        "rtt_ms": 166.67
+      },
+      "ticks": 360,
+      "clients": 4,
+      "entities": 64,
+      "desyncs": 0,
+      "verified_snapshots": 1116,
+      "speculative_snapshots": 188,
+      "server_ahead_snapshots": 117,
+      "no_prediction_snapshots": 1,
+      "hashacks_sent": 1426,
+      "ack_missing_ticks": 0,
+      "server_desyncs": 0,
+      "gate_rejections": 0,
+      "hash_integrity_failures": 0,
+      "ahead_ticks": 92,
+      "input_refusals": 0,
+      "snapshot_bytes": {
+        "min": 1551,
+        "max": 1551
+      },
+      "corrections": {
+        "samples": 1421,
+        "p50_mm": 0,
+        "p95_mm": 50,
+        "max_mm": 50,
+        "over_2m": 0
+      },
+      "server_tick_ms": {
+        "p50": 0.1135,
+        "p95": 0.1534,
+        "max": 1.0214
+      },
+      "wire": {
+        "down_bytes_per_client_per_s": 46077.63,
+        "up_bytes_per_client_per_s": 528.06,
+        "down_total_bytes_per_s": 184310.5,
+        "down_budget_bytes_per_s": 12288,
+        "up_budget_bytes_per_s": 3072,
+        "over_budget_factor": 3.75
+      },
+      "checks": {
+        "desyncs": true,
+        "corrections": true,
+        "verified": true,
+        "server_tick": true,
+        "wire_budget": false
+      }
+    },
+    {
+      "requested": {
+        "rtt_ms": 150,
+        "loss_pct": 2,
+        "jitter_ms": 0
+      },
+      "emulated": {
+        "up_ticks": 2,
+        "down_ticks": 3,
+        "jitter_ticks": 0,
+        "lead_ticks": 2,
+        "rtt_ms": 166.67
+      },
+      "ticks": 360,
+      "clients": 4,
+      "entities": 64,
+      "desyncs": 0,
+      "verified_snapshots": 1224,
+      "speculative_snapshots": 166,
+      "server_ahead_snapshots": 34,
+      "no_prediction_snapshots": 0,
+      "hashacks_sent": 1428,
+      "ack_missing_ticks": 0,
+      "server_desyncs": 0,
+      "gate_rejections": 0,
+      "hash_integrity_failures": 0,
+      "ahead_ticks": 133,
+      "input_refusals": 0,
+      "snapshot_bytes": {
+        "min": 1551,
+        "max": 1551
+      },
+      "corrections": {
+        "samples": 1424,
+        "p50_mm": 0,
+        "p95_mm": 50,
+        "max_mm": 200,
+        "over_2m": 0
+      },
+      "server_tick_ms": {
+        "p50": 0.1162,
+        "p95": 0.1632,
+        "max": 3.194
+      },
+      "wire": {
+        "down_bytes_per_client_per_s": 46142.25,
+        "up_bytes_per_client_per_s": 522.19,
+        "down_total_bytes_per_s": 184569,
+        "down_budget_bytes_per_s": 12288,
+        "up_budget_bytes_per_s": 3072,
+        "over_budget_factor": 3.755
+      },
+      "checks": {
+        "desyncs": true,
+        "corrections": true,
+        "verified": true,
+        "server_tick": true,
+        "wire_budget": false
+      }
+    },
+    {
+      "requested": {
+        "rtt_ms": 150,
+        "loss_pct": 2,
+        "jitter_ms": 30
+      },
+      "emulated": {
+        "up_ticks": 2,
+        "down_ticks": 3,
+        "jitter_ticks": 1,
+        "lead_ticks": 2,
+        "rtt_ms": 166.67
+      },
+      "ticks": 360,
+      "clients": 4,
+      "entities": 64,
+      "desyncs": 0,
+      "verified_snapshots": 1066,
+      "speculative_snapshots": 253,
+      "server_ahead_snapshots": 100,
+      "no_prediction_snapshots": 2,
+      "hashacks_sent": 1425,
+      "ack_missing_ticks": 0,
+      "server_desyncs": 0,
+      "gate_rejections": 0,
+      "hash_integrity_failures": 0,
+      "ahead_ticks": 151,
+      "input_refusals": 0,
+      "snapshot_bytes": {
+        "min": 1551,
+        "max": 1551
+      },
+      "corrections": {
+        "samples": 1419,
+        "p50_mm": 0,
+        "p95_mm": 50,
+        "max_mm": 250,
+        "over_2m": 0
+      },
+      "server_tick_ms": {
+        "p50": 0.1168,
+        "p95": 0.1513,
+        "max": 0.5903
+      },
+      "wire": {
+        "down_bytes_per_client_per_s": 46045.31,
+        "up_bytes_per_client_per_s": 515.19,
+        "down_total_bytes_per_s": 184181.25,
+        "down_budget_bytes_per_s": 12288,
+        "up_budget_bytes_per_s": 3072,
+        "over_budget_factor": 3.747
+      },
+      "checks": {
+        "desyncs": true,
+        "corrections": true,
+        "verified": true,
+        "server_tick": true,
+        "wire_budget": false
+      }
+    },
+    {
+      "requested": {
+        "rtt_ms": 150,
+        "loss_pct": 5,
+        "jitter_ms": 0
+      },
+      "emulated": {
+        "up_ticks": 2,
+        "down_ticks": 3,
+        "jitter_ticks": 0,
+        "lead_ticks": 2,
+        "rtt_ms": 166.67
+      },
+      "ticks": 360,
+      "clients": 4,
+      "entities": 64,
+      "desyncs": 0,
+      "verified_snapshots": 1154,
+      "speculative_snapshots": 224,
+      "server_ahead_snapshots": 46,
+      "no_prediction_snapshots": 0,
+      "hashacks_sent": 1428,
+      "ack_missing_ticks": 0,
+      "server_desyncs": 0,
+      "gate_rejections": 0,
+      "hash_integrity_failures": 0,
+      "ahead_ticks": 192,
+      "input_refusals": 0,
+      "snapshot_bytes": {
+        "min": 1551,
+        "max": 1551
+      },
+      "corrections": {
+        "samples": 1424,
+        "p50_mm": 0,
+        "p95_mm": 50,
+        "max_mm": 200,
+        "over_2m": 0
+      },
+      "server_tick_ms": {
+        "p50": 0.1157,
+        "p95": 0.15,
+        "max": 2.1784
+      },
+      "wire": {
+        "down_bytes_per_client_per_s": 46142.25,
+        "up_bytes_per_client_per_s": 510.04,
+        "down_total_bytes_per_s": 184569,
+        "down_budget_bytes_per_s": 12288,
+        "up_budget_bytes_per_s": 3072,
+        "over_budget_factor": 3.755
+      },
+      "checks": {
+        "desyncs": true,
+        "corrections": true,
+        "verified": true,
+        "server_tick": true,
+        "wire_budget": false
+      }
+    },
+    {
+      "requested": {
+        "rtt_ms": 150,
+        "loss_pct": 5,
+        "jitter_ms": 30
+      },
+      "emulated": {
+        "up_ticks": 2,
+        "down_ticks": 3,
+        "jitter_ticks": 1,
+        "lead_ticks": 2,
+        "rtt_ms": 166.67
+      },
+      "ticks": 360,
+      "clients": 4,
+      "entities": 64,
+      "desyncs": 0,
+      "verified_snapshots": 1070,
+      "speculative_snapshots": 270,
+      "server_ahead_snapshots": 80,
+      "no_prediction_snapshots": 1,
+      "hashacks_sent": 1425,
+      "ack_missing_ticks": 0,
+      "server_desyncs": 0,
+      "gate_rejections": 0,
+      "hash_integrity_failures": 0,
+      "ahead_ticks": 181,
+      "input_refusals": 0,
+      "snapshot_bytes": {
+        "min": 1551,
+        "max": 1551
+      },
+      "corrections": {
+        "samples": 1420,
+        "p50_mm": 0,
+        "p95_mm": 50,
+        "max_mm": 250,
+        "over_2m": 0
+      },
+      "server_tick_ms": {
+        "p50": 0.1141,
+        "p95": 0.1474,
+        "max": 0.1862
+      },
+      "wire": {
+        "down_bytes_per_client_per_s": 46045.31,
+        "up_bytes_per_client_per_s": 508.54,
+        "down_total_bytes_per_s": 184181.25,
+        "down_budget_bytes_per_s": 12288,
+        "up_budget_bytes_per_s": 3072,
+        "over_budget_factor": 3.747
+      },
+      "checks": {
+        "desyncs": true,
+        "corrections": true,
+        "verified": true,
+        "server_tick": true,
+        "wire_budget": false
+      }
+    },
+    {
+      "requested": {
+        "rtt_ms": 300,
+        "loss_pct": 0,
+        "jitter_ms": 0
+      },
+      "emulated": {
+        "up_ticks": 4,
+        "down_ticks": 5,
+        "jitter_ticks": 0,
+        "lead_ticks": 4,
+        "rtt_ms": 300
+      },
+      "ticks": 360,
+      "clients": 4,
+      "entities": 64,
+      "desyncs": 0,
+      "verified_snapshots": 1416,
+      "speculative_snapshots": 0,
+      "server_ahead_snapshots": 0,
+      "no_prediction_snapshots": 0,
+      "hashacks_sent": 1420,
+      "ack_missing_ticks": 0,
+      "server_desyncs": 0,
+      "gate_rejections": 0,
+      "hash_integrity_failures": 0,
+      "ahead_ticks": 0,
+      "input_refusals": 0,
+      "snapshot_bytes": {
+        "min": 1551,
+        "max": 1551
+      },
+      "corrections": {
+        "samples": 1416,
+        "p50_mm": 0,
+        "p95_mm": 0,
+        "max_mm": 0,
+        "over_2m": 0
+      },
+      "server_tick_ms": {
+        "p50": 0.1172,
+        "p95": 0.1511,
+        "max": 1.1478
+      },
+      "wire": {
+        "down_bytes_per_client_per_s": 45883.75,
+        "up_bytes_per_client_per_s": 545,
+        "down_total_bytes_per_s": 183535,
+        "down_budget_bytes_per_s": 12288,
+        "up_budget_bytes_per_s": 3072,
+        "over_budget_factor": 3.734
+      },
+      "checks": {
+        "desyncs": true,
+        "corrections": true,
+        "verified": true,
+        "server_tick": true,
+        "wire_budget": false
+      }
+    },
+    {
+      "requested": {
+        "rtt_ms": 300,
+        "loss_pct": 0,
+        "jitter_ms": 30
+      },
+      "emulated": {
+        "up_ticks": 4,
+        "down_ticks": 5,
+        "jitter_ticks": 1,
+        "lead_ticks": 4,
+        "rtt_ms": 300
+      },
+      "ticks": 360,
+      "clients": 4,
+      "entities": 64,
+      "desyncs": 0,
+      "verified_snapshots": 1142,
+      "speculative_snapshots": 158,
+      "server_ahead_snapshots": 110,
+      "no_prediction_snapshots": 3,
+      "hashacks_sent": 1417,
+      "ack_missing_ticks": 0,
+      "server_desyncs": 0,
+      "gate_rejections": 0,
+      "hash_integrity_failures": 0,
+      "ahead_ticks": 59,
+      "input_refusals": 0,
+      "snapshot_bytes": {
+        "min": 1551,
+        "max": 1551
+      },
+      "corrections": {
+        "samples": 1410,
+        "p50_mm": 0,
+        "p95_mm": 50,
+        "max_mm": 50,
+        "over_2m": 0
+      },
+      "server_tick_ms": {
+        "p50": 0.1231,
+        "p95": 0.1766,
+        "max": 3.184
+      },
+      "wire": {
+        "down_bytes_per_client_per_s": 45786.81,
+        "up_bytes_per_client_per_s": 530.21,
+        "down_total_bytes_per_s": 183147.25,
+        "down_budget_bytes_per_s": 12288,
+        "up_budget_bytes_per_s": 3072,
+        "over_budget_factor": 3.726
+      },
+      "checks": {
+        "desyncs": true,
+        "corrections": true,
+        "verified": true,
+        "server_tick": true,
+        "wire_budget": false
+      }
+    },
+    {
+      "requested": {
+        "rtt_ms": 300,
+        "loss_pct": 2,
+        "jitter_ms": 0
+      },
+      "emulated": {
+        "up_ticks": 4,
+        "down_ticks": 5,
+        "jitter_ticks": 0,
+        "lead_ticks": 4,
+        "rtt_ms": 300
+      },
+      "ticks": 360,
+      "clients": 4,
+      "entities": 64,
+      "desyncs": 0,
+      "verified_snapshots": 1265,
+      "speculative_snapshots": 134,
+      "server_ahead_snapshots": 17,
+      "no_prediction_snapshots": 0,
+      "hashacks_sent": 1420,
+      "ack_missing_ticks": 0,
+      "server_desyncs": 0,
+      "gate_rejections": 0,
+      "hash_integrity_failures": 0,
+      "ahead_ticks": 103,
+      "input_refusals": 0,
+      "snapshot_bytes": {
+        "min": 1551,
+        "max": 1551
+      },
+      "corrections": {
+        "samples": 1416,
+        "p50_mm": 0,
+        "p95_mm": 50,
+        "max_mm": 400,
+        "over_2m": 0
+      },
+      "server_tick_ms": {
+        "p50": 0.1278,
+        "p95": 0.1652,
+        "max": 2.1415
+      },
+      "wire": {
+        "down_bytes_per_client_per_s": 45883.75,
+        "up_bytes_per_client_per_s": 523.92,
+        "down_total_bytes_per_s": 183535,
+        "down_budget_bytes_per_s": 12288,
+        "up_budget_bytes_per_s": 3072,
+        "over_budget_factor": 3.734
+      },
+      "checks": {
+        "desyncs": true,
+        "corrections": true,
+        "verified": true,
+        "server_tick": true,
+        "wire_budget": false
+      }
+    },
+    {
+      "requested": {
+        "rtt_ms": 300,
+        "loss_pct": 2,
+        "jitter_ms": 30
+      },
+      "emulated": {
+        "up_ticks": 4,
+        "down_ticks": 5,
+        "jitter_ticks": 1,
+        "lead_ticks": 4,
+        "rtt_ms": 300
+      },
+      "ticks": 360,
+      "clients": 4,
+      "entities": 64,
+      "desyncs": 0,
+      "verified_snapshots": 1009,
+      "speculative_snapshots": 310,
+      "server_ahead_snapshots": 93,
+      "no_prediction_snapshots": 3,
+      "hashacks_sent": 1419,
+      "ack_missing_ticks": 0,
+      "server_desyncs": 0,
+      "gate_rejections": 0,
+      "hash_integrity_failures": 0,
+      "ahead_ticks": 163,
+      "input_refusals": 0,
+      "snapshot_bytes": {
+        "min": 1551,
+        "max": 1551
+      },
+      "corrections": {
+        "samples": 1412,
+        "p50_mm": 0,
+        "p95_mm": 50,
+        "max_mm": 450,
+        "over_2m": 0
+      },
+      "server_tick_ms": {
+        "p50": 0.1233,
+        "p95": 0.1589,
+        "max": 1.9312
+      },
+      "wire": {
+        "down_bytes_per_client_per_s": 45851.44,
+        "up_bytes_per_client_per_s": 510.35,
+        "down_total_bytes_per_s": 183405.75,
+        "down_budget_bytes_per_s": 12288,
+        "up_budget_bytes_per_s": 3072,
+        "over_budget_factor": 3.731
+      },
+      "checks": {
+        "desyncs": true,
+        "corrections": true,
+        "verified": true,
+        "server_tick": true,
+        "wire_budget": false
+      }
+    },
+    {
+      "requested": {
+        "rtt_ms": 300,
+        "loss_pct": 5,
+        "jitter_ms": 0
+      },
+      "emulated": {
+        "up_ticks": 4,
+        "down_ticks": 5,
+        "jitter_ticks": 0,
+        "lead_ticks": 4,
+        "rtt_ms": 300
+      },
+      "ticks": 360,
+      "clients": 4,
+      "entities": 64,
+      "desyncs": 0,
+      "verified_snapshots": 1002,
+      "speculative_snapshots": 367,
+      "server_ahead_snapshots": 47,
+      "no_prediction_snapshots": 0,
+      "hashacks_sent": 1420,
+      "ack_missing_ticks": 0,
+      "server_desyncs": 0,
+      "gate_rejections": 0,
+      "hash_integrity_failures": 0,
+      "ahead_ticks": 234,
+      "input_refusals": 0,
+      "snapshot_bytes": {
+        "min": 1551,
+        "max": 1551
+      },
+      "corrections": {
+        "samples": 1416,
+        "p50_mm": 0,
+        "p95_mm": 50,
+        "max_mm": 400,
+        "over_2m": 0
+      },
+      "server_tick_ms": {
+        "p50": 0.1222,
+        "p95": 0.1611,
+        "max": 2.1774
+      },
+      "wire": {
+        "down_bytes_per_client_per_s": 45883.75,
+        "up_bytes_per_client_per_s": 494.58,
+        "down_total_bytes_per_s": 183535,
+        "down_budget_bytes_per_s": 12288,
+        "up_budget_bytes_per_s": 3072,
+        "over_budget_factor": 3.734
+      },
+      "checks": {
+        "desyncs": true,
+        "corrections": true,
+        "verified": true,
+        "server_tick": true,
+        "wire_budget": false
+      }
+    },
+    {
+      "requested": {
+        "rtt_ms": 300,
+        "loss_pct": 5,
+        "jitter_ms": 30
+      },
+      "emulated": {
+        "up_ticks": 4,
+        "down_ticks": 5,
+        "jitter_ticks": 1,
+        "lead_ticks": 4,
+        "rtt_ms": 300
+      },
+      "ticks": 360,
+      "clients": 4,
+      "entities": 64,
+      "desyncs": 0,
+      "verified_snapshots": 927,
+      "speculative_snapshots": 398,
+      "server_ahead_snapshots": 87,
+      "no_prediction_snapshots": 2,
+      "hashacks_sent": 1418,
+      "ack_missing_ticks": 0,
+      "server_desyncs": 0,
+      "gate_rejections": 0,
+      "hash_integrity_failures": 0,
+      "ahead_ticks": 208,
+      "input_refusals": 0,
+      "snapshot_bytes": {
+        "min": 1551,
+        "max": 1551
+      },
+      "corrections": {
+        "samples": 1412,
+        "p50_mm": 0,
+        "p95_mm": 50,
+        "max_mm": 400,
+        "over_2m": 0
+      },
+      "server_tick_ms": {
+        "p50": 0.1207,
+        "p95": 0.1665,
+        "max": 2.5687
+      },
+      "wire": {
+        "down_bytes_per_client_per_s": 45819.13,
+        "up_bytes_per_client_per_s": 497.71,
+        "down_total_bytes_per_s": 183276.5,
+        "down_budget_bytes_per_s": 12288,
+        "up_budget_bytes_per_s": 3072,
+        "over_budget_factor": 3.729
+      },
+      "checks": {
+        "desyncs": true,
+        "corrections": true,
+        "verified": true,
+        "server_tick": true,
+        "wire_budget": false
+      }
+    }
+  ],
+  "reconnect": {
+    "attempted": true,
+    "same_entity": true,
+    "seq_preserved": true,
+    "hash_valid": true,
+    "exact_state": true,
+    "resumed_within_window": true,
+    "late_resume_refused": true,
+    "disconnected_tick": 300,
+    "resumed_tick": 306,
+    "seq_at_disconnect": 106,
+    "seq_after_resume": 106
+  },
+  "verdict": {
+    "cells": 24,
+    "transport_pass": true,
+    "wire_budget_pass": false,
+    "desyncs": 0,
+    "server_desyncs": 0,
+    "hash_integrity_failures": 0,
+    "verified_snapshots": 28694,
+    "correction_p95_max_mm": 50,
+    "correction_max_mm": 450,
+    "rubber_band_over_2m": 0,
+    "server_tick_p95_max_ms": 0.4411,
+    "down_bytes_per_client_per_s": 46400.75
+  }
+}

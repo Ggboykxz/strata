@@ -80,6 +80,39 @@ describe('prediction', () => {
     expect(p.state.tick).toBe(2);
   });
 
+  it('advances empty ticks and records every hash for later verification', () => {
+    const p = new Predictor(world0(), 1);
+    expect(p.advance()).toBe(1);
+    expect(p.advance()).toBe(2);
+    const expected = stepWorld(stepWorld(world0(), []), []);
+    expect(p.hashAt(2)).toBe(hashWorld(expected));
+    expect(p.hashAt(3)).toBeUndefined();
+  });
+
+  it('treats a speculative tick as unknown, not desync, and reschedules the in-flight intent', () => {
+    const p = new Predictor(world0(), 1);
+    expect(p.input(1, 1, 0)).toBe(true); // applied locally at tick 1
+    const serverAt1 = stepWorld(world0(), []); // the server has not received seq 1
+    expect(p.reconcile(snapshotOf(serverAt1))).toBe('unknown');
+    expect(p.desyncs).toBe(0);
+    expect(p.needsResync).toBe(false);
+    expect(p.pendingIntents.map((i) => i.seq)).toEqual([1]);
+    expect(pos(p.state).x).toBe(pos(serverAt1).x + WALK_MM_PER_TICK);
+    expect(p.state.tick).toBe(2); // the input is replayed one tick after the snapshot
+    expect(p.hashAt(2)).toBe(hashWorld(p.state));
+  });
+
+  it('converges when the server applies a late intent on a later tick', () => {
+    const p = new Predictor(world0(), 1);
+    p.input(1, 1, 0);
+    p.reconcile(snapshotOf(stepWorld(world0(), [])));
+    const serverAt2 = stepWorld(stepWorld(world0(), []), [{ entity: 1, seq: 1, dx: 1, dz: 0 }]);
+    expect(p.reconcile(snapshotOf(serverAt2))).toBe('ok');
+    expect(p.desyncs).toBe(0);
+    expect(p.pendingIntents).toHaveLength(0);
+    expect(p.state).toEqual(serverAt2);
+  });
+
   it('replays every unacked intent when the snapshot predates them all', () => {
     const p = new Predictor(world0(), 1);
     p.input(1, 1, 0);
@@ -120,6 +153,57 @@ describe('prediction', () => {
     const p = new Predictor(world0(), 1);
     expect(p.reconcile(snapshotOf(world0()))).toBe('ok');
     expect(p.desyncs).toBe(0);
+  });
+
+  it('does not treat another client moving its own entity as this client desync', () => {
+    const p = new Predictor(world0(), 1);
+    expect(p.input(1, 1, 0)).toBe(true);
+    const server = stepWorld(world0(), [
+      { entity: 1, seq: 1, dx: 1, dz: 0 },
+      { entity: 2, seq: 1, dx: 0, dz: 1 }, // a different client's intent, never visible to this client
+    ]);
+    expect(p.reconcile(snapshotOf(server))).toBe('ok');
+    expect(p.desyncs).toBe(0);
+    expect(pos(p.state, 1)).toEqual(pos(server, 1));
+    expect(pos(p.state, 2)).toEqual(pos(server, 2));
+  });
+
+  it('rejects a snapshot whose hash does not describe its entities', () => {
+    const p = new Predictor(world0(), 1);
+    const valid = snapshotOf(world0());
+    const corrupted: SnapshotView = {
+      ...valid,
+      entities: valid.entities.map((e) => (e.id === 2 ? { ...e, x: e.x + 1 } : e)),
+    };
+    expect(p.reconcile(corrupted)).toBe('desync');
+    expect(p.desyncs).toBe(1);
+    expect(p.needsResync).toBe(true);
+  });
+
+  it('rejects an own-entity state that diverges at the same acked seq', () => {
+    const p = new Predictor(world0(), 1);
+    expect(p.input(1, 1, 0)).toBe(true);
+    const server = stepWorld(world0(), [{ entity: 1, seq: 1, dx: 1, dz: 0 }]);
+    const tampered = {
+      ...server,
+      entities: server.entities.map((e) => (e.id === 1 ? { ...e, x: e.x + 1 } : e)),
+    };
+    const snapshot: SnapshotView = {
+      tick: tampered.tick,
+      hash: hashWorld(tampered),
+      appliedSeq: 1,
+      entities: tampered.entities,
+    };
+    expect(p.reconcile(snapshot)).toBe('desync');
+    expect(p.desyncs).toBe(1);
+  });
+
+  it('reports unknown, not desync, when the server applied an input ahead of the timeline', () => {
+    const p = new Predictor(world0(), 1);
+    const server = stepWorld(world0(), [{ entity: 1, seq: 1, dx: 1, dz: 0 }]);
+    expect(p.reconcile(snapshotOf(server))).toBe('unknown');
+    expect(p.desyncs).toBe(0);
+    expect(p.state).toEqual(server);
   });
 });
 

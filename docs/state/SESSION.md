@@ -474,3 +474,18 @@ blueprint task currently owns the pin: recorded as a gap for the Director/next r
   contract, the 8 unmet NET-GATE criteria with their closing commands, conventions and a first-session checklist.
 - GPU arrival does not authorize generation: NET-GATE readiness still exits 1; art needs a real measurement or a
   Director-signed ADR suspending I2. ND-004/005 rotation still precedes HF use.
+
+## Session 3 — PR-N1 four-client matrix and soak rerun (2026-11-18T16:02Z)
+
+- Branch `session/20261118-prn1-matrix`. Locks acquired in one sorted commit on `state/locks`.
+- 24 requested cells (RTT 0/50/150/300 ms × loss 0/2/5 % × jitter 0/30 ms), 4 clients, 64 entities, 360 ticks/cell:
+  28,694 verified snapshots, 0 desyncs, 0 integrity failures, correction p95 50 mm / max 450 mm / 0 over 2 m,
+  server tick p95 max 0.4411 ms in-process; wire still fails at 3.79× (NET-101).
+- Predictor corrected: only the own entity is predictable; snapshot hash is verified; in-flight input is `unknown`,
+  never a desync. `apps/game/test/net.test.ts` 22/22. GDD-NETCODE 0.8.
+- First 30-minute soak kept 0 desyncs for the full wall clock but died building its report (`Math.max` spread
+  overflow, `EXIT=1`); fixed with a reducer and 300k-sample regression test (7/7). Fresh run exited 0 at
+  16:31:25Z: 1,800.03 s, 54,001 ticks, 162,586 verified snapshots, 0 desyncs, correction p95 50 mm / max 250 mm,
+  server tick p95 0.1632 ms. Four criteria remain unmet; `--assert-ready` still exits 1.
+- No art, no model, no GPU/TPU. **PR #4** https://github.com/Ggboykxz/strata/pull/4 opened, never merged;
+  merge and ND-004/005 rotation are Director acts.
