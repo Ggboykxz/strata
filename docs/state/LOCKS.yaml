@@ -1075,7 +1075,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T13:04:00Z"
     expires_at: "2026-11-18T13:34:00Z"
-    status: active
+    status: released
 
   - path_glob: "docs/state/JOURNAL.md"
     owner_agent: orchestrator
@@ -1083,7 +1083,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T13:04:00Z"
     expires_at: "2026-11-18T13:34:00Z"
-    status: active
+    status: released
 
   - path_glob: "docs/state/NEEDS_DIRECTOR.md"
     owner_agent: orchestrator
@@ -1091,7 +1091,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T13:04:00Z"
     expires_at: "2026-11-18T13:34:00Z"
-    status: active
+    status: released
 
   - path_glob: "docs/state/SESSION.md"
     owner_agent: orchestrator
@@ -1099,7 +1099,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T13:04:00Z"
     expires_at: "2026-11-18T13:34:00Z"
-    status: active
+    status: released
 
   - path_glob: "docs/state/metrics/2026-11-18-s02.json"
     owner_agent: orchestrator
@@ -1107,7 +1107,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T13:04:00Z"
     expires_at: "2026-11-18T13:34:00Z"
-    status: active
+    status: released
 
   - path_glob: "docs/state/NEXT_SESSION.md"
     owner_agent: orchestrator
@@ -1115,7 +1115,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T13:04:00Z"
     expires_at: "2026-11-18T13:34:00Z"
-    status: active
+    status: released
 
   - path_glob: "opencode.json"
     owner_agent: orchestrator
@@ -1123,7 +1123,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T13:04:00Z"
     expires_at: "2026-11-18T13:34:00Z"
-    status: active
+    status: released
 
   - path_glob: "scripts/build-journal.mjs"
     owner_agent: orchestrator
@@ -1131,7 +1131,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T13:04:00Z"
     expires_at: "2026-11-18T13:34:00Z"
-    status: active
+    status: released
 
   - path_glob: "scripts/validate-blueprint.mjs"
     owner_agent: tools-engineer
@@ -1139,7 +1139,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T13:04:00Z"
     expires_at: "2026-11-18T13:34:00Z"
-    status: active
+    status: released
 
   - path_glob: "scripts/validate-locks.mjs"
     owner_agent: orchestrator
@@ -1147,7 +1147,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T13:04:00Z"
     expires_at: "2026-11-18T13:34:00Z"
-    status: active
+    status: released
 
   - path_glob: "scripts/verify.mjs"
     owner_agent: tools-engineer
@@ -1155,21 +1155,21 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T13:04:00Z"
     expires_at: "2026-11-18T13:34:00Z"
-    status: active
+    status: released
   - path_glob: "apps/dashboard/check.mjs"
     owner_agent: tools-engineer
     task_id: P0-002
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T13:10:00Z"
     expires_at: "2026-11-18T13:40:00Z"
-    status: active
+    status: released
   - path_glob: "apps/dashboard/build.mjs"
     owner_agent: tools-engineer
     task_id: P0-002
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T13:12:00Z"
     expires_at: "2026-11-18T13:42:00Z"
-    status: active
+    status: released
   - path_glob: "docs/qa/prototypes/NET_GATE.md"
     owner_agent: producer
     task_id: GATE:NET
