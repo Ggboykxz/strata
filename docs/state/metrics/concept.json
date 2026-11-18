@@ -1,0 +1,21 @@
+{
+  "measured_at": "2026-11-18T13:36:11.030Z",
+  "task": "HC-003",
+  "demo": 30,
+  "propagation": 20,
+  "visible variants": 15,
+  "wow density": 0,
+  "traceability": 10,
+  "signed novelty": 10,
+  "reasons": {
+    "demo": "two clients agree on the state hash within 900 ticks",
+    "propagation": "3 facts across 3 strata (master T2: >=3 facts, >=2 strata)",
+    "visible variants": "3 physical variant swaps; a text-only change would not count",
+    "wow density": "NOT MEASURED — no playtest, no first-wow timing and no wow count; scored 0 by I13",
+    "traceability": "both clients report identical fact ids, variant ids and epoch",
+    "signed novelty": "T3 novelty grid present in HIGH_CONCEPT.md (re-signature at each gate still owed)"
+  },
+  "total": 85,
+  "evidence": "docs/state/evidence/ (HC-003 dir)",
+  "note": "CIS computed from the T2 replay; wow density scored 0 because no playtest exists (I13)."
+}

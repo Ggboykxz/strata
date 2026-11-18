@@ -1,0 +1,28 @@
+$ pnpm vitest run tools/sim/systems/test/prs6.test.ts --reporter=verbose
+
+ RUN  v5.1.0 /content/strata
+
+stdout | tools/sim/systems/test/prs6.test.ts > PR-S6 harness > prints a deterministic labelled local report
+{
+  "facts": 1000,
+  "reputation_changes": 1000,
+  "standing_changes": 4,
+  "switches": 4,
+  "switch_refusals": 3,
+  "replay_exact": true,
+  "deterministic": true,
+  "label": "local greybox faction prototype — not a balance sign-off"
+}
+
+ ✓ tools/sim/systems/test/prs6.test.ts > derived faction standing > derives reputation and standing from immutable facts only 3ms
+ ✓ tools/sim/systems/test/prs6.test.ts > derived faction standing > clamps reputation to the integer domain and refuses a duplicate fact id 2ms
+ ✓ tools/sim/systems/test/prs6.test.ts > derived faction standing > blocks a switch from a hostile faction and records the refusal 1ms
+ ✓ tools/sim/systems/test/prs6.test.ts > derived faction standing > replays the fact log into identical reputation values 1ms
+ ✓ tools/sim/systems/test/prs6.test.ts > PR-S6 harness > prints a deterministic labelled local report 48ms
+
+ Test Files  1 passed (1)
+      Tests  5 passed (5)
+   Start at  13:30:44
+   Duration  304ms (tests 45%, transform 25%, import 24%, worker 5%)
+
+EXIT=0

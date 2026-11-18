@@ -20,7 +20,8 @@ const esc = (s) => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt
 
 /* ---------- sources: only this file reads them ---------- */
 const metricDir = p('docs/state/metrics');
-const metricFiles = readdirSync(metricDir).filter(f => f.endsWith('.json')).sort();
+// Only session metrics feed the view. concept.json is a CIS source, not a session snapshot (HC-003).
+const metricFiles = readdirSync(metricDir).filter(f => /^\d{4}-\d{2}-\d{2}-s\d+\.json$/.test(f)).sort();
 if (!metricFiles.length) throw new Error('no metrics JSON found');
 const metrics = JSON.parse(read(`docs/state/metrics/${metricFiles.at(-1)}`));
 const own = parseYaml(read('docs/state/OWNERSHIP.yaml'));

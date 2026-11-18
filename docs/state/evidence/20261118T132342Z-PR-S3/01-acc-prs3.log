@@ -1,0 +1,29 @@
+$ pnpm vitest run tools/sim/systems/test/prs3.test.ts --reporter=verbose
+
+ RUN  v5.1.0 /content/strata
+
+stdout | tools/sim/systems/test/prs3.test.ts > PR-S3 harness > prints a deterministic labelled local report
+{
+  "resolutions": 2,
+  "distinct_fact_ids": 2,
+  "delayed_applied": 2,
+  "text_only_refusals": 1,
+  "reachable_states": 243,
+  "fr_en_keys": 6,
+  "untranslated_keys": 0,
+  "deterministic": true,
+  "label": "local greybox quest prototype — not a playtest"
+}
+
+ ✓ tools/sim/systems/test/prs3.test.ts > fact-derived quests > keeps both players' fact ids when they choose different options 3ms
+ ✓ tools/sim/systems/test/prs3.test.ts > fact-derived quests > refuses a text-only resolution and a missing prerequisite 1ms
+ ✓ tools/sim/systems/test/prs3.test.ts > fact-derived quests > schedules the delayed effect from the fact tick, not the current tick 1ms
+ ✓ tools/sim/systems/test/prs3.test.ts > fact-derived quests > re-derives availability when a prerequisite fact is erased 1ms
+ ✓ tools/sim/systems/test/prs3.test.ts > PR-S3 harness > prints a deterministic labelled local report 2ms
+
+ Test Files  1 passed (1)
+      Tests  5 passed (5)
+   Start at  13:23:42
+   Duration  245ms (transform 40%, import 39%, tests 14%, worker 7%)
+
+EXIT=0

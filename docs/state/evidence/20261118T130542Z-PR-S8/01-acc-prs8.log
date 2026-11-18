@@ -1,0 +1,26 @@
+$ pnpm vitest run tools/sim/anim/test/prs8.test.ts --reporter=verbose
+
+ RUN  v5.1.0 /content/strata
+
+stdout | tools/sim/anim/test/prs8.test.ts > PR-S8 anim fuzz harness > prints a deterministic labelled local report
+{
+  "requests": 10000,
+  "accepted": 2500,
+  "queued": 0,
+  "refused": 7500,
+  "illegal_refusals": 7500,
+  "mutations_on_refusal": 0,
+  "hits": 833,
+  "deterministic": true,
+  "label": "local greybox anim fuzz — not a playtest"
+}
+
+ ✓ tools/sim/anim/test/prs8.test.ts > PR-S8 anim fuzz harness > prints a deterministic labelled local report 88ms
+ ✓ tools/sim/anim/test/prs8.test.ts > PR-S8 anim fuzz harness > is repeatable 85ms
+
+ Test Files  1 passed (1)
+      Tests  2 passed (2)
+   Start at  13:05:43
+   Duration  434ms (tests 71%, transform 13%, import 12%, worker 4%)
+
+EXIT=0

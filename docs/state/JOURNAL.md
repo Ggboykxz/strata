@@ -3,7 +3,7 @@
 | field | value |
 |---|---|
 | source | `docs/state/journal/` (append-only entries) |
-| entries | 47 |
+| entries | 57 |
 | regenerate | `node scripts/build-journal.mjs` |
 | check | `node scripts/build-journal.mjs --check` |
 
@@ -1535,3 +1535,136 @@ No GPU/TPU (ND-012), 8 unmeasured NET-GATE criteria, PAT/HF rotation and PR merg
   re-measurement — all CPU/time work.
 - On arrival: log both detect_tier.py probes (expect 16GB / 15 360 MiB), start AI-001 under locks; no binary in git,
   no model before audit verification (audit already complete).
+
+---
+
+# 2026-11-18T15:10:00Z · PR-N2 and PR #1 merge
+
+- **Director merged PR #1 into `main`** at `096fdfe` with a recorded admin review bypass: the Director is the
+  sole collaborator and the PR author, so self-approval cannot satisfy the required human review. All checks
+  including CodeQL were green; no CI was disabled and no gate skipped.
+- PR #2 remains open and conflicting; its unique evidence was ported at `d51a5c0`.
+- PR-N2 delivered deterministic matchmaking (6 → 3 rooms), 2 exact resumes, 1 late refusal, 3 teardowns.
+- Defect fixed: global queue client id vs room-local id collision; room association now explicit.
+- GDD-SHARDING 0.4, acc repaired, co-owner declared. Verify 19/19, full 169/169.
+- **GATE:P2NET is now satisfied.** Next: PR-S7; GATE:NET still needs a formal Director signature.
+
+---
+
+# 2026-11-18T15:55:00Z · PR-S7 · bounded world cascade
+
+- **scope** next P2-SYS sig task: world tick + bounded Rouille cascade
+- **agent / branch** gameplay-engineer · `session/20261118-hc-001-high-concept`
+- **file** `tools/sim/world/prs7_worldtick.ts`, PRS7 report, GDD-WORLD-SIM 0.2 DRAFT
+
+## measured
+- 12-tick bound, fan-out 2, threshold 10 minor units; 12 facts / 12 erases, last active tick 10
+- 9 duplicate-erase refusals; deterministic; test 4/4, full 173/173, verify 19/19
+
+## decision
+The cascade terminates at the stated bound; due spawns after it are recorded as dropped, never applied. An
+already-erased node produces a counter and no second fact. GDD-WORLD-SIM promoted STUB → DRAFT with all 19 fields.
+
+## defect fixed
+One test asserted a 1-unit over-harvest would be refused at a 5-unit remaining amount; the implementation
+correctly accepts it. The assertion now requests 10 units, matching the GDD rule. No implementation weakening.
+
+## limit
+No terrain, renderer, art, AI model, 30 Hz replay or browser tick measure. Bounds are greybox tunables.
+
+## next
+PR-S8 — anim state machine server transitions + illegal-state fuzz.
+
+---
+
+# 2026-11-18T16:35:00Z · PR-S8 · anim state fuzz
+
+- scope: server anim state machine validation + illegal-state fuzz
+- file: `tools/sim/anim/prs8_animstate.ts`, PRS8 report, GDD-ANIM-ARCHITECTURE 0.5
+- measured: 10 000 requests, 2 500 accepted, 7 500 illegal refused, **0 mutations on refusal**, 833 server hit
+  frames, deterministic; test 2/2, full 175/175, verify 19/19.
+- defect: hit counter compared event objects to numbers (reported 0); fixed by comparing tick and kind.
+- limit: no GLB, motion, renderer, retarget or foot-slide measure; no art or GPU/TPU. AN-002 dependency satisfied.
+- next: PR-S3 (quest resolutions + delayed effects).
+
+---
+
+# 2026-11-18T17:25:00Z · PR-S3 · quest resolutions and delayed effects
+
+- scope: fact-derived quests, 3 options, cross-stratum delayed effects, FR/EN pairs
+- file: tools/sim/systems/prs3_quests.ts, q_abbey greybox blueprint, PRS3 report, GDD-QUEST 0.3
+- measured: 2 distinct player fact ids, 2 delayed effects at fact_tick+9, 1 text-only refusal, 243 states,
+  6 FR/EN keys with 0 untranslated, deterministic; test 5/5, full 180/180, verify 19/19.
+- boundary: no renderer, player, browser or art; no GPU/TPU.
+- next: PR-S6 (faction/reputation dynamics). P2-SYS now has PR-S6 left before GATE:P2SYS.
+
+---
+
+# 2026-11-18T17:58:00Z · PR-S6 · faction dynamics and GATE:P2SYS
+
+- scope: last P2-SYS task — faction/reputation derived from immutable facts
+- file: tools/sim/systems/prs6_faction.ts, PRS6 report, GDD-FACTION 0.2 DRAFT
+- measured: 1000 facts, 1000 reputation changes, 4 standing changes, 4 switches, 4 refusals, replay exact,
+  deterministic; test 5/5, full 185/185, verify 19/19.
+- boundary: no player, UI, art or balance sign-off; thresholds are tunables pending a real 4-client measurement.
+- gate: **GATE:P2SYS satisfied**. GATE:P2 still needs HC-003 and GDD-005; GATE:NET still needs a human signature.
+- next: HC-003 concept/CIS measurement, then GDD-005. NET-GATE remains signed-with-risk with 8 unmet criteria.
+
+---
+
+# 2026-11-18T18:18:00Z · HC-003 · CIS v1 measured
+
+- scope: two-client 30s replay + CIS source for GATE:P2
+- file: scripts/concept-demo.mjs, tests/replay/hc_demo_30s.spec.ts, docs/state/metrics/concept.json, GDD-CONSEQUENCE 0.5
+- measured: 900 ticks, 3 facts/3 strata, 6 captures, equal fact ids/variant ids/epoch/hash across two clients;
+  CIS **85/100** with wow density **0** (no playtest) — reason recorded, not fabricated.
+- acceptance: replay 3/3, `--score` 0, full 188/188, verify 19/19, GDD 0 errors.
+- defect fixed: concept.json broke the dashboard "latest metrics" assumption; builder now filters session files.
+- gate: GATE:P2 now waits only on GDD-005 and the formal GATE:NET signature. NET-GATE remains signed-with-risk.
+- next: GDD-005 — signature of the full GDD set.
+
+---
+
+# 2026-11-18T18:50:00Z · GDD-005 · transpiler and drift detection
+
+- scope: GDD→test transpiler, 80% coverage, drift detection (NOT a GDD signature task)
+- file: scripts/gdd-to-tests.mjs, tests/replay/gdd/*.spec.ts (17 generated), blueprint acc extended
+- measured: 17 specs from 17 DRAFT/SIGNED modules, 15 STUB skipped, coverage 63/63 = 100%; injected GDD-CORE
+  acceptance drift → exit 1 naming the stale module; typecheck 0, full test 0, verify 19/19.
+- honesty: generated specs are structural drift checks, not behavioral proofs; each header points to evidence.
+- correction: earlier NEXT_SESSION wording called GDD-005 a signature task — fixed from the blueprint line 82.
+- gate: GATE:P2 work-side complete; only Director human signatures for GATE:P2 and GATE:NET remain.
+- NET-GATE stays signed-with-risk with 8 unmet criteria; no art.
+
+---
+
+# 2026-11-18T19:24:00Z · live room endpoint wired
+
+- scope: last non-gated backlog item — main.ts serves rooms through attachRooms/MessageGate
+- file: apps/server/src/main.ts, RoomHub.ids, apps/server/test/rooms.test.ts
+- measured: rooms 19/19 with a real loopback socket, full 302/302, verify 19/19, typecheck 0.
+- proof: valid v3 hello -> welcome; malformed frame -> reject; room hash unchanged. Tracer stays on 8787, rooms on 8788.
+- boundary: wiring only — no matchmaking, persistence, 4-client measurement, art or GPU/TPU.
+- state: no blueprint task remains selectable. GATE:P2 and GATE:NET need Director human signatures; NET-GATE stays
+  signed-with-risk with 8 unmet criteria. PR #3 open, PR #2 to close.
+
+---
+
+# 2026-11-18T19:45:00Z · Director signed all outstanding gates
+
+- verbatim: "je signe tous" (A0009). Transcribed by the orchestrator, never claimed as an agent signature (D136).
+- `GATE:P2` SIGNED: CIS 85/100 >= 50, coverage 100% >= 80%, ledger balanced, verify 19/19, Actions 8/8.
+- `GATE:NET` SIGNED — RISK ACCEPTED: the 8 master §5.2 criteria remain unmet; `validate-netgate --assert-ready`
+  still exits 1. No CI disabled, no assertion weakened, no number changed.
+- still Director-only: close PR #2, merge PR #3, ND-004/005 rotation, ND-011, ND-012 (T4 16 GB).
+- no art before a real NET-GATE re-measurement; original IP and audited assets only (I11/I4/A0008).
+
+---
+
+# 2026-11-18T19:58:00Z · session-result metrics source fix
+
+- Defect found at final control after A0009: session-result selected concept.json (HC-003 CIS source) as the
+  latest metrics file and exited 1 with `missing "result" block`.
+- Fix: select only `YYYY-MM-DD-sN.json` session metrics, same rule as the dashboard builder.
+- Generator re-run: short 0, full 0, byte-identical 0, fail-closed negatives 1, verify 19/19.
+- No metric changed; no invariant suspended. The two tools now share the same file-selection rule.

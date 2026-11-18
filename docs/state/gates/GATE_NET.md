@@ -11,9 +11,10 @@
 
 ## Signature
 
-The Director signed all pending gate items in one blanket instruction. The statement is transcribed verbatim;
-no agent fabricated or inferred a signature (D136). The gate dossier keeps all 10 master §5.2 criteria with their
-honest statuses: 2 met, 8 `not-measured`, `partial` or `failing`.
+**Director signature: SIGNED — RISK ACCEPTED — 2026-11-18.** Recorded Director decision, quoted verbatim:
+**"je signe tous"** (A0009). Signed by the DIRECTOR and transcribed by the orchestrator; no agent fabricated or
+inferred a signature (D136). The gate dossier keeps all 10 master §5.2 criteria with their honest statuses: 2 met,
+8 `not-measured`, `partial` or `failing`. This signature is a risk acceptance, not a measurement.
 
 `node scripts/validate-netgate.mjs` passes because the dossier is honest. `node scripts/validate-netgate.mjs
 --assert-ready` exits 1 because 8 criteria remain unmet. Both facts are recorded; neither is hidden.

@@ -189,6 +189,30 @@ Anything else goes through a handoff. A conflict is resolved by a handoff or the
 - **ECON-RETUNE fixed**: named proportional stabilization sink took inflation from 7 264,78 % to 5,00 % with
   Gini 0,293701 in band; before/after and the rejected Gini-0,90 levy are recorded. Verify 19/19. Remaining
   limits need hardware, Director actions or NET-GATE measurements.
+- **PR #1 merged by the Director** (`096fdfe`) with recorded admin review bypass. **PR-N2 landed**: 6 clients →
+  3 rooms, 2 exact resumes, 3 teardowns; `GATE:P2NET` satisfied. Full 169/169, verify 19/19. Next: PR-S7.
+- **PR-S7 landed**: bounded Rouille cascade (12 ticks, fan-out 2), 12 facts / 12 erases, no double erase,
+  deterministic; GDD-WORLD-SIM STUB -> DRAFT. Full 173/173, verify 19/19. Next: PR-S8.
+- **PR-S8 landed**: 10k anim fuzz, 0 mutations on refusal, 833 server hit frames, deterministic;
+  GDD-ANIM-ARCHITECTURE 0.5; AN-002 unblocked. Full 175/175, verify 19/19. Next: PR-S3.
+- **Long-term quality doctrine (A0008)**: Director named an Ashes-of-Creation-class quality bar **as a benchmark
+  only** — I11 forbids copying that commercial IP. Quality over time: server truth before visuals, evidence over
+  adjectives, audited stack, vertical slice before scale, no silent gate bypass. Failing numbers stay recorded.
+- **PR-S3 landed**: fact-derived quests, 2 distinct player fact ids, delayed effects at fact_tick+9, 243 states,
+  6 FR/EN keys with 0 untranslated; GDD-QUEST 0.3. Full 180/180, verify 19/19. Next: PR-S6.
+- **PR-S6 landed**: faction standing derived from 1 000 immutable facts, replay-exact; GDD-FACTION 0.2 DRAFT.
+  **GATE:P2SYS satisfied.** Full 185/185, verify 19/19. Next: HC-003, then GDD-005 for GATE:P2.
+- **HC-003 landed**: two-client 900-tick replay with equal hashes, 6 captures, CIS **85/100** measured from
+  `concept.json`; wow density 0 (no playtest). Full 188/188, verify 19/19. GATE:P2 now waits on GDD-005 only.
+- **GDD-005 landed**: real GDD→test transpiler, 17 structural drift specs, coverage 100%; injected drift fails
+  closed. GATE:P2 work-side complete — Director signatures for GATE:P2/GATE:NET remain. NET-GATE still
+  signed-with-risk with 8 unmet criteria; no art.
+- **Live room endpoint wired**: main.ts serves rooms on 8788 through `attachRooms`/MessageGate, 30 Hz tick,
+  real loopback test proving welcome/reject. Full 302/302, verify 19/19. No agent-selectable task remains:
+  GATE:P2 and GATE:NET need Director signatures; NET-GATE still signed-with-risk.
+- **GATE:P2 SIGNED; GATE:NET SIGNED — RISK ACCEPTED** (A0009, Director "je signe tous"). CIS 85, coverage 100%;
+  the 8 unmet NET-GATE criteria remain measured as unmet. No art before a real re-measurement. No agent-selectable
+  task left: merges, tokens, T4 and hardware decisions are Director acts.
 - Known intentional red: `scope-math --report` exit 2 (throughput unmeasured) and `concept --score` exit 2
   until HC-003. `concept --check` is green: T3 was signed at GATE:P0.
 

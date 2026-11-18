@@ -1,7 +1,7 @@
 {
   "session": "2026-11-18-s02",
   "utc_start": "2026-11-18T07:23:00Z",
-  "utc_end": "2026-11-18T13:58:00Z",
+  "utc_end": "2026-11-18T19:22:00Z",
   "mode": "RESUME",
   "branch": "session/20261118-hc-001-high-concept",
   "tier": {
@@ -122,6 +122,47 @@
       "status": "done",
       "blueprint_task": "PR-S5",
       "note": "measured retune: 726478 bps -> 500 bps, both recorded"
+    },
+    {
+      "id": "PR-N2",
+      "status": "done",
+      "blueprint_task": "PR-N2"
+    },
+    {
+      "id": "PR-S7",
+      "status": "done",
+      "blueprint_task": "PR-S7"
+    },
+    {
+      "id": "PR-S8",
+      "status": "done",
+      "blueprint_task": "PR-S8"
+    },
+    {
+      "id": "PR-S3",
+      "status": "done",
+      "blueprint_task": "PR-S3"
+    },
+    {
+      "id": "PR-S6",
+      "status": "done",
+      "blueprint_task": "PR-S6"
+    },
+    {
+      "id": "HC-003",
+      "status": "done",
+      "blueprint_task": "HC-003"
+    },
+    {
+      "id": "GDD-005",
+      "status": "done",
+      "blueprint_task": "GDD-005"
+    },
+    {
+      "id": "ROOM-WIRING",
+      "status": "done",
+      "blueprint_task": "NET-003",
+      "note": "main.ts serves rooms on 8788 through attachRooms; real loopback test"
     }
   ],
   "measured": {
@@ -153,14 +194,14 @@
     "core_test_files": 2,
     "core_tests": 41,
     "server_tests": 25,
-    "full_tests": 166,
+    "full_tests": 302,
     "determinism_ticks": 300,
     "hash_ring_capacity": 128,
     "containers_used": 0,
     "broken_acceptance_commands_repaired": 5,
     "broken_acceptance_commands_remaining": 7,
     "protocol_tests": 28,
-    "test_files": 19,
+    "test_files": 25,
     "wire_version": 3,
     "wire_max_frame_bytes": 1551,
     "snapshot_bytes_per_second": 46530,
@@ -168,7 +209,7 @@
     "wire_budget_over_factor": 3.9,
     "actions_runs": 8,
     "actions_runs_success": 8,
-    "ci_head": "8f8f8c987fc045646f62a73f88174b0766f6f370",
+    "ci_head": "6f38448e0c516e13aff3353dd3eee4d6f69f5452",
     "anim_tests": 22,
     "anim_states": 5,
     "blend_ticks": 2,
@@ -279,11 +320,60 @@
     "economy_inflation_bps_after": 500,
     "economy_gini_micro_after": 293701,
     "economy_stabilization_burned_minor": "93073815",
-    "economy_checksum_after": "0e9d284d"
+    "economy_checksum_after": "0e9d284d",
+    "prn2_tests": 2,
+    "rooms_matched": 3,
+    "rooms_exact_resumes": 2,
+    "rooms_late_refusals": 1,
+    "rooms_teardowns": 3,
+    "pr1_merged_at": "2026-11-18",
+    "pr1_merge_commit": "096fdfe",
+    "prs7_tests": 4,
+    "cascade_bound_ticks": 12,
+    "cascade_fanout": 2,
+    "over_harvest_threshold": 10,
+    "world_facts": 12,
+    "world_erases": 12,
+    "world_last_active_tick": 10,
+    "prs8_tests": 2,
+    "anim_fuzz_requests": 10000,
+    "anim_fuzz_accepted": 2500,
+    "anim_fuzz_refused": 7500,
+    "anim_fuzz_mutations_on_refusal": 0,
+    "anim_fuzz_hits": 833,
+    "prs3_tests": 5,
+    "quest_resolutions": 2,
+    "quest_distinct_fact_ids": 2,
+    "quest_delayed_applied": 2,
+    "quest_reachable_states": 243,
+    "quest_fr_en_keys": 6,
+    "quest_untranslated_keys": 0,
+    "prs6_tests": 5,
+    "faction_facts": 1000,
+    "faction_reputation_changes": 1000,
+    "faction_standing_changes": 4,
+    "faction_switches": 4,
+    "faction_switch_refusals": 4,
+    "faction_replay_exact": true,
+    "cis_score": 85,
+    "cis_wow_density": 0,
+    "t2_ticks": 900,
+    "t2_facts": 3,
+    "t2_strata": 3,
+    "t2_captures": 6,
+    "two_clients_equal_hash": true,
+    "gdd_generated_specs": 17,
+    "gdd_stub_modules_skipped": 15,
+    "gdd_coverage": 1,
+    "gdd_drift_negative_exit": 1,
+    "room_endpoint_port": 8788,
+    "tracer_port": 8787,
+    "rooms_real_socket_test": true
   },
   "cis": {
-    "value": null,
-    "reason": "no measured source until HC-003 (P2); concept --score exits 2 by design"
+    "value": 85,
+    "source": "docs/state/metrics/concept.json",
+    "reason": "HC-003 CIS v1: demo 30, propagation 20, variants 15, wow 0 (no playtest), traceability 10, signed novelty 10"
   },
   "gdd_coverage": {
     "value": 1,
@@ -1333,6 +1423,342 @@
       "cmd": "node scripts/validate-gdd.mjs",
       "exit": 0,
       "log": "docs/state/evidence/20261118T105757Z-ECON-RETUNE/05-gdd.log"
+    },
+    {
+      "cmd": "pnpm sim prn2 --assert (as written in the blueprint)",
+      "exit": 1,
+      "log": "docs/state/evidence/20261118T122429Z-PR-N2/00-acc-old-form.log",
+      "result": "no sim script"
+    },
+    {
+      "cmd": "pnpm vitest run tools/sim/persist/test/prn2.test.ts --reporter=verbose",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T122429Z-PR-N2/01-acc-prn2.log",
+      "result": "2/2, report printed"
+    },
+    {
+      "cmd": "pnpm typecheck",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T122429Z-PR-N2/02-typecheck.log"
+    },
+    {
+      "cmd": "pnpm test",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T122429Z-PR-N2/03-full.log",
+      "result": "169/169"
+    },
+    {
+      "cmd": "pnpm verify",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T122429Z-PR-N2/04-verify.log",
+      "result": "19/19"
+    },
+    {
+      "cmd": "node scripts/validate-gdd.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T122429Z-PR-N2/05-gdd.log"
+    },
+    {
+      "cmd": "node scripts/validate-blueprint.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T122429Z-PR-N2/06-blueprint.log",
+      "result": "22 warnings, one legacy acc removed"
+    },
+    {
+      "cmd": "pnpm tracer --assert",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T122429Z-PR-N2/07-tracer.log"
+    },
+    {
+      "cmd": "pnpm sim prs7 --assert (as written in the blueprint)",
+      "exit": 1,
+      "log": "docs/state/evidence/20261118T124931Z-PR-S7/00-acc-old-form.log",
+      "result": "no sim script"
+    },
+    {
+      "cmd": "pnpm vitest run tools/sim/world/test/prs7.test.ts --reporter=verbose",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T124931Z-PR-S7/01-acc-prs7.log",
+      "result": "4/4, report printed"
+    },
+    {
+      "cmd": "pnpm typecheck",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T124931Z-PR-S7/02-typecheck.log"
+    },
+    {
+      "cmd": "pnpm test",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T124931Z-PR-S7/03-full.log",
+      "result": "173/173"
+    },
+    {
+      "cmd": "node scripts/lint-core-math.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T124931Z-PR-S7/04-core-math.log"
+    },
+    {
+      "cmd": "pnpm verify",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T124931Z-PR-S7/05-verify.log",
+      "result": "19/19"
+    },
+    {
+      "cmd": "node scripts/validate-gdd.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T124931Z-PR-S7/06-gdd.log"
+    },
+    {
+      "cmd": "node scripts/validate-blueprint.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T124931Z-PR-S7/07-blueprint.log",
+      "result": "21 warnings"
+    },
+    {
+      "cmd": "pnpm tracer --assert",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T124931Z-PR-S7/08-tracer.log"
+    },
+    {
+      "cmd": "pnpm sim prs8 --assert (as written in the blueprint)",
+      "exit": 1,
+      "log": "docs/state/evidence/20261118T130542Z-PR-S8/00-acc-old-form.log",
+      "result": "no sim script"
+    },
+    {
+      "cmd": "pnpm vitest run tools/sim/anim/test/prs8.test.ts --reporter=verbose",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T130542Z-PR-S8/01-acc-prs8.log",
+      "result": "2/2, report printed"
+    },
+    {
+      "cmd": "pnpm typecheck",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T130542Z-PR-S8/02-typecheck.log"
+    },
+    {
+      "cmd": "pnpm test",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T130542Z-PR-S8/03-full.log",
+      "result": "175/175"
+    },
+    {
+      "cmd": "node scripts/lint-core-math.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T130542Z-PR-S8/04-core-math.log"
+    },
+    {
+      "cmd": "pnpm verify",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T130542Z-PR-S8/05-verify.log",
+      "result": "19/19"
+    },
+    {
+      "cmd": "node scripts/validate-gdd.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T130542Z-PR-S8/06-gdd.log"
+    },
+    {
+      "cmd": "node scripts/validate-blueprint.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T130542Z-PR-S8/07-blueprint.log",
+      "result": "20 warnings"
+    },
+    {
+      "cmd": "pnpm tracer --assert",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T130542Z-PR-S8/08-tracer.log"
+    },
+    {
+      "cmd": "pnpm sim prs3 --assert (as written in the blueprint)",
+      "exit": 1,
+      "log": "docs/state/evidence/20261118T132342Z-PR-S3/00-acc-old-form.log",
+      "result": "no sim script"
+    },
+    {
+      "cmd": "pnpm vitest run tools/sim/systems/test/prs3.test.ts --reporter=verbose",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T132342Z-PR-S3/01-acc-prs3.log",
+      "result": "5/5, report printed"
+    },
+    {
+      "cmd": "pnpm typecheck",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T132342Z-PR-S3/02-typecheck.log"
+    },
+    {
+      "cmd": "pnpm test",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T132342Z-PR-S3/03-full.log",
+      "result": "180/180"
+    },
+    {
+      "cmd": "node scripts/lint-core-math.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T132342Z-PR-S3/04-core-math.log"
+    },
+    {
+      "cmd": "pnpm verify",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T132342Z-PR-S3/05-verify.log",
+      "result": "19/19"
+    },
+    {
+      "cmd": "node scripts/validate-gdd.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T132342Z-PR-S3/06-gdd.log"
+    },
+    {
+      "cmd": "node scripts/validate-blueprint.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T132342Z-PR-S3/07-blueprint.log",
+      "result": "19 warnings"
+    },
+    {
+      "cmd": "pnpm tracer --assert",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T132342Z-PR-S3/08-tracer.log"
+    },
+    {
+      "cmd": "pnpm sim prs6 --assert (as written in the blueprint)",
+      "exit": 1,
+      "log": "docs/state/evidence/20261118T133043Z-PR-S6/00-acc-old-form.log",
+      "result": "no sim script"
+    },
+    {
+      "cmd": "pnpm vitest run tools/sim/systems/test/prs6.test.ts --reporter=verbose",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T133043Z-PR-S6/01-acc-prs6.log",
+      "result": "5/5, report printed"
+    },
+    {
+      "cmd": "pnpm typecheck",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T133043Z-PR-S6/02-typecheck.log"
+    },
+    {
+      "cmd": "pnpm test",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T133043Z-PR-S6/03-full.log",
+      "result": "185/185"
+    },
+    {
+      "cmd": "node scripts/lint-core-math.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T133043Z-PR-S6/04-core-math.log"
+    },
+    {
+      "cmd": "pnpm verify",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T133043Z-PR-S6/05-verify.log",
+      "result": "19/19"
+    },
+    {
+      "cmd": "node scripts/validate-gdd.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T133043Z-PR-S6/06-gdd.log"
+    },
+    {
+      "cmd": "node scripts/validate-blueprint.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T133043Z-PR-S6/07-blueprint.log",
+      "result": "18 warnings"
+    },
+    {
+      "cmd": "pnpm tracer --assert",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T133043Z-PR-S6/08-tracer.log"
+    },
+    {
+      "cmd": "pnpm test -t hc_demo_30s",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T133709Z-HC-003/01-acc-replay.log",
+      "result": "3/3, two clients equal"
+    },
+    {
+      "cmd": "node scripts/concept-integrity.mjs --score",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T133709Z-HC-003/02-acc-score.log",
+      "result": "CIS = 85/100"
+    },
+    {
+      "cmd": "pnpm typecheck",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T133709Z-HC-003/03-typecheck.log"
+    },
+    {
+      "cmd": "pnpm test",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T133709Z-HC-003/04-full.log",
+      "result": "188/188"
+    },
+    {
+      "cmd": "pnpm verify",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T133709Z-HC-003/05-verify.log",
+      "result": "19/19"
+    },
+    {
+      "cmd": "node scripts/validate-gdd.mjs",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T133709Z-HC-003/06-gdd.log"
+    },
+    {
+      "cmd": "node scripts/gdd-to-tests.mjs --check",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T135153Z-GDD-005/01-transpiler-check.log",
+      "result": "17 specs match source"
+    },
+    {
+      "cmd": "node scripts/gdd-coverage.mjs --min 0.80",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T135153Z-GDD-005/02-coverage.log",
+      "result": "63/63, 100%"
+    },
+    {
+      "cmd": "node scripts/gdd-to-tests.mjs --check after injecting GDD-CORE drift",
+      "exit": 1,
+      "log": "docs/state/evidence/20261118T135153Z-GDD-005/03-negative-drift.log",
+      "result": "stale spec named"
+    },
+    {
+      "cmd": "pnpm typecheck",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T135153Z-GDD-005/04-typecheck.log"
+    },
+    {
+      "cmd": "pnpm test",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T135153Z-GDD-005/05-full.log"
+    },
+    {
+      "cmd": "pnpm verify",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T135153Z-GDD-005/06-verify.log",
+      "result": "19/19"
+    },
+    {
+      "cmd": "pnpm vitest run apps/server/test/rooms.test.ts",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T135944Z-ROOM-WIRING/01-rooms.log",
+      "result": "19/19, real loopback"
+    },
+    {
+      "cmd": "pnpm typecheck",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T135944Z-ROOM-WIRING/02-typecheck.log"
+    },
+    {
+      "cmd": "pnpm test",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T135944Z-ROOM-WIRING/03-full.log",
+      "result": "302/302"
+    },
+    {
+      "cmd": "pnpm verify",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T135944Z-ROOM-WIRING/04-verify.log",
+      "result": "19/19"
     }
   ],
   "notes": [
@@ -1408,7 +1834,24 @@
     "ECON-RETUNE: inflation 7264.78% -> 5.00% via named proportional stabilization sink; a sequential levy produced Gini 0.90 and was rejected.",
     "No silent constant change: before/after numbers, checksums and the rejected levy are all in the report and evidence.",
     "ECON-RETUNE CI at 8f8f8c987fc045646f62a73f88174b0766f6f370: 8/8 triggered workflows success; run ids in docs/state/evidence/20261118T105757Z-ECON-RETUNE/06-ci-proof.log.",
-    "CodeQL high alert js/file-system-race in tools/qa/gen-stubs.mjs fixed with atomic exclusive create (openSync wx); generator wrote 0 stubs, verify 19/19."
+    "CodeQL high alert js/file-system-race in tools/qa/gen-stubs.mjs fixed with atomic exclusive create (openSync wx); generator wrote 0 stubs, verify 19/19.",
+    "Director merged PR #1 into main at 096fdfe with recorded admin review bypass (self-approval cannot count). PR #2 still open and conflicting.",
+    "PR-N2: 6 queued clients -> 3 rooms, 2 exact resumes, 1 late refusal, 3 teardowns; global client id vs room-local id collision found and fixed.",
+    "PR-S7: bounded Rouille cascade (12 ticks, fan-out 2, threshold 10); 12 facts, 12 erases, no double erase, deterministic.",
+    "GDD-WORLD-SIM promoted STUB -> DRAFT with all 19 fields and sourced numbers, as its prototype now exists.",
+    "PR-S8: 10k anim fuzz, 0 state mutations on refusal, 833 server hit frames; harness bug comparing event objects to tick numbers found and fixed.",
+    "PR-S3: 2 distinct player fact ids, 2 delayed effects at fact_tick+9, 1 text-only refusal, 243 reachable states, 6 FR/EN keys with 0 untranslated, deterministic.",
+    "PR-S6: 1000 immutable faction facts, reputation derived and replay-exact, 4 standing changes, 4 switches, 4 refusals; GATE:P2SYS now satisfied.",
+    "HC-003: 900 ticks, 3 facts/3 strata, 6 captures, two clients agree on fact ids, variant ids, epoch and hash; CIS 85/100.",
+    "Wow density scored 0 because no playtest exists — I13 forbids inventing it. Dashboard source filter fixed after concept.json broke the latest-file assumption.",
+    "HC-003 CI at 7164792856cdc54200832fcda4fb7a89a49d0a37: 8/8 triggered workflows success; run ids in docs/state/evidence/20261118T133709Z-HC-003/08-ci-proof.log.",
+    "GDD-005: transpiler generated 17 structural drift specs from DRAFT/SIGNED GDD §15; injected GDD drift fails --check and names the module. Coverage 100%.",
+    "GATE:P2 work-side complete (GATE:P2SYS, HC-003 CIS 85, GDD-005 100%); only the Director human signature remains, plus GATE:NET.",
+    "GDD-005 CI at ad1d4d074a40dc96ad04b672e38fa03e72ad6aea: 8/8 triggered workflows success; run ids in docs/state/evidence/20261118T134000Z-GDD-005/08-ci-proof.log.",
+    "ROOM-WIRING: main.ts now serves rooms on 8788 through attachRooms (MessageGate inside); real loopback socket test proves valid hello -> welcome and malformed -> reject with unchanged hash.",
+    "No blueprint task remains selectable: GATE:P2 and GATE:NET need human Director signatures; art waits on NET-GATE and GATE:P2.",
+    "ROOM-WIRING CI at 6f38448e0c516e13aff3353dd3eee4d6f69f5452: 8/8 triggered workflows success; run ids in docs/state/evidence/20261118T135944Z-ROOM-WIRING/06-ci-proof.log.",
+    "A0009: Director said \"je signe tous\" — GATE:P2 signed, GATE:NET signed-with-risk (8 unmet criteria). No assertion weakened; PR merges remain Director acts."
   ],
   "result": {
     "phase": "P2NET",
@@ -1570,6 +2013,46 @@
           "dir": "docs/state/evidence/20261118T105757Z-ECON-RETUNE/",
           "logs": 6,
           "branch": "session"
+        },
+        {
+          "dir": "docs/state/evidence/20261118T122429Z-PR-N2/",
+          "logs": 8,
+          "branch": "session"
+        },
+        {
+          "dir": "docs/state/evidence/20261118T124931Z-PR-S7/",
+          "logs": 9,
+          "branch": "session"
+        },
+        {
+          "dir": "docs/state/evidence/20261118T130542Z-PR-S8/",
+          "logs": 9,
+          "branch": "session"
+        },
+        {
+          "dir": "docs/state/evidence/20261118T132342Z-PR-S3/",
+          "logs": 9,
+          "branch": "session"
+        },
+        {
+          "dir": "docs/state/evidence/20261118T133043Z-PR-S6/",
+          "logs": 9,
+          "branch": "session"
+        },
+        {
+          "dir": "docs/state/evidence/20261118T133709Z-HC-003/",
+          "logs": 8,
+          "branch": "session"
+        },
+        {
+          "dir": "docs/state/evidence/20261118T135153Z-GDD-005/",
+          "logs": 9,
+          "branch": "session"
+        },
+        {
+          "dir": "docs/state/evidence/20261118T135944Z-ROOM-WIRING/",
+          "logs": 6,
+          "branch": "session"
         }
       ]
     },
@@ -1578,7 +2061,7 @@
       "AUDIT-2026-11-18-P0-006"
     ],
     "enables": "Nothing player-facing: it protects the evidence chain — a resume prompt that cannot be silently truncated, a tier grant recorded verbatim, a deterministic tick and wire, and a dashboard that reports sources instead of memories.",
-    "next": "PR-S7 — world tick + bounded Rouille cascade",
+    "next": "No agent-selectable task — Director merges, token rotation, T4 and NET-GATE re-measurement",
     "blockers": [
       "ND-004 PAT rotation",
       "ND-005 HF token rotation",
@@ -1589,7 +2072,7 @@
     ],
     "next_session_file": "docs/state/NEXT_SESSION.md",
     "full": {
-      "handoffs": "Twenty-four handoff+proposal pairs under docs/state/threads/; all ACKed in-process. No external reviewer installed.",
+      "handoffs": "Thirty-three handoff+proposal pairs under docs/state/threads/; all ACKed in-process. No external reviewer installed.",
       "concept_roles": "Roles executed by one process; T3 signed at GATE:P0 and re-signature deferred to the next gate. Signature ratio not recomputable from metrics.json.",
       "gdd_version_bumps": [
         "GDD-NETCODE 0.2 -> 0.3 -> 0.4 -> 0.5 -> 0.6 -> 0.7",
@@ -1604,10 +2087,16 @@
         "GDD-CRAFT 0.2 -> 0.3",
         "GDD-ECONOMY 0.2 -> 0.3",
         "GDD-SECURITY 0.3 -> 0.4",
-        "GDD-ECONOMY 0.3 -> 0.4"
+        "GDD-ECONOMY 0.3 -> 0.4",
+        "GDD-SHARDING 0.3 -> 0.4",
+        "GDD-WORLD-SIM 0.1 STUB -> 0.2 DRAFT",
+        "GDD-ANIM-ARCHITECTURE 0.4 -> 0.5",
+        "GDD-QUEST 0.2 -> 0.3",
+        "GDD-FACTION 0.1 STUB -> 0.2 DRAFT",
+        "GDD-CONSEQUENCE 0.4 -> 0.5"
       ],
       "scope_ledger_delta": "0 entries (12 -> 12, balanced)",
-      "content_math": "Local CPU p95 0.2109 ms (180-tick harness, 64 entities); network throughput still NOT COMPUTABLE.",
+      "content_math": "CIS v1 measured 85/100 with wow density 0 (no playtest). Content throughput still NOT COMPUTABLE.",
       "prototype_reports": [
         "docs/qa/prototypes/PRN1.md",
         "docs/qa/prototypes/PRN3.md",
@@ -1616,12 +2105,27 @@
         "docs/qa/prototypes/PRS1.md",
         "docs/qa/prototypes/PRS2.md",
         "docs/qa/prototypes/PRS4.md",
-        "docs/qa/prototypes/ECONOMY_REPORT.md"
+        "docs/qa/prototypes/ECONOMY_REPORT.md",
+        "docs/qa/prototypes/PRN2.md",
+        "docs/qa/prototypes/PRS7.md",
+        "docs/qa/prototypes/PRS8.md",
+        "docs/qa/prototypes/PRS3.md",
+        "docs/qa/prototypes/PRS6.md"
       ],
       "economy_metrics": "Before retune: inflation 726478 bps (FAIL), Gini 0.080768. After named proportional stabilization sink: inflation 500 bps (5% target), Gini 0.293701 in band, sink burned 93073815 minor units. Both recorded.",
-      "anim_checks": "A0001 separation intact; retarget coverage and foot slide NOT COMPUTABLE (AN-002)",
-      "world_checks": "No world content this session",
-      "files_by_owner": "orchestrator: docs/state/**, docs/blueprint/**, scripts/session-result.mjs, A0004/A0005/A0006; gameplay-engineer: packages/core/src/{tick,index,hash}.ts, apps/server/src/sim/, core/test; netcode-engineer: packages/protocol/**, apps/game/src/net/**, apps/server/src/combat/**, tools/sim/net/, GDD-NETCODE; animation-director: packages/core/src/anim-state/**, packages/content/animations/**, GDD-ANIM-ARCHITECTURE; tools-engineer: apps/dashboard/**; backend-engineer: apps/server/src/rooms/**, packages/core/src/ledger/**, tools/sim/persist/**, GDD-PERSISTENCE; economy-designer: GDD-TRADE; qa-engineer: tools/sim/load/**, tests/security/**; security-auditor: apps/server/src/validation/**, docs/legal/THREAT_MODEL.md, GDD-SECURITY; producer: docs/qa/prototypes/NET_GATE.md, docs/state/gates/GATE_NET.md. gameplay-engineer: tools/sim/world/prs1_combat.ts (PR-S1); game-designer: GDD-COMBAT 0.3. gameplay-engineer: packages/world-state/** + tools/sim/world/prs2_propagation.ts (PR-S2); game-designer: GDD-CONSEQUENCE 0.3. level-designer: apps/game/levels/greybox/oakhollow/manifest.json, scripts/validate-scene-budget.mjs (GB-001). economy-designer: tools/sim/economy/prs4_craft.ts (PR-S4); GDD-CRAFT 0.3. economy-designer: tools/sim/economy/prs5_economy.ts (PR-S5); GDD-ECONOMY 0.3. tools-engineer + producer + orchestrator: verify B9, journal view, MCP pin, STACK row, dashboard check port (TOOL-FIXALL, A0007)."
+      "anim_checks": "A0001 separation intact; PR-S8 10k anim fuzz: 2500 accepted, 7500 illegal refused, 0 mutations on refusal, 833 server hit frames, deterministic. Retarget coverage and foot slide still NOT COMPUTABLE (AN-002).",
+      "world_checks": "PR-S7: 12-node greybox graph, Rouille cascade bounded at 12 ticks, 12 facts / 12 erases, last active tick 10, 9 duplicate-erase refusals, deterministic. No terrain or renderer.",
+      "files_by_owner": "orchestrator: docs/state/**, docs/blueprint/**, scripts/session-result.mjs, A0004/A0005/A0006; gameplay-engineer: packages/core/src/{tick,index,hash}.ts, apps/server/src/sim/, core/test; netcode-engineer: packages/protocol/**, apps/game/src/net/**, apps/server/src/combat/**, tools/sim/net/, GDD-NETCODE; animation-director: packages/core/src/anim-state/**, packages/content/animations/**, GDD-ANIM-ARCHITECTURE; tools-engineer: apps/dashboard/**; backend-engineer: apps/server/src/rooms/**, packages/core/src/ledger/**, tools/sim/persist/**, GDD-PERSISTENCE; economy-designer: GDD-TRADE; qa-engineer: tools/sim/load/**, tests/security/**; security-auditor: apps/server/src/validation/**, docs/legal/THREAT_MODEL.md, GDD-SECURITY; producer: docs/qa/prototypes/NET_GATE.md, docs/state/gates/GATE_NET.md. gameplay-engineer: tools/sim/world/prs1_combat.ts (PR-S1); game-designer: GDD-COMBAT 0.3. gameplay-engineer: packages/world-state/** + tools/sim/world/prs2_propagation.ts (PR-S2); game-designer: GDD-CONSEQUENCE 0.3. level-designer: apps/game/levels/greybox/oakhollow/manifest.json, scripts/validate-scene-budget.mjs (GB-001). economy-designer: tools/sim/economy/prs4_craft.ts (PR-S4); GDD-CRAFT 0.3. economy-designer: tools/sim/economy/prs5_economy.ts (PR-S5); GDD-ECONOMY 0.3. tools-engineer + producer + orchestrator: verify B9, journal view, MCP pin, STACK row, dashboard check port (TOOL-FIXALL, A0007). backend-engineer: tools/sim/persist/prn2_rooms.ts (PR-N2). gameplay-engineer: tools/sim/world/prs7_worldtick.ts (PR-S7); game-designer: GDD-WORLD-SIM 0.2. animation-director: tools/sim/anim/prs8_animstate.ts (PR-S8). prototype-engineer + narrative: tools/sim/systems/prs3_quests.ts, packages/content/blueprints/quests/proto/q_abbey.json (PR-S3). prototype-engineer + balance-analyst: tools/sim/systems/prs6_faction.ts (PR-S6); game-designer: GDD-FACTION 0.2. high-concept-guardian: scripts/concept-demo.mjs, tests/replay/hc_demo_30s.spec.ts (HC-003); tools-engineer: dashboard metrics source fix. qa-engineer: scripts/gdd-to-tests.mjs + tests/replay/gdd/*.spec.ts (GDD-005). backend-engineer: apps/server/src/main.ts room endpoint, RoomHub.ids, real-socket test (ROOM-WIRING)."
     }
+  },
+  "gates": {
+    "P0": "signed",
+    "P1": "signed",
+    "P2NET": "satisfied",
+    "P2SYS": "satisfied",
+    "P2": "signed",
+    "NET": "signed-with-risk",
+    "statement": "je signe tous",
+    "source": "A0009 + docs/state/gates/GATE_P2.md + GATE_NET.md"
   }
 }

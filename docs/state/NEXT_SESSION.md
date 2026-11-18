@@ -7,11 +7,18 @@
 | also open | **PR #2** dashboard truth repair — `session/20261118-dashboard-truth`, base = session branch |
 | mode | RESUME |
 | tier | current `S0`, authorized **`S1`** |
-| last task | **ECON-RETUNE** — inflation 7264.78% -> 5%, both recorded; GDD-ECONOMY 0.4 |
+| last task | **GDD-005** — GDD→test transpiler + drift detection; coverage 100% |
 | next task | **PR-S7** — world tick + bounded Rouille cascade (P2-SYS) |
-| blocker | PR #1 and #2 merges (Director must do it), ND-004/ND-005 rotation. ND-011 needs one answer (TPU scope). |
+| blocker | **No agent-selectable task.** Director: close PR #2, merge PR #3, ND-004/005 rotation, ND-011, ND-012 (T4). |
 
 ---
+
+## 0. Long-term quality doctrine (A0008, Director)
+
+Director: Ashes-of-Creation-class quality with Babylon.js over the long term, "la qualité compte peut importe le
+temps qu'il faudra". **Benchmark only — I11 forbids copying that commercial IP.** Operationally: server truth
+before visuals, evidence over adjectives, audited stack, vertical slice before scale, no silent bypass. The
+current P2-SYS → GATE:P2 → P3-ART sequence is unchanged; unmet criteria stay in the record.
 
 ## 1. State at hand-off
 
@@ -45,23 +52,25 @@ acceptance and with the seven residual risks from `docs/legal/THREAT_MODEL.md` a
 PR #1 and PR #2 were **not merged** — an agent must not self-merge. The Director must merge them from their own
 account. ND-004/ND-005 token rotation also remains a Director action.
 
-## 4. PR-S7 — next (S0, P2SYS)
+## 4. GATE:P2 — ready on the work side
 
-`{id: PR-S7, ph: P2SYS, tier: S0, t: "World tick + Rouille cascade bounded", agent: gameplay-engineer,
-role: sig, gdd: [GDD-WORLD-SIM], deps: [PR-S2], out: [tools/sim/world/prs7_worldtick.ts, docs/qa/prototypes/PRS7.md]}`
+GATE:P2 requires GATE:NET (human signature), GATE:P2SYS (done), HC-003 (done, CIS 85/100), GDD-005 (done, 100%
+coverage + drift detection) and `cis_min: 50`. The remaining act is the Director's formal GATE:P2 signature.
+GATE:NET also awaits a human signature; NET-GATE stays `signed-with-risk` with 8 unmet criteria. No art before
+both gates are actually passed (A0008). PR #3 remains open; PR #2 should be closed without merging.
 
-Deps satisfied. Its acc still uses a broken `pnpm sim …` form — repair to a real vitest path in the same PR and
-declare `co: [qa-engineer]` for the append-only report up front. Deliver a deterministic world tick with a
-**bounded** Rouille cascade and integer ticks. The economy retune is now done: do not use the Rouille sink as an
-undocumented second fix.
+## 4b. Babylon 9 feature research (Director input)
 
-Not fixable by an agent remains listed in ND-013: no GPU/TPU (ND-012), 8 unmeasured NET-GATE criteria, PAT/HF
-rotation and PR merges (Director-only), TPU scope (ND-011).
+`docs/state/threads/ENGINE-BABYLON9/0001-RESEARCH.md` records the impact analysis. Babylon 9.37.0 is already
+pinned and audited; the 9.0 node graphs are VFX/rendering tools, not gameplay truth (I1/A0001). Evaluate
+animation retargeting at AN-002, splat/large-world features at WG-001, lighting at P3-003 — each with an I4 audit
+and a measured budget, never from a blog claim. Constitution §10.4 still says "Babylon.js 8" while STACK pins
+9.37.0: a Director-signed ADR is needed to amend that sentence.
 
 ## 5. Non-gated tooling candidates
 
 1. Wire `apps/dashboard/check.mjs` into `pnpm verify` — changes the 17-step baseline; own task.
-2. Wire `apps/server/src/main.ts` to `attachRooms` **and** `MessageGate` (SEC-002).
+2. ~~Wire `apps/server/src/main.ts` to `attachRooms` **and** `MessageGate` (SEC-002)~~ **DONE** — rooms on 8788, real loopback test, full 302/302.
 3. Generated `docs/state/JOURNAL.md` (master §7) — view missing; `AGENTS.md` §1 points at it.
 4. `validate-locks.mjs` cannot represent a gate (`task_id` must exist in `BLUEPRINT.yaml`).
 5. Pin the Playwright MCP in `opencode.json` (unpinned, §10.6).

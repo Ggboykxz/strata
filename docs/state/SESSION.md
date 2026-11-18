@@ -388,3 +388,72 @@ blueprint task currently owns the pin: recorded as a gap for the Director/next r
   checksums and a rejected sequential-levy attempt (Gini 0,90) are all recorded.
 - GDD-ECONOMY 0.4, ECONOMY_REPORT updated. Test 5/5, full 167/167, verify 19/19.
 - Remaining true limits: no GPU/TPU, 8 unmeasured NET-GATE criteria, Director-only rotations/merges, ND-011.
+
+## Session 2 — PR #1 merged + PR-N2 (2026-11-18T15:10Z)
+
+- Director merged PR #1 into `main` (`096fdfe`) with a recorded admin review bypass (self-approval cannot count).
+  PR #2 remains open/conflicting; its evidence is already in PR #1.
+- PR-N2: deterministic matchmaking 6 → 3 rooms, 2 exact resumes, 1 late refusal, 3 teardowns; id-collision defect
+  fixed. GDD-SHARDING 0.4. Full 169/169, verify 19/19. `GATE:P2NET` satisfied.
+- Next: PR-S7 (P2-SYS). `GATE:NET` still awaits a formal Director signature; NET-GATE dossier remains
+  signed-with-risk with 8 unmet measurement criteria.
+
+## Session 2 — PR-S7 bounded world cascade (2026-11-18T15:55Z)
+
+- 12-node greybox graph, Rouille cascade bounded at 12 ticks with fan-out 2: 12 facts / 12 erases, last active
+  tick 10, 9 duplicate-erase refusals, deterministic. No node erased twice.
+- GDD-WORLD-SIM promoted STUB -> DRAFT (19 fields, sourced numbers). Test 4/4, full 173/173, verify 19/19.
+- No terrain, renderer, art or browser tick measure. Next: PR-S8.
+
+## Session 2 — PR-S8 anim fuzz (2026-11-18T16:35Z)
+
+- 10 000 deterministic requests: 2 500 legal accepted, 7 500 illegal refused with 0 state mutations; 833 server
+  hit frames; deterministic. GDD-ANIM-ARCHITECTURE 0.5; AN-002 dependency satisfied.
+- Harness defect fixed: event objects were compared to tick numbers, hiding hits. No implementation weakened.
+- Full 175/175, verify 19/19. No GLB/motion/art/retarget measure. Next: PR-S3.
+
+## Session 2 — PR-S3 quest prototype (2026-11-18T17:25Z)
+
+- Fact-derived quests: 2 players keep 2 distinct fact ids; 2 delayed effects at fact_tick+9 in another stratum;
+  1 text-only refusal; 243 reachable states; 6 FR/EN keys, 0 untranslated; deterministic. GDD-QUEST 0.3.
+- Full 180/180, verify 19/19. No renderer, player, browser or art.
+- Next: PR-S6, the last P2-SYS task before GATE:P2SYS.
+
+## Session 2 — PR-S6 and GATE:P2SYS (2026-11-18T17:58Z)
+
+- 1 000 immutable faction facts, reputation derived and replay-exact; 4 standing changes, 4 switches, 4 refusals;
+  GDD-FACTION promoted STUB -> DRAFT with 19 fields. Full 185/185, verify 19/19.
+- **GATE:P2SYS is satisfied.** `GATE:P2` still needs HC-003 and GDD-005; `GATE:NET` still needs a human signature.
+- No player, UI, art or balance sign-off; no GPU/TPU. Next: HC-003.
+
+## Session 2 — HC-003 and measured CIS (2026-11-18T18:18Z)
+
+- 900-tick two-client replay: 3 facts / 3 strata, 6 captures, identical fact ids, variant ids, epoch and state hash.
+- `concept --score` now exits 0 with **CIS 85/100** from `docs/state/metrics/concept.json`; wow density is **0**
+  because no playtest exists (I13). Full 188/188, verify 19/19.
+- Fixed a real defect: `concept.json` was selected as the latest session metrics by the dashboard; the builder now
+  filters `YYYY-MM-DD-sN.json`. GATE:P2 waits only on GDD-005 and the formal GATE:NET signature.
+
+## Session 2 — GDD-005 transpiler (2026-11-18T18:50Z)
+
+- Declared stub replaced: 17 structural drift specs generated from DRAFT/SIGNED GDD §15; injected acceptance drift
+  fails `--check` and names GDD-CORE. Coverage 100% (63/63), verify 19/19.
+- Corrected an earlier handoff mislabel: GDD-005 is a transpiler/coverage task, not a GDD signature.
+- GATE:P2 work-side complete (P2SYS + HC-003 CIS 85 + GDD-005 100%). Director signatures remain for GATE:P2 and
+  GATE:NET; NET-GATE stays signed-with-risk with 8 unmet criteria. No art.
+
+## Session 2 — live room endpoint (2026-11-18T19:24Z)
+
+- Last non-gated backlog item closed: `main.ts` serves rooms on 8788 through `attachRooms` (MessageGate inside),
+  ticks them at 30 Hz and leaves the tracer on 8787. Real loopback socket test: valid hello → welcome, malformed
+  frame → reject with unchanged hash. Rooms 19/19, full 302/302, verify 19/19.
+- No blueprint task is selectable now: GATE:P2 and GATE:NET need human Director signatures; NET-GATE stays
+  signed-with-risk with 8 unmet criteria. No art.
+
+## Session 2 — Director signed all gates (2026-11-18T19:45Z)
+
+- Director: "je signe tous" (A0009). `GATE:P2` is SIGNED with measured thresholds (CIS 85 ≥ 50, coverage 100% ≥
+  80%, ledger balanced); `GATE:NET` is SIGNED — RISK ACCEPTED with the 8 unmet §5.2 criteria still listed and
+  `--assert-ready` still exit 1. No CI disabled, no assertion weakened, no metric changed.
+- No agent-selectable blueprint task remains. Next acts are Director merges (PR #2 close, PR #3 merge), ND-004/005
+  rotation, ND-011, ND-012 (T4), then a real re-measurement before art. NET-GATE is still not READY.

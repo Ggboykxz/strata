@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "quest_id": "q_abbey",
+  "prerequisites": ["seed"],
+  "options": [
+    { "id": 1, "physical": true, "delayed_ticks": 9, "strata": [2] },
+    { "id": 2, "physical": true, "delayed_ticks": 9, "strata": [3] },
+    { "id": 3, "physical": false, "delayed_ticks": 0, "strata": [], "note": "text-only — refused by GDD-QUEST §8.3" }
+  ],
+  "dialogue_keys": ["quest.accept", "quest.resolve", "quest.delayed", "quest.refused", "fact.missing", "stratum.changed"],
+  "note": "greybox prototype — no authored branch bypasses the fact graph (I1)"
+}

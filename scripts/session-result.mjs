@@ -29,7 +29,8 @@ if (format !== 'short' && format !== 'full') fail(`--format must be short or ful
 let metricsPath = option('--metrics', null);
 if (!metricsPath) {
   const dir = 'docs/state/metrics';
-  const files = readdirSync(dir).filter((f) => f.endsWith('.json')).sort();
+  // Only session metrics carry the `result` block; concept.json is a CIS source (HC-003).
+  const files = readdirSync(dir).filter((f) => /^\d{4}-\d{2}-\d{2}-s\d+\.json$/.test(f)).sort();
   if (!files.length) fail(`no metrics JSON in ${dir}`);
   metricsPath = `${dir}/${files.at(-1)}`;
 }

@@ -1,0 +1,11 @@
+$ pnpm vitest run apps/server/test/rooms.test.ts
+
+ RUN  v5.1.0 /content/strata
+
+
+ Test Files  1 passed (1)
+      Tests  19 passed (19)
+   Start at  13:59:46
+   Duration  705ms (import 54%, tests 24%, transform 20%, worker 2%)
+
+EXIT=0

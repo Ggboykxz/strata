@@ -1,0 +1,24 @@
+$ pnpm vitest run tools/sim/persist/test/prn2.test.ts --reporter=verbose
+
+ RUN  v5.1.0 /content/strata
+
+stdout | tools/sim/persist/test/prn2.test.ts > PR-N2 harness > prints a deterministic labelled local report
+{
+  "clients": 6,
+  "rooms_created": 3,
+  "exact_resumes": 2,
+  "late_refusals": 1,
+  "teardowns": 3,
+  "deterministic": true,
+  "label": "local greybox rooms — not a matchmaking service"
+}
+
+ ✓ tools/sim/persist/test/prn2.test.ts > PR-N2 harness > prints a deterministic labelled local report 15ms
+ ✓ tools/sim/persist/test/prn2.test.ts > matchmaking determinism > orders the queue by (rating, client) so the same input gives the same rooms 3ms
+
+ Test Files  1 passed (1)
+      Tests  2 passed (2)
+   Start at  12:24:30
+   Duration  421ms (import 45%, transform 35%, tests 14%, worker 5%)
+
+EXIT=0

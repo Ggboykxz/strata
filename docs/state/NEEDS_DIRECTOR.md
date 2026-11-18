@@ -19,7 +19,7 @@ Nothing here blocks the work already done; each item blocks a named future task.
 | ND-010 | **RESOLVED — SIGNED** | GATE:P1 signed ("Oui, signe S1"); authorized_tier S1; NET-001..006 selectable |
 | ND-011 | **OPEN — information acknowledged, one decision** | Director declares TPU v5e-1 + T4 16 GB; T4 is already the sourced generation tier, TPU has no audited model |
 | ND-012 | **OPEN — Director confirms T4 needed** | Director: "je dois donc passer au t4 pour continuer". T4 16 GB required for **art generation only** (AI-001/AI-002); netcode measurement stays CPU-only |
-| ND-013 | **PARTIAL — fix-all instruction** | Director said "fix all problems n limits"; repo-side fixes landed (A0007), hardware/Director/net-measurement limits remain open |
+| ND-013 | **PARTIAL — gates signed, residuals open** | Director said "je signe tous" (A0009): GATE:P2 + GATE:NET signed; PR merges, token rotation, T4 and NET-GATE re-measurement remain |
 
 ND-004 and ND-005 cannot be closed by an agent: GitHub and Hugging Face rotations require account access
 and, on GitHub, a UI flow. This is stated rather than simulated. Evidence that no secret reached the repo:
@@ -311,6 +311,11 @@ is verified (already satisfied).
 **Related:** ND-004/ND-005 (token rotation) and ND-011 (TPU scope) remain open; PR #1/#2 merges remain Director-only.
 
 ## ND-013 — "fix all problems n limits" — partial by construction
+**Update 2026-11-18 (A0009).** Director: "je signe tous". GATE:P2 and GATE:NET are now recorded as signed in
+`docs/state/gates/GATE_P2.md` and `GATE_NET.md`; GATE:NET remains **risk accepted** with 8 unmet criteria. Still
+open: PR #2/#3 merges (Director account), ND-004/ND-005 rotation, ND-011, ND-012, and a real re-measurement of
+the 8 netcode criteria before art. No agent signature was fabricated and no invariant was suspended.
+
 
 **Director statement, verbatim (2026-11-18):** "fix all problems n limits".
 

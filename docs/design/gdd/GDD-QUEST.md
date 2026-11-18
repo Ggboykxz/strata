@@ -3,7 +3,7 @@
 | field | value |
 |---|---|
 | id | GDD-QUEST |
-| version | 0.2 |
+| version | 0.3 |
 | owner | narrative |
 | status | DRAFT |
 
@@ -11,7 +11,7 @@
 
 ## 1. Identity, version, owner, status
 
-ID GDD-QUEST, version 0.2, owner narrative, status **DRAFT**. Derived from VISION v1.0 and the locked HIGH_CONCEPT.
+ID GDD-QUEST, version 0.3, owner narrative, status **DRAFT**. Derived from VISION v1.0 and the locked HIGH_CONCEPT.
 
 ## 2. Player-facing outcome
 
@@ -41,6 +41,11 @@ AVAILABLE → ACCEPTED → RESOLVING(3 options) → FACT_WRITTEN → DELAYED_EFF
 ## 7. Data contract
 
 quest_resolution v1 {quest_id, option_id, actor_id, fact_id, delayed_tick, stratum_ids[]}. Migration: a new option gets a new id; old resolutions remain replayable.
+
+PR-S3 reference run: two players choosing options 1 and 2 of `q_abbey` keep **two distinct fact ids**; a
+text-only option is refused; the delayed consequence is applied at `fact_tick + 9` (not at the current tick).
+243 reachable quest states are derived from 5 quests × 3 options. Six FR/EN dialogue keys have 0 untranslated
+entries. No renderer, player or asset was used.
 
 ## 8. Edge cases
 
@@ -82,6 +87,9 @@ resolutions_per_quest, delayed_effects_pending, untranslated_keys, reachable_sta
 - GIVEN one resolution WHEN the delayed tick arrives THEN another stratum shows the recorded effect.
 - GIVEN the FR/EN pair set WHEN validate-docs runs THEN 0 untranslated keys are reported.
 
+- GIVEN two players choosing different options WHEN resolved THEN both fact ids are retained and no global override occurs.
+- GIVEN a delayed consequence WHEN its fact tick plus 9 arrives THEN it is applied in another stratum, and a text-only resolution is refused.
+
 ## 16. Perf budget impact
 
 Quest derivation is O(facts in cell), not O(world facts); no extra tick cost above 4 ms.
@@ -103,3 +111,4 @@ No branching script that bypasses the fact graph, no private history, no commerc
 |---|---|---|---|
 | 0.1 | 2026-11-18 | STUB created by GDD-001 | game-designer |
 | 0.2 | 2026-11-18 | DRAFT: all 19 fields, T2/T4 numbers and sources | GDD-003 |
+| 0.3 | 2026-11-18 | PR-S3: fact-derived resolutions, delayed effects, FR/EN keys, prototype numbers | narrative |

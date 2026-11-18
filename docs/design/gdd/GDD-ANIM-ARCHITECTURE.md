@@ -3,7 +3,7 @@
 | field | value |
 |---|---|
 | id | GDD-ANIM-ARCHITECTURE |
-| version | 0.4 |
+| version | 0.5 |
 | owner | animation-director |
 | status | DRAFT |
 
@@ -11,7 +11,7 @@
 
 ## 1. Identity, version, owner, status
 
-ID GDD-ANIM-ARCHITECTURE, version 0.4, owner animation-director, status **DRAFT**. Derived from P1-001 VISION and the locked HIGH_CONCEPT.
+ID GDD-ANIM-ARCHITECTURE, version 0.5, owner animation-director, status **DRAFT**. Derived from P1-001 VISION and the locked HIGH_CONCEPT.
 
 ## 2. Player-facing outcome
 
@@ -64,6 +64,11 @@ NET-006 wire frame kind `anim` (0x04) carries `{entity, archetype, state index, 
 
 Skeleton pack v1 lists exact bone names and parent indices. Migration: bone rename requires a retarget map and a new pack version.
 
+PR-S8 reference run: 10 000 deterministic requests are validated against the authoritative `AnimRuntime`.
+2 500 legal requests are accepted, 7 500 illegal (replayed seq / unknown clip / wrong archetype) are refused,
+and **0 refusals mutate state**. Server-derived hit frames fire 833 times in the run; a refused request never
+produces a hit. The client `claimed` flag has no authority (I1/I3).
+
 ## 8. Edge cases
 
 1. Clip requested while in RECOVERY: server queues it and applies it on the recovery's last tick, not on the request tick.
@@ -111,6 +116,9 @@ transition_rejections, retarget_coverage, anim_state_bytes, foot_slide_cm. Succe
 - GIVEN a client anim request WHEN the server validates it THEN an illegal transition is refused with a reason and the authoritative runtime is unchanged.
 - GIVEN an action clip WHEN its hit tick arrives THEN the server fires the hit exactly once, and a client claim is never accepted.
 
+- GIVEN 10 000 mixed requests WHEN fuzzed THEN every refusal leaves the runtime byte-identical and the verdict names a reason.
+- GIVEN an action clip WHEN its hit tick arrives THEN the server fires one hit event, never a client claim.
+
 ## 16. Perf budget impact
 
 <= 64 bytes per entity per snapshot; <= 20 full-rate skeletons; no additional mesh allocation on transition.
@@ -132,4 +140,5 @@ No merged GLB, no bone transform replication, no hosted generation before licens
 | 0.1 | 2026-11-18 | STUB created by GDD-001 | game-designer |
 | 0.3 | 2026-11-18 | NET-005: state table, 12-byte contract, manifest schema, measured windows | animation-director |
 | 0.4 | 2026-11-18 | NET-006: 17-byte anim frame, server-owned validation and hit frames, A0005 bypass | netcode-engineer |
+| 0.5 | 2026-11-18 | PR-S8: 10k illegal-state fuzz, 0 mutations on refusal, server hit frames | animation-director |
 | 0.2 | 2026-11-18 | DRAFT: all 19 fields, sources and ranges | GDD-002 |
