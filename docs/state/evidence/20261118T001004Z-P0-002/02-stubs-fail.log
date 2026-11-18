@@ -1,0 +1,3 @@
+$ for each declared stub: node <script>; check exit == 1 and marker present
+stubs_ok=21 stubs_broken=0
+exit=0
