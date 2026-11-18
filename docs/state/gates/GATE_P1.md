@@ -3,7 +3,7 @@
 | field | value |
 |---|---|
 | gate | `GATE:P1` — human, grants tier **S1** |
-| status | **ASSEMBLED — awaiting Director signature** |
+| status | **SIGNED — tier S1 granted 2026-11-18 by the Director** |
 | branch | `session/20261118-hc-001-high-concept` |
 | head at assembly | `fea7306` |
 | agent | orchestrator — evidence only; no agent signs a tier grant |
@@ -58,13 +58,23 @@ resolution (100 %), not module maturity, and the evidence says so.
 
 ## 5. Open items for the Director
 
-1. **Signature** — tier S1 promotion is Director-only. No agent signs it. The earlier "take the good
-   decisions" instruction was applied to GATE:P0, which changed no tier; it is **not** extended to S1.
+1. **Signature — RESOLVED 2026-11-18.** The Director signed tier S1 in session `2026-11-18-s02`; the exact
+   wording is in §6. The orchestrator transcribed it; no agent claimed it as its own.
 2. **ND-004 / ND-005** — exposed GitHub PAT and HF token still live on a public repo. Rotation steps in
-   `docs/state/SECURITY_HANDOFF.md`; agent cannot revoke them behind the Director's login.
+   `docs/state/SECURITY_HANDOFF.md`; agent cannot revoke them behind the Director's login. The PAT was
+   pasted a second time, inside a resume prompt, during this session.
 3. `main` is protected but still empty until PR #1 is merged by the Director.
 
 ## 6. Signature
 
-> **Director signature: PENDING.** No tier grant is claimed by an agent. After signature, NET-GATE work
-> (NET-001..006, PR-N1..N4, SEC-001, NG-001) becomes selectable; art stays greybox until NG-001.
+> **Director signature: SIGNED — 2026-11-18T07:58Z.** Recorded Director decision, quoted verbatim:
+> **"Oui, signe S1"** — answer to the GATE:P1 question in session `2026-11-18-s02`, after the dossier,
+> the local gates and the 8/8 Actions runs were presented.
+>
+> **Grants tier S1** (`authorized_tier: S1` in `BLUEPRINT.yaml`). This makes `NET-001..006`, `PR-N1..N4`,
+> `SEC-001` and `NG-001` selectable. It does **not** pass NET-GATE: I2 still forbids hero art, texture
+> bakes, motion generation and scene generation until NG-001, and AI-001/AI-002 additionally require
+> GATE:P2 and the P0-006 whitelist.
+>
+> Signed by the DIRECTOR. Transcribed by the orchestrator as a state change; the signature is not the
+> agent's. A tier grant is never self-signed (D136, §0.6).

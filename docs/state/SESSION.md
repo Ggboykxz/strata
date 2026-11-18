@@ -5,10 +5,10 @@
 | session | `2026-11-18-s02` (continuation of `s01`, resumed `20261118T072300Z` from a blank Colab runtime) |
 | mode | RESUME (`docs/CONSTITUTION.md` exists) |
 | branch | `session/20261118-hc-001-high-concept` |
-| phase / tier | P0 / current `S0`, authorized `S0` |
+| phase / tier | P1 complete → P2NET next / current `S0`, authorized **`S1`** (GATE:P1 signed 2026-11-18) |
 | director | present for bootstrap; async from now |
-| last task | P0-005.a (resume prompt sentinel) |
-| next task | **GATE:P1 signature** — Director-only; then NET-001 (S1) |
+| last task | GATE:P1 signed by the Director → authorized_tier S1 |
+| next task | **NET-001** — isomorphic core tick, headless server, quantization, state hash |
 
 ## Done this session
 
@@ -39,6 +39,7 @@
 | P1-003 | `ART_BIBLE.md`, A0001, real `validate-art-bible.mjs` | 6/6 negatives; 168 globs 0 ties; `verify` 17/17 |
 | P1-004 | 3 specs + 3 TDDs, extended `validate-docs.mjs` | 8/8 negatives; `verify` 17/17 |
 | P0-005.a | resume prompt sentinel + drift §7 + 4 new negatives; `state/locks` registry branch created | 12/12 negatives; drift 0; `verify` 17/17 |
+| GATE:P1 | Director signature recorded; `authorized_tier: S1`, GATES.yaml regenerated | `validate-blueprint` 0; `verify` 17/17 |
 
 **P0-001 and P0-002 were split** although only P0-001 triggered B8: the halves fail for different reasons and
 deserve separate rollback points. Commits: `094f31f`, `bd6f550` (P0-001); `1ceaf20`, `7e9d382` (P0-002).

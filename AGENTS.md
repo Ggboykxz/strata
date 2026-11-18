@@ -87,7 +87,7 @@ Anything else goes through a handoff. A conflict is resolved by a handoff or the
 
 ## 8. Current state (update this section at every session close)
 
-- Phase **P0**, `current_tier` **S0**, `authorized_tier` **S0**. `GATE:P0` unsigned. **NET-GATE unpassed**: no art.
+- Phase **P1 complete → P2NET**, `current_tier` **S0**, `authorized_tier` **S1** (GATE:P1 signed 2026-11-18). **NET-GATE unpassed**: no art.
 - `docs/blueprint/BLUEPRINT.yaml` holds 63 tasks and 11 gates; `scripts/validate-blueprint.mjs` enforces
   B1–B8 (0 errors, 12 declared warnings after A0002 removed the WF-002 refusal).
 - 32 agents and 51 skill stubs exist. One process wears every hat until the Director installs reviewers.
@@ -122,6 +122,10 @@ Anything else goes through a handoff. A conflict is resolved by a handoff or the
 - **ND-001 resolved** (T1 EN 25/25, FR 30/35; FINDING-001 closed) and **ND-002 resolved** (A0002 option A,
   D-002 closed, WF-002 is orchestrator's). **ND-003 resolved**: the repo is public (the Director must merge
   PR #1; `main` is still empty). ND-004..ND-008 remain open.
+- **GATE:P1 is SIGNED by the Director** (2026-11-18, quoted "Oui, signe S1"): `authorized_tier` **S1**,
+  GATES.yaml regenerated, one-step grant (S0→S1). P0-005.a sealed `SESSION_RESUME.md` with
+  `<<<STRATA_RESUME_END v8.1>>>` and made `validate-prompt-drift` enforce it (12/12 negatives). The
+  `state/locks` registry branch now exists. Next: **NET-001**.
 - Known intentional red: `scope-math --report` exit 2 (throughput unmeasured) and `concept --score` exit 2
   until HC-003. `concept --check` is green: T3 was signed at GATE:P0.
 

@@ -1,7 +1,7 @@
 version: 8
 project: strata
 current_tier: S0
-authorized_tier: S0            # becomes S1 when GATE:P1 is signed (D136)
+authorized_tier: S1            # GATE:P1 SIGNED 2026-11-18 by the Director (D136); current_tier stays the ladder base (B6)
 policy:
   max_task_minutes: 30
   commit_and_push_each_unit: true

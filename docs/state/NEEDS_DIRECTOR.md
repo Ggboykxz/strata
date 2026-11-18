@@ -16,6 +16,7 @@ Nothing here blocks the work already done; each item blocks a named future task.
 | ND-007 | **RESOLVED** — rejected, FLUX.1-schnell fallback | SDXL `openrail++` attribution/distribution scope |
 | ND-008 | **RESOLVED — REVERSED** — ActionForge approved with conditions | CC0 output rights verified from publisher notices |
 | ND-009 | **RESOLVED — option A** | full-MMORPG vision amendment (ADR-A0003), P0 scope unchanged |
+| ND-010 | **RESOLVED — SIGNED** | GATE:P1 signed ("Oui, signe S1"); authorized_tier S1; NET-001..006 selectable |
 
 ND-004 and ND-005 cannot be closed by an agent: GitHub and Hugging Face rotations require account access
 and, on GitHub, a UI flow. This is stated rather than simulated. Evidence that no secret reached the repo:
@@ -228,7 +229,7 @@ override on the materialization, not a rewrite of the seal.
 
 ---
 
-## ND-010 — GATE:P1 signature — OPEN (Director decision, blocks the network phase)
+## ND-010 — GATE:P1 signature — RESOLVED (SIGNED 2026-11-18)
 
 **Question.** Do you sign GATE:P1 and grant tier **S1**?
 
@@ -253,3 +254,7 @@ risk is the opposite one — waiting keeps the most expensive unknown (netcode) 
 The PAT was pasted **again**, this time inside the resume prompt, on the sentinel line. It is still live and
 was used for this session's `state/locks` pushes. The session ends with it unrevoked at the Director's
 explicit request ("je le révoquerai plus tard"). Rotation is now overdue: the string is in two transcripts.
+
+**Status: RESOLVED 2026-11-18T07:58Z — SIGNED.** The Director answered **"Oui, signe S1"**. `GATE:P1` is
+signed, `authorized_tier` is S1, and `NET-001..006`, `PR-N1..N4`, `SEC-001`, `NG-001` are selectable.
+The dossier and the verbatim quote are in `docs/state/gates/GATE_P1.md` §6. NET-GATE remains unpassed: no art.

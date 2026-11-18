@@ -6,14 +6,16 @@
   "branch": "session/20261118-hc-001-high-concept",
   "tier": {
     "current": "S0",
-    "authorized": "S0"
+    "authorized": "S1",
+    "granted_by": "GATE:P1 signed 2026-11-18 by the Director (\"Oui, signe S1\")"
   },
   "netgate": {
     "status": "unpassed",
     "art_allowed": false
   },
   "tasks": [
-    { "id": "P0-005.a", "blueprint_task": "P0-005", "status": "done" }
+    { "id": "P0-005.a", "blueprint_task": "P0-005", "status": "done" },
+    { "id": "GATE:P1", "status": "signed", "grants": "S1" }
   ],
   "measured": {
     "resume_prompt_bytes": 2514,
@@ -36,7 +38,11 @@
     "gdd_signed": 0,
     "gdd_reference_resolution": 1.0,
     "locks_acquired": 3,
-    "locks_released": 3
+    "locks_released": 3,
+    "authorized_tier": "S1",
+    "tier_grant_steps": 1,
+    "deferred_non_p0_tasks": 17,
+    "art_tasks_in_authorized_phases": 0
   },
   "cis": {
     "value": null,
@@ -97,12 +103,42 @@
       "exit": 0,
       "log": "docs/state/evidence/20261118T072941Z-P0-005.a/07-validate-blueprint.log",
       "result": "63 tasks, 11 gates, 12 declared warnings"
+    },
+    {
+      "cmd": "node scripts/validate-blueprint.mjs (post-signature)",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T074117Z-GATE-P1/01-validate-blueprint.log",
+      "result": "0 errors, 12 warnings, one-step S0→S1 grant"
+    },
+    {
+      "cmd": "node scripts/validate-art-bible.mjs (post-signature)",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T074117Z-GATE-P1/02-validate-art-bible.log",
+      "result": "0 art:true tasks in P0/P1/P2NET"
+    },
+    {
+      "cmd": "node scripts/concept-integrity.mjs --check",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T074117Z-GATE-P1/03-concept-check.log"
+    },
+    {
+      "cmd": "node scripts/validate-docs.mjs (post-signature)",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T074117Z-GATE-P1/04-validate-docs.log"
+    },
+    {
+      "cmd": "pnpm verify (post-signature)",
+      "exit": 0,
+      "log": "docs/state/evidence/20261118T074117Z-GATE-P1/05-verify.log",
+      "result": "17/17"
     }
   ],
   "notes": [
     "Repair task selected because GATE:P1 is unsigned and every NET-* task depends on it (BLUEPRINT deps).",
+    "GATE:P1 was then SIGNED by the Director (\"Oui, signe S1\"); authorized_tier S1, current_tier kept at S0 because B6 computes a grant as current+1.",
     "The resume prompt now declares and carries <<<STRATA_RESUME_END v8.1>>>; the drift gate enforces it.",
-    "The sealed master, PROMPT.lock, CONSTITUTION.md, BLUEPRINT.yaml and the scope ledger are unchanged.",
+    "The sealed master, PROMPT.lock, CONSTITUTION.md and the scope ledger are unchanged.",
+    "S1 authorizes network work only: NET-GATE is still unpassed, so no hero art, texture bake, motion or scene generation (I2).",
     "scripts/session-result.mjs (D146) is still a declared stub: this result was composed by hand from this file."
   ]
 }
