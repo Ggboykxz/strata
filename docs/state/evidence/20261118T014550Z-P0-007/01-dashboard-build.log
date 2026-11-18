@@ -1,0 +1,3 @@
+$ tsc -p tsconfig.json && node build.mjs
+dashboard build OK — 8 view groups, /content/strata/apps/dashboard/dist
+  NOT COMPUTABLE fields: 14

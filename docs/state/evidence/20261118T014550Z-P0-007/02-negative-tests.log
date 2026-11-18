@@ -1,0 +1,9 @@
+OK     exit=0  baseline build
+OK     idempotent rebuild (sha256 01c931564ade161a4e46150241b244f3ab8c0f29303aa0989d5d6188631fc7e6)
+OK     unmeasured values are printed as NOT COMPUTABLE
+OK     no live calls or secret references
+OK     exit=1  deliberate TS syntax error
+OK     exit=1  missing metrics source
+OK     exit=1  deliberate builder syntax error
+
+RESULT: PASS — all P0-007 dashboard checks behaved as required.
