@@ -172,6 +172,10 @@ Final run — `docs/state/evidence/20261118T203438Z-NETGATE-WIRE/`:
 | 03 | `pnpm typecheck` | 0 | `03-typecheck.log` |
 | 04 | `pnpm vitest run tools/netgate/wire/test/wire.test.ts --reporter=verbose` | 0 | `04-measurement-report.log` (JSON report) |
 | 05 | `pnpm exec tsc --ignoreConfig --noEmit --strict ... tools/netgate/wire/**` | 0 | `05-tool-typecheck.log` |
+| 06 | `git push --force-with-lease origin session/20261118-netgate-wire` | **128** | `06-push-blocked.log` |
+
+The push is **blocked** (no GitHub credential in this worktree; no token was used or printed). Local head
+`0976d51` contains all v2 work; origin is still at the v1 head `8f03cce`. The parent must push the branch.
 
 Earlier runs, retained for honesty:
 - `docs/state/evidence/20261118T203045Z-NETGATE-WIRE/`: first v2 attempt, install 0 / tests **1** / typecheck 0;
