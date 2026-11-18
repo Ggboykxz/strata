@@ -1170,4 +1170,11 @@ locks:
     acquired_at: "2026-11-18T13:12:00Z"
     expires_at: "2026-11-18T13:42:00Z"
     status: active
+  - path_glob: "docs/qa/prototypes/NET_GATE.md"
+    owner_agent: producer
+    task_id: GATE:NET
+    branch: session/20261118-hc-001-high-concept
+    acquired_at: "2026-11-18T09:32:00Z"
+    expires_at: "2026-11-18T10:02:00Z"
+    status: released
 
