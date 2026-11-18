@@ -25,6 +25,7 @@ const ENABLED = [
   ['validate-locks (WF-002)', 'node', ['scripts/validate-locks.mjs']],
   ['validate-workflows (P0-004)', 'node', ['scripts/validate-workflows.mjs']],
   ['resume drill --dry (P0-005)', 'node', ['scripts/drill-resume.mjs', '--dry']],
+  ['validate-manifest --audit (P0-006)', 'node', ['scripts/validate-manifest.mjs', '--audit']],
 ];
 
 /* A stub is a validator that prints NOT IMPLEMENTED and exits 1 (P0-002 contract). */

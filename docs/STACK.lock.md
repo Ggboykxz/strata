@@ -56,8 +56,15 @@ pnpm verify                     # the one definition, scripts/verify.mjs
 `pnpm verify` at P0-005 runs, fail-fast: **typecheck** (`tsc -b`) → **lint** (core-math AST ban) →
 **unit** (Vitest) → `validate-prompt-drift` → `validate-scope` → `scope-math --check` →
 `validate-blueprint` → `validate-ownership` → `validate-locks` → `validate-workflows` → resume drill
-(`--dry`). It prints `DEFERRED` for determinism replay, GDD coverage and every declared stub. Deferred steps
-are never counted as green; the full pipeline from §6 is the target, not a claim.
+(`--dry`) → `validate-manifest --audit`. It prints `DEFERRED` for determinism replay, GDD coverage and every declared
+stub. Deferred steps are never counted as green; the full pipeline from §6 is the target, not a claim.
+
+## AI models and tools — gated by a separate audit
+
+No model or generation tool is installed. `docs/legal/AI_MODEL_AUDIT.md` and
+`tools/asset-pipeline/whitelist.yaml` are the authority (P0-006, I4). Only 8 entries are APPROVED; 7 are
+blocked pending Director decisions and 5 are rejected. `pnpm verify` runs
+`node scripts/validate-manifest.mjs --audit` so a forbidden licence cannot enter the whitelist silently.
 
 ## Lockfile policy
 
