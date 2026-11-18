@@ -54,6 +54,11 @@ check('git branch --show-current', () => {
   const r = git(['branch', '--show-current']);
   if (r.status !== 0) return bad('cannot read branch');
   branch = r.stdout.trim();
+  if (!branch && process.env.GITHUB_REF_NAME) {
+    branch = process.env.GITHUB_REF_NAME;
+    console.log(`      ${branch} (from GITHUB_REF_NAME; Actions uses a detached HEAD)`);
+    return true;
+  }
   if (!branch) return bad('detached HEAD — no branch to resume');
   console.log(`      ${branch}`);
   return true;
