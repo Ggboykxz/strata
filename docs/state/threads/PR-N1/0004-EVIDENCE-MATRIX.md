@@ -50,4 +50,4 @@ exits 1.
 **locks.** PR-N1 globs on `state/locks` (`AGENTS.md`, `apps/game/src/net/**`, `apps/game/test/**`,
 `docs/design/gdd/GDD-NETCODE.md`, `docs/qa/prototypes/**`, `docs/state/**`, `scripts/validate-netgate.mjs`,
 `tools/sim/load/**`), acquired in one sorted commit (`c3b1ef6`) and renewed before expiry (`5607ffb`).
-No self-merge.
+No self-merge. **PR #4** https://github.com/Ggboykxz/strata/pull/4 is open for Director review.

@@ -487,4 +487,5 @@ blueprint task currently owns the pin: recorded as a gap for the Director/next r
   overflow, `EXIT=1`); fixed with a reducer and 300k-sample regression test (7/7). Fresh run exited 0 at
   16:31:25Z: 1,800.03 s, 54,001 ticks, 162,586 verified snapshots, 0 desyncs, correction p95 50 mm / max 250 mm,
   server tick p95 0.1632 ms. Four criteria remain unmet; `--assert-ready` still exits 1.
-- No art, no model, no GPU/TPU. PR opened but never merged; merge and ND-004/005 rotation are Director acts.
+- No art, no model, no GPU/TPU. **PR #4** https://github.com/Ggboykxz/strata/pull/4 opened, never merged;
+  merge and ND-004/005 rotation are Director acts.

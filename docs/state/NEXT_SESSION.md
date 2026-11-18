@@ -3,7 +3,7 @@
 | field | value |
 |---|---|
 | written | 2026-11-18T16:02Z |
-| branch | `session/20261118-prn1-matrix` — PR-N1 opened for review, **never self-merged** |
+| branch | `session/20261118-prn1-matrix` — **PR #4** https://github.com/Ggboykxz/strata/pull/4 opened for review, **never self-merged** |
 | mode | RESUME |
 | tier | current `S0`, authorized **`S1`** (GATE:P1 signed) |
 | last task | **PR-N1** — 4-client matrix and real 30-minute soak measured (rerun EXIT=0) |
