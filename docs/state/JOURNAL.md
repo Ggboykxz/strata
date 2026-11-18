@@ -3,7 +3,7 @@
 | field | value |
 |---|---|
 | source | `docs/state/journal/` (append-only entries) |
-| entries | 46 |
+| entries | 47 |
 | regenerate | `node scripts/build-journal.mjs` |
 | check | `node scripts/build-journal.mjs --check` |
 
@@ -1523,3 +1523,15 @@ distribution. Before/after, checksums and the rejected attempt are public; no si
 
 ## remaining true limits
 No GPU/TPU (ND-012), 8 unmeasured NET-GATE criteria, PAT/HF rotation and PR merges (Director-only), ND-011.
+
+---
+
+# 2026-11-18T14:14:00Z · T4 confirmation (ND-012)
+
+- Director, verbatim: "je dois donc passer au t4 pour continuer".
+- T4 16 GB is needed for **art generation only**: AI-001 (ComfyUI/FLUX-schnell/InstantMesh hero mesh + throughput)
+  and AI-002 (rig/retopo/LOD, separated GLBs).
+- Not blocked by hardware: PR-S7/PR-S8, the 4-client matrix, soak, tick p95, AoI/delta, RPO dataset and NET-GATE
+  re-measurement — all CPU/time work.
+- On arrival: log both detect_tier.py probes (expect 16GB / 15 360 MiB), start AI-001 under locks; no binary in git,
+  no model before audit verification (audit already complete).

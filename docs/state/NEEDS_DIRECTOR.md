@@ -18,7 +18,7 @@ Nothing here blocks the work already done; each item blocks a named future task.
 | ND-009 | **RESOLVED — option A** | full-MMORPG vision amendment (ADR-A0003), P0 scope unchanged |
 | ND-010 | **RESOLVED — SIGNED** | GATE:P1 signed ("Oui, signe S1"); authorized_tier S1; NET-001..006 selectable |
 | ND-011 | **OPEN — information acknowledged, one decision** | Director declares TPU v5e-1 + T4 16 GB; T4 is already the sourced generation tier, TPU has no audited model |
-| ND-012 | **OPEN — hardware request** | Director said "gère l'art et go next"; current runtime has no GPU/TPU. Need a T4 16 GB (or equivalent) for AI-001; TPU is not a generation device (ND-011) |
+| ND-012 | **OPEN — Director confirms T4 needed** | Director: "je dois donc passer au t4 pour continuer". T4 16 GB required for **art generation only** (AI-001/AI-002); netcode measurement stays CPU-only |
 | ND-013 | **PARTIAL — fix-all instruction** | Director said "fix all problems n limits"; repo-side fixes landed (A0007), hardware/Director/net-measurement limits remain open |
 
 ND-004 and ND-005 cannot be closed by an agent: GitHub and Hugging Face rotations require account access
@@ -290,6 +290,23 @@ applies. The full handoff is in `docs/state/ART_HANDOFF.md`.
 
 **Effect of no answer.** None on the current plan: PR-S1 (P2-SYS greybox) proceeds on CPU. AI-001..AN-002 remain
 blocked by deps and hardware. Nothing is faked and no model is downloaded.
+
+**Director confirmation (2026-11-18, verbatim):** "je dois donc passer au t4 pour continuer".
+
+**Scope of the need — precisely.** The T4 16 GB is required for **art generation only**: AI-001 (ComfyUI +
+FLUX-schnell images + one InstantMesh hero mesh end-to-end and throughput) and AI-002 (rig/retopo/LOD,
+separated mesh/animation GLBs). Nine models are already audited (`AUDIT-2026-11-18-P0-006`); HUNYUAN3D and
+HY-MOTION are rejected. The TPU v5e-1 is **not** a generation device (ND-011).
+
+**What does NOT need the T4:** PR-S7/PR-S8 (P2-SYS greybox), the 4-client RTT/loss/jitter harness, the 30-minute
+soak, server tick p95, AoI/delta (NET-101), crash/RPO dataset and the NET-GATE re-measurement. Those are CPU and
+time work. The remaining Director-only items (ND-004/ND-005 rotation, PR #1/#2 merges) are unrelated to hardware.
+
+**On arrival.** Run `python3 tools/asset-pipeline/detect_tier.py` (expect tier `16GB`, 15 360 MiB ECC) and
+`python3 tools/colab/detect_tier.py`, log both to a new evidence dir, then start AI-001 under its locks.
+No binary enters git: meshes/textures go to Hugging Face with provenance. No model is run before the audit entry
+is verified (already satisfied).
+
 
 **Related:** ND-004/ND-005 (token rotation) and ND-011 (TPU scope) remain open; PR #1/#2 merges remain Director-only.
 

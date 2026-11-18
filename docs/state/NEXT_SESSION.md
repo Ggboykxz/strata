@@ -80,7 +80,8 @@ rotation and PR merges (Director-only), TPU scope (ND-011).
 
 Node 22.23.4, pnpm 12.21.0 via corepack, TypeScript 6.0.3, Vitest 5.1.0.
 
-**Current runtime: no GPU and no TPU** (Director: "là on a pas de tpu ni gpu quand t'en aura besoin fais moi
-signe"). Signal before starting accelerator work. PR-S1 is CPU-only. Future hardware declared as TPU v5e-1 +
-T4 16 GB: T4 is already the sourced generation tier; TPU has no audited model path (ND-011). Secrets from env
-only; the repo is public.
+**Current runtime: no GPU and no TPU.** Director confirmed "je dois donc passer au t4 pour continuer" (ND-012).
+The T4 16 GB is needed for **art generation only** (AI-001/AI-002); PR-S7/PR-S8 and the NET-GATE measurements
+are CPU-only and can proceed now. On T4 arrival, log both detect_tier.py probes (expect 16GB / 15 360 MiB), then
+start AI-001 under locks — nine models are already audited, no binary enters git. TPU v5e-1 is not a generation
+device (ND-011). Secrets from env only; the repo is public.
