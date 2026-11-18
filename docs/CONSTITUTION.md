@@ -242,6 +242,8 @@ server. Write the design. Pay the scope. Leave evidence. Then — and only then 
 
 ## AMENDMENTS
 
-None. No invariant (§0.3) and no locked decision (§13) has been amended since v8.1 was sealed.
-Any future amendment must be a Director-signed ADR, listed here with its ADR id, the exact text it replaces,
-and its entry in `docs/state/PROMPT.lock` under `amended:`.
+- **ADR-A0003 (accepted 2026-11-18, Director statement ND-009):** the long-term product target reads
+  "a full MMORPG, delivered through a browser-based vertical slice" wherever the sealed text says
+  "MMORPG-shaped systemic RPG". Vision wording only: no invariant (§0.3), locked decision (§13), scope
+  ledger, tier, task or gate is changed. The archived master is byte-identical; the amendment is declared in
+  `docs/state/PROMPT.lock` under `amended:`. Full ADR: `docs/adr/A0003_full-mmorpg-vision.md`.

@@ -15,7 +15,7 @@ Nothing here blocks the work already done; each item blocks a named future task.
 | ND-006 | **RESOLVED** — rejected, fallbacks recorded | Tencent community licences exclude EU/UK/Korea |
 | ND-007 | **RESOLVED** — rejected, FLUX.1-schnell fallback | SDXL `openrail++` attribution/distribution scope |
 | ND-008 | **RESOLVED — REVERSED** — ActionForge approved with conditions | CC0 output rights verified from publisher notices |
-| ND-009 | **OPEN — new** | full-MMORPG vision vs sealed "MMORPG-shaped RPG" wording |
+| ND-009 | **RESOLVED — option A** | full-MMORPG vision amendment (ADR-A0003), P0 scope unchanged |
 
 ND-004 and ND-005 cannot be closed by an agent: GitHub and Hugging Face rotations require account access
 and, on GitHub, a UI flow. This is stated rather than simulated. Evidence that no secret reached the repo:
@@ -217,6 +217,11 @@ propagation and its Rouille economic regulator are already original equivalents.
   assembled.
 - **C** treat Ashes of Creation as inspiration only; keep the current sealed wording. No change.
 
-**Status: OPEN — agent made no change to the sealed master, CONSTITUTION, HIGH_CONCEPT or SCOPE.**
-No agent can silently edit a sealed document. Until the Director picks an option, all artifacts keep the
-current wording and GATE:P0 proceeds on the existing scope.
+**Status: RESOLVED (2026-11-18) — option A applied.** The action below records what changed and what did not.
+
+**Resolution (2026-11-18): option A applied under the Director's "go next" instruction.** ADR-A0003 is
+accepted and declared in `PROMPT.lock amended: [ADR-A0003]` and the Constitution's `## AMENDMENTS`
+section. AGENTS, README and HIGH_CONCEPT §2 now read "full MMORPG, delivered through a vertical slice";
+the locked sentence, T1, T3, scope ledger, tier, tasks and gates are unchanged. `validate-prompt-drift`
+and `concept --check` both exit 0. The archived master stays byte-identical — the amendment is an
+override on the materialization, not a rewrite of the seal.

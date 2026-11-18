@@ -78,9 +78,9 @@ their banners record the new owner (orchestrator) after A0002.
 - **ND-006 / ND-007 RESOLVED** as REJECTED with fallbacks (Director instruction to resolve every blocked
   item); **ND-008 RESOLVED — REVERSED** on new evidence: ActionForge's own notices grant CC0 output rights,
   so it is approved with conditions. No licence was waived by code.
-- **ND-009 OPEN.** Director statement: "pas de rpg mais un mmorpg total comme ashe of creation". No sealed
-  document was changed. The GATE:P0 dossier records the options; a full-MMORPG P0 scope would invalidate
-  the dossier and need a funding decision.
+- **ND-009 RESOLVED — option A applied.** ADR-A0003 declares the full-MMORPG long-term vision via the
+  sealed-master amendment escape hatch (`PROMPT.lock amended: [ADR-A0003]` + `## AMENDMENTS`). The P0
+  vertical slice, tier, ledger, tasks and gates are unchanged. Drift and concept gates exit 0.
   A prefix scan found 0 token strings in `.git` or the tracked worktree. The agent cannot close these.
 
 Details, options and evidence: `docs/state/NEEDS_DIRECTOR.md` and

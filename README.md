@@ -1,7 +1,7 @@
 # STRATA
 
-STRATA is an open-source, browser-based, MMORPG-shaped systemic RPG. Its defining mechanic is
-**cross-stratum consequence propagation**: a player's act rewrites a persistent world-history graph, and
+STRATA is an open-source browser game whose long-term target is a **full MMORPG**, delivered through a vertical slice.
+Its defining mechanic is **cross-stratum consequence propagation**: a player's act rewrites a persistent world-history graph, and
 later eras visibly read that graph. Burn a forest in the Stone Age and a medieval abbey never exists;
 a future megacity becomes desert; the chain is permanent, attributed and replayable.
 

@@ -6,7 +6,7 @@
 | branch | `session/20261118-hc-001-high-concept` — **PR #1** (draft) https://github.com/Ggboykxz/strata/pull/1 |
 | mode | RESUME |
 | next task | **GATE:P0 dossier** — assemble evidence; the Director signs, no agent signs a gate |
-| blocker | **Director decision required** — sign GATE:P0, rule on ND-009, rotate ND-004/005. No code blocker. |
+| blocker | **Director gate signature + ND-004/005 token rotation**. ND-009 is resolved (ADR-A0003). No code blocker. |
 
 ---
 
@@ -54,10 +54,9 @@ The Director decides. An agent assembles evidence only; no self-merge, no gate s
 
 1. **ND-004 / ND-005 — OPEN.** Exposed GitHub PAT and HF token still live; repo is public, so rotation is
    urgent. The agent cannot revoke them behind the Director's login/2FA.
-2. **ND-009 — OPEN (new).** "Full MMORPG like Ashes of Creation, not an RPG-shaped slice." No sealed file
-   was changed. Options in `NEEDS_DIRECTOR.md`: A amend the long-term vision via ADR while keeping the P0
-   slice (recommended), B reopen scope/funding and invalidate this dossier, C inspiration only. I11 forbids
-   copying the commercial IP.
+2. **ND-009 — RESOLVED (option A).** ADR-A0003 amends the long-term vision to a full MMORPG delivered
+   through a vertical slice, with `PROMPT.lock amended: [ADR-A0003]` and a Constitution `## AMENDMENTS`
+   entry. Scope, tier, tasks and gates are unchanged; I11 forbids copying the commercial IP.
 3. **ND-001 / ND-002 / ND-003 / ND-006 / ND-007 / ND-008 — RESOLVED.** HIGH_CONCEPT v1.2, A0002 option A,
    public repo, audited AI whitelist with all rejections carrying fallbacks.
 3. `main` is still the empty root commit `36bd9af`; the Director must merge PR #1 for the public landing

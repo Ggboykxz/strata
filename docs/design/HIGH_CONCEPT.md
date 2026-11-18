@@ -3,7 +3,7 @@
 | field | value |
 |---|---|
 | id | HC |
-| version | 1.1 (LOCKED — Director-signed amendment of 2026-11-18) |
+| version | 1.3 (LOCKED — Director-signed amendments of 2026-11-18) |
 | owner | high-concept-guardian |
 | status | LOCKED — amended only by Director-signed ADR (`concept-amendment`) |
 | amended_by | ND-001 / FINDING-001 — Option A, Director instruction 2026-11-18 (scope of the 25-word T1 limit unchanged); T3 signed at GATE:P0 per §1.4 |
@@ -33,7 +33,7 @@ Authority: §1 of the STRATA master (v8.1). This document is the canonical conce
 
 ## 2. WHAT IT IS / WHAT IT IS NOT
 
-**It is** a browser-based, MMORPG-shaped systemic RPG in which the world's history is a
+**It is** a browser-based full MMORPG, delivered through a vertical slice, in which the world's history is a
 persistent, player-authored data structure, and every stratum visibly reads that structure.
 
 **It is not** an open-world sandbox, a survival game, a roguelike with eras, or a narrative RPG
@@ -170,3 +170,4 @@ re-signature with fresh evidence at each later gate.
 | 1.0 | 2026-11-18 | bootstrapped from master v8.1 §1; T1 measured; FINDING-001 opened | high-concept-guardian |
 | 1.1 | 2026-11-18 | ND-001 resolved: EN trimmed to 25 words, FR re-locked at 30; finding closed (limit unchanged) | Director instruction → high-concept-guardian |
 | 1.2 | 2026-11-18 | T3 novelty grid signed at GATE:P0 per master §1.4 ("re-signed at each gate"); basis N2 × N4 recorded | high-concept-guardian |
+| 1.3 | 2026-11-18 | ADR-A0003 (ND-009): vision wording becomes "full MMORPG, delivered through a vertical slice"; locked sentence, T1 and T3 unchanged | Director instruction → high-concept-guardian |

@@ -26,4 +26,4 @@ materialization:
 
 # Decisions or invariants the constitution is allowed to state differently from the archived master.
 # Each entry requires a Director-signed ADR id. Empty = the constitution must quote the master verbatim.
-amended: []
+amended: [ADR-A0003]

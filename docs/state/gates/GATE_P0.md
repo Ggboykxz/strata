@@ -73,11 +73,10 @@ No number was invented to make the dossier look complete.
 
 1. **ND-004 / ND-005** — exposed GitHub PAT and HF token are still live on a **public** repository. Agent
    cannot revoke them; rotation is urgent.
-2. **ND-009** — Director stated the product must be a **full MMORPG** in the tradition of Ashes of
-   Creation, not an "MMORPG-shaped RPG". No sealed document was changed. Options: amend the long-term
-   vision by ADR while keeping the P0 slice (recommended), reopen scope to a full MMORPG with new funding
-   (invalidates this dossier), or keep the current wording. Original-IP rule I11 forbids copying the
-   commercial IP; only generic mechanics may inspire STRATA.
+2. **ND-009 — RESOLVED (option A).** ADR-A0003 amends the long-term vision to a full MMORPG delivered
+   through a vertical slice, declared in `PROMPT.lock` and the Constitution's `## AMENDMENTS`. No scope,
+   tier, task, gate or ledger value changed; the archived master is byte-identical and the drift gate passes.
+   I11 forbids copying the commercial Ashes of Creation IP.
 3. **Workflow-name deviation.** Master §18 lists 27 explicit workflow names; P0-004 delivered 27 valid,
    SHA-pinned workflows with different names. Either reconcile before signature or accept the deviation on
    the record.
