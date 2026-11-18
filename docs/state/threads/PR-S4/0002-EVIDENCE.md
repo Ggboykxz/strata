@@ -27,8 +27,10 @@ returns null for a benign chain; two identical scripts give identical reports.
 **docs.** GDD-CRAFT 0.2 → 0.3 (I9): two sourced numbers, the value-graph contract, two acceptance lines,
 corrupted §18 table repaired. `docs/qa/prototypes/PRS4.md`.
 
-**defect repaired.** `pnpm sim prs4 --assert` could never run (no `sim` script) — fourteenth broken acc form.
-7 `pnpm test --filter` accs remain.
+**defects repaired.** `pnpm sim prs4 --assert` could never run (no `sim` script) — fourteenth broken acc form.
+CI then caught what a stale local log missed: `validate-ownership` O3 and `validate-blueprint` B2 require
+`co: [qa-engineer]` for the append-only prototype report. Fixed and the full verify re-run. 7 `pnpm test --filter`
+accs remain.
 
 **honest limits.** Local structural cycle detection, not ECON-001/PR-S5: no 1000 bots, 30 days, inflation, Gini
 or real market. No art, no GPU/TPU, no model downloaded (I4/I2).
