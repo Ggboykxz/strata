@@ -1,0 +1,10 @@
+OK     exit=0  baseline passes
+OK     exit=1  NC licence in approved
+OK     exit=1  unpinned revision
+OK     exit=1  unknown approved id
+OK     exit=2  missing audit document
+OK     exit=1  hardcoded hardware number
+OK     exit=1  silent Director approval
+OK     exit=1  duplicate id across sections
+
+RESULT: PASS — all 8 P0-006 negative tests behaved as required.
