@@ -7,8 +7,8 @@
 | branch | `session/20261118-hc-001-high-concept` |
 | phase / tier | P1 complete → P2NET next / current `S0`, authorized **`S1`** (GATE:P1 signed 2026-11-18) |
 | director | present for bootstrap; async from now |
-| last task | PR-N3 — minor-unit ledger, 10k fuzz, crash restore |
-| next task | **PR-N4** — lag compensation rewind + LOS/range/cooldown validation |
+| last task | PR-N4 — lag compensation rewind + shot validation |
+| next task | **SEC-001** — threat model + validation + rate limits + anti-cheat |
 
 ## Done this session
 
@@ -49,6 +49,7 @@
 | NET-006 | wire v3 anim/resync frames, server-owned hits, jitter, GDD 0.4/0.6, A0005 | anim 5/5 · combat 7/7 · jitter 5/5 · full 122/122 |
 | PR-N1 | local load harness, PRN1 report, acc repaired | harness 3/3 · full 125/125 · local p95 0.2109 ms · 46 530 B/s |
 | PR-N3 | bigint zero-sum ledger, idempotency, checksum restore, GDD 0.3/0.3 | fuzz 7/7 · full 132/132 · drift 0 · 10k tx |
+| PR-N4 | rewind ring, integer LOS/range/cooldown, GDD-NETCODE 0.7 | lagcomp 10/10 · full 142/142 · 30 shots |
 
 **P0-001 and P0-002 were split** although only P0-001 triggered B8: the halves fail for different reasons and
 deserve separate rollback points. Commits: `094f31f`, `bd6f550` (P0-001); `1ceaf20`, `7e9d382` (P0-002).
@@ -274,3 +275,14 @@ blueprint task currently owns the pin: recorded as a gap for the Director/next r
 - `pnpm sim prn3 --assert` could never run (no `sim` script); acc repaired (ninth broken form). GDD-PERSISTENCE
   0.3 and GDD-TRADE 0.3, both corrupted open-questions tables repaired. 7 `pnpm test --filter` accs remain.
 - Local structural fuzz only: no database, no multi-process concurrency, no RPO promise. No GPU/TPU needed.
+
+## Session 2 — PR-N4 (2026-11-18T10:10Z)
+
+- A 31-frame tick→world ring rewinds to the shooter's tick; outside the ring a shot is `stale-shot`, not an
+  approximation. Range is bigint squared distance (no `Math.sqrt`), LOS an integer Bresenham walk over 1 000 mm
+  cells, cooldown per shooter in ticks. The client's `claimed` flag is ignored (I1/I3).
+- Local fuzz: 30 shots → 4 hits, 16 cooldown, 5 blocked, 4 out-of-range, 1 stale; verdict sequence deterministic.
+  Test 10/10, full 142/142, verify 17/17.
+- `pnpm sim prn4 --assert` could never run (no `sim` script); acc repaired (tenth broken form). GDD-NETCODE 0.7.
+  7 `pnpm test --filter` accs remain.
+- Not a loss matrix, not RTT, not a soak; range and cooldown stay tunables until PR-S1.

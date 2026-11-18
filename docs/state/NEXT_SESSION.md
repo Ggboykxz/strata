@@ -2,50 +2,53 @@
 
 | field | value |
 |---|---|
-| written | 2026-11-18T10:07Z |
+| written | 2026-11-18T10:12Z |
 | branch | `session/20261118-hc-001-high-concept` — **PR #1** (draft) https://github.com/Ggboykxz/strata/pull/1 |
 | also open | **PR #2** dashboard truth repair — `session/20261118-dashboard-truth`, base = session branch |
 | mode | RESUME |
 | tier | current `S0`, authorized **`S1`** |
-| last task | **PR-N3** — minor-unit ledger, 10k fuzz, crash restore |
-| next task | **PR-N4** — lag compensation rewind + LOS/range/cooldown validation |
+| last task | **PR-N4** — lag compensation rewind + shot validation |
+| next task | **SEC-001** — threat model + message validation + rate limits + anti-cheat |
 | blocker | ND-004/ND-005 token rotation, PR #1 and #2 merges. ND-011 needs one answer (TPU scope). |
 
 ---
 
 ## 1. State at hand-off
 
-`pnpm verify` **17/17** · fuzz **7/7** · core **41/41** · full **132/132** (14 files) · tracer green · A0005 closed.
+`pnpm verify` **17/17** · lagcomp **10/10** · full **142/142** (15 files) · tracer green · A0005 closed.
 
 ```bash
 pnpm install --frozen-lockfile && pnpm verify
+pnpm vitest run tools/sim/net/test/prn4.test.ts --reporter=verbose
 pnpm vitest run tools/sim/persist/test/prn3.test.ts --reporter=verbose
 pnpm vitest run apps/server/test/combat.test.ts
-pnpm vitest run apps/game/test/net.test.ts
 node scripts/session-result.mjs
 ```
 
 Runtime is ephemeral: `git clone` + `corepack prepare pnpm@12.21.0 --activate` recovers everything.
 
-## 2. PR-N4 — next (S1, P2NET)
+## 2. SEC-001 — next (S1, P2NET)
 
-`{id: PR-N4, agent: netcode-engineer, gdd: [GDD-NETCODE#lag-comp], deps: [NET-006],
-out: [tools/sim/net/prn4_lagcomp.ts, docs/qa/prototypes/PRN4.md], split: true}`
+`{id: SEC-001, agent: security-auditor, gdd: [GDD-SECURITY], deps: [NET-006],
+out: [docs/legal/THREAT_MODEL.md, apps/server/src/validation/, tests/security/]}`
 
-Deps are satisfied. Its acc `pnpm sim prn4 --assert` is broken (no `sim` script) — same defect as PR-N1/PR-N3.
-Repair it to a command that exists (a vitest test path) in the same PR. Tenth known broken acc form if left.
+Deps are satisfied. Its acc `pnpm test --filter @strata/security` is broken (`CACError`) — repair it to the test
+file you create. GATE:P2NET requires NET-001..006, PR-N1..N4 **and SEC-001**, so this is the last network task
+before NG-001 can assemble the NET-GATE dossier for the Director.
 
-GDD-NETCODE §4 and §9 describe lag compensation: rewind to the shooter's tick, validate with server-authoritative
-hit frames (NET-006 `HitLedger`), LOS/range/cooldown checked on the server, client claims ignored (I1/I3).
-Reuse the PR-N1/PR-N3 harness pattern: logic in `tools/sim/net/prn4_lagcomp.ts`, a vitest test that prints a
-labelled report, and append-only `docs/qa/prototypes/PRN4.md`. No new dependency, no GPU/TPU, no art.
+Contracts already in place: NET-002 exact-length frames and version rejection; NET-003 resume handles that are
+**not credentials**; NET-006 server-owned hit frames; PR-N4 client claims ignored. Threat model must name what is
+*not* protected yet: no auth, no TLS in these harnesses, no rate limit until this task. Do not claim security
+from the FNV-1a resume handle — it is a tamper detector only (A0004).
+
+No new dependency, no GPU/TPU, no art. Use the existing harness pattern and log evidence for every command.
 
 ## 3. Known defect: 7 broken `pnpm test --filter` accs
 
 `pnpm test --filter <pkg>` is invalid (`CACError`). `pnpm --filter <pkg> test` can exit 0 without running
 anything; `pnpm vitest run <dir> -t <pattern>` exits 0 when nothing matches (41 skipped, exit 0, proven).
-Rule: name the test file. Remaining: SEC-001, AN-002, P3-005, P3-006, NET-102, NET-103, MOD-001.
-Also audit the `pnpm sim …` form: PR-N1 and PR-N3 repaired their own; other sim accs may lack a script.
+Rule: name the test file. Remaining: SEC-001 (this task), AN-002, P3-005, P3-006, NET-102, NET-103, MOD-001.
+The `pnpm sim …` form was broken for PR-N1/N3/N4 and repaired in each; audit other sim accs when reached.
 
 ## 4. Open for the Director
 
@@ -67,12 +70,12 @@ Also audit the `pnpm sim …` form: PR-N1 and PR-N3 repaired their own; other si
 Node 22.23.4, pnpm 12.21.0 via corepack, TypeScript 6.0.3, Vitest 5.1.0.
 
 **Current runtime: no GPU and no TPU** (Director: "là on a pas de tpu ni gpu quand t'en aura besoin fais moi
-signe"). Signal before starting accelerator work. PR-N4 is CPU-only. Future hardware declared as TPU v5e-1 +
+signe"). Signal before starting accelerator work. SEC-001 is CPU-only. Future hardware declared as TPU v5e-1 +
 T4 16 GB: T4 is already the sourced generation tier; TPU has no audited model path (ND-011). Art remains gated
 by NET-GATE. Secrets from env only; the repo is public, so reading never needs a token.
 
 ## 7. Measurement honesty
 
-PR-N1's CPU p95 (0.2109 ms) is a **local simulation** number, not server tick p95 under network load:
-`server_tick_p95_ms` stays `NOT COMPUTABLE`. Full-snapshot 46 530 B/s is 3.79× the 12 KB/s budget; NET-101
-owns AoI/delta. PR-N3's 10k fuzz is a structural local run, not a database or RPO benchmark.
+PR-N1 CPU p95 is a **local simulation** number; `server_tick_p95_ms` stays `NOT COMPUTABLE`. Full-snapshot
+46 530 B/s is 3.79× the 12 KB/s budget — NET-101 owns AoI/delta. PR-N3's 10k fuzz and PR-N4's 30-shot fuzz are
+local structural runs, not databases, networks or soak tests.
