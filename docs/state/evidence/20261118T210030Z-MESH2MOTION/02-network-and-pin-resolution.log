@@ -1,0 +1,40 @@
+=== Network reachability + pin resolution ===
+UTC=2026-11-18T21:00:37Z
+--- libgtk-3-0 specifically ---
+grep_EXIT=1
+--- curl HEAD repo ---
+HTTP/2 200 
+date: Wed, 18 Nov 2026 21:00:38 GMT
+content-type: text/html; charset=utf-8
+vary: X-PJAX, X-PJAX-Container, Turbo-Visit, Turbo-Frame, X-Requested-With, X-GitHub-Client-Version, Sec-Fetch-Site,Accept-Encoding, Accept, X-Requested-With
+etag: W/"e6436c31e33610fe2840a947cb79bd5a"
+EXIT=0
+--- git ls-remote (HEAD + tags) ---
+bcb014ea25e44f76b3add78463f72d1faec16418	HEAD
+4f76097d64c4ec62c3a27db73a59d0e2efcfa1b1	refs/heads/a-pose-correction-3
+73976c644a27b2c560c57540cbf8b9a3029a917b	refs/heads/add-kaiju
+37cef43db8f832b35382001a58faaab1f5985822	refs/heads/animation-player
+72d595e6e8de6a8e5cdc8f726166984a3285a74d	refs/heads/animation-preview-generator
+53271046eb8cf087f03123ede27a5a9c3fe982a3	refs/heads/animupdate-one
+b6eb5bb65d2c5ad56ee134ffd9d39bd0b348f67f	refs/heads/arm-divider
+85ce09b076c73147d1180e66e5acb14666beb548	refs/heads/auto-a-pose-correction
+8264b74c0b916aaf2f935cd1082530cc762be5be	refs/heads/bone-export-options
+1ace8df2e19176198ad7d80e3f7380cfee6c842a	refs/heads/copilot/add-independent-bone-movement
+7005ba66736f7299ecc90e2599fae627659ace3b	refs/heads/copilot/add-new-feature-for-issue-34
+bc19e5eacbb0dc3a64a54527c6dc191a732d2d48	refs/heads/copilot/research-fingers-bending-issue
+57b693669fe99a7b1a2ecae1869bd3db057b5a0a	refs/heads/custom-animation-feature-decouple
+6d359e94408ce6eb1e3fdf7501aec2e67bccad78	refs/heads/custom-fbx-loader
+d481296b25e3220f043afdecbddb34a423731438	refs/heads/custom-human-bone-mapping
+27ac6a470be1f511b4c7b4655b52ebef9d6e5994	refs/heads/download-success-popup
+e5470e0839915d675cea7c9025061093063775bd	refs/heads/fbx-export
+b4678d26b8e820c6619f4d0918131928fd49279a	refs/heads/fbx-importer
+e1a8456fe254d9ba0a71ff8768a29a218606e8a0	refs/heads/feature/bone-center-volume-move
+e9ce8f8b657f8257427069e0ea53d6ae9c3584fd	refs/heads/feature/head-weight-correction
+EXIT=141
+--- resolve pinned object 1edc9340f9ccfba33e466dac3eddc06269b96d35 via GitHub API ---
+{
+  "message": "No commit found for SHA: 1edc9340f9ccfba33e466dac3eddc06269b96d35",
+  "documentation_url": "https://docs.github.com/rest/commits/commits#get-a-commit",
+  "status": "422"
+}
+EXIT=0

@@ -1,0 +1,30 @@
+=== Mesh2Motion headless feasibility probe ===
+UTC=2026-11-18T21:00:30Z
+HOST=Linux 9bf4b12aaf25 6.6.159+ #1 SMP Thu Oct 22 03:07:54 UTC 2026 x86_64 x86_64 x86_64 GNU/Linux
+USER id: 0 / root
+
+--- node --version ---
+v22.23.4
+EXIT=0
+--- npm --version ---
+10.8.2
+EXIT=0
+--- which xvfb-run ---
+/usr/bin/xvfb-run
+EXIT=0
+--- which Xvfb ---
+/usr/bin/Xvfb
+EXIT=0
+--- dpkg -l | grep -E 'xvfb|libgtk|libnss3' ---
+ii  libgtk-4-1:amd64                   4.14.5+ds-0ubuntu0.10                amd64        GTK graphical user interface library
+ii  libgtk-4-common                    4.14.5+ds-0ubuntu0.10                all          common files for the GTK graphical user interface library
+ii  libnss3:amd64                      2:3.98-1ubuntu0.2                    amd64        Network Security Service libraries
+ii  xvfb                               2:21.1.12-1ubuntu1.9                 amd64        Virtual Framebuffer 'fake' X server
+EXIT=0
+--- dpkg -l | grep -E 'libasound' ---
+ii  libasound2-data                    1.2.11-1ubuntu0.3                    all          Configuration files and profiles for ALSA drivers
+ii  libasound2t64:amd64                1.2.11-1ubuntu0.3                    amd64        shared library for ALSA applications
+EXIT=0
+--- git --version ---
+git version 2.43.0
+EXIT=0

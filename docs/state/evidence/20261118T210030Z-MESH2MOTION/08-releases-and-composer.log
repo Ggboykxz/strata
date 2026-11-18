@@ -1,0 +1,44 @@
+=== Last checks: releases + composer ===
+UTC=2026-11-18T21:04:44Z
+--- GitHub releases (desktop binaries / CLI?) ---
+EXIT=0
+--- composer dir ---
+/tmp/m2m-app/src/composer/ComposerClipBuilder.test.ts
+/tmp/m2m-app/src/composer/ComposerClipBuilder.ts
+/tmp/m2m-app/src/composer/ComposerConfig.ts
+/tmp/m2m-app/src/composer/composer.css
+/tmp/m2m-app/src/composer/ComposerExport.test.ts
+/tmp/m2m-app/src/composer/ComposerExport.ts
+/tmp/m2m-app/src/composer/ComposerLibraryList.ts
+/tmp/m2m-app/src/composer/ComposerModelLoader.ts
+/tmp/m2m-app/src/composer/ComposerPreview.ts
+/tmp/m2m-app/src/composer/ComposerSlots.ts
+/tmp/m2m-app/src/composer/composer.ts
+/tmp/m2m-app/src/composer/index.html
+EXIT=0
+--- any CLI/standalone entry among composer/lib/io ---
+/tmp/m2m-app/src/composer/composer.ts:53:  private readonly dom_status: HTMLElement | null = document.querySelector('#composer-status')
+/tmp/m2m-app/src/composer/composer.ts:65:    const library_container = document.querySelector<HTMLElement>('#composer-library-items')
+/tmp/m2m-app/src/composer/composer.ts:69:        document.querySelector<HTMLInputElement>('#composer-library-filter'),
+/tmp/m2m-app/src/composer/composer.ts:70:        document.querySelector<HTMLElement>('#composer-library-count'),
+/tmp/m2m-app/src/composer/composer.ts:333:document.addEventListener('DOMContentLoaded', () => {
+/tmp/m2m-app/src/composer/ComposerSlots.ts:29:      const element = document.querySelector<HTMLElement>(`#composer-${slot}-slot`)
+/tmp/m2m-app/src/composer/ComposerExport.ts:17:  private readonly dom_export_button: HTMLButtonElement | null = document.querySelector('#export-composer-button')
+/tmp/m2m-app/src/composer/ComposerLibraryList.ts:138:      document.body.classList.add(ComposerLibraryList.dragging_body_class)
+/tmp/m2m-app/src/composer/ComposerLibraryList.ts:144:      document.body.classList.remove(ComposerLibraryList.dragging_body_class)
+/tmp/m2m-app/src/lib/io/fbx/fbx-utils.ts:42: * Returns true when the decoded text looks like an ASCII FBX document.
+/tmp/m2m-app/src/lib/io/fbx/FBXTreeParser.ts:233:            return window.URL.createObjectURL(new Blob([array], { type: type }));
+/tmp/m2m-app/src/lib/io/fbx/FBXTreeParser.ts:1047:            let width = window.innerWidth;
+/tmp/m2m-app/src/lib/io/fbx/FBXTreeParser.ts:1048:            let height = window.innerHeight;
+grep_EXIT=0
+--- evidence log inventory so far ---
+total 36
+-rw-r--r-- 1 root root 1289 Nov 18 21:00 01-feasibility-probe.log
+-rw-r--r-- 1 root root 2245 Nov 18 21:00 02-network-and-pin-resolution.log
+-rw-r--r-- 1 root root 2564 Nov 18 21:00 03-pin-blob-check.log
+-rw-r--r-- 1 root root 2000 Nov 18 21:01 04-clone.log
+-rw-r--r-- 1 root root  933 Nov 18 21:04 05-npm-ci.log
+-rw-r--r-- 1 root root 4759 Nov 18 21:04 06-automation-path-audit.log
+-rw-r--r-- 1 root root 1013 Nov 18 21:04 07-prescribed-launch-probe.log
+-rw-r--r-- 1 root root 2380 Nov 18 21:04 08-releases-and-composer.log
+EXIT=0

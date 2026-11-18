@@ -1,0 +1,40 @@
+=== npm ci in cloned app dir only ===
+UTC=2026-11-18T21:01:14Z
+--- lockfile present? ---
+-rw-r--r-- 1 root root 159498 Nov 18 21:00 package-lock.json
+EXIT=0
+--- node/npm used ---
+v22.23.4
+10.8.2
+EXIT=0
+--- electron declared? ---
+NO electron in package.json
+grep_EXIT=0
+--- npm ci ---
+npm warn EBADENGINE Unsupported engine {
+npm warn EBADENGINE   package: 'vite-plugin-glsl@1.6.2',
+npm warn EBADENGINE   required: { node: '>= 20.17.0', npm: '>= 10.8.3' },
+npm warn EBADENGINE   current: { node: 'v22.23.4', npm: '10.8.2' }
+npm warn EBADENGINE }
+
+added 244 packages, and audited 245 packages in 3m
+
+65 packages are looking for funding
+  run `npm fund` for details
+
+9 moderate severity vulnerabilities
+
+To address all issues, run:
+  npm audit fix
+
+Run `npm audit` for details.
+NPM_CI_EXIT=0
+--- versions after install ---
+0.187.0
+three_EXIT=0
+8.3.6
+vite_EXIT=0
+model-motionizer@0.0.0 /tmp/m2m-app
+└── (empty)
+
+electron_ls_EXIT=1

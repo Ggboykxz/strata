@@ -1,0 +1,17 @@
+=== Prescribed headless launch probe (no unaudited fetch) ===
+UTC=2026-11-18T21:04:24Z
+--- which electron / chromium / google-chrome ---
+which_electron_EXIT=1
+which_browser_EXIT=1
+--- npx --no-install electron --version (will NOT download) ---
+npm error npx canceled due to missing packages and no YES option: ["electron@45.3.4"]
+npm error A complete log of this run can be found in: /root/.npm/_logs/2026-11-18T21_04_24_928Z-debug-0.log
+NPX_NO_INSTALL_EXIT=1
+--- xvfb-run -a npx --no-install electron . --no-sandbox --disable-gpu (10s cap) ---
+npm error npx canceled due to missing packages and no YES option: ["electron@45.3.4"]
+npm error A complete log of this run can be found in: /root/.npm/_logs/2026-11-18T21_04_28_112Z-debug-0.log
+LAUNCH_EXIT=1
+--- NOTE: plain 'npx electron' is intentionally NOT run: electron is not a declared/audited dep and npx would fetch it from npm (I4 + AUDIT forbid unaudited deps). ---
+--- Confirm no main entry in built dist (if any) ---
+no dist / no electron reference
+EXIT=0

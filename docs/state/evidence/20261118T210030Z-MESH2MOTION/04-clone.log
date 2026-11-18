@@ -1,0 +1,49 @@
+=== Clone Mesh2Motion ===
+UTC=2026-11-18T21:00:53Z
+--- git clone --depth 1 ---
+Cloning into '/tmp/m2m-app'...
+CLONE_EXIT=0
+--- rev-parse HEAD ---
+bcb014ea25e44f76b3add78463f72d1faec16418
+EXIT=0
+--- HEAD date ---
+bcb014ea25e44f76b3add78463f72d1faec16418
+2026-11-17T07:44:13-06:00
+2026-11-17 07:44:13 -0600
+make chexkboxes consistent
+EXIT=0
+--- LICENSE blob sha at HEAD ---
+fatal: path 'LICENSE' does not exist in 'HEAD'
+HEAD:LICENSE
+EXIT=128
+--- top-level files ---
+total 1208
+drwxr-xr-x 8 root root   4096 Nov 18 21:01 .
+drwxrwxrwt 1 root root  12288 Nov 18 21:00 ..
+-rw-r--r-- 1 root root   5667 Nov 18 21:00 API.md
+drwxr-xr-x 2 root root   4096 Nov 18 21:00 .claude
+-rw-r--r-- 1 root root    389 Nov 18 21:00 CONTRIBUTOR.md
+-rw-r--r-- 1 root root    137 Nov 18 21:00 docker-compose.yaml
+-rw-r--r-- 1 root root    427 Nov 18 21:00 Dockerfile
+-rw-r--r-- 1 root root    949 Nov 18 21:00 eslint.config.js
+drwxr-xr-x 8 root root   4096 Nov 18 21:01 .git
+drwxr-xr-x 2 root root   4096 Nov 18 21:00 .github
+-rw-r--r-- 1 root root     40 Nov 18 21:00 .gitignore
+-rw-r--r-- 1 root root    294 Nov 18 21:00 LICENSE-CC0.MD
+-rw-r--r-- 1 root root   1120 Nov 18 21:00 LICENSE-MIT.MD
+-rw-r--r-- 1 root root  30793 Nov 18 21:00 mesh2motion.svg
+-rw-r--r-- 1 root root      7 Nov 18 21:00 .nvmrc
+-rw-r--r-- 1 root root    945 Nov 18 21:00 package.json
+-rw-r--r-- 1 root root 159498 Nov 18 21:00 package-lock.json
+-rw-r--r-- 1 root root   4109 Nov 18 21:00 README.md
+-rw-r--r-- 1 root root 661616 Nov 18 21:00 readme.png
+drwxr-xr-x 8 root root   4096 Nov 18 21:00 src
+drwxr-xr-x 9 root root   4096 Nov 18 21:01 static
+-rw-r--r-- 1 root root    902 Nov 18 21:00 TESTING.md
+-rw-r--r-- 1 root root  12378 Nov 18 21:01 tsconfig.json
+-rw-r--r-- 1 root root 252949 Nov 18 21:01 venmo.png
+-rw-r--r-- 1 root root   1198 Nov 18 21:01 vite.config.js
+-rw-r--r-- 1 root root    340 Nov 18 21:01 vitest.config.ts
+drwxr-xr-x 2 root root   4096 Nov 18 21:00 .vscode
+-rw-r--r-- 1 root root    341 Nov 18 21:01 wrangler.jsonc
+EXIT=0
