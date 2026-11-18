@@ -1044,7 +1044,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T12:48:00Z"
     expires_at: "2026-11-18T13:18:00Z"
-    status: active
+    status: released
 
   - path_glob: "docs/state/metrics/2026-11-18-s02.json"
     owner_agent: orchestrator
@@ -1052,7 +1052,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T12:48:00Z"
     expires_at: "2026-11-18T13:18:00Z"
-    status: active
+    status: released
 
   - path_glob: "tools/sim/economy/prs5_economy.ts"
     owner_agent: economy-designer
@@ -1060,7 +1060,7 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T12:48:00Z"
     expires_at: "2026-11-18T13:18:00Z"
-    status: active
+    status: released
 
   - path_glob: "tools/sim/economy/test/prs5.test.ts"
     owner_agent: economy-designer
@@ -1068,5 +1068,5 @@ locks:
     branch: session/20261118-hc-001-high-concept
     acquired_at: "2026-11-18T12:48:00Z"
     expires_at: "2026-11-18T13:18:00Z"
-    status: active
+    status: released
 
