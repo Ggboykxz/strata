@@ -3,7 +3,7 @@
 | field | value |
 |---|---|
 | source | `docs/state/journal/` (append-only entries) |
-| entries | 52 |
+| entries | 53 |
 | regenerate | `node scripts/build-journal.mjs` |
 | check | `node scripts/build-journal.mjs --check` |
 
@@ -1609,3 +1609,16 @@ PR-S8 — anim state machine server transitions + illegal-state fuzz.
 - boundary: no player, UI, art or balance sign-off; thresholds are tunables pending a real 4-client measurement.
 - gate: **GATE:P2SYS satisfied**. GATE:P2 still needs HC-003 and GDD-005; GATE:NET still needs a human signature.
 - next: HC-003 concept/CIS measurement, then GDD-005. NET-GATE remains signed-with-risk with 8 unmet criteria.
+
+---
+
+# 2026-11-18T18:18:00Z · HC-003 · CIS v1 measured
+
+- scope: two-client 30s replay + CIS source for GATE:P2
+- file: scripts/concept-demo.mjs, tests/replay/hc_demo_30s.spec.ts, docs/state/metrics/concept.json, GDD-CONSEQUENCE 0.5
+- measured: 900 ticks, 3 facts/3 strata, 6 captures, equal fact ids/variant ids/epoch/hash across two clients;
+  CIS **85/100** with wow density **0** (no playtest) — reason recorded, not fabricated.
+- acceptance: replay 3/3, `--score` 0, full 188/188, verify 19/19, GDD 0 errors.
+- defect fixed: concept.json broke the dashboard "latest metrics" assumption; builder now filters session files.
+- gate: GATE:P2 now waits only on GDD-005 and the formal GATE:NET signature. NET-GATE remains signed-with-risk.
+- next: GDD-005 — signature of the full GDD set.

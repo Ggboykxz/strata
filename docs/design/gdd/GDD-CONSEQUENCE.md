@@ -3,7 +3,7 @@
 | field | value |
 |---|---|
 | id | GDD-CONSEQUENCE |
-| version | 0.4 |
+| version | 0.5 |
 | owner | game-designer |
 | status | DRAFT |
 
@@ -11,7 +11,7 @@
 
 ## 1. Identity, version, owner, status
 
-ID GDD-CONSEQUENCE, version 0.4, owner game-designer, status **DRAFT**. Derived from VISION v1.0 and the locked HIGH_CONCEPT.
+ID GDD-CONSEQUENCE, version 0.5, owner game-designer, status **DRAFT**. Derived from VISION v1.0 and the locked HIGH_CONCEPT.
 
 ## 2. Player-facing outcome
 
@@ -49,6 +49,12 @@ fact v1 {fact_id, actor_id, tick, kind, payload_hash}; consequence v1 {fact_id, 
 PR-S2 reference implementation: `packages/world-state/` holds the immutable `FactLog`, the deterministic `deriveConsequence`, the per-client `ClientReport` and the `t2Verdict`. Client agreement is compared on `{factIds, variantIds, epoch}` only — the `client` id is not part of the proof. Facts are stored even after tick 900 but excluded from the replay window.
 
 GB-001 greybox manifest v1 `{version, level, mode, kitGridMm, cellMm, strata[{id, name, primitives[]}]}` allows only `{id, kind, x, y, z, sx, sy, sz, variantId, factId?}` per primitive, with `kind ∈ {capsule, box}`. Any mesh, texture, material or GLB field is refused by `scripts/validate-scene-budget.mjs --greybox`, not silently ignored. Collision/visual parity (`--parity`) is WG-001 and exits 1 until implemented.
+
+HC-003 T2 measurement: one act at tick 1 produces **3 attributable facts across 3 strata** with a physical
+variant swap each; **6 before/after captures** at ticks 0/150/300/450/600/750; two independent clients agree on
+fact ids, variant ids, epoch and state hash within 900 ticks. CIS v1 = **85/100**, with `wow density` scored **0**
+because no playtest exists (I13). The source is `docs/state/metrics/concept.json`, computed by
+`scripts/concept-demo.mjs`.
 
 ## 8. Edge cases
 
@@ -96,6 +102,9 @@ facts_per_act, strata_affected, variant_swaps, capture_count, reviewer_inference
 - GIVEN the greybox manifest WHEN `--greybox` runs THEN exactly 3 strata and at least one physical variant swap are validated and a deterministic checksum is printed.
 - GIVEN a mesh/texture field, a duplicate id or a removed variant swap WHEN validated THEN the command exits 1 and names the defect.
 
+- GIVEN one act and 900 ticks WHEN two clients replay it THEN fact ids, variant ids, epoch and state hash are equal.
+- GIVEN no playtest WHEN CIS is computed THEN wow density is 0 with a recorded reason, never a guessed number.
+
 ## 16. Perf budget impact
 
 Propagation completes within the 900-tick budget; no chain work on the render thread; captures are generated off the tick path.
@@ -119,3 +128,4 @@ No text-only consequence, no pre-authored epoch change, no single-client-only de
 | 0.2 | 2026-11-18 | DRAFT: all 19 fields, T2/T4 numbers and sources | GDD-003 |
 | 0.3 | 2026-11-18 | PR-S2: immutable facts, FNV derivation, T2 verdict contract | gameplay-engineer |
 | 0.4 | 2026-11-18 | GB-001: greybox Oakhollow x3 strata, capsule/box budget, fail-closed validator | level-designer |
+| 0.5 | 2026-11-18 | HC-003: two-client 900-tick replay, 6 captures, CIS v1 85/100 with wow=0 | high-concept-guardian |

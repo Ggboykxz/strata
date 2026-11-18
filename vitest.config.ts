@@ -10,6 +10,7 @@ export default defineConfig({
       'packages/**/test/**/*.test.ts',
       'apps/**/test/**/*.test.ts',
       'tools/**/test/**/*.test.ts',
+      'tests/replay/**/*.spec.ts',
     ],
     exclude: ['**/node_modules/**', 'apps/game/test/tracer.test.ts'],
     environment: 'node',

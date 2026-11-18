@@ -425,3 +425,11 @@ blueprint task currently owns the pin: recorded as a gap for the Director/next r
   GDD-FACTION promoted STUB -> DRAFT with 19 fields. Full 185/185, verify 19/19.
 - **GATE:P2SYS is satisfied.** `GATE:P2` still needs HC-003 and GDD-005; `GATE:NET` still needs a human signature.
 - No player, UI, art or balance sign-off; no GPU/TPU. Next: HC-003.
+
+## Session 2 — HC-003 and measured CIS (2026-11-18T18:18Z)
+
+- 900-tick two-client replay: 3 facts / 3 strata, 6 captures, identical fact ids, variant ids, epoch and state hash.
+- `concept --score` now exits 0 with **CIS 85/100** from `docs/state/metrics/concept.json`; wow density is **0**
+  because no playtest exists (I13). Full 188/188, verify 19/19.
+- Fixed a real defect: `concept.json` was selected as the latest session metrics by the dashboard; the builder now
+  filters `YYYY-MM-DD-sN.json`. GATE:P2 waits only on GDD-005 and the formal GATE:NET signature.

@@ -202,6 +202,8 @@ Anything else goes through a handoff. A conflict is resolved by a handoff or the
   6 FR/EN keys with 0 untranslated; GDD-QUEST 0.3. Full 180/180, verify 19/19. Next: PR-S6.
 - **PR-S6 landed**: faction standing derived from 1 000 immutable facts, replay-exact; GDD-FACTION 0.2 DRAFT.
   **GATE:P2SYS satisfied.** Full 185/185, verify 19/19. Next: HC-003, then GDD-005 for GATE:P2.
+- **HC-003 landed**: two-client 900-tick replay with equal hashes, 6 captures, CIS **85/100** measured from
+  `concept.json`; wow density 0 (no playtest). Full 188/188, verify 19/19. GATE:P2 now waits on GDD-005 only.
 - Known intentional red: `scope-math --report` exit 2 (throughput unmeasured) and `concept --score` exit 2
   until HC-003. `concept --check` is green: T3 was signed at GATE:P0.
 
