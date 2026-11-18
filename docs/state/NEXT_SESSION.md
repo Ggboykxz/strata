@@ -7,7 +7,7 @@
 | also open | **PR #2** dashboard truth repair — `session/20261118-dashboard-truth`, base = session branch |
 | mode | RESUME |
 | tier | current `S0`, authorized **`S1`** |
-| last task | **ECON-RETUNE** — inflation 7264.78% -> 5%, both recorded; GDD-ECONOMY 0.4 |
+| last task | **PR-N2** — matchmaking/exact resume; GDD-SHARDING 0.4; PR #1 merged |
 | next task | **PR-S7** — world tick + bounded Rouille cascade (P2-SYS) |
 | blocker | PR #1 and #2 merges (Director must do it), ND-004/ND-005 rotation. ND-011 needs one answer (TPU scope). |
 

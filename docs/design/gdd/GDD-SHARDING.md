@@ -3,7 +3,7 @@
 | field | value |
 |---|---|
 | id | GDD-SHARDING |
-| version | 0.3 |
+| version | 0.4 |
 | owner | backend-engineer |
 | status | DRAFT |
 
@@ -11,7 +11,7 @@
 
 ## 1. Identity, version, owner, status
 
-ID GDD-SHARDING, version 0.3, owner backend-engineer, status **DRAFT**. Derived from P1-001 VISION and the locked HIGH_CONCEPT.
+ID GDD-SHARDING, version 0.4, owner backend-engineer, status **DRAFT**. Derived from P1-001 VISION and the locked HIGH_CONCEPT.
 
 ## 2. Player-facing outcome
 
@@ -53,6 +53,12 @@ room_session v1 {room, client, nonce, signature} travels in the WebSocket upgrad
 resume; the client resets to it and replays only intents with seq greater than the entity's `appliedSeq`
 (GDD-NETCODE §4, client side in NET-004). The server never replays intents on resume: that would double-apply.
 A handle is a **resume hint, not authentication**; SEC-001 owns auth, rate limits and anti-cheat.
+
+PR-N2 reference contract: a deterministic queue ordered by `(rating, client_id)` fills rooms up to capacity.
+A disconnected handle keeps its entity for `reconnectTicks`; resuming before expiry returns the **same** entity
+id, while a late handle is refused and the room is torn down once no member remains. Global queue ids and
+room-local client ids are distinct — an implementation must track the room id explicitly, never infer it from a
+client id (that defect was found and fixed in the harness).
 
 ## 8. Edge cases
 
@@ -101,6 +107,9 @@ queue_depth, commit_latency_ms (p95), duplicate_commits, retry_count. Success me
 - GIVEN a disconnected client WHEN it resumes inside the window THEN it gets the same entity id and a snapshot with its applied seq; outside the window the handle is dead.
 - GIVEN one room id and one intent script WHEN two hubs run it THEN their hashes are equal at every tick.
 
+- GIVEN a deterministic queue WHEN matched THEN the same input produces the same room layout.
+- GIVEN two disconnects inside the window WHEN resumed THEN both entities are identical; a late handle is refused and the empty room is torn down.
+
 ## 16. Perf budget impact
 
 Commit p95 <= 1 s at 64 shards; queue memory bounded by the configured fan-out; no global lock on the tick path.
@@ -123,3 +132,4 @@ No peer-to-peer history merge, no eventually-consistent currency, no client-visi
 | 0.1 | 2026-11-18 | STUB created by GDD-001 | game-designer |
 | 0.2 | 2026-11-18 | DRAFT: all 19 fields, sources and ranges | GDD-002 |
 | 0.3 | 2026-11-18 | NET-003: room lifecycle, ws transport (A0004), resume handles, ingress replay check | backend-engineer |
+| 0.4 | 2026-11-18 | PR-N2: deterministic matchmaking, exact resume, teardown; id-collision defect fixed | backend-engineer |

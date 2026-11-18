@@ -388,3 +388,12 @@ blueprint task currently owns the pin: recorded as a gap for the Director/next r
   checksums and a rejected sequential-levy attempt (Gini 0,90) are all recorded.
 - GDD-ECONOMY 0.4, ECONOMY_REPORT updated. Test 5/5, full 167/167, verify 19/19.
 - Remaining true limits: no GPU/TPU, 8 unmeasured NET-GATE criteria, Director-only rotations/merges, ND-011.
+
+## Session 2 — PR #1 merged + PR-N2 (2026-11-18T15:10Z)
+
+- Director merged PR #1 into `main` (`096fdfe`) with a recorded admin review bypass (self-approval cannot count).
+  PR #2 remains open/conflicting; its evidence is already in PR #1.
+- PR-N2: deterministic matchmaking 6 → 3 rooms, 2 exact resumes, 1 late refusal, 3 teardowns; id-collision defect
+  fixed. GDD-SHARDING 0.4. Full 169/169, verify 19/19. `GATE:P2NET` satisfied.
+- Next: PR-S7 (P2-SYS). `GATE:NET` still awaits a formal Director signature; NET-GATE dossier remains
+  signed-with-risk with 8 unmet measurement criteria.

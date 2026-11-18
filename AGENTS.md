@@ -189,6 +189,8 @@ Anything else goes through a handoff. A conflict is resolved by a handoff or the
 - **ECON-RETUNE fixed**: named proportional stabilization sink took inflation from 7 264,78 % to 5,00 % with
   Gini 0,293701 in band; before/after and the rejected Gini-0,90 levy are recorded. Verify 19/19. Remaining
   limits need hardware, Director actions or NET-GATE measurements.
+- **PR #1 merged by the Director** (`096fdfe`) with recorded admin review bypass. **PR-N2 landed**: 6 clients →
+  3 rooms, 2 exact resumes, 3 teardowns; `GATE:P2NET` satisfied. Full 169/169, verify 19/19. Next: PR-S7.
 - Known intentional red: `scope-math --report` exit 2 (throughput unmeasured) and `concept --score` exit 2
   until HC-003. `concept --check` is green: T3 was signed at GATE:P0.
 
