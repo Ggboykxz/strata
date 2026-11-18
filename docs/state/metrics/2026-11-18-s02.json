@@ -209,7 +209,7 @@
     "wire_budget_over_factor": 3.9,
     "actions_runs": 8,
     "actions_runs_success": 8,
-    "ci_head": "ad1d4d074a40dc96ad04b672e38fa03e72ad6aea",
+    "ci_head": "6f38448e0c516e13aff3353dd3eee4d6f69f5452",
     "anim_tests": 22,
     "anim_states": 5,
     "blend_ticks": 2,
@@ -1849,7 +1849,8 @@
     "GATE:P2 work-side complete (GATE:P2SYS, HC-003 CIS 85, GDD-005 100%); only the Director human signature remains, plus GATE:NET.",
     "GDD-005 CI at ad1d4d074a40dc96ad04b672e38fa03e72ad6aea: 8/8 triggered workflows success; run ids in docs/state/evidence/20261118T134000Z-GDD-005/08-ci-proof.log.",
     "ROOM-WIRING: main.ts now serves rooms on 8788 through attachRooms (MessageGate inside); real loopback socket test proves valid hello -> welcome and malformed -> reject with unchanged hash.",
-    "No blueprint task remains selectable: GATE:P2 and GATE:NET need human Director signatures; art waits on NET-GATE and GATE:P2."
+    "No blueprint task remains selectable: GATE:P2 and GATE:NET need human Director signatures; art waits on NET-GATE and GATE:P2.",
+    "ROOM-WIRING CI at 6f38448e0c516e13aff3353dd3eee4d6f69f5452: 8/8 triggered workflows success; run ids in docs/state/evidence/20261118T135944Z-ROOM-WIRING/06-ci-proof.log."
   ],
   "result": {
     "phase": "P2NET",
@@ -2049,7 +2050,7 @@
         },
         {
           "dir": "docs/state/evidence/20261118T135944Z-ROOM-WIRING/",
-          "logs": 5,
+          "logs": 6,
           "branch": "session"
         }
       ]
