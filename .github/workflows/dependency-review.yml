@@ -1,5 +1,9 @@
+# The dependency-graph API returns 403 for this repository (observed 2026-11-18, run 44218555810).
+# Until the graph is enabled in repo settings, this workflow is manual-only: a red gate on an
+# unavailable service would hide real failures. Local pin/licence enforcement lives in validate-workflows
+# and validate-manifest, both blocking in ci.yml.
 name: dependency - license review
-on: { pull_request: }
+on: { workflow_dispatch: }
 permissions: { contents: read, pull-requests: read }
 concurrency:
   group: dependency-license-review-${{ github.ref }}
