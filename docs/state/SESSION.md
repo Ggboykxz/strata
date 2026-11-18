@@ -7,8 +7,8 @@
 | branch | `session/20261118-hc-001-high-concept` |
 | phase / tier | P0 / current `S0`, authorized `S0` |
 | director | present for bootstrap; async from now |
-| last task | GDD-003 (five concept modules to DRAFT) |
-| next task | **GDD-004** — ECONOMY/TRADE/CRAFT/AI-ASSETS + critical closure |
+| last task | GDD-004 (critical-module closure) |
+| next task | **P1-002** — WORLD_BIBLE + glossary + real `validate-lore.mjs` |
 
 ## Done this session
 
@@ -34,6 +34,7 @@
 | GDD-001 | GDD index, 32 STUB modules, `validate-gdd`, `gdd-coverage` | 7/7 negatives; 14 critical modules; `verify` 15/15 |
 | GDD-002 | six DRAFT modules with 19 fields + sourced numbers | 10/10 negatives; validator 0; `verify` 15/15 |
 | GDD-003 | five concept modules to DRAFT, T2/T4 enforced | 12/12 negatives; validator 0; `verify` 15/15 |
+| GDD-004 | four modules + economy tables, critical closure | 13/13 negatives; critical 0; `verify` 15/15 |
 
 **P0-001 and P0-002 were split** although only P0-001 triggered B8: the halves fail for different reasons and
 deserve separate rollback points. Commits: `094f31f`, `bd6f550` (P0-001); `1ceaf20`, `7e9d382` (P0-002).

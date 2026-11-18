@@ -2,65 +2,60 @@
 
 | field | value |
 |---|---|
-| written | 2026-11-18T02:52Z |
+| written | 2026-11-18T02:58Z |
 | branch | `session/20261118-hc-001-high-concept` — **PR #1** (draft) https://github.com/Ggboykxz/strata/pull/1 |
 | mode | RESUME |
-| next task | **GDD-004** — ECONOMY/TRADE/CRAFT/AI-ASSETS + critical-module closure |
+| next task | **P1-002** — WORLD_BIBLE + glossary + real `validate-lore.mjs` |
 | blocker | **ND-004 / ND-005 only** — token rotation needs the Director's account. |
 
 ---
 
 ## 1. State at hand-off
 
-GATE:P0 signed; GATE:P1 not. P1-001, GDD-001..003 done. 11 of 32 modules are DRAFT, 21 STUB.
-`pnpm verify` 15/15, GDD negatives 12/12, all reproduction scripts in `tools/qa/`, branches protected.
+GATE:P0 signed; GATE:P1 not. P1-001 and GDD-001..004 done. All 14 critical GDD modules are DRAFT; 17 of 32
+remain STUB. `pnpm verify` 15/15, GDD negatives 13/13, reproduction scripts in `tools/qa/`, branches protected.
 
 ```bash
 pnpm verify
-bash tools/qa/negative-gdd.sh
 node scripts/validate-gdd.mjs --critical
+bash tools/qa/negative-gdd.sh
 ```
 
-## 2. GDD-004 — definition of done
+## 2. P1-002 — definition of done
 
-Blueprint line 662. Agent **economy-designer**, co **asset-pipeline**, `split: true`, `sig`, deps
-`[GDD-003]`. Outputs: `GDD-ECONOMY.md`, `GDD-TRADE.md`, `GDD-CRAFT.md`, `GDD-AI-ASSETS.md`,
-`packages/content/economy/`. Acceptance: `node scripts/validate-gdd.mjs --critical`.
+Blueprint line 666. Agent **narrative**, `amp`, deps `[GDD-003]`. Outputs: `docs/design/WORLD_BIBLE.md`,
+`scripts/validate-lore.mjs` (currently a P0-002 stub). Acceptance: `node scripts/validate-lore.mjs`.
 
-1. Advance **four** modules to DRAFT with all 19 fields. That closes the 14 critical modules computed from
-   the P2 tasks (6 from GDD-002, 5 from GDD-003, 4 here — note one module appears in two sets; the
-   validator list is authoritative). The remaining 18 modules stay STUB until their prototypes exist.
-2. **Economy numbers come from a simulation, not intuition**: 1000 bots × 30 days, recording inflation,
-   faucet/sink balance, Gini and exploit cycles (ECON-001 is later, so field 5 must mark values TUNABLE
-   with ranges and a measurement plan unless a real source exists). Paradox is the regulator: over-harvest
-   spawns Rouille that erases nodes in another era (N4).
-3. **Trade prices cross eras** and expose short-term/long-term arbitrage, with the ledger in integer minor
-   units and idempotency keys (GDD-PERSISTENCE). **Craft** produces high-tier goods from fact provenance,
-   not NPC vendors.
-4. **AI-ASSETS** must cite AUDIT-2026-11-18-P0-006 and use only the 9 whitelisted entries; no model or tool
-   may be imported before its licence id and throughput are recorded (I4). The Tesla T4 is the measured
-   device (nominal 16 GB); never invent VRAM or throughput.
-5. `packages/content/economy/` holds the machine-readable faucet/sink tables referenced by the module —
-   numbers with SOURCE or TUNABLE, no magic constants in code.
-6. Evidence under `docs/state/evidence/<utc>-GDD-004/`: validator log, critical list, 12+ negative tests
-   (reuse `tools/qa/negative-gdd.sh`), and the economy table with each number's provenance.
+1. **World bible** deriving every era and location from the locked HIGH_CONCEPT and GDD-STRATA/CONSEQUENCE.
+   No named zone, node taxonomy, character or lore from a commercial MMORPG (I11).
+2. **FR/EN glossary**: every proper noun has both forms, one stable id, and a note on whether it may be
+   translated. Zero untranslated keys. Numeric and temporal formats are locale-independent in logic.
+3. **Naming rules per stratum** and a rule that a consequence may rename a place only through a recorded
+   fact id — no hand-edited lore that contradicts the fact graph.
+4. **Real `validate-lore.mjs`**: checks bible sections, FR/EN pair completeness, forbidden franchise names,
+   and that every proper noun used in GDD-QUEST resolves to the glossary. Fails closed with file/line.
+5. **Negative tests logged**: missing FR translation, forbidden name, unresolved quest noun, missing bible
+   section — each exits 1. Reuse the `tools/qa/` pattern and commit the negative script.
+6. `scripts/validate-lore.mjs` is currently owned by tools-engineer via the `scripts/**` catch-all. WORKFLOW
+   §6 gives `validate-<domain>.mjs` to the domain owner, so add an explicit narrative entry to
+   `OWNERSHIP.yaml` **before** the handoff, as done for producer/release-engineer/game-designer.
 
 ## 3. Open decisions carried forward
 
-1. **ND-004 / ND-005 — OPEN.** Rotate the exposed tokens; exact steps in `docs/state/SECURITY_HANDOFF.md`.
-2. All other recorded decisions are RESOLVED. GATE:P1 still needs the Director's signature.
+1. **ND-004 / ND-005 — OPEN.** Rotate the exposed tokens; steps in `docs/state/SECURITY_HANDOFF.md`.
+2. All other recorded decisions RESOLVED. GATE:P1 needs its own Director signature after P1-002..004.
 3. `main` requires a PR, one approving review and 8 checks; force push disabled.
 
-## 4. After GDD-004
+## 4. After P1-002
 
-P1-002 FR/EN parity, P1-003 ART_BIBLE + A0001, P1-004 UX/a11y/loc + TDD/ADRs, then GATE:P1 grants S1 and
-the NET-GATE phase starts (NET-001..006, PR-N1..N4, SEC-001, NG-001).
+P1-003 (ART_BIBLE + A0001 + separated animation spec), P1-004 (UX/a11y/loc + VERTICAL_SLICE_SPEC + TDDs),
+then GATE:P1 grants S1 and the NET-GATE phase starts.
 
 ## 5. Known red
 
-- `scope-math --report` exit 2 and `concept --score` exit 2: unmeasured stays NOT COMPUTABLE.
-- 14 validators still fail by design; `pnpm verify` prints them as DEFERRED.
-- 18 modules remain STUB — correct before their prototypes.
+- `scope-math --report` exit 2, `concept --score` exit 2 — unmeasured stays NOT COMPUTABLE.
+- 13 validators still fail by design; `pnpm verify` lists them as DEFERRED.
+- 17 GDD modules remain STUB — correct before their prototypes exist.
 
 ## 6. Environment
 
