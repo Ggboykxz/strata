@@ -1,12 +1,102 @@
 #!/usr/bin/env node
 /**
- * validate-gdd.mjs — DECLARED STUB, NOT IMPLEMENTED
- * Created by P0-002 (§4.2: every validator referenced by an `acc` exists as a stub THAT FAILS).
- * Owner: game-designer (map; referenced by GDD-001).
+ * validate-gdd.mjs — GDD-001 structural gate (master §3.2–3.6, D138).
+ * Owner: game-designer.
  *
- * Exits 1 on purpose. Acceptance can never pass by omission (I5, B7). Replace this file with the real
- * validator and delete this banner; until then, any task whose acceptance calls it is NOT verifiable.
+ * Modes:
+ *   --template   (default) check the 32 STUB modules and the 19-field index
+ *   --critical   print the modules P1 must sign, computed from BLUEPRINT.yaml P2NET/P2SYS/P2 gdd[] refs
+ *
+ * Exit 0 clean · 1 violation · 2 unreadable input · 64 bad usage.
  */
-console.error('NOT IMPLEMENTED — validate-gdd.mjs is a declared stub (P0-002).');
-console.error('Owner: game-designer (map; referenced by GDD-001). Implement it before any task relies on this acceptance command (I5).');
-process.exit(1);
+import { existsSync, readFileSync, readdirSync } from 'node:fs';
+import { parseYaml } from './lib/yaml.mjs';
+
+const arg = process.argv[2] ?? '--template';
+if (!['--template', '--critical'].includes(arg)) {
+  console.error('usage: node scripts/validate-gdd.mjs [--template|--critical]');
+  process.exit(64);
+}
+const GDD = 'docs/design';
+const MODULES = `${GDD}/gdd`;
+const INDEX = `${GDD}/GDD.md`;
+const BP = 'docs/blueprint/BLUEPRINT.yaml';
+
+const EXPECTED = [
+  'GDD-CORE', 'GDD-STRATA', 'GDD-CONSEQUENCE', 'GDD-COMBAT', 'GDD-PROGRESSION', 'GDD-QUEST',
+  'GDD-DIALOGUE', 'GDD-COMPANION', 'GDD-FACTION', 'GDD-ECONOMY', 'GDD-CRAFT', 'GDD-INVENTORY',
+  'GDD-WORLD-SIM', 'GDD-NAVIGATION', 'GDD-SAVE', 'GDD-ONBOARDING', 'GDD-DIFFICULTY', 'GDD-FAILURE',
+  'GDD-ENDINGS', 'GDD-CONTENT', 'GDD-NETCODE', 'GDD-PERSISTENCE', 'GDD-SHARDING', 'GDD-SOCIAL',
+  'GDD-TRADE', 'GDD-MODERATION', 'GDD-LIVEOPS', 'GDD-SECURITY', 'GDD-SCOPE', 'GDD-AI-ASSETS',
+  'GDD-WORKFLOW', 'GDD-ANIM-ARCHITECTURE',
+];
+const VAGUE = ['fun', 'deep', 'balanced', 'responsive', 'immersive', 'many', 'fast', 'smooth', 'scalable', 'mmo-scale'];
+const errors = [];
+const fail = (m) => { console.log(`FAIL  ${m}`); errors.push(m); };
+const ok = (m) => console.log(`OK    ${m}`);
+
+for (const p of [INDEX, MODULES, BP]) {
+  if (!existsSync(p)) { console.error(`MISSING ${p}`); process.exit(2); }
+}
+let bp;
+try { bp = parseYaml(readFileSync(BP, 'utf8')); }
+catch (e) { console.error(`PARSE ${BP}: ${e.message}`); process.exit(2); }
+
+const files = readdirSync(MODULES).filter(f => f.endsWith('.md')).sort();
+const names = files.map(f => f.slice(0, -3));
+console.log(`\nG1  module inventory: ${files.length} files, expected ${EXPECTED.length}`);
+if (files.length !== EXPECTED.length) fail(`G1 expected ${EXPECTED.length} modules, found ${files.length}`);
+for (const id of EXPECTED) if (!names.includes(id)) fail(`G1 missing module ${id}`);
+for (const id of names) if (!EXPECTED.includes(id)) fail(`G1 unexpected module ${id}`);
+if (!errors.length) ok('exactly the 32 modules named in master §3.2');
+
+console.log('\nG2  STUB maturity and required fields (1, 2, 3, 17, 18)');
+const STUB_SECTIONS = [
+  '## 1. Identity', '## 2. Player-facing outcome', '## 3. High Concept link',
+  '## 17. Explicit out of scope', '## 18. Open questions',
+];
+for (const id of EXPECTED) {
+  const p = `${MODULES}/${id}.md`;
+  if (!existsSync(p)) continue;
+  const text = readFileSync(p, 'utf8');
+  if (!/\| status \| STUB \|/.test(text)) fail(`G2 ${id} is not status STUB`);
+  if (!text.startsWith(`# ${id} — STUB`)) fail(`G2 ${id} title does not match its id`);
+  if (!/\| owner \| game-designer \|/.test(text)) fail(`G2 ${id} has no game-designer owner`);
+  for (const s of STUB_SECTIONS) if (!text.includes(s)) fail(`G2 ${id} missing ${s}`);
+  const lower = text.toLowerCase();
+  for (const word of VAGUE) {
+    if (new RegExp(`\\b${word}\\b`).test(lower)) fail(`G2 ${id} uses forbidden vague word "${word}" (§3.5)`);
+  }
+}
+if (!errors.length) ok(`${EXPECTED.length} STUB modules: required fields present, no forbidden adjectives`);
+
+console.log('\nG3  index and 19-field template');
+const index = readFileSync(INDEX, 'utf8');
+for (let i = 1; i <= 19; i++) {
+  if (!new RegExp(`\\| ${i} \\|`).test(index)) fail(`G3 index omits mandatory field ${i}`);
+}
+if (!index.includes('STUB → DRAFT → SIGNED')) fail('G3 index omits the D138 maturity rule');
+for (const id of EXPECTED) if (!index.includes(id)) fail(`G3 index omits module ${id}`);
+if (!errors.length) ok('index lists 19 fields, maturity rule and all 32 modules');
+
+console.log(`\nG4  critical modules for P2NET / P2SYS / P2 (computed, not typed)`);
+const phases = new Set(['P2NET', 'P2SYS', 'P2']);
+const tasks = (bp.tasks ?? []).filter(t => phases.has(t.ph));
+const refs = new Set(tasks.flatMap(t => (t.gdd ?? []).map(r => String(r).split('#')[0])));
+for (const ref of refs) {
+  if (!EXPECTED.includes(ref)) fail(`G4 task ref ${ref} is not one of the 32 modules`);
+}
+console.log(`      ${tasks.length} tasks, ${refs.size} distinct modules: ${[...refs].sort().join(', ')}`);
+if (!errors.length) ok('every P2 gdd[] ref resolves to a real module');
+
+if (arg === '--critical') {
+  console.log(`\nRESULT: ${errors.length ? 'FAIL' : 'PASS'} — ${refs.size} critical module(s), ${errors.length} error(s).`);
+  if (errors.length) { for (const e of errors) console.log(`  - ${e}`); process.exit(1); }
+  process.exit(0);
+}
+
+console.log(`\nRESULT: ${errors.length ? 'FAIL' : 'PASS'} — ${files.length} modules, ${errors.length} error(s).`);
+if (errors.length) {
+  for (const e of errors) console.log(`  - ${e}`);
+  process.exit(1);
+}
