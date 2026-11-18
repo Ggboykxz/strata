@@ -15,13 +15,13 @@ $ vitest run
  RUN  v5.1.0 /content/strata
 
 
- Test Files  25 passed (25)
-      Tests  188 passed (188)
-   Start at  13:41:16
-   Duration  9.46s (tests 61%, import 28%, worker 6%, transform 5%)
+ Test Files  42 passed (42)
+      Tests  301 passed (301)
+   Start at  13:55:40
+   Duration  10.14s (tests 56%, import 29%, worker 8%, transform 7%)
 
-    Isolate  25 workers spawned · ~226ms startup each (spawn + environment, per file)
-             at least ~5.42s faster with isolate: false — reuses workers across files instead of one per file
+    Isolate  42 workers spawned · ~154ms startup each (spawn + environment, per file)
+             at least ~6.31s faster with isolate: false — reuses workers across files instead of one per file
 
 == validate-prompt-drift
 PASS  docs/state/PROMPT.lock parsed (version 1)
@@ -182,7 +182,7 @@ RESUME DRILL (--dry, read-only)
 PASS  repository root
       /content/strata
 PASS  pwd
-      6 change(s)
+      3 change(s)
 PASS  git status --short
       session/20261118-hc-001-high-concept
 PASS  git branch --show-current
@@ -300,7 +300,7 @@ build-journal — PASS — view matches the journal entries
 DEFERRED — required by master §6, not buildable at P0-003:
   - determinism replay (Node + Chromium hash equality): no sim before TRACER-001/NET-001
   - gdd-coverage --min: no GDD module before GDD-001 (P1)
-  - 7 validate-*.mjs stub(s) + 1 other declared stub(s); each exits 1 until its owner implements it:
+  - 7 validate-*.mjs stub(s) + 0 other declared stub(s); each exits 1 until its owner implements it:
       scripts/validate-anim-separation.mjs
       scripts/validate-anim.mjs
       scripts/validate-content-blueprints.mjs
@@ -308,7 +308,7 @@ DEFERRED — required by master §6, not buildable at P0-003:
       scripts/validate-lightmap.mjs
       scripts/validate-retarget.mjs
       scripts/validate-texture-set.mjs
-      other: scripts/gdd-to-tests.mjs
+      other: 
 
 RESULT: PASS — 19/19 enabled steps green, 3 deferred groups listed above.
 EXIT=0
