@@ -12,9 +12,9 @@ Nothing here blocks the work already done; each item blocks a named future task.
 | ND-003 | **RESOLVED** — repository made public 2026-11-18 | README + Apache-2.0 LICENSE + NOTICE landed before the flip |
 | ND-004 | **OPEN — requires the Director's account** | revoke the exposed GitHub PAT, issue a fine-grained one |
 | ND-005 | **OPEN — requires the Director's account** | revoke the exposed HF token, issue a fine-grained one |
-| ND-006 | **OPEN — new** | Tencent community licences exclude EU/UK/Korea (Hunyuan3D, HY-Motion, HY-World) |
-| ND-007 | **OPEN — new** | SDXL `openrail++` attribution/distribution scope |
-| ND-008 | **OPEN — new** | ActionForge proprietary tool, output rights unstated |
+| ND-006 | **RESOLVED** — rejected, fallbacks recorded | Tencent community licences exclude EU/UK/Korea |
+| ND-007 | **RESOLVED** — rejected, FLUX.1-schnell fallback | SDXL `openrail++` attribution/distribution scope |
+| ND-008 | **RESOLVED — REVERSED** — ActionForge approved with conditions | CC0 output rights verified from publisher notices |
 
 ND-004 and ND-005 cannot be closed by an agent: GitHub and Hugging Face rotations require account access
 and, on GitHub, a UI flow. This is stated rather than simulated. Evidence that no secret reached the repo:
@@ -132,7 +132,7 @@ repositories under the account. Rotation is free; a poisoned asset revision is n
 
 ---
 
-## ND-006 — Tencent community licences and territory (new, blocks those models)
+## ND-006 — Tencent community licences and territory — RESOLVED
 
 **Question.** May STRATA ship assets made with Hunyuan3D 2.0, HY-Motion 1.0 or HY-World 2.0, given that
 their community licences expressly exclude the EU, the UK and South Korea?
@@ -152,9 +152,13 @@ and HY-World's full inference code was not released at audit time. Evidence:
 **Risk.** A territory-restricted licence can invalidate distribution in exactly the markets FR/EN targets.
 An agent cannot make this call.
 
+**Resolution (2026-11-18, Director instruction "fix all blocked and rejected"): option A.** All three are
+REJECTED in the whitelist with recorded fallbacks (InstantMesh / Mesh2Motion / procedural heightmap).
+ND-006 is closed; the models remain unusable, not silently approved.
+
 ---
 
-## ND-007 — SDXL `openrail++` distribution scope (new, blocks SDXL)
+## ND-007 — SDXL `openrail++` distribution scope — RESOLVED
 
 **Question.** Is SDXL base 1.0 (`openrail++`) acceptable for a public, commercially distributed game?
 
@@ -164,9 +168,11 @@ Apache-2.0 and already approved, so no capability is lost by declining SDXL.
 **Recommendation.** **A**: reject SDXL and use FLUX.1-schnell. **Risk.** `openrail++` terms vary by
 downstream use; a distribution-scope decision needs the Director, not the pipeline agent.
 
+**Resolution (2026-11-18): option A.** SDXL is REJECTED with FLUX.1-schnell as the recorded fallback.
+
 ---
 
-## ND-008 — ActionForge output rights (new, blocks ActionForge)
+## ND-008 — ActionForge output rights — RESOLVED (reversed)
 
 **Question.** May STRATA use clips made with the ActionForge browser tool?
 
@@ -176,3 +182,10 @@ Blender IK + socket parenting is always available as a fallback.
 
 **Recommendation.** **A**: reject ActionForge, use Blender. **Risk.** An unstated output licence is not a
 grant; using the tool before clarification could taint animated assets.
+
+**Resolution (2026-11-18): REVERSED — approved with conditions.** The earlier context was incomplete.
+The publisher's own `THIRD-PARTY-NOTICES.txt` states that the tool's code is proprietary but the animations,
+rig and props are CC0 1.0 — commercial use, no attribution, no permission needed. That is exactly the output
+rights §8.1 step 6 asks about. Verified sha256 `8b56bdd7…`. ActionForge is APPROVED_WITH_CONDITIONS: use
+CC0 outputs only; never copy or redistribute the tool's code. The recommendation to reject is withdrawn on
+the record rather than silently overwritten.

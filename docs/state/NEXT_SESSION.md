@@ -6,7 +6,7 @@
 | branch | `session/20261118-hc-001-high-concept` — **PR #1** (draft) https://github.com/Ggboykxz/strata/pull/1 |
 | mode | RESUME |
 | next task | **P0-007** — dashboard: workflow, concept, GDD, scope, netcode, economy |
-| blocker | **ND-004..ND-008** — token rotations and licence/distribution decisions. Nothing on disk blocks P0-007. |
+| blocker | **ND-004 / ND-005 only** — token rotation needs the Director's account. Nothing on disk blocks P0-007. |
 
 ---
 
@@ -64,8 +64,10 @@ output `apps/dashboard/`. Acceptance: **`pnpm --filter @strata/dashboard build`*
    `main` is still empty — the Director must merge PR #1.
 2. **ND-004 / ND-005 — OPEN, Director action.** Rotate the exposed GitHub PAT and HF token; urgent now that
    the repo is public. The agent cannot revoke them behind the Director's login.
-3. **ND-006 / ND-007 / ND-008 — OPEN, new from P0-006.** Territory-restricted Tencent licences, SDXL
-   `openrail++`, ActionForge output rights. All recommendations are "reject for now" with audited fallbacks.
+3. **ND-006 / ND-007 / ND-008 — RESOLVED 2026-11-18.** Tencent community licences and SDXL rejected with
+   fallbacks; ActionForge reversed and approved with conditions after its CC0 output rights were verified
+   from the publisher's notices. `validate-manifest --audit` now refuses an unresolved decision or a
+   rejection without a fallback.
 
 ## 4. Order after P0-007
 

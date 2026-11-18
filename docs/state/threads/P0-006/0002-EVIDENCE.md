@@ -27,3 +27,21 @@
 **impact:** concept_role `sig`; SL-P0-006, 1 session; tier S0. No model was downloaded or run; I4 holds.
 **ask:** three new Director decisions (ND-006/007/008), all with a recorded recommendation to reject for now.
 **deadline:** GATE:P0
+
+## 2026-11-18T01:40:00Z — resolution of all blocked and rejected entries
+
+Director instruction: resolve every blocked and rejected candidate. Applied in
+`docs/legal/AI_MODEL_AUDIT.md` and the whitelist:
+
+- **ACTIONFORGE reversed to APPROVED_WITH_CONDITIONS.** The publisher's own `THIRD-PARTY-NOTICES.txt`
+  explicitly grants CC0 1.0 over animations, rig and props, commercial, no attribution (sha256
+  `8b56bdd7…`). The tool's code remains proprietary and is not copied. The earlier "output rights unstated"
+  finding was incomplete; it is corrected on the record, not silently overwritten.
+- **HUNYUAN3D, HY-MOTION, HY-WORLD, SDXL → REJECTED** by Director decision, each with an approved fallback.
+  Their licences cannot be changed by code; rejecting is the only safe resolution.
+- **HUNYUAN3D-V25, HUNYUAN3D-PAINT → REJECTED_NOT_FOUND** after a second API check returned 401.
+- Every rejected id now has a `fallback` and a `fallbacks` mapping. `validate-manifest --audit` refuses a
+  rejection without one and refuses any Director decision left OPEN.
+
+Validator exit 0: **9 approved / 0 blocked / 11 rejected / 11 fallbacks**. **9/9** negative tests, including
+two new cases (unresolved decision, missing fallback). `pnpm verify` 12/12. Logs `07`, `08`, `09`.

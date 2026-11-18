@@ -73,8 +73,9 @@ their banners record the new owner (orchestrator) after A0002.
 - **ND-003 DEFERRED.** Private on the personal account is the recommendation until GATE:P0; nothing in
   P0-004 or TRACER-001 is blocked by it.
 - **ND-004 / ND-005 OPEN.** Rotating the GitHub PAT and HF token requires the Director's account access.
-- **ND-006 / ND-007 / ND-008 OPEN.** Licence/distribution decisions from P0-006; all have a recommendation
-  to reject for now and an audited fallback. See `docs/state/NEEDS_DIRECTOR.md`.
+- **ND-006 / ND-007 RESOLVED** as REJECTED with fallbacks (Director instruction to resolve every blocked
+  item); **ND-008 RESOLVED — REVERSED** on new evidence: ActionForge's own notices grant CC0 output rights,
+  so it is approved with conditions. No licence was waived by code.
   A prefix scan found 0 token strings in `.git` or the tracked worktree. The agent cannot close these.
 
 Details, options and evidence: `docs/state/NEEDS_DIRECTOR.md` and
@@ -101,8 +102,8 @@ blueprint task currently owns the pin: recorded as a gap for the Director/next r
 - `corepack enable` is done; pnpm is pinned to **12.21.0** and the lockfile is committed.
 - `pnpm verify` (**12 steps**, fail-fast) is the only entry point. It prints DEFERRED for determinism replay,
   GDD coverage and the 17 stubs; none of those counts as green.
-- AI models are gated by `docs/legal/AI_MODEL_AUDIT.md` + `tools/asset-pipeline/whitelist.yaml`: 8 approved,
-  7 blocked pending Director (ND-006/007/008), 5 rejected. No model downloaded or run (I4).
+- AI models are gated by `docs/legal/AI_MODEL_AUDIT.md` + `tools/asset-pipeline/whitelist.yaml`: 9 approved,
+  0 blocked, 11 rejected — each rejection has a recorded fallback. No model downloaded or run (I4).
 - 27 GitHub Actions workflows exist under `.github/workflows/`; 80 `uses:` entries are SHA-pinned. **No job
   has run yet** — acceptance was static. The first real CI result after this push is new evidence, not an
   assumption. 12 workflows calling declared stubs are manual-only.
